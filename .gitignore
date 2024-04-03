@@ -1,0 +1,7 @@
+.DS_Store
+.venv
+site
+package-lock.json
+package.json
+
+node_modules

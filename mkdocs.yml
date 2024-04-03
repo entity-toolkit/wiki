@@ -1,0 +1,125 @@
+site_name: "Entity: wiki"
+repo_url: https://github.com/entity-toolkit/entity
+repo_name: entity
+site_url: https://entity-toolkit.github.io/entity
+
+nav:
+  - Home: index.md
+  - Getting started:
+      - Compiling/running: getting-started/compile-run.md
+      - Writing a problem generator: getting-started/pgen.md
+      - Understanding the units: getting-started/units.md
+      - Output & visualization: getting-started/vis.md
+      - Documenting: getting-started/docs.md
+  - Physics:
+      - 3+1 formulation: "physics/3p1.md"
+  - Numerics:
+      - PIC algorithm: "numerics/pic.md"
+      - Coordinate systems: "numerics/coords.md"
+  - Technical details:
+      - Floating point comparison: "tech-details/ulps.md"
+  - Code API:
+      - "code/structure.md"
+  - Fun:
+      - Cubed sphere: "fun/cubed_sphere.md"
+      - '"Reconnection"': "fun/reconnection.md"
+
+markdown_extensions:
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.highlight:
+      use_pygments: true
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - toc:
+      permalink: true
+  - tables
+  - attr_list
+  - admonition
+  - footnotes
+  - pymdownx.details
+  - pymdownx.superfences
+  - md_in_html
+  - neoteroi.cards
+  - neoteroi.timeline
+
+plugins:
+  - search
+  - macros
+  - git-revision-date-localized
+
+use_directory_urls: true
+
+theme:
+  name: material
+  custom_dir: overrides
+  favicon: assets/logo.svg
+  logo: assets/logo.svg
+  icon:
+    repo: simple/git
+    admonition:
+      abstract: material/code-json
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      toggle:
+        icon: material/lightbulb
+        name: Switch to dark mode
+
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      toggle:
+        icon: material/lightbulb-outline
+        name: Switch to light mode
+  font:
+    text: "IBM Plex Sans"
+    code: "JetBrains Mono"
+  features:
+    - navigation.tracking
+    - navigation.expand
+    - toc.integrate
+    - content.code.annotate
+    - content.code.copy
+    - navigation.indexes
+
+extra_javascript:
+  - js/init.js
+  - https://polyfill.io/v3/polyfill.min.js?features=es6
+  - https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js
+  - https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js
+  - https://cdnjs.cloudflare.com/ajax/libs/d3/7.6.1/d3.min.js
+  - https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.5.0/p5.js
+  - https://cdn.jsdelivr.net/npm/@davepagurek/p5.buildgeometry@0.0.4/build/p5.buildGeometry.js
+  - js/numerics/pic_nongr.js
+  - js/numerics/pic_gr.js
+  - js/numerics/coord_sys_ax.js
+  - js/fun/3d_cubed_sphere.js
+  - js/fun/reconnection.js
+  - js/tech-details/ulps.js
+  - js/code/structure.js
+
+extra_css:
+  - https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css
+  - css/neotoroi/neoteroi-mkdocs.min.css
+  - css/neotoroi/neoteroi-cards.css
+  - css/neotoroi/neoteroi-timeline.css
+  - css/neotoroi/neoteroi-gantt.css
+  - css/neotoroi/neoteroi-spantable.css
+  - css/extra.css
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/haykh/entity/
+
+copyright: Copyright &copy; 2021++, Entity dev team
