@@ -1,3 +1,7 @@
+:root>* {
+  --md-mermaid-font-family: 'JetBrains Mono', monospace;
+}
+
 :root {
   font-variant-ligatures: normal;
   font-size: 1.25em;
@@ -355,15 +359,15 @@ figure.under-construction:before {
   -ms-text-shadow: 0 0 0.5rem #000000;
 }
 
-#code-structure text {
+#d3-code-structure text {
   font-family: 'JetBrains Mono', monospace;
   font-size: 1.0em;
 }
 
-[data-md-color-scheme="slate"] #code-structure text tspan {
+[data-md-color-scheme="slate"] #d3-code-structure text tspan {
   fill: white;
 }
 
-[data-md-color-scheme="default"] #code-structure text tspan {
+[data-md-color-scheme="default"] #d3-code-structure text tspan {
   fill: black;
 }

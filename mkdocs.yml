@@ -1,7 +1,7 @@
 site_name: "Entity: wiki"
 repo_url: https://github.com/entity-toolkit/entity
 repo_name: entity
-site_url: https://entity-toolkit.github.io/entity
+site_url: https://entity-toolkit.github.io/wiki
 
 nav:
   - Home: index.md
@@ -20,6 +20,8 @@ nav:
       - Floating point comparison: "tech-details/ulps.md"
   - Code API:
       - "code/structure.md"
+      - "code/metrics.md"
+      - "code/domains.md"
   - Fun:
       - Cubed sphere: "fun/cubed_sphere.md"
       - '"Reconnection"': "fun/reconnection.md"
@@ -69,6 +71,8 @@ theme:
     repo: simple/git
     admonition:
       abstract: material/code-json
+    annotation: material/plus-circle-outline
+
   palette:
     - media: "(prefers-color-scheme: light)"
       scheme: default
@@ -91,6 +95,7 @@ theme:
     - content.code.annotate
     - content.code.copy
     - navigation.indexes
+    - content.tooltips
 
 extra_javascript:
   - js/init.js
@@ -120,6 +125,6 @@ extra_css:
 extra:
   social:
     - icon: fontawesome/brands/github
-      link: https://github.com/haykh/entity/
+      link: https://github.com/entity-toolkit/entity/
 
 copyright: Copyright &copy; 2021++, Entity dev team

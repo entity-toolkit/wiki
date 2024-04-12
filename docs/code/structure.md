@@ -3,10 +3,12 @@ hide:
   - footer
 ---
 
-### Current code structure in the `dev/bcs` branch
+# Code structure
 
-<div id="code-structure"></div>
+Current code structure in the `dev/bcs` branch.
 
 !!! hint "The diagram is interactive!"
 
     The code structure diagram is clickable and hoverable. 
+
+<div id="d3-code-structure"></div>
