@@ -45,7 +45,6 @@ function make() {
       rect(i * cell, j * cell, cell * 0.9, cell * 0.9);
     }
   }
-
 }
 
 function setup() {

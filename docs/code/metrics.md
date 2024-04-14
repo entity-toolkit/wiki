@@ -11,6 +11,7 @@ Metrics are key objects of the Entity framework. Superimposed on the discretized
 
 To understand how metrics are implemented in Entity, one must first understand the different coordinate systems and bases the Entity works with.
 
+<div id="canvas"></div>
 
 $$
 \begin{CD}
@@ -365,3 +366,6 @@ classDiagram
       
     }
   } -->
+
+{% include "html/threejs.html" %}
+<script type="module" src="../coords.js">

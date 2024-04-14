@@ -1,16 +1,15 @@
 {% extends "base.html" %}
 
+{% block htmltitle %}
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css"
+    integrity="sha384-wcIxkf4k558AjM3Yz3BBFQUbk/zgIYC2R0QpeeYb+TwlBVMrlgLqwRjRtGZiK7ww" crossorigin="anonymous">
+  {{ super() }}
+{% endblock %}
+
 {% block scripts %}
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css"
-  integrity="sha384-wcIxkf4k558AjM3Yz3BBFQUbk/zgIYC2R0QpeeYb+TwlBVMrlgLqwRjRtGZiK7ww" crossorigin="anonymous">
-
 <script src="https://polyfill.io/v3/polyfill.min.js"></script>
-
-<script src="https://d3js.org/d3.v7.min.js"></script>
-
-<script src="https://cdn.jsdelivr.net/npm/p5@1.9.2/lib/p5.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@davepagurek/p5.buildgeometry@0.0.4/build/p5.buildGeometry.js"></script>
 
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"
   integrity="sha384-hIoBPJpTUs74ddyc4bFZSM1TVlQDA60VBbJS0oA934VSz82sBx1X7kSx2ATBDIyd" crossorigin="anonymous">
@@ -31,15 +30,6 @@
       throwOnError: false
     });
   });
-</script>
-
-<script type="importmap">
-  {
-    "imports": {
-      "three": "https://cdn.jsdelivr.net/npm/three@0.163.0/build/three.module.js",
-      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.163.0/examples/jsm/"
-    }
-  }
 </script>
 
 {{ super() }}

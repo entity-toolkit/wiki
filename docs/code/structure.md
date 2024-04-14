@@ -14,3 +14,4 @@ Current code structure in the `dev/bcs` branch.
 <div id="d3-code-structure"></div>
 
 <script src="../structure.js"></script>
+{% include "html/d3js.html" %}

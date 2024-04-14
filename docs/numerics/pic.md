@@ -287,3 +287,4 @@ For the non-GR case we use an explicit leapfrog integrator for both fields and t
 
 <script src="../numerics-srpic.js"></script>
 <script src="../numerics-grpic.js"></script>
+{% include "html/d3js.html" %}

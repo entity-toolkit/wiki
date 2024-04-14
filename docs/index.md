@@ -4,6 +4,12 @@ hide:
   - footer
 ---
 
+<link rel="stylesheet" href="css/neotoroi/neoteroi-mkdocs.min.css">
+<link rel="stylesheet" href="css/neotoroi/neoteroi-cards.css">
+<link rel="stylesheet" href="css/neotoroi/neoteroi-timeline.css">
+<link rel="stylesheet" href="css/neotoroi/neoteroi-gantt.css">
+<link rel="stylesheet" href="css/neotoroi/neoteroi-spantable.css">
+
 <div class="entity-cover"></div>
 
 `Entity` is a toolkit for astrophysical plasma simulations. It has three main components which work together to provide a flexible and efficient environment for HPC plasma simulations on CPUs and GPUs.[^1]
@@ -30,10 +36,6 @@ hide:
 
 ::/cards::
 
-!!! warning "Wiki is under construction"
-
-    This wiki page is under active construction and does not properly reflect the current development stage. If you don't find answers to your questions, please feel free to contact via email [haykh[dot]astro[at]gmail](mailto:haykh.astro+entity@gmail.com) or submit a [github issue](https://github.com/haykh/entity/issues). If you are interested in working with us, please contact us at [haykh[dot]astro[at]gmail](mailto:haykh.astro+entity@gmail.com).
-
 ### Dev team (alphabetical)
 
 * 💁‍♂️ Alexander Chernoglazov {[@SChernoglazov](https://github.com/SChernoglazov): PIC}
@@ -45,8 +47,13 @@ hide:
 * 🤷‍♂️ Arno Vanthieghem {[@vanthieg](https://github.com/vanthieg): PIC, framework}
 * 😺 Muni Zhou {[@munizhou](https://github.com/munizhou): PIC}
 
-### Timeline
+!!! warning "Wiki is under construction"
 
+    This wiki page is under active construction and does not properly reflect the current development stage. If you don't find answers to your questions, please feel free to contact via email [haykh[dot]astro[at]gmail](mailto:haykh.astro+entity@gmail.com) or submit a [github issue](https://github.com/haykh/entity/issues). If you are interested in working with us, please contact us at [haykh[dot]astro[at]gmail](mailto:haykh.astro+entity@gmail.com).
+
+<!-- ### Timeline -->
+
+<!-- 
 ::timeline::
 
 - title: First public version
@@ -70,7 +77,7 @@ hide:
   sub_title: late 2023
   key: v1-1
 
-::/timeline::
+::/timeline:: -->
 
 ### Supporting grants
 
@@ -78,5 +85,17 @@ The development was supported by the <span>U.S. Department of Energy</span> unde
 
 [^1]: [Icons](https://game-icons.net/) are used under the [CC BY 3.0 license](https://creativecommons.org/licenses/by/3.0/); created by [Delapouite](https://delapouite.com/), and [Lorc](https://lorcblog.blogspot.com/).
 
-
-
+<script>
+  // run script on document load
+  document.addEventListener('DOMContentLoaded', () => {
+    const el = document.getElementById('dev-team-alphabetical');
+    let ul = el.nextElementSibling;
+    if (ul) {
+      ul.children.forEach(li => {
+        const tags_str = />:(.*)\}/.exec(li.innerHTML)[1];
+        const tags = tags_str.split(',').map(c => c.trim());
+        li.innerHTML = li.innerHTML.replace(tags_str, tags.map(t => `<span class="tag ${t.toLowerCase().replace(' ', '_')}">${t}</span>`).join(''));
+      });
+    }
+  });
+</script>
