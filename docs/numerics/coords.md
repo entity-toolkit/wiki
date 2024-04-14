@@ -9,4 +9,4 @@ Below for visualization purposes we demonstrate three different axisymmetric gri
 
 <div id="plot_ax_01" class="p5canvas"></div>
 
-<!-- <script src="/how/coord_sys_ax.js" type="text/javascript"></script> -->
+<script src="../coords-1.js"></script>

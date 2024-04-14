@@ -98,12 +98,12 @@ theme:
 
 extra_javascript:
   - js/init.js
-  - js/numerics/pic_nongr.js
-  - js/numerics/pic_gr.js
-  - js/numerics/coord_sys_ax.js
+  # - js/numerics/pic_nongr.js
+  # - js/numerics/pic_gr.js
+  # - js/numerics/coord_sys_ax.js
   # - js/fun/3d_cubed_sphere.js
   # - js/tech-details/ulps.js
-  - js/code/structure.js
+  # - js/code/structure.js
 
 extra_css:
   - css/neotoroi/neoteroi-mkdocs.min.css
