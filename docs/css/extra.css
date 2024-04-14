@@ -371,3 +371,52 @@ figure.under-construction:before {
 [data-md-color-scheme="default"] #d3-code-structure text tspan {
   fill: black;
 }
+
+/* tables */
+.tr-gr1 td,
+.tr-gr2 td,
+.tr-gr3 td {
+  position: relative;
+}
+
+.tr-gr1 td::before,
+.tr-gr2 td::before,
+.tr-gr3 td::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  opacity: 0.1;
+  pointer-events: none;
+}
+
+span[tr-gr1], span[tr-gr2], span[tr-gr3] {
+  width: 20px;
+  height: 1em;
+  display: inline-block;
+  opacity: 0.4;
+}
+
+.tr-gr1 td::before {
+  background: var(--color-one);
+}
+
+.tr-gr2 td::before {
+  background: var(--color-two);
+}
+
+.tr-gr3 td::before {
+  background: var(--color-three);
+}
+
+span[tr-gr1] {
+  background-color: var(--color-one);
+}
+span[tr-gr2] {
+  background-color: var(--color-two);
+}
+span[tr-gr3] {
+  background-color: var(--color-four);
+}

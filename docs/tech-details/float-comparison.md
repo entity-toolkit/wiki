@@ -100,3 +100,6 @@ auto AlmostZero(T a, T eps = epsilon<T>) -> bool {
 !!! warning "Comparison of the difference with zero"
 
     Never compare the difference of two floating-point numbers with zero, e.g., `AlmostZero(a - b)`, as this may yield incorrect results. Instead, use the `AlmostEqual(a, b)` function.
+
+
+<script src="../ulps.js"></script>
