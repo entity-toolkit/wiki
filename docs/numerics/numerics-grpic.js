@@ -1,19 +1,19 @@
-if (document.getElementById("pic_scheme")) {
-  const C0_color = "#389ed0"
-  const C1_color = "#ef5946"
-  const C2_color = "#06b15c"
-  const C3_color = "#fab54e"
-  const C4_color = "#9d67a2"
-  const C5_color = "#545e56"
-  const C6_color = "#e22850"
+document.addEventListener("DOMContentLoaded", () => {
+  let C0_color = "#389ed0"
+  let C1_color = "#ef5946"
+  let C2_color = "#06b15c"
+  let C3_color = "#fab54e"
+  let C4_color = "#9d67a2"
+  let C5_color = "#545e56"
+  let C6_color = "#e22850"
 
-  const C0_color_light = "#8bc6e4"
-  const C1_color_light = "#f48a7c"
-  const C2_color_light = "#3af899"
-  const C3_color_light = "#fccd88"
-  const C4_color_light = "#be9ac1"
-  const C5_color_light = "#7d8c80"
-  const C6_color_light = "#e95d7c"
+  let C0_color_light = "#8bc6e4"
+  let C1_color_light = "#f48a7c"
+  let C2_color_light = "#3af899"
+  let C3_color_light = "#fccd88"
+  let C4_color_light = "#be9ac1"
+  let C5_color_light = "#7d8c80"
+  let C6_color_light = "#e95d7c"
 
   function makeid(length) {
     var result = '';
@@ -25,33 +25,6 @@ if (document.getElementById("pic_scheme")) {
     }
     return result;
   }
-
-  window.addEventListener("load", () => {
-    const width = document.getElementsByTagName("article")[0].offsetWidth
-    const factor = width / 600
-    const height = 40 * factor
-    const margins = { top: 30 * factor, right: 30 * factor, bottom: 35 * factor, left: 30 * factor };
-
-    new GRStep0("#grplot0", width, height, margins);
-
-    new GRStep1_1("#grplot1_1", width, height, margins);
-    new GRStep1_2("#grplot1_2", width, height, margins);
-    new GRStep1_3("#grplot1_3", width, height, margins);
-
-    new GRStep2_1("#grplot2_1", width, height, margins);
-
-    new GRStep3("#grplot3", width, height, margins);
-
-    new GRStep4_1("#grplot4_1", width, height, margins);
-    new GRStep4_2("#grplot4_2", width, height, margins);
-    new GRStep4_3("#grplot4_3", width, height, margins);
-    new GRStep4_4("#grplot4_4", width, height, margins);
-    new GRStep4_5("#grplot4_5", width, height, margins);
-    new GRStep4_6("#grplot4_6", width, height, margins);
-
-    new GRStep5("#grplot5", width, height, margins);
-  }, false);
-
 
   class GRSteps {
     constructor(parent, w, h, margins) {
@@ -458,4 +431,28 @@ if (document.getElementById("pic_scheme")) {
       l[0].attr("transform", "translate(" + this.xScale(0.5) + "," + (this.upY - 25) + ")")
     }
   }
-}
+
+  const width = document.getElementsByTagName("article")[0].offsetWidth
+  const factor = width / 600
+  const height = 40 * factor
+  const margins = { top: 30 * factor, right: 30 * factor, bottom: 35 * factor, left: 30 * factor };
+
+  new GRStep0("#grplot0", width, height, margins);
+
+  new GRStep1_1("#grplot1_1", width, height, margins);
+  new GRStep1_2("#grplot1_2", width, height, margins);
+  new GRStep1_3("#grplot1_3", width, height, margins);
+
+  new GRStep2_1("#grplot2_1", width, height, margins);
+
+  new GRStep3("#grplot3", width, height, margins);
+
+  new GRStep4_1("#grplot4_1", width, height, margins);
+  new GRStep4_2("#grplot4_2", width, height, margins);
+  new GRStep4_3("#grplot4_3", width, height, margins);
+  new GRStep4_4("#grplot4_4", width, height, margins);
+  new GRStep4_5("#grplot4_5", width, height, margins);
+  new GRStep4_6("#grplot4_6", width, height, margins);
+
+  new GRStep5("#grplot5", width, height, margins);
+});

@@ -11,18 +11,6 @@ Metrics are key objects of the Entity framework. Superimposed on the discretized
 
 To understand how metrics are implemented in Entity, one must first understand the different coordinate systems and bases the Entity works with.
 
-<div id="canvas"></div>
-
-$$
-\begin{CD}
-  \text{Physical}@=(x,~y,~z)~\text{or}~(r,~\theta,~\phi)
-  \\@VVV\\
-  \text{Physical}@=\text{dada}~
-  \\@VVV\\
-  \text{Code}@=\text{dada}
- \end{CD}
-$$
-
 ## Metric classes
 
 Each metric has a number of distinct attributes. These are:
@@ -346,26 +334,3 @@ classDiagram
   Metric <|-- KerrSchild0 : implements
   note "+: public\n-: private\n#: protected\nunderline: static constexpr\nitalic: virtual"
 ```
-
-  <!-- namespace SRMetrics {
-    class Minkowski~Dimension~ {
-      -const real_t dx, dx_sqr, dx_inv
-    }
-    class Spherical~Dimension~ {
-      
-      
-      
-      +h_~idx_t|idx_t~(coord_t~D~) real_t
-      +sqrt_h_~idx_t|idx_t~(coord_t~D~) real_t
-      +sqrt_det_h(coord_t~D~) real_t
-      +convert~idx_t|Crd|Crd~(real_t) real_t
-      +convert~Crd|Crd~(coord_t~D~, coord_t~D~)
-      
-      +transform~idx_t|Idx|Idx~(coord_t~D~, real_t) real_t
-      +transform~Idx|Idx~(coord_t~D~, vec_t, vec_t)
-      
-    }
-  } -->
-
-{% include "html/threejs.html" %}
-<script type="module" src="../coords.js">

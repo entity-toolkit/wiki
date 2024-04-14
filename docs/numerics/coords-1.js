@@ -1,4 +1,4 @@
-window.addEventListener("load", function (event) {
+document.addEventListener("DOMContentLoaded", (event) => {
   // const color = getComputedStyle(document.getElementsByTagName('body')[0]).getPropertyValue('--body-font-color');
   let color;
 

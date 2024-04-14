@@ -58,6 +58,7 @@ plugins:
   - tags
   - search
   - macros
+  - extra-sass
 
 use_directory_urls: true
 
@@ -89,15 +90,24 @@ theme:
     code: "JetBrains Mono"
   features:
     - navigation.tracking
-    - navigation.expand
+    - navigation.prune
     - toc.integrate
     - content.code.annotate
     - content.code.copy
     - navigation.indexes
     - content.tooltips
+    - header.autohide
+    # - navigation.top
+    # - navigation.instant
 
 extra_css:
+  - https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css
   - css/extra.css
+
+extra_javascript:
+  - js/katex.js
+  - https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js
+  - https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js
 
 extra:
   social:

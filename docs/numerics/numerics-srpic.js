@@ -1,19 +1,19 @@
-if (document.getElementById("pic_scheme")) {
-  const C0_color = "#389ed0"
-  const C1_color = "#ef5946"
-  const C2_color = "#06b15c"
-  const C3_color = "#fab54e"
-  const C4_color = "#9d67a2"
-  const C5_color = "#545e56"
-  const C6_color = "#e22850"
+document.addEventListener("DOMContentLoaded", () => {
+  let C0_color = "#389ed0"
+  let C1_color = "#ef5946"
+  let C2_color = "#06b15c"
+  let C3_color = "#fab54e"
+  let C4_color = "#9d67a2"
+  let C5_color = "#545e56"
+  let C6_color = "#e22850"
 
-  const C0_color_light = "#8bc6e4"
-  const C1_color_light = "#f48a7c"
-  const C2_color_light = "#3af899"
-  const C3_color_light = "#fccd88"
-  const C4_color_light = "#be9ac1"
-  const C5_color_light = "#7d8c80"
-  const C6_color_light = "#e95d7c"
+  let C0_color_light = "#8bc6e4"
+  let C1_color_light = "#f48a7c"
+  let C2_color_light = "#3af899"
+  let C3_color_light = "#fccd88"
+  let C4_color_light = "#be9ac1"
+  let C5_color_light = "#7d8c80"
+  let C6_color_light = "#e95d7c"
 
   function makeid(length) {
     var result = '';
@@ -25,28 +25,6 @@ if (document.getElementById("pic_scheme")) {
     }
     return result;
   }
-
-  window.addEventListener("load", () => {
-    const width = document.getElementsByTagName("article")[0].offsetWidth
-    const factor = width / 600
-    const height = 40 * factor
-    const margins = { top: 30 * factor, right: 30 * factor, bottom: 35 * factor, left: 30 * factor };
-    new Step0("#plot0", width, height, margins);
-
-    new Step1("#plot1", width, height, margins);
-
-    new Step2_1("#plot2_1", width, height, margins);
-    new Step2_2("#plot2_2", width, height, margins);
-
-    new Step3_1("#plot3_1", width, height, margins);
-    new Step3_2("#plot3_2", width, height, margins);
-
-    new Step4("#plot4", width, height, margins);
-
-    new Step5("#plot5", width, height, margins);
-
-    new Step6("#plot6", width, height, margins);
-  }, false);
 
   var linspace = (start, stop, nsteps) => {
     delta = (stop - start) / (nsteps - 1)
@@ -449,4 +427,25 @@ if (document.getElementById("pic_scheme")) {
       this.addPoint(1, this.downY, d3.symbolSquare, C3_color, 30, "x(n+1)")
     }
   }
-}
+
+  const width = document.getElementsByTagName("article")[0].offsetWidth
+  const factor = width / 600
+  const height = 40 * factor
+  const margins = { top: 30 * factor, right: 30 * factor, bottom: 35 * factor, left: 30 * factor };
+
+  new Step0("#plot0", width, height, margins);
+
+  new Step1("#plot1", width, height, margins);
+
+  new Step2_1("#plot2_1", width, height, margins);
+  new Step2_2("#plot2_2", width, height, margins);
+
+  new Step3_1("#plot3_1", width, height, margins);
+  new Step3_2("#plot3_2", width, height, margins);
+
+  new Step4("#plot4", width, height, margins);
+
+  new Step5("#plot5", width, height, margins);
+
+  new Step6("#plot6", width, height, margins);
+});

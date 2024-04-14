@@ -1,0 +1,40 @@
+.nt-timeline-item:nth-child(1) .nt-timeline-dot {
+  background-color: var(--color-one) !important;
+}
+
+.nt-timeline-item:nth-child(2) .nt-timeline-dot {
+  background-color: var(--color-two) !important;
+}
+
+.nt-timeline-item:nth-child(3) .nt-timeline-dot {
+  background-color: var(--color-three) !important;
+}
+
+.nt-timeline-item:nth-child(4) .nt-timeline-dot {
+  background-color: var(--color-three) !important;
+}
+
+.nt-timeline-dot {
+  border-radius: 25% 0% 0% 25% !important;
+  border: 1px solid white !important;
+  width: 45px !important;
+}
+
+.nt-timeline.vertical.left .nt-timeline-items {
+  background: linear-gradient(var(--color-one) 0%,
+      var(--color-two) 25%,
+      var(--color-three) 50%,
+      var(--color-four) 100%) no-repeat 30px/2px 100% !important;
+}
+
+.nt-timeline.vertical.left .nt-timeline-before {
+  background: linear-gradient(rgba(252, 70, 107, 0) 0%, var(--color-one) 100%) no-repeat 30px/2px 100% !important;
+}
+
+.nt-timeline.vertical.left .nt-timeline-after {
+  background: linear-gradient(var(--color-four) 0%, rgba(252, 70, 107, 0) 100%) no-repeat 30px/2px 100% !important;
+}
+
+.nt-timeline-content {
+  border: none !important;
+}

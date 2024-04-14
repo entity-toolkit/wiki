@@ -53,7 +53,7 @@ hide:
 
 <!-- ### Timeline -->
 
-<!-- 
+
 ::timeline::
 
 - title: First public version
@@ -77,7 +77,17 @@ hide:
   sub_title: late 2023
   key: v1-1
 
-::/timeline:: -->
+::/timeline::
+
+<style>
+[data-md-color-scheme="default"] .entity-cover {
+  background-image: url("assets/cover_light.gif");
+}
+
+[data-md-color-scheme="slate"] .entity-cover {
+  background-image: url("assets/cover_dark.gif");
+}
+</style>
 
 ### Supporting grants
 
