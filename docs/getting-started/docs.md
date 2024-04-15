@@ -13,7 +13,7 @@ hide:
 
 1. Pull the `wiki` branch of the main repository (it is recommended to do this in a separate directory from the main code).
   ```shell
-  git clone -b wiki git@github.com:haykh/entity.git entity-wiki
+  git clone git@github.com:entity-toolkit/wiki.git entity-wiki
   cd entity-wiki
   ```
 
@@ -34,10 +34,10 @@ hide:
   ```
   To access the documentation simply open the [`http://127.0.0.1:8000/`](http://127.0.0.1:8000/) in your browser.
 
-1. When satisfied with all the changes made simply push them to the `wiki` branch.
+1. When satisfied with all the changes made simply push them to the `master` branch.
   ```shell
   git add .
   git commit -m "<reasonable comment>"
-  git push origin wiki
+  git push
   ```
   Shortly after that `github-actions` will generate the website and push it to the `gh-pages` branch of the main repository, which will be accessible from the web.

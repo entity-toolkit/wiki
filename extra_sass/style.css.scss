@@ -55,8 +55,8 @@
 
 /* Home */
 
-@import "index/index.css.scss";
-@import "index/timeline.css.scss";
+@import "index/_index.css.scss";
+@import "index/_timeline.css.scss";
 
 /* Header */
 
@@ -85,28 +85,6 @@ header {
   max-width: 11.7rem;
 }
 
-/* Additional admonition */
-
-:root {
-  --md-admonition-icon--code: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5 3h2v2H5v5a2 2 0 0 1-2 2 2 2 0 0 1 2 2v5h2v2H5c-1.07-.27-2-.9-2-2v-4a2 2 0 0 0-2-2H0v-2h1a2 2 0 0 0 2-2V5a2 2 0 0 1 2-2m14 0a2 2 0 0 1 2 2v4a2 2 0 0 0 2 2h1v2h-1a2 2 0 0 0-2 2v4a2 2 0 0 1-2 2h-2v-2h2v-5a2 2 0 0 1 2-2 2 2 0 0 1-2-2V5h-2V3h2m-7 12a1 1 0 0 1 1 1 1 1 0 0 1-1 1 1 1 0 0 1-1-1 1 1 0 0 1 1-1m-4 0a1 1 0 0 1 1 1 1 1 0 0 1-1 1 1 1 0 0 1-1-1 1 1 0 0 1 1-1m8 0a1 1 0 0 1 1 1 1 1 0 0 1-1 1 1 1 0 0 1-1-1 1 1 0 0 1 1-1Z" /></svg>')
-}
-
-.md-typeset .admonition.code,
-.md-typeset details.code {
-  border-color: rgb(155, 43, 140);
-}
-
-.md-typeset .code>.admonition-title,
-.md-typeset .code>summary {
-  background-color: rgba(155, 43, 140, 0.1);
-}
-
-.md-typeset .code>.admonition-title::before,
-.md-typeset .code>summary::before {
-  background-color: rgb(155, 43, 140);
-  -webkit-mask-image: var(--md-admonition-icon--code);
-  mask-image: var(--md-admonition-icon--code);
-}
 
 /* Code blocks */
 
@@ -123,105 +101,6 @@ header {
 
 .hide-overflow-x code {
   white-space: pre-wrap !important;
-}
-
-/* Katex */
-.katex-display {
-  margin: 0px;
-}
-
-.katex .text>.mord {
-  font-family: var(--md-text-font);
-  font-weight: normal;
-}
-
-.katex .tag {
-  right: 25px !important;
-}
-
-/* p5 canvases */
-
-.p5canvas input {
-  background-color: var(--md-admonition-bg-color);
-}
-
-.p5canvas th {
-  min-width: 3rem !important;
-}
-
-.p5canvas input {
-  width: 60px;
-}
-
-.p5canvas input[type="range"] {
-  width: 120px;
-}
-
-.p5canvas button {
-  color: white;
-  padding: 10px 0px 10px 0px;
-  background-color: var(--md-primary-fg-color);
-}
-
-.p5canvas button:hover {
-  background-color: var(--md-primary-fg-color--light);
-  cursor: pointer;
-}
-
-div[id^="plot"] .label,
-div[id^="grplot"] .label,
-div[id^="plot"] .tick text,
-div[id^="grplot"] .tick text {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 16px;
-}
-
-@media (max-width: 992px) {
-
-  div[id^="plot"] .label,
-  div[id^="grplot"] .label,
-  div[id^="plot"] .tick text div[id^="grplot"] .tick text {
-    font-size: 0.6em;
-  }
-}
-
-[data-md-color-scheme="slate"] div[id^="plot"] .label,
-[data-md-color-scheme="slate"] div[id^="grplot"] .label {
-  fill: var(--md-default-fg-color--light);
-}
-
-/* Extra */
-figure.under-construction {
-  margin-top: -3rem !important;
-}
-
-figure.under-construction:before {
-  content: "under construction";
-  position: relative;
-  font-size: 2rem;
-  line-height: 2rem;
-  top: 9rem;
-  color: white;
-  text-shadow: 0 0 0.5rem #000000;
-  -moz-text-shadow: 0 0 0.5rem #000000;
-  -o-text-shadow: 0 0 0.5rem #000000;
-  -webkit-text-shadow: 0 0 0.5rem #000000;
-  -ms-text-shadow: 0 0 0.5rem #000000;
-}
-
-/* d3 */
-
-#d3-code-structure text {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 1.0em;
-}
-
-[data-md-color-scheme="slate"] #d3-code-structure text tspan {
-  fill: white;
-}
-
-[data-md-color-scheme="default"] #d3-code-structure text tspan {
-  fill: black;
 }
 
 /* tables */
@@ -277,4 +156,10 @@ span[tr-gr3] {
   background-color: var(--color-four);
 }
 
-/* */
+/* extra */
+
+@import "elements/_admonitions.css.scss";
+@import "elements/_katex.css.scss";
+@import "elements/_p5.css.scss";
+@import "elements/_d3.css.scss";
+@import "elements/_tikz.css.scss";

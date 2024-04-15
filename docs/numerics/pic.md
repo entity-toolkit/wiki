@@ -24,60 +24,9 @@ Full deposition loop can be expressed with the following pseudocode (actual arra
 
 === "`ntt::PIC`"
 
-    ```go
-    // e, j <-- 3D array of e-fields & currents (in either of the dimensions)
-    // species <-- 1D array of species
-    // species[s].prtls <-- 1D array of particles of species `s`
-    // dt <-- timestep
-
-    /* -------------------------------------------------------------------------- */
-    /*                              0. reset currents                             */
-    /* -------------------------------------------------------------------------- */
-
-    j[:] = 0
-
-    /* -------------------------------------------------------------------------- */
-    /*                             1. deposit currents                            */
-    /* -------------------------------------------------------------------------- */
-
-    for s := range species {
-      charge_s := species[s].charge
-      for p := range prtl {
-        // (1)
-        // computing the Lorentz-factor
-        gamma_p := sqrt(1 + p.u**2)
-        // computing the contravariant 4-velocity
-        uCntrv_p := convert_Cart2Cntrv(p.x, p.u)
-        // computing x_old - x_new
-        dx_p = p.x - uCntrv_p * dt / gamma_p
-
-        // (2)
-        j[...] += charge_s * dx_p / dt
-      }
-    }
-
-    /* -------------------------------------------------------------------------- */
-    /*                    2. recovering the physical currents &                   */
-    /*                    adding as sources in the Ampere's law                   */
-    /* -------------------------------------------------------------------------- */
-
-    coeff := -rho0 / (n0 * d0**2) // (3)
-    for i := range domain {
-      e[i] += coeff * j[i] / (alpha(i) * sqrt_det_h(i))
-    }
-    ```
-
-    1. :warning: Particle velocities are in global Cartesian basis, but the coordinates are in code units (i.e., contravariant $x^i$).
-    2. :grey_exclamation: In reality we perform the zig-zag deposition routine, where we deposit into multiple cell edges depending on how the particle moves.
-    3. :grey_exclamation: See the [code units](/how/units) chapter for more details.
 
 === "`ntt::GRPIC`"
 
-    NA -->
-
-## Special-relativistic PIC
-
-Full set of equations in flat space-time (with an arbitrary diagonal metric $h_{ij}=\textrm{diag}(h_1, h_2, h_3)$) in code units (and not in the order we actually integrate them):
 
 $$
 \begin{aligned}
@@ -107,25 +56,28 @@ $$
 \end{aligned}
 $$
 
-!!! note
-    
-    We use the monospace font to emphasize that all the arrays have the same exact values as the ones in the code (i.e., code units). $\texttt{b}_i$ is the same as `Meshblock.em(..., em::bx1)` etc.
+    NA -->
+
+## Special-relativistic PIC
+
+<!-- Full set of equations in flat space-time (with an arbitrary diagonal metric $h_{ij}=\textrm{diag}(h_{11}, h_{22}, h_{33})$) in code units (and not in the order we actually integrate them): -->
 
 For the non-GR case we use an explicit leapfrog integrator for both fields and the particles. All the fields, as well as particle coordinates/velocities are defined in the general curvilinear (orthonormal) coordinate system.
 
-*Initial configuration $t=t^{(n)}$:*
-<div id="plot0"></div>
+=== "0. initial configuration"
 
-*Final configuration $t=t^{(n+1)}$:*
-<div id="plot6"></div>
+    <div id="plot0"></div>
 
+    $$
+    t=t^{(n)}
+    $$
 
 === "1. first Faraday half-step"
 
     <div id="plot1"></div>
 
     $$
-    \frac{1}{c}\frac{\partial B_i}{\partial t} = -\frac{1}{h_1 h_2 h_3}h_i\varepsilon_{ijk}\partial^j\left(h^k E^k\right)
+    \frac{1}{c}\frac{\partial B^i}{\partial t} = -\frac{1}{\sqrt{h}}\varepsilon^{ijk}\partial_j\left(h_{kp} E^p\right)
     $$
 
     $$
@@ -161,7 +113,7 @@ For the non-GR case we use an explicit leapfrog integrator for both fields and t
     <div id="plot4"></div>
 
     $$
-    \frac{1}{c}\frac{\partial B_i}{\partial t} = -\frac{1}{h_1 h_2 h_3}h_i\varepsilon_{ijk}\partial^j\left(h^k E^k\right)
+    \frac{1}{c}\frac{\partial B_i}{\partial t} = -\frac{1}{\sqrt{h}}\varepsilon^{ijk}\partial_j\left(h_{kp} E^p\right)
     $$
 
     $$
@@ -173,28 +125,97 @@ For the non-GR case we use an explicit leapfrog integrator for both fields and t
     <div id="plot5"></div>
     
     $$
-    \frac{1}{c}\frac{\partial E_i}{\partial t} = \frac{1}{h_1 h_2 h_3}h_i\varepsilon_{ijk}\partial^j\left(h^k B^k\right) - \frac{4\pi}{c} J_i
+    \frac{1}{c}\frac{\partial E_i}{\partial t} = \frac{1}{\sqrt{h}}\varepsilon^{ijk}\partial_j\left(h_{kp} B^p\right) - \frac{4\pi}{c} J^i
     $$
 
     $$
     E^{(n)}\xrightarrow[\qquad B^{(n+1/2)},~J^{(n+1/2)}\qquad]{\Delta t} E^{(n+1)}
     $$
 
-<!-- * 3.1. displacement recovery -->
+=== "5. final configuration"
 
-<!-- <div id="plot3_1"></div> -->
+    <div id="plot6"></div>
 
-<!-- * 3.2. current deposition -->
+    $$
+    t=t^{(n+1)}
+    $$
+
+
+### Particle pusher in SR
+
+The pseudocode below roughly illustrates the particle pusher algorithm in SR.
+
+```go
+// em <-- 4D array of e/b-fields (encode 3 dimensions and the component of the field)
+// species <-- 1D array of species
+// metric <-- metric object
+// dt <-- timestep
+
+// prtl.x: coordinates in code units @ t^n (1)
+// prtl.u: 4-velocities in the global Cartesian basis @ t^(n-1/2)
+
+for spec := range species {
+  q_ovr_m := spec.charge / spec.mass
+  for prtl := range spec.prtls { //(2)
+    if !prtl.is_alive {
+      continue
+    }
+    if spec.is_massive { //(3)
+      // 1. interpolate contravariant fields to particle position
+      eU, bU := interpolate(em, prtl.x)
+
+      // 2. convert to global XYZ coordinates (4)
+      e, b := metric.transform_xyz[Idx::U, Idx::XYZ](eU, bU)
+
+      // 3. update particle momentum (e.g., using Boris algorithm)
+      prtl.u = updateMomentum(prtl.u, e, b, q_ovr_m, dt)
+      
+      // 4. get 3-velocity
+      v = prtl.u / sqrt(1 + prtl.u**2)
+    } else {
+      // 4. get 3-velocity
+      v = prtl.u / sqrt(prtl.u**2)
+    }
+    // 5. record the old position
+    prtl.x_old = prtl.x
+
+    // 6. convert the coordinates to Cartesian basis
+    x = metric.convert_xyz[Crd::Cd, Crd::XYZ](prtl.x)
+    
+    // 7. update the position
+    x += v * dt
+
+    // 8. convert back to code basis
+    prtl.x = metric.convert_xyz[Crd::XYZ, Crd::Cd](x)
+
+    // 9. apply boundary conditions (5)
+    prtl.x, prtl.u, prtl.x_old = boundary_conditions(prtl.x, prtl.u, prtl.x_old)
+  }
+}
+
+// at the end of the loop we have
+// prtl.x_old: coordinates @ t^n
+// prtl.x: coordinates @ t^(n+1)
+// prtl.u: 4-velocities @ t^(n+1/2)
+```
+
+1. :grey_exclamation: In the actual code, we store particle coordinates as an index of the cell the particle is in plus a displacement.
+2. :grey_exclamation: In reality, we use a structure of arrays, instead of an array of structures. Here we use a simplified notation for clarity.
+3. :grey_exclamation: In the code, of course, we minimize the amount of runtime `if` statements by using compile-time `constexpr if`-s and template arguments.
+4. :grey_exclamation: If there are external forces acting on the particle, or a drag force, we include them in the next step.
+5. :grey_exclamation: Here we include absorption, reflection from the axis, periodic boundaries, etc. Communication with other domains is happeing at a different place.
 
 ---
 
 ## General-relativistic PIC
 
-*Initial configuration $t=t^{(n)}$:*
-<div id="grplot0"></div>
+=== "0. initial configuration"
 
-*Final configuration $t=t^{(n+1)}$:*
-<div id="grplot5"></div>
+    <div id="grplot0"></div>
+
+    $$
+    t=t^{(n)}
+    $$
 
 === "1.1. intermediate interpolation"
 
@@ -282,6 +303,103 @@ For the non-GR case we use an explicit leapfrog integrator for both fields and t
     $$
     D^{(n)}\xrightarrow[\qquad H^{(n+1/2)},~J^{(n+1/2)}\qquad]{\Delta t} D^{(n+1)}
     $$
+
+=== "5. final configuration"
+
+    <div id="grplot5"></div>
+
+    $$
+    t=t^{(n+1)}
+    $$
+
+### Particle pusher in GR
+
+Particle pusher in GR is slightly more complicated, as we can no longer transform into a global Cartesian frame, and thus unavoidably have to deal with the ["geodesic" term](../3p1.md#equations-of-motion-for-particles) in the equation of motion.
+
+```go
+// em <-- 4D array of d/b-fields, with d defined @ t^n (1)
+// em0 <-- 4D array of d/b-fields, with b defined @ t^n
+// species <-- 1D array of species
+// metric <-- metric object
+// dt <-- timestep
+
+// prtl.x: coordinates in code units @ t^n
+// prtl.u: 4-velocities in code-covariant basis @ t^(n-1/2)
+
+for spec := range species {
+  q_ovr_m := spec.charge / spec.mass
+  for prtl := range spec.prtls {
+    if !prtl.is_alive {
+      continue
+    }
+    if spec.is_massive {
+      // 1. interpolate contravariant fields to particle position
+      eU, bU := interpolate(em, em0, prtl.x)
+
+      // 2. convert to local tetrad basis
+      eT, bT := metric.transform[Idx::U, Idx::T](eU, bU)
+
+      // 3. get the velocity in tetrad basis
+      uT := metric.transform[Idx::D, Idx::T](prtl.u)
+
+      // 4. update particle momentum with electromagnetic-push (half step)
+      uT = updateMomentum(uT, eT, bT, q_ovr_m, dt / 2)
+
+      // 5. transform the velocity back to code-covariant basis
+      uD := metric.transform[Idx::T, Idx::D](uT)
+
+      // 6. update the momentum using a full geodesic push
+      uD = geodesicMomentumUpdate(prtl.x, uD, dt)
+
+      // 7. transform again to tetrad basis
+      uT = metric.transform[Idx::D, Idx::T](uD)
+
+      // 8. update with another half-step electromagnetic push
+      uT = updateMomentum(uT, eT, bT, q_ovr_m, dt / 2)
+
+      // 9. transform back to code-covariant basis
+      prtl.u = metric.transform[Idx::T, Idx::D](uT)
+
+      // 10. record the old position
+      prtl.x_old = prtl.x      
+
+      // 11. update the coordinate using the geodesic equation
+      prtl.x = geodesicPositionUpdate(prtl.x, prtl.u, dt)
+
+      // 12. apply boundary conditions
+      prtl.x, prtl.u, prtl.x_old = boundary_conditions(prtl.x, prtl.u, prtl.x_old)
+    } else {
+      // 1. update the momentum using geodesic push
+      prtl.u = geodesicMomentumUpdate(prtl.x, prtl.u, dt)
+
+      // 2. update the coordinate using geodesic push
+      prtl.x = geodesicPositionUpdate(prtl.x, prtl.u, dt)
+
+      // 3. apply boundary conditions
+      prtl.x, prtl.u = boundary_conditions(prtl.x, prtl.u)
+    }
+  }
+}
+
+// at the end of the loop we have
+// prtl.x_old: coordinates @ t^n
+// prtl.x: coordinates @ t^(n+1)
+// prtl.u: 4-velocities @ t^(n+1/2)
+```
+
+1. :grey_exclamation: To save memory, we store the fields at two time levels, and two different 4D arrays. Here we want to ensure we are passing the fields at time `t^n`. See step #2 in the diagram above.
+
+
+## Covariant current deposition
+
+Charged particles deposit currents, $\bm{J}^i$, that go into Maxwell's equations as source terms. In general $\bm{J}^i = \rho \bm{\beta}^i c$, where $\rho$ is the charge density measured in the lab frame. Coupled with the equations of motion and Maxwell's equations, this relation ensures exact charge conservation, i.e., $\nabla\cdot \bm{J}^\mu\equiv \bm{J}^\mu_{;\mu} = 0$, where $\bm{J}^\mu$ is the contravariant four-current with $J^0 = \rho c$. Substituting $\tilde{\rho}\equiv \sqrt{h}\rho$, and $\bm{\mathcal{J}}^i\equiv \sqrt{h}\bm{J}^i$, we can rewrite the charge conservation in a more concise form:
+
+$$
+\frac{\partial \tilde{\rho}}{\partial t} + \partial_i \bm{\mathcal{J}}^i = 0
+$$
+
+Thus, depositing currents as $\bm{\mathcal{J}}^i$ and then converting to $\bm{J}^i=\bm{\mathcal{J}}^i/\sqrt{h}$ one can ensure that the exact charge conservation is maintained (see [charge-conservative current deposition](/how/pic#charge-conservative-current-deposition)).
+
 
 <div id="pic_scheme"></div>
 

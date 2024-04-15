@@ -13,16 +13,18 @@ To compile the code you need to have the following dependencies installed:
 
 ## Compilation workflow
 
+*THIS SECTION IS UNDER CONSTRUCTION*
+
 1. _Clone_ the repository with the following command:
   ```shell
-  git clone git@github.com:haykh/entity.git
+  git clone git@github.com:entity-toolkit/entity.git
   ```
   
     !!! note
       
         It is highly recommended to use `ssh` for cloning the repository. If you have not set up your github `ssh` yet, please follow the instructions [here](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent). Alternatively, you can clone the repository with `https`:
         ```shell
-        git clone https://github.com/haykh/entity.git
+        git clone https://github.com/entity-toolkit/entity.git
         ```
 
 1. _Configure_ the code from the root directory using `cmake`, e.g.:

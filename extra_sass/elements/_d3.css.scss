@@ -1,0 +1,14 @@
+/* d3 */
+
+#d3-code-structure text {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.0em;
+}
+
+[data-md-color-scheme="slate"] #d3-code-structure text tspan {
+  fill: white;
+}
+
+[data-md-color-scheme="default"] #d3-code-structure text tspan {
+  fill: black;
+}

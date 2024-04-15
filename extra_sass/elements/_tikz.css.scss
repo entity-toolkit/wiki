@@ -1,0 +1,19 @@
+[data-md-color-scheme="default"] {
+  --tikz-text-color: black;
+  --tikz-bg-color: --color-one;
+}
+
+[data-md-color-scheme="slate"] {
+  --tikz-text-color: white;
+  --tikz-bg-color: --color-two;
+}
+
+.tikz {
+  path {
+    fill: none;
+    stroke: var(--tikz-text-color);
+  }
+  g>text, svg>g>g>g>g>g>path, svg>g>g>g>g>g>g>path {
+    fill: var(--tikz-text-color);
+  }
+}

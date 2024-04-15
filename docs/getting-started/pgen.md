@@ -5,6 +5,8 @@ hide:
 
 # Writing a problem generator
 
+*THIS SECTION IS OUTDATED AND WILL SOON BE UPDATED*
+
 Problem generators are the main entry point for the user to specify the initial conditions of the simulation, any intervention routines (like injection or driving), as well as specific boundary conditions. All the problem generators are located in `src/<engine>/pgen/` directory. The problem generator is specified using the `-D pgen=<PROBLEM_GENERATOR>` flag when configuring the code with `cmake`. 
 
 All problem generators should inherit from the master class `PGen<D, S>` defined in `src/framework/archetypes.hpp`. There are several basic routines that optionally need to be implemented in the derived class:

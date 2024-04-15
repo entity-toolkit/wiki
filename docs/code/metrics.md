@@ -9,7 +9,23 @@ Metrics are key objects of the Entity framework. Superimposed on the discretized
 
 ## Coordinate systems and bases
 
-To understand how metrics are implemented in Entity, one must first understand the different coordinate systems and bases the Entity works with.
+To understand how metrics are implemented in Entity, one must first understand the different coordinate systems and bases the Entity works with. For each metric, there are two or three levels of coordinates.
+
+- **Physical**, $x^I$: this is the coordinate system in which the metric is originally defined (e.g., for Kerr-Schild -- it's spherical, for Minkowski -- Cartesian).
+- **Linear**: this is the coordinate system in which the grid discretization is uniform. It is often stretched or squeezed w.r.t. the original physical (e.g., for Q-Kerr-Schild -- it's quasi-spherical, for Kerr-Schild -- it's the same as the physical);
+- **Code-unit**, $x^i$: finally, this is the coordinate system the code works with; it takes the linear coordinate system and remaps it to the interval of $[0, n_i)$, where $n_i$ is the number of grid points in the $i$-th direction on the given domain.
+
+!!! Example "Qspherical coordinates"
+
+    All qspherical metrics (`QSpherical`, `QKerrSchild`) take spherical coordinates as their base $(r,\theta,\phi)$, then [stretch them to quasi-spherical coordinates](../numerics/coords.md) $(\xi,\eta,\phi)$, and finally map them to code-unit coordinates $(x^1,x^2,x^3)$.
+
+    $$
+    \begin{CD}
+     (r,\theta,\phi) @>\text{stretch}>{\xi=\log{(r-r_0)},~~~\theta = x_2 + 2h \eta (\pi - 2 \eta) (\pi - \eta) / \pi^2,~~~\phi=\phi}> (\xi,\eta,\phi) @>\text{map}>{x^1 = (\xi-\xi_{\rm min})/n_1,~...}> (x^1,x^2,x^3)
+    \end{CD}
+    $$
+
+Vectors in Entity can also be defined in different bases. We typically define covariant and contravariant vectors in code-, $x^i$, and physical-, $x^I$, generally non-orthonormal coordinates: $u_i$, $u^i$, and $u_I$, $u^I$. We can also define a locally-flat orthonormal basis, $u_{\hat{i}}\equiv u^{\hat{i}}\equiv u^{\hat{I}}\equiv u_{\hat{I}}$, also called the tetrad basis. For special-relativistic metrics, tetrad basis is exactly the same in all points of space, and is thus global. For general-relativistic metrics, the tetrad basis is defined locally, and is different in each point of space.
 
 ## Metric classes
 
@@ -42,7 +58,7 @@ Each metric has a number of distinct attributes. These are:
   </tr>
   <tr class="tr-gr2">
     <td><code>h<i, j></code></td>
-    <td>metric components $h^{ij}$</td>
+    <td>inverse metric components $h^{ij}$</td>
     <td><code>coord_t&lt;D&gt; x_C</code></td>
     <td><code>real_t</code></td>
   </tr>
@@ -228,9 +244,53 @@ The `in` and `out` template arguments for the `convert<>` and `transform<>` func
     metric.template transform_xyz<Crd::Cd, Crd::XYZ>(x_Code, v_Cntrv, v_XYZ);
     ```
 
+Below is a diagram demonstrating all the possible transformations.
+
+
+<div class="tikz">
+<script type="text/tikz">
+  \usetikzlibrary{shapes.geometric, arrows, bending}
+  \begin{document}
+  \begin{tikzpicture}[
+      node distance=2cm,
+      node/.style={rectangle, rounded corners, draw=black, fill=gray!20, minimum size=1cm, scale=1.5},
+      arrow/.style={thick,<->,>=stealth},
+      dasharrow/.style={thick,dashed,<->,>=stealth}
+  ]
+
+  \node at (0.1, 0) (O) {};
+  \node[node, right of=O, xshift=-0.75cm, yshift=-0.5cm] (A1) {$u^i$: \texttt{Idx::U}};
+  \node[node, right of=A1, xshift=0.5cm, yshift=-2cm] (A2) {$u_i$: \texttt{Idx::D}};
+  \node[node, right of=A2, xshift=2cm] (B2) {$u_I$: \texttt{Idx::PD}};
+  \node[node, right of=B2, xshift=0.5cm, yshift=2cm] (B1) {$u^I$: \texttt{Idx::PU}};
+  \node[node, below of=B2, xshift=-1.75cm, yshift=-1cm] (C) {$u_{\hat{i}}\equiv u^{\hat{i}}\equiv u^{\hat{I}}\equiv u_{\hat{I}}$: \texttt{Idx::T}};
+
+  \draw[arrow] (A1) -- (A2);
+
+  \draw[arrow] (B1) -- (B2);
+
+  \draw[arrow] (A1) to[bend right=30] (C);
+
+  \draw[arrow] (A2) -- (C);
+
+  \draw[arrow] (B1) to[bend left=30] (C);
+
+  \draw[arrow] (B2) -- (C);
+
+  \draw[dasharrow] (A2) -- (B2);
+
+  \draw[dasharrow] (A1) -- (B1);
+
+  \end{tikzpicture}
+  
+\end{document}
+</script>
+</div>
+
+
 ## Metric structure and hierarchy
 
-Below is a diagram that demonstrates the structure of the metric classes and their inheritance hierarchy.
+Schematics below shows the structure of the metric classes and their inheritance hierarchy with all the private/public variables and methods.
 
 
 ```mermaid

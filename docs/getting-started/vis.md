@@ -5,6 +5,8 @@ hide:
 
 # Output & visualization
 
+*THIS SECTION IS OUTDATED AND WILL SOON BE UPDATED*
+
 To enable the runtime output of the simulation data, configure the code with the `-D output=ON` flag. As a backend `Entity` uses the open-source [ADIOS2](https://github.com/ornladios/ADIOS2) library compiled in-place. The output is written in the [HDF5](https://adios2.readthedocs.io/en/latest/engines/engines.html#hdf5) format, however, more formats will be added in the future. 
 
 The output is configured using the following configurations in the `input` file:

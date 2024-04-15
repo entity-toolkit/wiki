@@ -1,0 +1,13 @@
+/* Katex */
+.katex-display {
+  margin: 0px;
+}
+
+.katex .text>.mord {
+  font-family: var(--md-text-font);
+  font-weight: normal;
+}
+
+.katex .tag {
+  right: 25px !important;
+}

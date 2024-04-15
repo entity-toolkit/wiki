@@ -7,6 +7,8 @@ hide:
 
 The main object which contains the information on global geometry of the domain including domain decomposition, the discretization, and the physical mesh is the `Metadomain<Metric<D>>` class.
 
+*THIS SECTION IS UNDER CONSTRUCTION*
+
 ```mermaid
 classDiagram
   class Metadomain~Metric~{
