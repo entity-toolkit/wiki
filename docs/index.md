@@ -10,6 +10,7 @@ hide:
 <link rel="stylesheet" href="css/neotoroi/neoteroi-gantt.css">
 <link rel="stylesheet" href="css/neotoroi/neoteroi-spantable.css">
 
+
 <div class="entity-cover"></div>
 
 `Entity` is a toolkit for astrophysical plasma simulations. It has three main components which work together to provide a flexible and efficient environment for HPC plasma simulations on CPUs and GPUs.[^1]
@@ -53,7 +54,7 @@ hide:
 
 <!-- ### Timeline -->
 
-
+<!-- 
 ::timeline::
 
 - title: First public version
@@ -77,7 +78,7 @@ hide:
   sub_title: late 2023
   key: v1-1
 
-::/timeline::
+::/timeline:: -->
 
 <style>
 [data-md-color-scheme="default"] .entity-cover {
@@ -95,13 +96,13 @@ The development was supported by the <span>U.S. Department of Energy</span> unde
 
 [^1]: [Icons](https://game-icons.net/) are used under the [CC BY 3.0 license](https://creativecommons.org/licenses/by/3.0/); created by [Delapouite](https://delapouite.com/), and [Lorc](https://lorcblog.blogspot.com/).
 
+
 <script>
-  // run script on document load
   document.addEventListener('DOMContentLoaded', () => {
     const el = document.getElementById('dev-team-alphabetical');
     let ul = el.nextElementSibling;
     if (ul) {
-      ul.children.forEach(li => {
+      Array.from(ul.children).forEach(li => {
         const tags_str = />:(.*)\}/.exec(li.innerHTML)[1];
         const tags = tags_str.split(',').map(c => c.trim());
         li.innerHTML = li.innerHTML.replace(tags_str, tags.map(t => `<span class="tag ${t.toLowerCase().replace(' ', '_')}">${t}</span>`).join(''));
