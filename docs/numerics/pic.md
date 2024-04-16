@@ -66,7 +66,7 @@ For the non-GR case we use an explicit leapfrog integrator for both fields and t
 
 === "0. initial configuration"
 
-    <div id="plot0"></div>
+    <div class="d3-diagram" id="plot0"></div>
 
     $$
     t=t^{(n)}
@@ -74,7 +74,7 @@ For the non-GR case we use an explicit leapfrog integrator for both fields and t
 
 === "1. first Faraday half-step"
 
-    <div id="plot1"></div>
+    <div class="d3-diagram" id="plot1"></div>
 
     $$
     \frac{1}{c}\frac{\partial B^i}{\partial t} = -\frac{1}{\sqrt{h}}\varepsilon^{ijk}\partial_j\left(h_{kp} E^p\right)
@@ -86,7 +86,7 @@ For the non-GR case we use an explicit leapfrog integrator for both fields and t
 
 === "2.1. particle velocity update"
 
-    <div id="plot2_1"></div>
+    <div class="d3-diagram" id="plot2_1"></div>
 
     $$
     u^{(n-1/2)}\xrightarrow[\qquad E(x^n),~B(x^n)\qquad]{\Delta t} u^{(n+1/2)}
@@ -94,7 +94,7 @@ For the non-GR case we use an explicit leapfrog integrator for both fields and t
 
 === "2.2. particle coordinate update"
 
-    <div id="plot2_2"></div>
+    <div class="d3-diagram" id="plot2_2"></div>
 
     $$
     \frac{\mathrm{d} x_i}{\mathrm{d} t} = \frac{u_i}{\gamma}
@@ -106,11 +106,11 @@ For the non-GR case we use an explicit leapfrog integrator for both fields and t
 
 === "3. Current deposition"
 
-    <div id="plot3_2"></div>
+    <div class="d3-diagram" id="plot3_2"></div>
 
 === "4.1. second Faraday half-step"
 
-    <div id="plot4"></div>
+    <div class="d3-diagram" id="plot4"></div>
 
     $$
     \frac{1}{c}\frac{\partial B_i}{\partial t} = -\frac{1}{\sqrt{h}}\varepsilon^{ijk}\partial_j\left(h_{kp} E^p\right)
@@ -122,7 +122,7 @@ For the non-GR case we use an explicit leapfrog integrator for both fields and t
 
 === "4.2. Ampere substep"
 
-    <div id="plot5"></div>
+    <div class="d3-diagram" id="plot5"></div>
     
     $$
     \frac{1}{c}\frac{\partial E_i}{\partial t} = \frac{1}{\sqrt{h}}\varepsilon^{ijk}\partial_j\left(h_{kp} B^p\right) - \frac{4\pi}{c} J^i
@@ -134,7 +134,7 @@ For the non-GR case we use an explicit leapfrog integrator for both fields and t
 
 === "5. final configuration"
 
-    <div id="plot6"></div>
+    <div class="d3-diagram" id="plot6"></div>
 
     $$
     t=t^{(n+1)}
@@ -211,7 +211,7 @@ for spec := range species {
 
 === "0. initial configuration"
 
-    <div id="grplot0"></div>
+    <div class="d3-diagram" id="grplot0"></div>
 
     $$
     t=t^{(n)}
@@ -219,7 +219,7 @@ for spec := range species {
 
 === "1.1. intermediate interpolation"
 
-    <div id="grplot1_1"></div>
+    <div class="d3-diagram" id="grplot1_1"></div>
 
     $$
     \begin{aligned}
@@ -230,7 +230,7 @@ for spec := range species {
 
 === "1.2. auxiliary field recovery"
 
-    <div id="grplot1_2"></div>
+    <div class="d3-diagram" id="grplot1_2"></div>
 
     $$
     E^{(n-1/2)} = \alpha D^{(n-1/2)} + \beta\times B^{(n-1/2)}
@@ -238,7 +238,7 @@ for spec := range species {
 
 === "1.3. auxiliary Faraday substep"
 
-    <div id="grplot1_3"></div>
+    <div class="d3-diagram" id="grplot1_3"></div>
 
     $$
     B^{(n-1)}\xrightarrow[\qquad E^{(n-1/2)}\qquad]{\Delta t} B^{(n)}
@@ -246,15 +246,15 @@ for spec := range species {
 
 === "2. particle push"
 
-    <div id="grplot2_1"></div>
+    <div class="d3-diagram" id="grplot2_1"></div>
 
 === "3. current deposition"
 
-    <div id="grplot3"></div>
+    <div class="d3-diagram" id="grplot3"></div>
 
 === "4.1. auxiliary field recovery"
 
-    <div id="grplot4_1"></div>
+    <div class="d3-diagram" id="grplot4_1"></div>
 
     $$
     E^{(n)} = \alpha D^{(n)} + \beta\times B^{(n)}
@@ -266,7 +266,7 @@ for spec := range species {
 
 === "4.2. Faraday substep"
 
-    <div id="grplot4_2"></div>
+    <div class="d3-diagram" id="grplot4_2"></div>
 
     $$
     B^{(n-1/2)}\xrightarrow[\qquad E^{(n)}\qquad]{\Delta t} B^{(n+1/2)}
@@ -274,7 +274,7 @@ for spec := range species {
 
 === "4.3. intermediate current interpolation"
 
-    <div id="grplot4_3"></div>
+    <div class="d3-diagram" id="grplot4_3"></div>
 
     $$
     J^{(n)} = \frac{1}{2}\left(J^{(n-1/2)}+J^{(n+1/2)}\right)
@@ -282,7 +282,7 @@ for spec := range species {
 
 === "4.4. auxiliary Ampere substep"
 
-    <div id="grplot4_4"></div>
+    <div class="d3-diagram" id="grplot4_4"></div>
 
     $$
     D^{(n-1/2)}\xrightarrow[\qquad H^{(n)},~J^{(n)}\qquad]{\Delta t} D^{(n+1/2)}
@@ -290,7 +290,7 @@ for spec := range species {
 
 === "4.5. auxiliary field recovery"
 
-    <div id="grplot4_5"></div>
+    <div class="d3-diagram" id="grplot4_5"></div>
 
     $$
     H^{(n+1/2)} = \alpha B^{(n+1/2)} - \beta\times D^{(n+1/2)}
@@ -298,7 +298,7 @@ for spec := range species {
 
 === "4.6. Ampere substep"
 
-    <div id="grplot4_6"></div>
+    <div class="d3-diagram" id="grplot4_6"></div>
 
     $$
     D^{(n)}\xrightarrow[\qquad H^{(n+1/2)},~J^{(n+1/2)}\qquad]{\Delta t} D^{(n+1)}
@@ -306,7 +306,7 @@ for spec := range species {
 
 === "5. final configuration"
 
-    <div id="grplot5"></div>
+    <div class="d3-diagram" id="grplot5"></div>
 
     $$
     t=t^{(n+1)}
@@ -400,8 +400,6 @@ $$
 
 Thus, depositing currents as $\bm{\mathcal{J}}^i$ and then converting to $\bm{J}^i=\bm{\mathcal{J}}^i/\sqrt{h}$ one can ensure that the exact charge conservation is maintained (see [charge-conservative current deposition](/how/pic#charge-conservative-current-deposition)).
 
-
-<div id="pic_scheme"></div>
 
 <script src="../numerics-srpic.js"></script>
 <script src="../numerics-grpic.js"></script>

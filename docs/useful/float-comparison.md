@@ -37,7 +37,7 @@ Because of this truncation, two different real numbers can have identical bit re
 
 The most rigorous way to compare floating-point numbers in this context is to estimate their so-called ULP-distance ([unit in the last place](https://en.wikipedia.org/wiki/Unit_in_the_last_place)). If we picture the real number line as a continuum, with the truncated floating-point representation we can only express a finite set of the real numbers; we call these numbers float-representable. Let's consider an example. Below is the real number line, where we tag only the single precision floating-representable numbers between `1.0f` and `1.0f + 3e-7f`:
 
-<div id="plotulps0"></div>
+<div class="d3-diagram" id="plotulps0"></div>
 
 We see that between the numbers `1.0f` and `1.0f + 3e-7f` there are only $2$ distinct float-representable numbers. The ULP distance between these two numbers is, thus, $3$, or $\textrm{ULPd}_{32}(1, 1.0000003) = 3$ (the subscript $32$ denotes the single precision). So given this, technically, two real numbers, $a$ and $b$, are "equal" from the 32-bit floating-representation point of view, only if $\textrm{ULPd}_{32}(a, b) = 0$.
 

@@ -1,14 +1,51 @@
 /* d3 */
 
-#d3-code-structure text {
+.d3-diagram text {
   font-family: 'JetBrains Mono', monospace;
   font-size: 1.0em;
 }
 
-[data-md-color-scheme="slate"] #d3-code-structure text tspan {
-  fill: white;
+[data-md-color-scheme="slate"] {
+
+  .d3-diagram text tspan {
+    fill: white;
+  }
+
+  .d3-diagram .label {
+    fill: var(--md-default-fg-color--light);
+  }
 }
 
-[data-md-color-scheme="default"] #d3-code-structure text tspan {
-  fill: black;
+[data-md-color-scheme="default"] {
+
+  .d3-diagram text tspan {
+    fill: black;
+  }
+}
+
+.d3-diagram .helper-line {
+  stroke: var(--md-default-fg-color);
+  stroke-opacity: 0.25;
+}
+
+.d3-diagram .label,
+.d3-diagram .tick text {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 16px;
+}
+
+@media (max-width: 992px) {
+
+  .d3-diagram .label,
+  .d3-diagram .tick text {
+    font-size: .5rem;
+  }
+}
+
+.d3-diagram .arrowhead {
+  fill: var(--md-default-fg-color);
+}
+
+.d3-diagram .d3-katex {
+  font-size: 1.1em;
 }

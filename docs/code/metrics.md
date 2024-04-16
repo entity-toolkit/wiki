@@ -17,13 +17,20 @@ To understand how metrics are implemented in Entity, one must first understand t
 
 !!! Example "Qspherical coordinates"
 
-    All qspherical metrics (`QSpherical`, `QKerrSchild`) take spherical coordinates as their base $(r,\theta,\phi)$, then [stretch them to quasi-spherical coordinates](../numerics/coords.md) $(\xi,\eta,\phi)$, and finally map them to code-unit coordinates $(x^1,x^2,x^3)$.
+    All qspherical metrics (`QSpherical`, `QKerrSchild`) take spherical coordinates as their base $(r,\theta,\phi)$, then [stretch them to quasi-spherical coordinates](../fun/coords.md) $(\xi,\eta,\phi)$, and finally map them to code-unit coordinates $(x^1,x^2,x^3)$.
 
     $$
     \begin{CD}
-     (r,\theta,\phi) @>\text{stretch}>{\xi=\log{(r-r_0)},~~~\theta = x_2 + 2h \eta (\pi - 2 \eta) (\pi - \eta) / \pi^2,~~~\phi=\phi}> (\xi,\eta,\phi) @>\text{map}>{x^1 = (\xi-\xi_{\rm min})/n_1,~...}> (x^1,x^2,x^3)
+     (r,\theta,\phi) @>\text{stretch}>> (\xi,\eta,\phi) @>\text{map}>> (x^1,x^2,x^3)
     \end{CD}
     $$
+
+    where stretching is done via $\xi=\log{(r-r_0)}$, $\theta = x_2 + 2h \eta (\pi - 2 \eta) (\pi - \eta) / \pi^2$ ($\eta$ set implicitly), and mapping -- via $x^1 = (\xi - \xi_{\rm min})/n_1$, etc.
+
+    The diagram below demonstrates the stretching of the quasi-spherical coordinates in the $\xi$ direction, and how that maps to both the physical and code-unit coordinates. Here we stretch $r=[1, 90)$ logarithmically $\xi=\ln{r}$, and map it to $x^1=[0, 18)$ which coincides with our discretization. The result is a non-uniformly discretized grid with more cells focused towards the origin.
+
+    <div class="d3-diagram" id="plot-coord-stretch"></div>
+
 
 Vectors in Entity can also be defined in different bases. We typically define covariant and contravariant vectors in code-, $x^i$, and physical-, $x^I$, generally non-orthonormal coordinates: $u_i$, $u^i$, and $u_I$, $u^I$. We can also define a locally-flat orthonormal basis, $u_{\hat{i}}\equiv u^{\hat{i}}\equiv u^{\hat{I}}\equiv u_{\hat{I}}$, also called the tetrad basis. For special-relativistic metrics, tetrad basis is exactly the same in all points of space, and is thus global. For general-relativistic metrics, the tetrad basis is defined locally, and is different in each point of space.
 
@@ -316,6 +323,7 @@ classDiagram
   class Metric~Dimension~{
     +const char* Label$
     +Dimension PrtlDim$
+    +Metric MetricType$
     +Coord CoordType$
     +find_dxMin() real_t
     +h_~idx_t|idx_t~(coord_t~D~) real_t
@@ -394,3 +402,6 @@ classDiagram
   Metric <|-- KerrSchild0 : implements
   note "+: public\n-: private\n#: protected\nunderline: static constexpr\nitalic: virtual"
 ```
+
+{% include "html/d3js.html" %}
+<script src="../coord-stretching.js"></script>

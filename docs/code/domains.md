@@ -11,7 +11,7 @@ The main object which contains the information on global geometry of the domain 
 
 ```mermaid
 classDiagram
-  class Metadomain~Metric~{
+  class Metadomain~SimEngine, Metric~{
     +Dimension D$
     -uint g_ndomains
     -vector~int~ g_decomposition
@@ -33,7 +33,7 @@ classDiagram
     +finalValidityCheck()
     +metricCompatibilityCheck()
   }
-  class Domain~Metric~{
+  class Domain~SimEngine, Metric~{
     +Dimension D$
     -int m_index
     -vector~uint~ m_offset_ndomains

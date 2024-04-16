@@ -20,3 +20,11 @@
   -webkit-mask-image: var(--md-admonition-icon--code);
   mask-image: var(--md-admonition-icon--code);
 }
+
+.md-typeset .admonition {
+  font-size: 1em;
+}
+
+.md-typeset .admonition .katex-display {
+  font-size: 1.1em;
+}
