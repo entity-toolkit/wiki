@@ -84,9 +84,10 @@ document.addEventListener("DOMContentLoaded", () => {
     ),
   ];
 
-  zip(Ys, scales, ticks).forEach(([y, s, t], i) => {
+  zip(Ys, scales, ticks).map(([y, s, t], i) => {
     const ax = addXAxes(y, s, t);
     addArrowhead(ax, s);
+    return ax;
   });
 
   let line = d3.line();

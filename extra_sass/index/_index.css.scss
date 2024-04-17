@@ -46,33 +46,19 @@
   color: white;
 }
 
-.tag.framework,
-.tag.framework {
-  background-color: var(--color-one);
-}
+$contribgroups: (
+  "framework": "one",
+  "pic": "two",
+  "gr": "three",
+  "cubed-sphere": "four",
+  "mpi": "five",
+  "all-around": "six",
+);
 
-.tag.pic,
-.tag.pic {
-  background-color: var(--color-two);
-}
-
-.tag.gr,
-.tag.gr {
-  background-color: var(--color-three);
-}
-
-.tag.cubed-sphere,
-.tag.cubed-sphere {
-  background-color: var(--color-four);
-}
-
-#dev-team-alphabetical+ul .tag.all-around {
-  background-color: var(--border-color);
-}
-
-.tag.mpi,
-.tag.mpi {
-  background-color: var(--color-three);
+@each $gr, $num in $contribgroups {
+  .tag.#{$gr} {
+    background-color: #{map-get($light-palette, $num)};
+  }
 }
 
 #supporting-grants+p span {

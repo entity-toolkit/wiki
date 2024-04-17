@@ -3,7 +3,7 @@ hide:
   - footer
 ---
 
-!!! tip "tl;dr"
+!!! abstract "tl;dr"
 
     We use simplified floating-point (both single and double precision) comparison method in the code, which does not guarantee equality up to a single bit, but is good-enough for most practical purposes.
     

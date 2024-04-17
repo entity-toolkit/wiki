@@ -1,0 +1,76 @@
+---
+hide:
+  - footer
+---
+
+Two general places to find information on C++-specific questions are [cppreference](https://en.cppreference.com/w/) and [learncpp](https://www.learncpp.com/). For Kokkos-related questions, one can refer to the [Kokkos documentation](https://kokkos.org/kokkos-core-wiki/) as well as the [Kokkos tutorials](https://github.com/kokkos/kokkos-tutorials) for practical examples. For ADIOS2-related issues, refer to the [ADIOS2 documentation](https://adios2.readthedocs.io/en/latest/), and the [examples on their github](https://github.com/ornladios/ADIOS2/tree/master/examples).
+
+When not sure what a specific function does, or how to include a particular module, first check [the documentation](https://entity-toolkit.github.io/wiki) (you can do a keyword search). Another good option to figure things out on your own, is to look at how the particular modules/functions in questions are used in the unit tests (in the corresponding `tests/` directories). If non of that answers your questions, please feel free to open a [github issue](https://github.com/entity-toolkit/entity/issues).
+
+## Codestyle guide
+
+### General
+
+* Use `const` and `auto` declarations where possible.
+* For real-valued literals, use `ONE`, `ZERO`, `HALF` etc. instead of `1.0`, `0.0`, `0.5` to ensure the compiler will not need to cast. If the value is not defined as a macro, use `static_cast<real_t>(123.4)`.
+
+### Developers
+
+* Use `{}` in declarations to signify a null (placeholder) value for the given variable:
+  ```cpp
+  auto a { -1 }; // <- value of `a` will be changed later (-1 is a placeholder)
+  auto b = -1; // <- value of `b` is known at the time of declaration (but may change later)
+  const auto b = -1; // <- value of `b` is not expected to change later
+  ```
+* Each header file has to have a description at the top, consisting of the following fields:
+    * `@file` **[required]** the name of the file (as it should be included in other files)
+    * `@brief` **[required]** brief description of what the file contains
+    * `@implements` list of class/function/macros implementations
+        - structs/classes in this section have no prefix (templates are marked with `<>`)
+        - functions are marked with their return type, e.g. ` -> void`
+        - type aliases have a prefix `type`
+        - enums or enum-like objects are marked with `enum`
+        - macros have a prefix `macro`
+        - all of the above are also marked with their respective namespaces (if any): `namespace::`
+    * `@depends:` internal header dependencies (not including std or other external libraries)
+    * `@cpp:` list of cpp files that implement the header
+    * `@namespaces:` list of namespaces defined in the file
+    * `@macros:` list of macros that the file depends on
+    * `@note` any additional notes (stack as many as necessary)
+
+    !!! code "Example"
+
+        ```c++
+        /**
+          * @file output/particles.h
+          * @brief Defines the metadata for particle output
+          * @implements
+          *   - out::OutputParticle
+          * @cpp:
+          *   - particles.cpp
+          * @depends:
+          *   - enums.h
+          *   - utils/error.h
+          *   - output/utils/getspecies.h
+          */
+        ```
+
+* `#ifdef` macros should be avoided. Use C++17 type traits or `if constexpr ()` expressions to specialize functions and classes instead (ideally, specialize them explicitly). `#ifdef`-s are only acceptable in platform/library-specific parts of the code (e.g., `MPI_ENABLED`, `GPU_ENABLED`, `DEBUG`, etc.).
+
+* Header files should start with `#ifndef ... #define ...` and end with `#endif`; do not use `#pragma` guards. The name of the macro should be the same as the name of the file in uppercase, with underscores instead of dots and slashes. For example, for `global/utils/formatting.h`, the macro should be `GLOBAL_UTILS_FORMATTING_H`.
+
+### Recommendations
+
+* Do assertions on parameters and quantities whenever possible. Outside the kernels, use `raise::Error(message, HERE)` and `raise::ErrorIf(condition, message, HERE)` to throw exceptions. Inside the kernels, use `raise::KernelError(HERE, message, **args)`. To enable compile-time errors, use `static_assert(condition, message)`.
+
+* When writing class or function templates, it is always a good practice to ensure the template argument is valid (depending on the context). When doing that, use SFINAE (see, e.g., `arch/traits.h`) to test whether the type is valid. For example:
+  ```cpp
+  template <typename T>
+  using foo_t = decltype(&T::foo);
+
+  template <class B>
+  class A {
+    // compile-time fail if B does not have a foo() method
+    static_assert(traits::has_method<foo_t, B>::value, "B must have a foo() method");
+  };
+  ```

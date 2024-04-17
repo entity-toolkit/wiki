@@ -1,29 +1,42 @@
+.p5canvas {
+  input {
+    @include light-theme {
+      background-color: darken(map-get($light-palette, "bg"), 5%);
+    }
 
-/* p5 canvases */
+    @include dark-theme {
+      background-color: lighten(map-get($dark-palette, "bg"), 4%);
+    }
 
-.p5canvas input {
-  background-color: var(--md-admonition-bg-color);
-}
+    &,
+    button {
+      &:hover {
+        cursor: pointer;
+      }
+    }
 
-.p5canvas th {
-  min-width: 3rem !important;
-}
+    &[type="number"]:hover {
+      cursor: text;
+    }
 
-.p5canvas input {
-  width: 60px;
-}
+    width: 60px;
 
-.p5canvas input[type="range"] {
-  width: 120px;
-}
+    &[type="range"] {
+      width: 120px;
+    }
+  }
 
-.p5canvas button {
-  color: white;
-  padding: 10px 0px 10px 0px;
-  background-color: var(--md-primary-fg-color);
-}
+  th {
+    min-width: 3rem !important;
+  }
 
-.p5canvas button:hover {
-  background-color: var(--md-primary-fg-color--light);
-  cursor: pointer;
+  button {
+    color: white;
+    padding: 10px 0px 10px 0px;
+    background-color: var(--md-primary-fg-color);
+
+    &:hover {
+      background-color: var(--md-primary-fg-color--light);
+    }
+  }
 }

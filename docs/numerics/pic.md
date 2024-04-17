@@ -156,16 +156,16 @@ The pseudocode below roughly illustrates the particle pusher algorithm in SR.
 
 for spec := range species {
   q_ovr_m := spec.charge / spec.mass
-  for prtl := range spec.prtls { //(2)
+  for prtl := range spec.prtls { //(2)!
     if !prtl.is_alive {
       continue
     }
-    if spec.is_massive { //(3)
+    if spec.is_massive { //(3)!
       // 1. interpolate contravariant fields to particle position
       eU, bU := interpolate(em, prtl.x)
 
-      // 2. convert to global XYZ coordinates (4)
-      e, b := metric.transform_xyz[Idx::U, Idx::XYZ](eU, bU)
+      // 2. convert to global XYZ coordinates 
+      e, b := metric.transform_xyz[Idx::U, Idx::XYZ](eU, bU) // (4)!
 
       // 3. update particle momentum (e.g., using Boris algorithm)
       prtl.u = updateMomentum(prtl.u, e, b, q_ovr_m, dt)
@@ -187,9 +187,9 @@ for spec := range species {
 
     // 8. convert back to code basis
     prtl.x = metric.convert_xyz[Crd::XYZ, Crd::Cd](x)
-
-    // 9. apply boundary conditions (5)
-    prtl.x, prtl.u, prtl.x_old = boundary_conditions(prtl.x, prtl.u, prtl.x_old)
+    
+    // 9. apply boundary conditions
+    prtl.x, prtl.u, prtl.x_old = boundary_conditions(prtl.x, prtl.u, prtl.x_old) // (5)!
   }
 }
 
@@ -223,7 +223,7 @@ for spec := range species {
 
     $$
     \begin{aligned}
-    D^{(n-1/2)} &= \frac{1}{2}\left(D^{(n-1)}+D^{(n)}\right),\\\\
+    D^{(n-1/2)} &= \frac{1}{2}\left(D^{(n-1)}+D^{(n)}\right)\\\\
     B^{(n-1)} &= \frac{1}{2}\left(B^{(n-3/2)}+B^{(n-1/2)}\right)
     \end{aligned}
     $$
@@ -361,7 +361,7 @@ for spec := range species {
       prtl.u = metric.transform[Idx::T, Idx::D](uT)
 
       // 10. record the old position
-      prtl.x_old = prtl.x      
+      prtl.x_old = prtl.x
 
       // 11. update the coordinate using the geodesic equation
       prtl.x = geodesicPositionUpdate(prtl.x, prtl.u, dt)

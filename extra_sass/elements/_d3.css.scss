@@ -1,51 +1,49 @@
-/* d3 */
+.d3-diagram {
 
-.d3-diagram text {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 1.0em;
-}
-
-[data-md-color-scheme="slate"] {
-
-  .d3-diagram text tspan {
-    fill: white;
+  text,
+  .label {
+    font-family: $mono-font;
   }
 
-  .d3-diagram .label {
-    fill: var(--md-default-fg-color--light);
+  &#d3-code-structure text {
+    font-size: 1.0em;
   }
-}
 
-[data-md-color-scheme="default"] {
+  @include dark-theme {
+    text tspan {
+      fill: white;
+    }
 
-  .d3-diagram text tspan {
-    fill: black;
+    .label {
+      fill: var(--md-default-fg-color--light);
+    }
   }
-}
 
-.d3-diagram .helper-line {
-  stroke: var(--md-default-fg-color);
-  stroke-opacity: 0.25;
-}
-
-.d3-diagram .label,
-.d3-diagram .tick text {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 16px;
-}
-
-@media (max-width: 992px) {
-
-  .d3-diagram .label,
-  .d3-diagram .tick text {
-    font-size: .5rem;
+  @include light-theme {
+    text tspan {
+      fill: black;
+    }
   }
-}
 
-.d3-diagram .arrowhead {
-  fill: var(--md-default-fg-color);
-}
+  .helper-line {
+    stroke: var(--md-default-fg-color);
+    stroke-opacity: 0.25;
+  }
 
-.d3-diagram .d3-katex {
-  font-size: 1.1em;
+  .label,
+  .tick text {
+    @media (max-width: $layout-breakpoint-small) {
+      font-size: 10px;
+    }
+
+    font-size: 16px;
+  }
+
+  .arrowhead {
+    fill: var(--md-default-fg-color);
+  }
+
+  .d3-katex {
+    font-size: 1.1em;
+  }
 }

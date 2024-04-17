@@ -219,7 +219,7 @@ The `in` and `out` template arguments for the `convert<>` and `transform<>` func
 
     For Cartesian metric, transforming to `Idx::T` is equivalent to converting to `Idx::XYZ`, and similarly for the spherical metric, transforming to `Idx::T` is equivalent to converting to `Idx::Sph`.
 
-!!! example
+!!! code
 
     Metric component $1,1$ in the covariant basis, $h_{11}$, can be accessed via in the certain position `x_Code` in code units by calling (assuming `D` is the dimension of the metric): 
     ```c++
@@ -262,7 +262,8 @@ Below is a diagram demonstrating all the possible transformations.
       node distance=2cm,
       node/.style={rectangle, rounded corners, draw=black, fill=gray!20, minimum size=1cm, scale=1.5},
       arrow/.style={thick,<->,>=stealth},
-      dasharrow/.style={thick,dashed,<->,>=stealth}
+      dasharrow/.style={thick,dashed,<->,>=stealth},
+      scale=1.1, transform shape
   ]
 
   \node at (0.1, 0) (O) {};

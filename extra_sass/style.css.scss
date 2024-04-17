@@ -1,64 +1,113 @@
-:root>* {
-  --md-mermaid-font-family: 'JetBrains Mono', monospace;
+@use "sass:map";
+@use "sass:color";
+
+@import url('https://fonts.googleapis.com/css2?family=Slabo+13px&display=swap');
+
+@mixin title-font {
+  font-family: 'Slabo 13px', serif;
 }
 
+$mono-font: 'JetBrains Mono', monospace;
+$serif-font: 'DM Sans', serif;
+
+
+$layout-breakpoint-small: 960px;
+
+$light-palette: (
+  "one": hsl(209, 91%, 47%),
+  "two": hsl(253, 74%, 64%),
+  "three": hsl(288, 67%, 61%),
+  "four": hsl(318, 66%, 53%),
+  "five": hsl(218, 100%, 63%),
+  "six": hsl(350, 65%, 52%),
+  "bg": #ffffff,
+  "border": #ededed,
+);
+
+$dark-palette: (
+  "one": hsl(300, 43%, 13%),
+  "two": hsl(0, 0%, 18%),
+  "three": hsl(265, 54%, 21%),
+  "four": hsl(0, 11%, 11%),
+  "five": hsl(323, 65%, 29%),
+  "six": hsl(0, 100%, 17%),
+  "bg": #1e2129,
+  "border": #353940,
+);
+
+@mixin dark-theme {
+  [data-md-color-scheme="slate"] & {
+    @content;
+  }
+}
+
+@mixin light-theme {
+  [data-md-color-scheme="default"] & {
+    @content;
+  }
+}
+
+/* --------------------------------- global --------------------------------- */
 :root {
   font-variant-ligatures: normal;
   font-size: 1.25em;
-  --color-one-h: 209;
-  --color-one-s: 91%;
-  --color-one-l: 47%;
-
-  --color-two-h: 253;
-  --color-two-s: 74%;
-  --color-two-l: 64%;
-
-  --color-three-h: 288;
-  --color-three-s: 67%;
-  --color-three-l: 61%;
-
-  --color-four-h: 318;
-  --color-four-s: 66%;
-  --color-four-l: 53%;
-
-  --border-color-h: 218;
-  --border-color-s: 100%;
-  --border-color-l: 63%;
-
-  --color-one: hsl(var(--color-one-h), var(--color-one-s), var(--color-one-l));
-  --color-two: hsl(var(--color-two-h), var(--color-two-s), var(--color-two-l));
-  --color-three: hsl(var(--color-three-h), var(--color-three-s), var(--color-three-l));
-  --color-four: hsl(var(--color-four-h), var(--color-four-s), var(--color-four-l));
-  --border-color: hsl(var(--border-color-h), var(--border-color-s), var(--border-color-l));
 }
 
-[data-md-color-scheme="default"] {
-  --md-admonition-bg-color: hsl(232, 25%, 98%);
-  --gradient-color-one: hsl(300, 43%, 13%);
-  --gradient-color-two: hsl(0, 0%, 18%);
-  --gradient-color-three: hsl(265, 54%, 21%);
-  --gradient-color-four: hsl(0, 11%, 11%);
+h1,
+h2,
+h3,
+h4 {
+  @include title-font;
 }
 
-[data-md-color-scheme="slate"] {
-  --md-admonition-bg-color: hsl(232, 15%, 25%);
-  --md-typeset-a-color: hsl(231, 100%, 64%);
-  --gradient-color-one: var(--color-one);
-  --gradient-color-two: var(--color-two);
-  --gradient-color-three: var(--color-three);
-  --gradient-color-four: var(--color-four);
+/* ----------------------------- code highlight ----------------------------- */
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-.md-header {
-  box-shadow: none;
+:root>* {
+  --md-code-hl-special-color: #720dce;
+  --md-code-hl-number-color: #4343ce;
+  --md-code-hl-function-color: #720dcb;
+  --md-code-hl-constant-color: #4343ce;
+  --md-code-hl-keyword-color: #ce3e4c;
+  --md-code-hl-string-color: #228B22;
+  --md-code-hl-name-color: #26282f;
+  --md-code-hl-operator-color: #c23e7a;
+  --md-code-hl-punctuation-color: #26282f;
+  --md-code-hl-comment-color: #6d9696;
+  --md-code-hl-generic-color: #DAA520;
+  --md-code-hl-variable-color: #4343d1;
+  --md-code-fg-color: #26282f;
+  --md-code-bg-color: #fafafa;
+  --md-code-hl-color: rgb(23, 171, 240);
 }
 
-/* Home */
+[data-md-color-scheme="slate"]>* {
+  --md-code-hl-special-color: #d09bff;
+  --md-code-hl-number-color: #8babff;
+  --md-code-hl-function-color: #e3a43e;
+  --md-code-hl-constant-color: #8babff;
+  --md-code-hl-keyword-color: #df7467;
+  --md-code-hl-string-color: #abc9ff;
+  --md-code-hl-name-color: #e1ecf4;
+  --md-code-hl-operator-color: #df7467;
+  --md-code-hl-punctuation-color: #e1ecf4;
+  --md-code-hl-comment-color: #7a8192;
+  --md-code-hl-generic-color: #DAA520;
+  --md-code-hl-variable-color: #95b7ff;
+  --md-code-fg-color: #e1ecf4;
+  --md-code-bg-color: #232730;
+  --md-code-hl-color: rgb(84, 140, 245);
+}
 
-@import "index/_index.css.scss";
-@import "index/_timeline.css.scss";
+.hide-overflow-x code {
+  white-space: pre-wrap !important;
+}
 
-/* Header */
+
+/* --------------------------------- header --------------------------------- */
 
 @keyframes gradient {
   0% {
@@ -75,9 +124,16 @@
 }
 
 header {
-  background: linear-gradient(-45deg, var(--gradient-color-one), var(--gradient-color-two), var(--gradient-color-three), var(--gradient-color-four));
-  background-size: 400% 400%;
+  background-size: 400% 400% !important;
   animation: gradient 15s ease infinite;
+
+  @include light-theme {
+    background: linear-gradient(-45deg, map-get($light-palette, "one"), map-get($light-palette, "two"), map-get($light-palette, "three"), map-get($light-palette, "four"));
+  }
+
+  @include dark-theme {
+    background: linear-gradient(-45deg, map-get($dark-palette, "one"), map-get($dark-palette, "two"), map-get($dark-palette, "three"), map-get($dark-palette, "four"));
+  }
 }
 
 .md-header__source {
@@ -85,81 +141,101 @@ header {
   max-width: 11.7rem;
 }
 
+/* ------------------------------ table groups ------------------------------ */
 
-/* Code blocks */
+$groups: (
+  "tr-gr1": "one",
+  "tr-gr2": "two",
+  "tr-gr3": "four"
+);
 
-[data-md-color-scheme="slate"]:root>* {
-  --md-code-hl-keyword-color: #BD96C2;
-  --md-code-hl-punctuation-color: #74B0B1;
-  --md-code-hl-operator-color: #72AEAF;
-  --md-code-hl-name-color: #CED3DD;
-  --md-code-hl-number-color: #EA9662;
-  --md-code-hl-function-color: #7198C7;
-  --md-code-hl-string-color: #A2C699;
-  --md-code-hl-comment-color: #67737D;
+@each $gr, $num in $groups {
+  .#{$gr} td {
+    position: relative;
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      opacity: 0.15;
+      pointer-events: none;
+      background: map-get($light-palette, $num);
+    }
+  }
+
+  span[#{$gr}] {
+    width: 20px;
+    height: 1em;
+    display: inline-block;
+    opacity: 0.4;
+    background-color: map-get($light-palette, $num);
+  }
 }
 
-.hide-overflow-x code {
-  white-space: pre-wrap !important;
+
+/* tabs */
+.tabbed-content {
+  border: 1px solid;
+  border-top: none;
+
+  @include light-theme {
+    background-color: darken(map-get($light-palette, "bg"), 3%);
+    border-color: darken(map-get($light-palette, "border"), 3%);
+  }
+
+  @include dark-theme {
+    background-color: lighten(map-get($dark-palette, "bg"), 2%);
+    border-color: lighten(map-get($dark-palette, "border"), 2%);
+  }
 }
 
-/* tables */
-.tr-gr1 td,
-.tr-gr2 td,
-.tr-gr3 td {
-  position: relative;
+[data-md-color-scheme="default"] {
+  --tab-bg-color: #ececec;
+  --tab-border-color: #d9d9d9;
 }
 
-.tr-gr1 td::before,
-.tr-gr2 td::before,
-.tr-gr3 td::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  opacity: 0.1;
-  pointer-events: none;
+[data-md-color-scheme="slate"] {
+  --tab-bg-color: #343946;
+  --tab-border-color: #2d2f36;
 }
 
-span[tr-gr1],
-span[tr-gr2],
-span[tr-gr3] {
-  width: 20px;
-  height: 1em;
-  display: inline-block;
-  opacity: 0.4;
+.js .md-typeset .tabbed-labels::before {
+  height: 2rem;
+  background: var(--tab-bg-color) !important;
+  border-radius: 0.25rem 0.25rem 0 0;
+  border-bottom: 2px solid var(--tab-border-color);
+  z-index: -1;
 }
 
-.tr-gr1 td::before {
-  background: var(--color-one);
-}
+/* ------------------------------- admonitions ------------------------------ */
 
-.tr-gr2 td::before {
-  background: var(--color-two);
-}
+.md-typeset .admonition {
+  font-size: 0.9em;
 
-.tr-gr3 td::before {
-  background: var(--color-three);
-}
+  .katex-display {
+    font-size: 1.0em;
+  }
 
-span[tr-gr1] {
-  background-color: var(--color-one);
-}
+  @include light-theme {
+    background-color: darken(map-get($light-palette, "bg"), 3%);
+    --md-code-bg-color: #{darken(map-get($light-palette, "bg"), 7%)};
+  }
 
-span[tr-gr2] {
-  background-color: var(--color-two);
-}
-
-span[tr-gr3] {
-  background-color: var(--color-four);
+  @include dark-theme {
+    background-color: lighten(map-get($dark-palette, "bg"), 2%);
+    --md-code-bg-color: #{lighten(map-get($dark-palette, "bg"), 5%)};
+  }
 }
 
 /* extra */
 
+@import "index/_index.css.scss";
 @import "elements/_admonitions.css.scss";
 @import "elements/_katex.css.scss";
 @import "elements/_p5.css.scss";
 @import "elements/_d3.css.scss";
 @import "elements/_tikz.css.scss";
+@import "elements/_mermaid.css.scss";

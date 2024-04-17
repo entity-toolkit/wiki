@@ -77,7 +77,7 @@ and particle quantities
 
 All of the vector fields are interpolated to cell centers before the output, and converted to orthonormal basis. The particle-based moments are smoothed with a stencil (specified in the input file; `mom_smooth`) for each particle.
 
-!!! failure "Can one track particles at different times?"
+!!! warning "Can one track particles at different times?"
 
     Particle tracking (outputting the same batch of particles at every timestep) is unfortunately not yet implemented, and will unlikely be available due to limitations imposed by the nature of GPU computations.
 
@@ -205,7 +205,7 @@ species_4.isel(t=-1)\
                 label=species_4.attrs["label"])
 ```
 
-!!! note "`isel` indexing"
+!!! code "`isel` indexing"
 
     `isel(t=-1)` selects the last time step.
 
@@ -223,6 +223,6 @@ species_4.isel(t=-1)\
 ```
 
 
-!!! note "`nt2` documentation"
+!!! code "`nt2` documentation"
 
     You can access the documentation of the `nt2` functions and methods of the `Data` object by calling `nt2.<function>?` in the jupyter notebook or `help(nt2.<function>)` in the python console.

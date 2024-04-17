@@ -42,7 +42,7 @@ hide:
 * 💁‍♂️ Alexander Chernoglazov {[@SChernoglazov](https://github.com/SChernoglazov): PIC}
 * :tea: Benjamin Crinquand {[@bcrinquand](https://github.com/bcrinquand): GR, cubed-sphere}
 * :bubble_tea: Alisa Galishnikova {[@alisagk](https://github.com/alisagk): GR}
-* :coffee: Hayk Hakobyan {[@haykh](https://github.com/haykh): framework, PIC, GR, cubed-sphere}
+* :coffee: Hayk Hakobyan {[@haykh](https://github.com/haykh): framework, PIC, GR, cubed-sphere, MPI}
 * :potato: Jens Mahlmann {[@jmahlmann](https://github.com/jmahlmann): cubed-sphere, framework, MPI}
 * :dolphin: Sasha Philippov {[@sashaph](https://github.com/sashaph): all-around}
 * 🤷‍♂️ Arno Vanthieghem {[@vanthieg](https://github.com/vanthieg): PIC, framework}
@@ -50,7 +50,7 @@ hide:
 
 !!! warning "Wiki is under construction"
 
-    This wiki page is under active construction and does not properly reflect the current development stage. If you don't find answers to your questions, please feel free to contact via email [haykh[dot]astro[at]gmail](mailto:haykh.astro+entity@gmail.com) or submit a [github issue](https://github.com/entity-toolkit/entity/issues). If you are interested in working with us, please contact us at [haykh[dot]astro[at]gmail](mailto:haykh.astro+entity@gmail.com).
+    This wiki page is under active construction and does not properly reflect the current development stage. If you don't find answers to your questions, please feel free to contact via email [haykh[dot]astro[at]gmail](mailto:haykh.astro+entity@gmail.com) or submit a [github issue](https://github.com/entity-toolkit/entity/issues). If you are interested in working with us, please contact us via the same email.
 
 <!-- ### Timeline -->
 

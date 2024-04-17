@@ -1,19 +1,40 @@
 [data-md-color-scheme="default"] {
   --tikz-text-color: black;
-  --tikz-bg-color: --color-one;
+  --tikz-bg-color: #{map-get($light-palette, "one")};
 }
 
 [data-md-color-scheme="slate"] {
   --tikz-text-color: white;
-  --tikz-bg-color: --color-two;
+  --tikz-bg-color: #{map-get($dark-palette, "one")};
 }
 
 .tikz {
+
   path {
     fill: none;
-    stroke: var(--tikz-text-color);
   }
-  g>text, svg>g>g>g>g>g>path, svg>g>g>g>g>g>g>path {
-    fill: var(--tikz-text-color);
+
+  @include light-theme {
+    path {
+      stroke: black;
+    }
+
+    g>text,
+    svg>g>g>g>g>g>path,
+    svg>g>g>g>g>g>g>path {
+      fill: black;
+    }
+  }
+
+  @include dark-theme {
+    path {
+      stroke: white;
+    }
+
+    g>text,
+    svg>g>g>g>g>g>path,
+    svg>g>g>g>g>g>g>path {
+      fill: white;
+    }
   }
 }
