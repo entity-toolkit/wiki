@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   const CONFIGS = {
-    dataURL: "https://gist.githubusercontent.com/haykh/f075d7992cda4380dd95514fc8fe55b9/raw/0191d6b06bcc68a77904b658b21c2397ffb4f1d0/entity-code-struct.json",
+    dataURL: "https://gist.githubusercontent.com/haykh/f075d7992cda4380dd95514fc8fe55b9/raw/7540871d03fce2d4ad21f1f8fc50826bfa163201/entity-code-struct.json",
     width: 928,
     height: 720,
     root_height: 60,

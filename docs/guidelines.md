@@ -7,12 +7,35 @@ Two general places to find information on C++-specific questions are [cppreferen
 
 When not sure what a specific function does, or how to include a particular module, first check [the documentation](https://entity-toolkit.github.io/wiki) (you can do a keyword search). Another good option to figure things out on your own, is to look at how the particular modules/functions in questions are used in the unit tests (in the corresponding `tests/` directories). If non of that answers your questions, please feel free to open a [github issue](https://github.com/entity-toolkit/entity/issues).
 
+!!! note "Submitting a github issue"
+
+    When submitting a github issue, please make sure to include all the parameters of the simulation as well as the code version tag and the git hash of the commit you are using. These are automatically printed into `stdout` at the beginning of the simulation, and are also saved into `<simname>.info` file. If you believe the problem is coming from your problem generator, please also include the problem generator file. 
+
 ## Codestyle guide
 
 ### General
 
 * Use `const` and `auto` declarations where possible.
+  
 * For real-valued literals, use `ONE`, `ZERO`, `HALF` etc. instead of `1.0`, `0.0`, `0.5` to ensure the compiler will not need to cast. If the value is not defined as a macro, use `static_cast<real_t>(123.4)`.
+  
+* In problem generators, it is usually a good practice to enumerate all the code configurations the code works with. For instance, if your code only works with 3D Minkowski metric in SRPIC, include the following in your `PGen` class:
+  ```c++
+  template <SimEngine::type S, class M>
+  struct PGen : public ProblemGenerator<S, M> {
+    static constexpr auto engines {
+      traits::compatible_with<SimEngine::SRPIC>::value
+    };
+    static constexpr auto metrics {
+      traits::compatible_with<Metric::Minkowski>::value
+    };
+    static constexpr auto dimensions {
+      traits::compatible_with<Dim::_3D>::value
+    };
+    // ...
+  };
+  ```
+  This will allow the code to throw a compile-time error if the problem generator is used with an incompatible configuration.
 
 ### Developers
 
@@ -59,18 +82,24 @@ When not sure what a specific function does, or how to include a particular modu
 
 * Header files should start with `#ifndef ... #define ...` and end with `#endif`; do not use `#pragma` guards. The name of the macro should be the same as the name of the file in uppercase, with underscores instead of dots and slashes. For example, for `global/utils/formatting.h`, the macro should be `GLOBAL_UTILS_FORMATTING_H`.
 
+* There is no difference between `.h` and `.hpp` files as both indicate C++ header files. As a consistency convention, we use `.h` for common headers which may be included from multiple `.cpp` files (e.g., metrics), while `.hpp` are very specific headers for only a single (or a couple of) `.cpp` file (e.g. kernels).
+
 ### Recommendations
 
-* Do assertions on parameters and quantities whenever possible. Outside the kernels, use `raise::Error(message, HERE)` and `raise::ErrorIf(condition, message, HERE)` to throw exceptions. Inside the kernels, use `raise::KernelError(HERE, message, **args)`. To enable compile-time errors, use `static_assert(condition, message)`.
+* Do assertions on parameters and quantities whenever possible. Outside the kernels, use `raise::Error(message, HERE)` and `raise::ErrorIf(condition, message, HERE)` to throw exceptions. Inside the kernels, use `raise::KernelError(HERE, message, **args)`. To enable compile-time errors, use `static_assert(condition, message)`. The `HERE` keyword is macro that includes the filename and line number in the error message.
 
 * When writing class or function templates, it is always a good practice to ensure the template argument is valid (depending on the context). When doing that, use SFINAE (see, e.g., `arch/traits.h`) to test whether the type is valid. For example:
   ```cpp
   template <typename T>
   using foo_t = decltype(&T::foo);
 
+  template <typename T>
+  using b_t = decltype(&T::b);
+
   template <class B>
   class A {
-    // compile-time fail if B does not have a foo() method
-    static_assert(traits::has_method<foo_t, B>::value, "B must have a foo() method");
+    // compile-time fail if B does not have a `foo()` method or a `b` member
+    static_assert(traits::has_method<foo_t, B>::value, "B must have a `foo()` method");
+    static_assert(traits::has_member<b_t, B>::value, "B must have a `b` member");
   };
   ```

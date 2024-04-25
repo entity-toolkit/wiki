@@ -5,7 +5,7 @@ hide:
 
 # Code structure
 
-Current code structure in the `dev/bcs` branch.
+Current code structure in the `v1.0.0` branch.
 
 !!! hint "The diagram is interactive!"
 

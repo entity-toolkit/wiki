@@ -30,6 +30,12 @@
     stroke-opacity: 0.25;
   }
 
+  .line {
+    stroke: var(--md-default-fg-color);
+    stroke-width: 2;
+    fill: none;
+  }
+
   .label,
   .tick text {
     @media (max-width: $layout-breakpoint-small) {

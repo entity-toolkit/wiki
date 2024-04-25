@@ -7,15 +7,18 @@ nav:
   - Home: index.md
   - Getting started:
       - Compiling/running: getting-started/compile-run.md
-      - Writing a problem generator: getting-started/pgen.md
+      - Input file: getting-started/inputfile.md
+      # - Writing a problem generator: getting-started/pgen.md
       - Understanding the units: getting-started/units.md
       - Output & visualization: getting-started/vis.md
       - Documenting: getting-started/docs.md
   - 3+1 formulation: "3p1.md"
   - PIC algorithm: "numerics/pic.md"
   - Understanding the code:
-      - "code/metrics.md"
       - "code/domains.md"
+      - "code/fields_particles.md"
+      - "code/metrics.md"
+      - "code/problem_generators.md"
       - "code/structure.md"
   - Guidelines: "guidelines.md"
   - Useful things:

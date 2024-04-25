@@ -5,29 +5,29 @@ hide:
 
 # Output & visualization
 
-*THIS SECTION IS OUTDATED AND WILL SOON BE UPDATED*
-
 To enable the runtime output of the simulation data, configure the code with the `-D output=ON` flag. As a backend `Entity` uses the open-source [ADIOS2](https://github.com/ornladios/ADIOS2) library compiled in-place. The output is written in the [HDF5](https://adios2.readthedocs.io/en/latest/engines/engines.html#hdf5) format, however, more formats will be added in the future. 
 
 The output is configured using the following configurations in the `input` file:
 
 ```toml
 [simulation]
-title   = "MySimulation" # (5)!
+  name   = "MySimulation" # (5)!
 
-# ...
+  # ...
 
 [output]
-format          = "HDF5" # (2)!
-fields          = ["B", "E", "Rho_1_2", ...] # (1)!
-particles       = ["X_1_2", "U_3_4", "W"] # (7)!
-interval        = 100 # (3)!
-interval_time   = 0.1 # (8)!
-mom_smooth      = 2 # (4)!
-fields_stride   = 2 # (9)!
-prtl_stride     = 10 # (6)!
-as_is           = false # (10)!
-ghosts          = false # (11)!
+  format          = "HDF5" # (2)!
+  fields          = ["B", "E", "Rho_1_2", ...] # (1)!
+  particles       = [1, 2, 4] # (7)!
+  interval        = 100 # (3)!
+  interval_time   = 0.1 # (8)!
+  mom_smooth      = 2 # (4)!
+  fields_stride   = 2 # (9)!
+  prtl_stride     = 10 # (6)!
+
+  [output.debug]
+    as_is           = false # (10)!
+    ghosts          = false # (11)!
 ```
 
 1. fields to write
@@ -36,7 +36,7 @@ ghosts          = false # (11)!
 4. smoothing stencil size for moments (in the number of cells) [defaults to 1]
 5. title is used for the output filename
 6. stride used for particle output (write every `prtl_stride`-th particle) [defaults to 100]
-7. particle quantities to write
+7. particle species to output
 8. output interval in time units (overrides `interval` if specified)
 9. stride used for field output (write every `fields_stride`-th cell) [defaults to 1]
 10. write the field quantities as-is (without conversion/interpolation) [defaults to false]
@@ -46,34 +46,35 @@ Output is written in the run directory in a single `hdf5` file: `MySimulation.h5
 
 Following is the list of the supported fields
 
-| Field name  | Description                       | Normalization         |
-|---          |---                                |---                    |
-| `E`         | Electric field (all components)   | $B_0$                 |
-| `B`         | Magnetic field (all components)   | $B_0$                 |
-| `D`         | GR: electric field (all components)   | $B_0$                 |
-| `H`         | GR: aux. magnetic field (all components)   | $B_0$                 |
-| `J`         | Current density (all components)  | $4\pi q_0 n_0$        |
-| `Rho`       | Mass density                      | $m_0 n_0$             |
-| `Charge`    | Charge density                    | $q_0 n_0$             |
-| `N`         | Number density                    | $n_0$                 |
-| `Nppc`      | Raw number of particles per cell  | dimensionless         |
-| `Nppc`      | Raw number of particles per cell  | dimensionless         |
-| `Tij`       | Energy-momentum tensor (all components) | $m_0 n_0$       |
-| `divE`      | Divergence of $E$  | arb. units         |
-| `divD`      | GR: divergence of $D$  | arb. units         |
-| `A`         | GR: 2D vector potential $A_\varphi$  | arb. units         |
+| Field name | Description                              | Normalization  |
+| ---------- | ---------------------------------------- | -------------- |
+| `E`        | Electric field (all components)          | $B_0$          |
+| `B`        | Magnetic field (all components)          | $B_0$          |
+| `D`        | GR: electric field (all components)      | $B_0$          |
+| `H`        | GR: aux. magnetic field (all components) | $B_0$          |
+| `J`        | Current density (all components)         | $4\pi q_0 n_0$ |
+| `Rho`      | Mass density                             | $m_0 n_0$      |
+| `Charge`   | Charge density                           | $q_0 n_0$      |
+| `N`        | Number density                           | $n_0$          |
+| `Nppc`     | Raw number of particles per cell         | dimensionless  |
+| `Nppc`     | Raw number of particles per cell         | dimensionless  |
+| `Tij`      | Energy-momentum tensor (all components)  | $m_0 n_0$      |
+| `divE`     | Divergence of $E$                        | arb. units     |
+| `divD`     | GR: divergence of $D$                    | arb. units     |
+| `A`        | GR: 2D vector potential $A_\varphi$      | arb. units     |
 
 and particle quantities
 
-| Particle quantity | Description | Units |
-|-------------------|-------------|-------|
-| `X` | Coordinates (all components) | physical |
-| `U` | Four-velocities in the orthonormal frame (all components) | dimensionless |
-| `W` | Weights | dimensionless |
+| Particle quantity | Description                                               | Units         |
+| ----------------- | --------------------------------------------------------- | ------------- |
+| `X`               | Coordinates (all components)                              | physical      |
+| `U`               | Four-velocities in the orthonormal frame (all components) | dimensionless |
+| `W`               | Weights                                                   | dimensionless |
 
 !!! note "Refining fields and particle quantities for the output"
 
-    One can specify particular components to output for the `Tij` fields: `T0i` will output the `T00`, `T01`, and `T02` components, while `Tii` will output only the diagonal components: `T11`, `T22`, and `T33`. One can also specify the particle species which will be used to compute the moments or output particle quantities: `Rho_1` (density of species 1), `N_2_3` (number density of species 2 and 3), `Tij_1_3` (energy-momentum tensor for species 1 and 3), etc. Or for the particle quantities: `X_1_2` will write the coordinates of particles of species 1 and 2 only. If no species are specified, the moments will be computed for all the species with $m_s \ne 0$.
+    One can specify particular components to output for the `Tij` fields: `T0i` will output the `T00`, `T01`, and `T02` components, while `Tii` will output only the diagonal components: `T11`, `T22`, and `T33`, and `Tij` will output all the 6 components. One can also specify the particle species which will be used to compute the moments or output particle quantities: `Rho_1` (density of species 1), `N_2_3` (number density of species 2 and 3), `Tij_1_3` (energy-momentum tensor for species 1 and 3), etc. 
+    <!-- Or for the particle quantities: `X_1_2` will write the coordinates of particles of species 1 and 2 only. If no species are specified, the moments will be computed for all the species with $m_s \ne 0$. -->
 
 All of the vector fields are interpolated to cell centers before the output, and converted to orthonormal basis. The particle-based moments are smoothed with a stencil (specified in the input file; `mom_smooth`) for each particle.
 
@@ -90,7 +91,7 @@ To start using `nt2.py`, it is recommended to create a python virtual environmen
 ```shell
 python3 -m venv .venv
 source .venv/bin/activate # (1)!
-pip install -r vis/requirements.txt # (2)!
+pip install nt2py # (2)!
 ```
 
 1. Now all the packages will be installed in the `.venv` directory which you can remove at any time without affecting the system.
@@ -99,13 +100,11 @@ pip install -r vis/requirements.txt # (2)!
 Now simply import the `nt2` module and load the output data:
 
 ```python
-import nt2 # (1)!
-data = nt2.Data("MySimulation.h5")
+import nt2.read as nt2r
+data = nt2r.Data("MySimulation.h5") # (1)!
 ```
 
-1. If working outside the `vis/` directory you might need to add the `vis/` to your path: `import sys; sys.path.append("vis")` in order to import `nt2`.
-
-Note, that even though the `h5` file can be quite large, the data is loaded lazily, so the memory consumption is minimal; data chunks are only loaded when they are actually needed for the analysis or visualization.
+1. Note, that even though the `h5` file can be quite large, the data is loaded lazily, so the memory consumption is minimal; data chunks are only loaded when they are actually needed for the analysis or visualization.
 
 ### Accessing fields
 
@@ -174,6 +173,11 @@ or make "waterfall" plots, collapsing the quantity along one of the axis, and pl
   .plot(yincrease=False)
 ```
 
+
+!!! code "`nt2py` documentation"
+
+    You can access the documentation of the `nt2py` functions and methods of the `Data` object by calling `nt2r.<function>?` in the jupyter notebook or `help(nt2r.<function>)` in the python console.
+<!-- 
 ### Accessing particles
 
 Particles are stored in the same `data` object and are lazily preloaded when one calls `nt2.Data(...)`, as we did above. To access the particle data, use `data.particles`, which returns a python dictionary where the key is particles species index, and the value is an `xarray` Dataset with the particle data. For example, to access the `x` and `y` coordinates of the first species, one can do:
@@ -222,7 +226,4 @@ species_4.isel(t=-1)\
                 label=species_4.attrs["label"])
 ```
 
-
-!!! code "`nt2` documentation"
-
-    You can access the documentation of the `nt2` functions and methods of the `Data` object by calling `nt2.<function>?` in the jupyter notebook or `help(nt2.<function>)` in the python console.
+-->

@@ -5,6 +5,16 @@ hide:
 
 # Metrics
 
+!!! abstract "Relevant headers"
+
+    - `metrics/metric_base.h`
+    - `metrics/minkowski.h`
+    - `metrics/spherical.h`
+    - `metrics/qspherical.h`
+    - `metrics/kerr_schild.h`
+    - `metrics/qkerr_schild.h`
+    - `metrics/kerr_schild_0.h`
+
 Metrics are key objects of the Entity framework. Superimposed on the discretized mesh, they define the spacetime geometry of the simulation and provide necessary functions for converting coordinates and transforming vectors from one basis to another.
 
 ## Coordinate systems and bases
@@ -394,6 +404,9 @@ classDiagram
     -eta2theta(real_t) real_t
     -theta2eta(real_t) real_t
   }
+  class Mesh~Metric~{
+    see mesh...*
+  }
   MetricBase <|-- Metric : inherits
   Metric <|-- Minkowski : implements
   Metric <|-- Spherical : implements
@@ -401,6 +414,7 @@ classDiagram
   Metric <|-- KerrSchild : implements
   Metric <|-- QKerrSchild : implements
   Metric <|-- KerrSchild0 : implements
+  Mesh --* Metric : contains
   note "+: public\n-: private\n#: protected\nunderline: static constexpr\nitalic: virtual"
 ```
 
