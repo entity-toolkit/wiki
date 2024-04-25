@@ -17,7 +17,7 @@ The output is configured using the following configurations in the `input` file:
 
 [output]
   format          = "HDF5" # (2)!
-  fields          = ["B", "E", "Rho_1_2", ...] # (1)!
+  fields          = ["B", "E", "Rho_1_2", "..."] # (1)!
   particles       = [1, 2, 4] # (7)!
   interval        = 100 # (3)!
   interval_time   = 0.1 # (8)!
