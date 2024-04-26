@@ -9,7 +9,25 @@ To compile the code you need to have the following dependencies installed:
 
   - [`CMake`](https://cmake.org/) (version >= 3.16; verify by running `cmake --version`).
   - [`GCC`](https://gcc.gnu.org/) (version >= 8.3.1; verify by running `g++ --version`), [`llvm`](https://llvm.org/, tested on version >= 11; verify by running `clang++ --version`) or [Intel C++ compiler](https://www.intel.com/content/www/us/en/developer/tools/oneapi/dpc-compiler.html) (version >= 19.1 or higher; verify by running `icx --version`).
-  - to compile for GPUs, you need to have [`CUDA`](https://developer.nvidia.com/cuda-toolkit) (version >= 11.0; verify by running `nvcc --version`) installed.
+  - to compile for GPUs, you need to have the [`CUDA toolkit`](https://developer.nvidia.com/cuda-toolkit) installed (version >= 11.0; verify by running `nvcc --version`).
+  - `MPI` (e.g., `OpenMPI`, `MPICH`, etc.; verify by running `mpicxx --version`) for multi-node simulations.
+  - `HDF5` for data output (verify by running `h5c++ --version`).
+
+!!! note "Cuda compatibility"
+
+    Note, that different versions of `CUDA` are compatible with different host compiler versions (i.e., `gcc`, `llvm`, etc.). Please, refer to the [following curated list](https://gist.github.com/ax3l/9489132) for the compatibility matrix.
+
+All the third-party dependencies, such as `Kokkos` and `ADIOS2`, are included in the repository as submodules and are automatically compiled when you run `cmake`. If you want to have `ADIOS2` installed separately to speed up the compilation process, we provide a `conda` environment file `entity-mpi.yml` and `entity-nompi.yml`. These install the `mpi` and `non-mpi` versions of the `ADIOS2` library together with the corresponding `HDF5` builds. To install the environment, run the following:
+
+```shell
+conda env create -f entity-mpi.yml
+conda activate entity-mpi
+# or 
+conda env create -f entity-nompi.yml
+conda activate entity-nonmpi
+```
+
+Both of these also `pip`-install the `nt2.py` package for post-processing.
 
 ## Compilation workflow
 
