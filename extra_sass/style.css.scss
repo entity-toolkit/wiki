@@ -66,47 +66,6 @@ h4 {
   -moz-osx-font-smoothing: grayscale;
 }
 
-:root>* {
-  --md-code-hl-special-color: #720dce;
-  --md-code-hl-number-color: #4343ce;
-  --md-code-hl-function-color: #720dcb;
-  --md-code-hl-constant-color: #4343ce;
-  --md-code-hl-keyword-color: #ce3e4c;
-  --md-code-hl-string-color: #228B22;
-  --md-code-hl-name-color: #26282f;
-  --md-code-hl-operator-color: #c23e7a;
-  --md-code-hl-punctuation-color: #26282f;
-  --md-code-hl-comment-color: #6d9696;
-  --md-code-hl-generic-color: #DAA520;
-  --md-code-hl-variable-color: #4343d1;
-  --md-code-fg-color: #26282f;
-  --md-code-bg-color: #fafafa;
-  --md-code-hl-color: rgb(23, 171, 240);
-}
-
-[data-md-color-scheme="slate"]>* {
-  --md-code-hl-special-color: #d09bff;
-  --md-code-hl-number-color: #8babff;
-  --md-code-hl-function-color: #e3a43e;
-  --md-code-hl-constant-color: #8babff;
-  --md-code-hl-keyword-color: #df7467;
-  --md-code-hl-string-color: #abc9ff;
-  --md-code-hl-name-color: #e1ecf4;
-  --md-code-hl-operator-color: #df7467;
-  --md-code-hl-punctuation-color: #e1ecf4;
-  --md-code-hl-comment-color: #7a8192;
-  --md-code-hl-generic-color: #DAA520;
-  --md-code-hl-variable-color: #95b7ff;
-  --md-code-fg-color: #e1ecf4;
-  --md-code-bg-color: #232730;
-  --md-code-hl-color: rgb(84, 140, 245);
-}
-
-.hide-overflow-x code {
-  white-space: pre-wrap !important;
-}
-
-
 /* --------------------------------- header --------------------------------- */
 
 @keyframes gradient {
@@ -233,6 +192,7 @@ $groups: (
 /* extra */
 
 @import "index/_index.css.scss";
+@import "elements/_code.css.scss";
 @import "elements/_admonitions.css.scss";
 @import "elements/_katex.css.scss";
 @import "elements/_p5.css.scss";
