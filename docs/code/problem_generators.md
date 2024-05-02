@@ -281,6 +281,68 @@ struct PGen : public arch::ProblemGenerator<S, M> {
 1. `x_2` extent of the global domain can be directly read from the metadomain instance passed to the constructor.
 2. Here, the value of `1.0` corresponds to the probability of `1.0` returned by the spatial distribution class.
 
+## Atmospheric boundaries
+
+There is a special type of boundary condition named "atmosphere," which applies an additional "gravitational" force to particles and automatically replenishes the plasma to a given target level, while also resetting the fields to a specific value. For Cartesian geometry this boundary condition can be applied in the arbitrary direction, while for spherical/qspherical coordinates, it is only applicable in the $-\hat{x}_1$ (same as $-\hat{r})$ dimension. Thes boundary conditions are specified just like any other ones, via the `fields` and `particles` input parameters of the `[grid.boundaries]` section of the input file. 
+
+The injected particle distribution is in Boltzmann-equilibrium with the gravity: $\bm{u}\cdot\nabla_{\bm{x}} f + m \bm{g}\cdot \nabla_{\bm{u}} f = 0$; the scale-height and the temperature of of the atmosphere are configurable from [the input file](../getting-started/inputfile.md) using the `grid.boundaries.atmosphere` parameters. The user also has a control over the peak density of the atmosphere, the extent to which the force is acting, as well as the particle species that are being injected. 
+
+```toml
+[grid.boundaries.atmosphere]
+# @required: if ATMOSPHERE is one of the boundaries
+  # Temperature of the atmosphere in units of m0 c^2
+  #   @type: float
+  temperature = ""
+  # Peak number density of the atmosphere at base in units of n0
+  #   @type: float
+  density = ""
+  # Pressure scale-height in physical units
+  #   @type: float
+  height = ""
+  # Species indices of particles that populate the atmosphere
+  #   @type: array of ints of size 2
+  species = ""
+  # Distance from the edge to which the gravity is imposed in physical units
+  #   @type: float
+  #   @default: 0.0
+  #   @note: 0.0 means no limit
+  ds = ""
+```
+
+While the particle atmospheric boundaries are handled automatically, when field boundaries are set to `ATMOSPHERE`, the user must also provide target electromagnetic fields which will be used to reset the field values below the atmosphere. To do this, one needs to provide a `FieldDriver` method in their problem generator, which takes `time` as an argument and returns an arbitrary class with methods: `ex1`, `ex2`, ... etc. An example of such a class is shown below:
+
+```c++
+template <Dimension D>
+struct AtmFields {
+
+  // functions take the physical coordinate as an argument
+  Inline auto ex1(const coord_t<D>&) const -> real_t {
+    // return something
+  }
+  
+  // ex2, ex3
+
+  Inline auto bx1(const coord_t<D>&) const -> real_t {
+    // return something ...
+  }
+
+  // bx2, bx3
+};
+
+template <SimEngine::type S, class M>
+struct PGen : public arch::ProblemGenerator<S, M> {
+  // ...
+
+  auto FieldDriver(real_t time) const -> AtmFields<D> {
+    return AtmFields<D> { /* ... params ... */ };
+  }
+};
+```
+
+Below is a diagram which indicates how the atmospheric boundary conditions operate (in the example, they are applied in $-\hat{\bm{x}}$ direction). Note, that when the fields are enforced, the normal components of the electric field, and the tangential components of the magnetic field are only enforced below the last (first) cell of the region, whereas the tangential components of the electric field and the normal components of the magnetic field are enforced everywhere (including in the last (first) cell of the region).
+
+<div class="d3-diagram" id="atm-bcs"></div>
+
 ## Custom post-timestep routines
 
 Often times, one needs to intervene to the simulation process to perform some custom operations by updating the fields or the particles (for instance, to apply special boundary conditions, inject particles etc.). The safest way of performing this is at the end of each timestep, when all the quantities have already been computed and stored. For that, Entity allows users to define another special method in the problem generator called `CustomPostStep`. It accepts the current timestep, the current physical time, and the local subdomain as a parameter. For instance, to inject particles at a given rate, one can write:
@@ -352,3 +414,8 @@ Again, as everything else in the problem generator, the force (rather, the accel
 !!! note "All functions are optional"
 
     Note, that among the functions mentioned throughout this section, you may specify only the ones you actually need, and ignore the ones you don't (i.e., there is no need to provide dummy functions that return zero), as the code will automatically determine at compile-time which functions are present.
+
+
+
+{% include "html/d3js.html" %}
+<script src="../atm-boundaries.js">
