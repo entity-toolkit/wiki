@@ -24,7 +24,7 @@ conda env create -f entity-mpi.yml
 conda activate entity-mpi
 # or 
 conda env create -f entity-nompi.yml
-conda activate entity-nonmpi
+conda activate entity-nompi
 ```
 
 Both of these also `pip`-install the `nt2.py` package for post-processing.
