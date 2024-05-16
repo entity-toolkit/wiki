@@ -15,6 +15,7 @@ nav:
   - 3+1 formulation: "3p1.md"
   - PIC algorithm: "numerics/pic.md"
   - Understanding the code:
+      - "code/hierarchy.md"
       - "code/domains.md"
       - "code/fields_particles.md"
       - "code/metrics.md"

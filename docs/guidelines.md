@@ -55,7 +55,6 @@ When not sure what a specific function does, or how to include a particular modu
         - enums or enum-like objects are marked with `enum`
         - macros have a prefix `macro`
         - all of the above are also marked with their respective namespaces (if any): `namespace::`
-    * `@depends:` internal header dependencies (not including std or other external libraries)
     * `@cpp:` list of cpp files that implement the header
     * `@namespaces:` list of namespaces defined in the file
     * `@macros:` list of macros that the file depends on
@@ -71,10 +70,6 @@ When not sure what a specific function does, or how to include a particular modu
           *   - out::OutputParticle
           * @cpp:
           *   - particles.cpp
-          * @depends:
-          *   - enums.h
-          *   - utils/error.h
-          *   - output/utils/getspecies.h
           */
         ```
 
