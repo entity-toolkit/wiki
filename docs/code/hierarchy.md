@@ -49,8 +49,6 @@ classDiagram
   Domain --* Fields : contains
   Domain --* Particles : contains many
   
-  Domain --* Particles : contains many
-  Domain --* Fields : contains
   ParticleSpecies <|-- Particles : inherits
   MetricBase <|-- Metric : inherits
   Mesh --* Metric : contains

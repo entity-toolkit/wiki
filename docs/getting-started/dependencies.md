@@ -5,7 +5,35 @@ hide:
 
 # Dependencies
 
-`Entity` relies on several libraries, most of which can be compiled in-tree with the code itself. However, to speed up the compilation process, it is often beneficial to precompile the libraries and use those during the build process, either by setting the appropriate environment variables or by using environment modules. Alternatively, of course, you can use the libraries provided by your system package manager, or the cluster's module system.
+To compile the code you need to have the following dependencies installed:
+
+  - [`CMake`](https://cmake.org/) (version >= 3.16; verify by running `cmake --version`).
+  - [`GCC`](https://gcc.gnu.org/) (version >= 8.3.1; verify by running `g++ --version`), [`llvm`](https://llvm.org/, tested on version >= 11; verify by running `clang++ --version`) or [Intel C++ compiler](https://www.intel.com/content/www/us/en/developer/tools/oneapi/dpc-compiler.html) (version >= 19.1 or higher; verify by running `icx --version`).
+  - to compile for GPUs, you need to have the [`CUDA toolkit`](https://developer.nvidia.com/cuda-toolkit) installed (version >= 11.0; verify by running `nvcc --version`).
+  - `MPI` (e.g., `OpenMPI`, `MPICH`, etc.; verify by running `mpicxx --version`) for multi-node simulations.
+  - `HDF5` for data output (verify by running `h5c++ --version`).
+
+!!! note "Cuda compatibility"
+
+    Note, that different versions of `CUDA` are compatible with different host compiler versions (i.e., `gcc`, `llvm`, etc.). Please, refer to the [following curated list](https://gist.github.com/ax3l/9489132) for the compatibility matrix.
+
+All the other third-party dependencies, such as `Kokkos` and `ADIOS2`, are included in the repository as submodules and are automatically compiled when you run `cmake`. 
+
+## Preinstalling third-party libraries
+
+To speed up the compilation process, it is often beneficial to precompile the third-party libraries and use those during the build process, either by setting the appropriate environment variables, using it within a conda environment or by using environment modules. Alternatively, of course, you can use the libraries provided by your system package manager, or the cluster's module system.
+
+### Anaconda
+
+If you want to have `ADIOS2` with the serial `HDF5` support (i.e., without `MPI`) installed in the conda environment, we provide a shell script `conda-entity-nompi.sh` which installs the proper compiler, the `hdf5` library, and the `ADIOS2`. Run the scripts via:
+
+```shell
+source conda-entity-nompi.sh
+```
+
+This also `pip`-installs the `nt2.py` package for post-processing. With this configuration, the `Kokkos` library will be built in-tree.
+
+### Environment modules
 
 The form below allows you to generate the appropriate build scripts and optionally the environment modules for the libraries you want to compile and install. Library interdependencies are automatically resolved, and the form will only show the necessary fields for the libraries you select.
 
