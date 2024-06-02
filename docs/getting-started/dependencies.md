@@ -309,7 +309,7 @@ The form below allows you to generate the appropriate build scripts and optional
 
 !!! note
 
-    The code assumes that the source codes for each library are already downloaded and placed in the appropriate directories. Here's where you can download the source codes:
+    We assume that the source codes for each library are already downloaded and placed in the appropriate directories. Here's where you can download the source codes:
     
     - Kokkos: [https://github.com/kokkos/kokkos/releases](https://github.com/kokkos/kokkos/releases);
     - ADIOS2: [https://github.com/ornladios/ADIOS2/releases](https://github.com/ornladios/ADIOS2/releases);
