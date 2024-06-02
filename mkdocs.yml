@@ -6,6 +6,7 @@ site_url: https://entity-toolkit.github.io/wiki
 nav:
   - Home: index.md
   - Getting started:
+      - Dependencies: getting-started/dependencies.md
       - Compiling/running: getting-started/compile-run.md
       - Input file: getting-started/inputfile.md
       # - Writing a problem generator: getting-started/pgen.md

@@ -189,6 +189,100 @@ $groups: (
   }
 }
 
+/* ------------------------------- text fields ------------------------------ */
+form .textfield {
+  position: relative;
+
+  input {
+    line-height: 1.5rem;
+    padding-left: 0.2rem;
+    outline: none;
+    transition: 0.02s ease-out;
+    background: var(--md-default-bg);
+
+    @include light-theme {
+      border: solid darken(map-get($light-palette, "bg"), 25%);
+      border-width: 0 0 1px 0;
+    }
+
+    @include dark-theme {
+      border: solid lighten(map-get($dark-palette, "bg"), 25%);
+      border-width: 0 0 1px 0;
+    }
+
+    &+label {
+      position: absolute;
+      left: 0.2rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: gray;
+      transition: 0.1s ease-out;
+      transform-origin: left top;
+      pointer-events: none;
+    }
+
+    &:required {
+      &:placeholder-shown {
+        @include light-theme {
+          border-color: lighten(map-get($light-palette, "four"), 5%);
+        }
+
+        @include dark-theme {
+          border-color: lighten(map-get($dark-palette, "five"), 25%);
+        }
+      }
+    }
+
+    &:focus+label,
+    &:not(:placeholder-shown)+label {
+      padding: 0 0.25rem;
+      background: var(--md-default-bg-color);
+    }
+
+    &:focus+label {
+      @include light-theme {
+        color: map-get($light-palette, "one");
+      }
+
+      @include dark-theme {
+        color: lighten(map-get($light-palette, "one"), 25%);
+      }
+
+      top: 0;
+      transform: translateY(-60%) scale(0.75) !important;
+    }
+
+    &:not(:placeholder-shown)+label {
+      top: 0;
+      transform: translateY(-60%) scale(0.75) !important;
+    }
+
+    &:not(:focus)::placeholder {
+      opacity: 0;
+    }
+  }
+}
+
+/* -------------------------------- dropdowns ------------------------------- */
+form select {
+  @include light-theme {
+    border: 1px solid darken(map-get($light-palette, "bg"), 10%);
+  }
+
+  @include dark-theme {
+    border: 1px solid lighten(map-get($dark-palette, "bg"), 10%);
+  }
+
+  border-radius: 5px;
+  height: 1.5rem;
+  background: var(--md-default-bg-color);
+}
+
+optgroup {
+  font-style: normal;
+  font-weight: bold;
+}
+
 /* extra */
 
 @import "index/_index.css.scss";
