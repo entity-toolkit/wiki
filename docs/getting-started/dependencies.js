@@ -295,7 +295,7 @@ conflict           adios2${prereqs}
 
 set                basedir      ${adios2_install}
 prepend-path       PATH         $basedir/bin
-setenv             Kokkos_DIR   $basedir
+setenv             ADIOS2_DIR   $basedir
 
 ${flagstr}`);
   } else {
