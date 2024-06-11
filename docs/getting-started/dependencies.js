@@ -78,7 +78,7 @@ const generate_kokkos_build = (form, use) => {
 ${modules_template(modules)} &&\ \\
 cd ${kokkos_src} &&\ \\
 rm -rf build &&\ \\
-cmake -B build &&\ \\
+cmake -B build \ \\
 ${cflags_template(cflags)} &&\ \\
 cmake --build build -j &&\ \\
 cmake --install build &&\ \\
@@ -250,7 +250,7 @@ const generate_adios2_build = (form, use) => {
 ${modules_template(modules)} &&\ \\
 cd ${adios2_src} &&\ \\
 rm -rf build &&\ \\
-cmake -B build &&\ \\
+cmake -B build \ \\
 ${cflags_template(cflags)} &&\ \\
 cmake --build build -j &&\ \\
 cmake --install build &&\ \\
@@ -731,7 +731,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const [hdf5_script, hdf5_modfile] = generate_hdf5_build(form, use);
     const [mpi_script, mpi_modfile] = generate_mpi_build(form, use);
     let print_build = false, print_modfile = false;
-    [kokkos_script, adios2_script, hdf5_script, mpi_script].forEach((script, i) => {
+    [mpi_script, hdf5_script, kokkos_script, adios2_script].forEach((script, i) => {
       if (script === '') {
         script_fields[i].style.display = 'none';
       } else {
@@ -740,8 +740,8 @@ document.addEventListener('DOMContentLoaded', () => {
         print_build = true;
       }
     });
-    const libs = ['kokkos', 'adios2', 'hdf5', 'mpi'];
-    [kokkos_modfile, adios2_modfile, hdf5_modfile, mpi_modfile].forEach((script, i) => {
+    const libs = ['mpi', 'hdf5', 'kokkos', 'adios2'];
+    [mpi_modfile, hdf5_modfile, kokkos_modfile, adios2_modfile].forEach((script, i) => {
       if (script === '') {
         script_fields[i + 5].style.display = 'none';
         script_fields[i + 5].getElementsByTagName('span')[0].innerText = "";

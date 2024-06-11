@@ -31,6 +31,7 @@ nav:
       - Cubed sphere: "fun/cubed_sphere.md"
   - Events:
       - SCEECS Summer School 2024: 
+          - Instructions: "events/sceecs2024/instructions.md"
           - Vlasov equation: "events/sceecs2024/intro.md"
           - Particle-in-cell: "events/sceecs2024/pic.md"
          

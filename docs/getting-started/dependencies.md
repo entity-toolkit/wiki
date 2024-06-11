@@ -42,20 +42,20 @@ The form below allows you to generate the appropriate build scripts and optional
     <fieldset>
       <legend>Libraries to compile</legend>
       <p>
-        <input type="checkbox" id="kokkos" name="lib_kokkos" value="kokkos">
-        <label for="kokkos">Kokkos</label><br>
-      </p>
-      <p>
-        <input type="checkbox" id="adios2" name="lib_adios2" value="adios2">
-        <label for="adios2">ADIOS2</label><br>
+        <input type="checkbox" id="mpi" name="lib_mpi" value="mpi">
+        <label for="mpi">MPI</label>
       </p>
       <p>
         <input type="checkbox" id="hdf5" name="lib_hdf5" value="hdf5">
         <label for="hdf5">HDF5</label><br>
       </p>
       <p>
-        <input type="checkbox" id="mpi" name="lib_mpi" value="mpi">
-        <label for="mpi">MPI</label>
+        <input type="checkbox" id="kokkos" name="lib_kokkos" value="kokkos">
+        <label for="kokkos">Kokkos</label><br>
+      </p>
+      <p>
+        <input type="checkbox" id="adios2" name="lib_adios2" value="adios2">
+        <label for="adios2">ADIOS2</label><br>
       </p>
     </fieldset>
     <fieldset id="configs_fieldset">
@@ -80,6 +80,68 @@ The form below allows you to generate the appropriate build scripts and optional
         <div class="textfield" id="gpu_compiler_module">
           <input placeholder="example: cudatoolkit/12.2" type="text" name="gpu_compiler_module" required />
           <label for="gpu_compiler_module">GPU compiler</label>
+        </div>
+      </p>
+    </fieldset>
+    <fieldset id="mpi_fieldset">
+      <legend>MPI settings</legend>
+      <p>
+        <div class="textfield" id="mpi_module">
+          <input placeholder="ex.: openmpi/5.0.2" type="text" name="mpi_module" required />
+          <label>MPI module</label>
+        </div>
+      </p>
+      <p>
+        <input type="checkbox" id="mpi_use_gpu" name="mpi_use_gpu" value="mpi_use_gpu">
+        <label for="mpi_use_gpu">GPU support</label><br>
+      </p>
+      <p>
+        <div class="textfield" id="mpi_src">
+          <input placeholder="$HOME/src/mpi" type="text" name="mpi_src" />
+          <label>Path to source code</label>
+        </div>
+      </p>
+      <p>
+        <div class="textfield" id="mpi_install">
+          <input placeholder="$HOME/.modules/mpi" type="text" name="mpi_install" />
+          <label>Install path</label>
+        </div>
+      </p>
+    </fieldset>
+    <fieldset id="hdf5_fieldset">
+      <legend>HDF5 settings</legend>
+      <p>
+        <div class="textfield" id="hdf5_module">
+          <input placeholder="ex.: hdf5/mpi-5.0.2" type="text" name="hdf5_module" required />
+          <label>HDF5 module</label>
+        </div>
+      </p>
+      <p>
+        <input type="checkbox" id="hdf5_use_mpi" name="hdf5_use_mpi" value="hdf5_use_mpi">
+        <label for="hdf5_use_mpi">MPI support</label><br>
+      </p>
+      <p>
+        <div class="textfield" id="hdf5_src">
+          <input placeholder="$HOME/src/hdf5" type="text" name="hdf5_src" />
+          <label>Path to source code</label>
+        </div>
+      </p>
+      <p>
+        <div class="textfield" id="hdf5_install">
+          <input placeholder="$HOME/.modules/hdf5" type="text" name="hdf5_install" />
+          <label>Install path</label>
+        </div>
+      </p>
+      <p>
+        <div class="textfield" id="hdf5_mpi_path">
+          <input placeholder="$MPIHOME" type="text" name="hdf5_mpi_path" />
+          <label>Path to MPI installation</label>
+        </div>
+      </p>
+      <p>
+        <div class="textfield" id="hdf5_mpi_module">
+          <input placeholder="example: open-mpi/5.0" type="text" id="hdf5_mpi_module" name="hdf5_mpi_module" />
+          <label>MPI module name</label>
         </div>
       </p>
     </fieldset>
@@ -235,83 +297,21 @@ The form below allows you to generate the appropriate build scripts and optional
         </div>
       </p>
     </fieldset>
-    <fieldset id="hdf5_fieldset">
-      <legend>HDF5 settings</legend>
-      <p>
-        <div class="textfield" id="hdf5_module">
-          <input placeholder="ex.: hdf5/mpi-5.0.2" type="text" name="hdf5_module" required />
-          <label>HDF5 module</label>
-        </div>
-      </p>
-      <p>
-        <input type="checkbox" id="hdf5_use_mpi" name="hdf5_use_mpi" value="hdf5_use_mpi">
-        <label for="hdf5_use_mpi">MPI support</label><br>
-      </p>
-      <p>
-        <div class="textfield" id="hdf5_src">
-          <input placeholder="$HOME/src/hdf5" type="text" name="hdf5_src" />
-          <label>Path to source code</label>
-        </div>
-      </p>
-      <p>
-        <div class="textfield" id="hdf5_install">
-          <input placeholder="$HOME/.modules/hdf5" type="text" name="hdf5_install" />
-          <label>Install path</label>
-        </div>
-      </p>
-      <p>
-        <div class="textfield" id="hdf5_mpi_path">
-          <input placeholder="$MPIHOME" type="text" name="hdf5_mpi_path" />
-          <label>Path to MPI installation</label>
-        </div>
-      </p>
-      <p>
-        <div class="textfield" id="hdf5_mpi_module">
-          <input placeholder="example: open-mpi/5.0" type="text" id="hdf5_mpi_module" name="hdf5_mpi_module" />
-          <label>MPI module name</label>
-        </div>
-      </p>
-    </fieldset>
-    <fieldset id="mpi_fieldset">
-      <legend>MPI settings</legend>
-      <p>
-        <div class="textfield" id="mpi_module">
-          <input placeholder="ex.: openmpi/5.0.2" type="text" name="mpi_module" required />
-          <label>MPI module</label>
-        </div>
-      </p>
-      <p>
-        <input type="checkbox" id="mpi_use_gpu" name="mpi_use_gpu" value="mpi_use_gpu">
-        <label for="mpi_use_gpu">GPU support</label><br>
-      </p>
-      <p>
-        <div class="textfield" id="mpi_src">
-          <input placeholder="$HOME/src/mpi" type="text" name="mpi_src" />
-          <label>Path to source code</label>
-        </div>
-      </p>
-      <p>
-        <div class="textfield" id="mpi_install">
-          <input placeholder="$HOME/.modules/mpi" type="text" name="mpi_install" />
-          <label>Install path</label>
-        </div>
-      </p>
-    </fieldset>
   </div>
 </form>
 
 ## Build scripts
 
-```sh title="Kokkos build/install script"
-```
-
-```sh title="ADIOS2 build/install script"
+```sh title="MPI build/install script"
 ```
 
 ```sh title="HDF5 build/install script"
 ```
 
-```sh title="MPI build/install script"
+```sh title="Kokkos build/install script"
+```
+
+```sh title="ADIOS2 build/install script"
 ```
 
 ## Modulefiles
@@ -339,9 +339,9 @@ The form below allows you to generate the appropriate build scripts and optional
 
     We assume that the source codes for each library are already downloaded and placed in the appropriate directories. Here's where you can download the source codes:
     
-    - Kokkos: [https://github.com/kokkos/kokkos/releases](https://github.com/kokkos/kokkos/releases);
-    - ADIOS2: [https://github.com/ornladios/ADIOS2/releases](https://github.com/ornladios/ADIOS2/releases);
-    - HDF5: [https://github.com/HDFGroup/hdf5/releases/](https://github.com/HDFGroup/hdf5/releases/), ZLIB: [https://github.com/madler/zlib/releases](https://github.com/madler/zlib/releases), LIBAEC: [https://github.com/MathisRosenhauer/libaec/releases](https://github.com/MathisRosenhauer/libaec/releases); follow instructions [here](https://github.com/HDFGroup/hdf5/blob/develop/release_docs/INSTALL_CMake.txt) to place the proper source files;
-    - Open MPI: [https://github.com/open-mpi/ompi](https://github.com/open-mpi/ompi).
+    - Kokkos: <a href="https://github.com/kokkos/kokkos/releases" target="_blank">https://github.com/kokkos/kokkos/releases</a>;
+    - ADIOS2: <a href="https://github.com/ornladios/ADIOS2/releases" target="_blank">https://github.com/ornladios/ADIOS2/releases</a>;
+    - HDF5: <a href="https://github.com/HDFGroup/hdf5/releases" target="_blank">https://github.com/HDFGroup/hdf5/releases</a>, ZLIB: <a href="https://github.com/madler/zlib/releases" target="_blank">https://github.com/madler/zlib/releases</a>, LIBAEC: <a href="https://github.com/MathisRosenhauer/libaec/releases" target="_blank">https://github.com/MathisRosenhauer/libaec/releases</a>; follow instructions <a href="https://github.com/HDFGroup/hdf5/blob/develop/release_docs/INSTALL_CMake.txt" target="_blank">here</a> to place the proper source files;
+    - Open MPI: <a href="https://github.com/open-mpi/ompi" target="_blank">https://github.com/open-mpi/ompi</a>.
 
 <script src="../dependencies.js"></script>

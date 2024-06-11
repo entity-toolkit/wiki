@@ -14,20 +14,28 @@ The output is configured using the following configurations in the `input` file:
   name   = "MySimulation" # (5)!
 
   # ...
-
 [output]
-  format          = "HDF5" # (2)!
-  fields          = ["B", "E", "Rho_1_2", "..."] # (1)!
-  particles       = [1, 2, 4] # (7)!
-  interval        = 100 # (3)!
-  interval_time   = 0.1 # (8)!
-  mom_smooth      = 2 # (4)!
-  fields_stride   = 2 # (9)!
-  prtl_stride     = 10 # (6)!
+  format = "hdf5" # (2)!
+  interval = 100 # (3)!
+  interval_time = 0.1 # (8)!
+
+  [output.fields]
+    quantities = ["B", "E", "Rho_1_2", "..."] # (1)!
+    stride = 2 # (9)!
+    mom_smooth = 2 # (4)!
+
+  [output.particles]
+    species = [1, 2, 4] # (7)!
+    stride = 10 # (6)!
+
+  [output.spectra]
+    e_min = 1e-2 # (12)!
+    e_max = 1e3
+    log_bins = true # (13)!
 
   [output.debug]
-    as_is           = false # (10)!
-    ghosts          = false # (11)!
+    as_is = false # (10)!
+    ghosts = false # (11)!
 ```
 
 1. fields to write
@@ -41,6 +49,8 @@ The output is configured using the following configurations in the `input` file:
 9. stride used for field output (write every `fields_stride`-th cell) [defaults to 1]
 10. write the field quantities as-is (without conversion/interpolation) [defaults to false]
 11. write the ghost cells [defaults to false]
+12. Min/max energies for binning the energy distribution [default to 1e-3 -> 1e3]
+13. whether to use logarithmic energy bins or linear
 
 Output is written in the run directory in a single `hdf5` file: `MySimulation.h5`. All the steps are written in the same file, and the time step is stored as an attribute of the dataset: `Step0`, `Step1`, `Step2`, etc. Thus to access, say, the `Ez` field at the 10th output step (not the same as the simulation timestep), one has to access the dataset `/Step9/Ez` in the `hdf5` file. If one needs the `X1` coordinates of particles of species 2 at the 5th output step, one has to access the dataset `/Step4/X1_2` in the `hdf5` file, etc.
 
@@ -172,6 +182,8 @@ or make "waterfall" plots, collapsing the quantity along one of the axis, and pl
   .mean(dim="x")\
   .plot(yincrease=False)
 ```
+
+Particles and spectra can, in turn, be accessed via `data.particles[s]`, where `s` is the species index, and `data.spectra`.
 
 
 !!! code "`nt2py` documentation"
