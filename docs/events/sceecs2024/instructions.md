@@ -114,8 +114,13 @@ Carefully inspect the `weibel.toml`. We will be exploring the dependency of the 
 
 ## Exercise \#2
 
-Reconnection (yet-to-be-written).
-
+The problem generator that sets up a double-periodic Harris layer can be found in `setups/wip/reconnection/pgen.hpp` and can be turned on using the `-D pgen=wip/reconnection`. Compile and run the reconnection setup similar to the exercise above. Plot the density, the current density, and the magnetic field at the beginning and at late time of the simulation (or better yet, make a movie!). Measure the quasi-steady-state rate of the reconnection, by plotting the $y$ (vertical) component of the $\bm{E}\times\bm{B} / |\bm{B}|^2$ (averaged in $x$ at a specific distance in $y$ from either of the current layers) over time. 
+<!-- 
 ## Exercise \#3
 
-Spinning monopole/dipole (yet-to-be-written).
+Simulate a spinning monopole with a gravitationally bound atmosphere using the `srpic/monopole` problem generator. Compare the solution to [Michel's analytic prediction](https://ui.adsabs.harvard.edu/abs/1973ApJ...180..207M/abstract):
+
+\begin{align*}
+&B_r = B_s \left(\frac{R_*}{r}\right)^2,&~~~&B_\theta = 0,&~~~&B_\phi=-B_s\left(\frac{R_*}{R_{\rm LC}}\right)\left(\frac{R_*}{r}\right)\sin{\theta},\\
+&E_r = 0,&~~~&E_\theta=B_\phi,&~~~&E_\phi = 0.
+\end{align*} -->
