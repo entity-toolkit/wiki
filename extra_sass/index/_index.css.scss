@@ -61,7 +61,8 @@ $contribgroups: (
   }
 }
 
-#supporting-grants+p span {
+#supporting-grants+p+ul span,
+#supporting-grants+p+ul+p > span {
   text-decoration: underline;
 }
 

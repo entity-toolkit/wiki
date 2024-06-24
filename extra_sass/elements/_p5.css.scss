@@ -39,4 +39,9 @@
       background-color: var(--md-primary-fg-color--light);
     }
   }
+
+  &#cover canvas {
+    width: 100% !important;
+    height: 100% !important;
+  }
 }

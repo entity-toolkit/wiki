@@ -6,14 +6,14 @@ site_url: https://entity-toolkit.github.io/wiki
 nav:
   - Home: index.md
   - Getting started:
-      - Dependencies: getting-started/dependencies.md
       - Compiling/running: getting-started/compile-run.md
+      - Dependencies: getting-started/dependencies.md
+      - Docker: getting-started/docker.md
       - Input file: getting-started/inputfile.md
       # - Writing a problem generator: getting-started/pgen.md
       - Understanding the units: getting-started/units.md
       - Output & visualization: getting-started/vis.md
       - Documenting: getting-started/docs.md
-  - 3+1 formulation: "3p1.md"
   - PIC algorithm: "numerics/pic.md"
   - Understanding the code:
       - "code/hierarchy.md"
@@ -25,15 +25,13 @@ nav:
   - Guidelines: "guidelines.md"
   - Useful things:
       - Floating point comparison: "useful/float-comparison.md"
+      - Theory behind PIC: "useful/theory_pic.md"
       - Kerr metric: "useful/ks.md"
   - Fun:
       - Axisymmetric coordinates: "fun/coords.md"
       - Cubed sphere: "fun/cubed_sphere.md"
   - Events:
-      - SCEECS Summer School 2024: 
-          - Instructions: "events/sceecs2024/instructions.md"
-          - Vlasov equation: "events/sceecs2024/intro.md"
-          - Particle-in-cell: "events/sceecs2024/pic.md"
+      - SCEECS Summer School 2024: "events/sceecs2024/instructions.md"
          
 
 markdown_extensions:

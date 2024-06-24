@@ -3,64 +3,97 @@ hide:
   - footer
 ---
 
-Here we demonstrate the full particle-in-cell (PIC) algorithm in the most general form for both flat (curvilinear) space-time and GR.
+## 3+1 Formalism
 
-<!-- ## Particle pusher
+To facilitate both GR and non-GR equations in a single framework while still retaining the maximum level of generality, we employ the 3+1 formalism for projecting the space-time (see, e.g., [Gourgoulhon, 2012](https://link.springer.com/book/10.1007/978-3-642-24525-1)).
 
-## Charge-conservative current deposition
+In the most general 3+1 formulation, the metric and its inverse in arbitrary coordinate system can be represented in the following form:
 
-To ensure charge conservation for discrete set of particles we must then define their shape functions, $S_p(x^i-x_p^i)$ in the following way (see also the section about [the current deposition](../3p1/#current-deposition)):
+\begin{align*}
+g_{\mu\nu}&=\begin{bmatrix}
+-\alpha^2+\beta_k\beta^k & \beta_i \\ 
+\beta_j & h_{ij}
+\end{bmatrix}\\\\
+g^{\mu\nu}&=\begin{bmatrix}
+-1/\alpha^2 & \beta^i/\alpha^2 \\ 
+\beta^j/\alpha^2 & h^{ij}-\beta^i\beta^j/\alpha^2
+\end{bmatrix}
+\end{align*}
+
+where $\alpha$ is the metric _lapse function_, and $\beta_i$ is the metric _shift vector_. We will also denote $h \equiv \mathrm{det}{(h_{ij})}$. Notice also, that $g\equiv \mathrm{det}{(g_{\mu\nu})} = -\alpha^2 h$, and $\sqrt{-g}=\alpha\sqrt{h}$.
+
+In this system, we can now express the curl of an arbitrary contravariant vector:
+
+$$
+(\nabla\times A)^i \equiv \frac{1}{\sqrt{h}}\varepsilon^{ijk}\partial_j A_k = \frac{1}{\sqrt{h}}\varepsilon^{ijk}\partial_j h_{kp}A^p
+$$
+
+where $A_k = h_{kp} A^p$, and $\varepsilon^{ijk}$ is the Levi-Civita symbol.
+
+### Maxwell's equations
+
+In the general 3+1 formulation (special and general relativistic) there are two "physical" fields (the ones measured by fiducial observers, FIDOs), $B^i$, and $D^i$. Evolution equations on these two fields can be written as:
 
 $$
 \begin{aligned}
-\tilde{\rho} &= \sum\limits_p q_p S_p(x^i - x_p^i)\\
-\bm{\mathcal{J}}^i &= \sum\limits_p q_p \frac{dx^i_p}{dt} S_p(x^i - x_p^i)
+\frac{\partial D^i}{c\partial t} &= \frac{1}{\sqrt{h}} \varepsilon^{ijk}\partial_j H_k - \frac{4\pi}{c} J^i \\
+\frac{\partial B^i}{c\partial t} &= -\frac{1}{\sqrt{h}} \varepsilon^{ijk}\partial_j E_k
 \end{aligned}
 $$
 
-where $q_p$ is the charge of the particle $p$ in its rest frame. $dx^i_p/dt$ is the particle three-velocity defined in agreement with [the equation of motion](../3p1/#equations-of-motion-for-particles): in practice it is $\left((x^i_p)^{\rm (new)} - (x^i_p)^{\rm (old)}\right) / \Delta t$. After the deposition, we can then recover the physical contravariant currents that go into the Maxwell's equations: $\bm{J}^i = \bm{\mathcal{J}}^i / \sqrt{h}$.
-
-Full deposition loop can be expressed with the following pseudocode (actual array names and structures are different).
-
-=== "`ntt::PIC`"
-
-
-=== "`ntt::GRPIC`"
-
+where $H_i$, and $E_i$ are the covariant auxiliary fields, defined as follows:
 
 $$
 \begin{aligned}
-\text{field solvers}&
-\begin{cases}
-\frac{\Delta\texttt{b}_i}{\Delta \texttt{t}} = -\frac{1}{\sqrt{h}} \left[\Delta_j (h_{k}\texttt{e}_k) - \Delta_k (h_{j}\texttt{e}_j)\right]\\[1em]
-\frac{\Delta \texttt{e}_i}{\Delta \texttt{t}} = \frac{1}{\sqrt{h}} \left[\Delta_j (h_{k}\texttt{b}_k) - \Delta_k (h_{j}\texttt{b}_j)\right] - \frac{C_0}{\sqrt{h}}\texttt{j}_i
-\end{cases}\\[4em]
-\text{velocity update}&
-\begin{cases}
-\texttt{e},~\texttt{b} \xrightarrow[\text{interpolation}]{} \texttt{e}_p,~\texttt{b}_p\\[1em]
-\texttt{e}_p,~\texttt{b}_p \xrightarrow[\text{to global XYZ}]{\text{contravariant}} \hat{\texttt{e}}_p,~\hat{\texttt{b}}_p\\[1em]
-\gamma = \sqrt{1 + \hat{\texttt{u}}_i^2 + \hat{\texttt{u}}_j^2 + \hat{\texttt{u}}_k^2}\\[1em]
-\frac{\Delta \hat{\texttt{u}}_i}{\Delta t} = \frac{\tilde{q}_p}{\tilde{m}_p}B_0\left(
-  \hat{\texttt{e}}_i 
-  + \frac{\hat{\texttt{u}}_j}{\gamma} \hat{\texttt{b}}_k
-  - \frac{\hat{\texttt{u}}_k}{\gamma} \hat{\texttt{b}}_j
-\right)
-\end{cases}\\[6em]
-\text{position update}&
-\begin{cases}
-\hat{\texttt{u}}_i \xrightarrow[\text{to contravariant}]{\text{global XYZ}} u^i\\[1em]
-\frac{\Delta \texttt{x}_i}{\Delta \texttt{t}} = \frac{u^i}{\gamma}
-\end{cases}\\[3em]
-\text{current deposition}&~~~
-\texttt{j}_i = \sum\limits_p \tilde{q}_p (\Delta \texttt{x}_i / \Delta \texttt{t})
+H_i &= \alpha h_{ij} B^j - \frac{1}{\sqrt{h}}\varepsilon_{ijk}\beta^j D^k \\
+E_i &= \alpha h_{ij} D^j + \frac{1}{\sqrt{h}}\varepsilon_{ijk}\beta^j B^k
 \end{aligned}
 $$
 
-    NA -->
+!!! example "Flat space-time with diagonal metric"
+
+    In flat space-time with diagonal metric, $\alpha=1$, and $\beta^i=0$, we have $D_i = E_i = h_{ij} E^j$, and $B_i = H_i = h_{ij} B^j$. Maxwell's equations then reduce to a closed form:
+
+    $$
+    \begin{aligned}
+    \frac{\partial E^i}{c\partial t} &= \frac{1}{\sqrt{h}} \varepsilon^{ijk}\partial_j B_k - \frac{4\pi}{c} J^i \\
+    \frac{\partial B^i}{c\partial t} &= -\frac{1}{\sqrt{h}} \varepsilon^{ijk}\partial_j E_k
+    \end{aligned}
+    $$
+
+    If we further assume that the coordinate system is also flat, $h_{ij}=\delta_{ij}$, we get the more familiar form:
+
+    $$
+    \begin{aligned}
+    \frac{\partial E^i}{c\partial t} &= (\nabla\times \bm{B})^i - \frac{4\pi}{c} J^i \\
+    \frac{\partial B^i}{c\partial t} &= -(\nabla\times\bm{E})^i
+    \end{aligned}
+    $$
+
+<!-- ### Axisymmetric
+
+In 2D spherical coordinate system (axisymmetric, $\partial_\phi = 0$) discretized version of Maxwell's equation on $E^1$ ("radial") is singular at the polar axis: $h^{(i+1/2,~0)} = h^{(i+1/2,~n_2-1)} = 0$. -->
+
+### Equations of motion for particles
+
+The equation of motion for relativistic particles in such a 3+1 formulation have the following form:
+
+$$
+\begin{aligned}
+\frac{d x^i}{cd t} &= \alpha \frac{1}{\gamma}h^{ij} u_j - \beta^i \\
+\frac{d u_i}{cd t} &=
+\underbrace{
+  -\gamma \partial_i \alpha + u_j\partial_i \beta^j - \frac{\alpha}{2\gamma} u_j u_k\partial_i h^{jk}
+}_{\text{``curvature'' force}} +
+\underbrace{
+  \frac{q}{m c^2}\alpha\left(h_{ij}D^j + \frac{1}{\sqrt{h}\gamma}\varepsilon_{ijk}h^{jl} u_l B^k\right)
+}_{\text{Lorentz force}}
+\end{aligned}
+$$
+
+Here $u_i$ are the three components of the particle's covariant four-velocity, $x^i$ is its position, $\gamma = \sqrt{\varepsilon+h^{ij}u_{i}u_j}$ is the energy of the particle ($\varepsilon\equiv 1$ for massive particles, and $\varepsilon\equiv 0$ for photons), $h_{ij}$, $h^{ij}$, $\sqrt{h}$ as well as $\alpha$, and $\beta^i$ are the metric coefficients at particle's position. $D^i$ and $B^i$ are the contravariant field components also measured at particle's position.
 
 ## Special-relativistic PIC
-
-<!-- Full set of equations in flat space-time (with an arbitrary diagonal metric $h_{ij}=\textrm{diag}(h_{11}, h_{22}, h_{33})$) in code units (and not in the order we actually integrate them): -->
 
 For the non-GR case we use an explicit leapfrog integrator for both fields and the particles. All the fields, as well as particle coordinates/velocities are defined in the general curvilinear (orthonormal) coordinate system.
 

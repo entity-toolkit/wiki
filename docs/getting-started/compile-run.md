@@ -32,6 +32,7 @@ First, make sure you have all [the necessary dependencies](dependencies.md) inst
     | `pgen` | problem generator | see `<engine>/pgen/` directory | `dummy` |
     | `precision` | floating point precision | `single`, `double` | `single` |
     | `output` | enable output | `ON`, `OFF` | `OFF` |
+    | `mpi` | enable multi-node support | `ON`, `OFF` | `OFF` |
     | `DEBUG` | enable debug mode | `ON`, `OFF` | `OFF` |
     | `TESTS` | compile the unit tests | `ON`, `OFF` | `OFF` |
     
@@ -130,9 +131,3 @@ To run only specific tests, you can use the `-R` flag followed by the regular ex
 ```shell
 ctest --test-dir build/ -R particle
 ```
-
-## Docker 
-
-!!! warning
-  
-    While the Docker environment for the code is available (see `docker` directory in the root of the repository), it is not documented yet.
