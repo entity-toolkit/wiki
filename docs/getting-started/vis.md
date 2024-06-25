@@ -92,11 +92,11 @@ All of the vector fields are interpolated to cell centers before the output, and
 
     Particle tracking (outputting the same batch of particles at every timestep) is unfortunately not yet implemented, and will unlikely be available due to limitations imposed by the nature of GPU computations.
 
-## `nt2.py`
+## `nt2py`
 
-To make the life easier, the `nt2.py` script is provided with the `Entity` source code in the `vis/` directory (the requirements are also provided in the `vis/requirements.txt`). `nt2.py` uses the [`dask`](https://docs.dask.org/en/stable/) and [`xarray`](https://docs.xarray.dev/en/stable/) libraries together with [`h5py`](https://pypi.org/project/h5py/) and [`h5pickle`](https://github.com/DaanVanVugt/h5pickle) to [lazily load](https://en.wikipedia.org/wiki/Lazy_loading) the output data and provide a convenient interface for the data analysis and quick visualization. 
+We provide the `nt2py` python package to help easily access and manipulate the simulation data. `nt2py` package uses the [`dask`](https://docs.dask.org/en/stable/) and [`xarray`](https://docs.xarray.dev/en/stable/) libraries together with [`h5py`](https://pypi.org/project/h5py/) and [`h5pickle`](https://github.com/DaanVanVugt/h5pickle) to [lazily load](https://en.wikipedia.org/wiki/Lazy_loading) the output data and provide a convenient interface for the data analysis and quick visualization. 
 
-To start using `nt2.py`, it is recommended to create a python virtual environment and install the required packages:
+To start using `nt2py`, it is recommended to create a python virtual environment and install the required packages:
 
 ```shell
 python3 -m venv .venv
@@ -171,7 +171,7 @@ One can also do more complicated things, such as building a 1D plot of the evolu
 
 ```python
 data.Bx**2 + data.By**2 + data.Bz**2\
-  .mean(dim=["x", "y"])\
+  .mean(("x", "y"))\
   .plot()
 ```
 
@@ -179,7 +179,7 @@ or make "waterfall" plots, collapsing the quantity along one of the axis, and pl
 
 ```python
 (data.Rho_2 - data.Rho_1)\
-  .mean(dim="x")\
+  .mean("x")\
   .plot(yincrease=False)
 ```
 
@@ -189,6 +189,38 @@ Particles and spectra can, in turn, be accessed via `data.particles[s]`, where `
 !!! code "`nt2py` documentation"
 
     You can access the documentation of the `nt2py` functions and methods of the `Data` object by calling `nt2r.<function>?` in the jupyter notebook or `help(nt2r.<function>)` in the python console.
+
+### Exporting movies
+
+To produce animations, `nt2py` provides a shortcut helper function which saves the frames using multiple threads, and then calls `ffmpeg` to merge them into a video file. 
+
+```python
+def plot_frame(ti, data):
+    # function must take two parameters:
+    # - ti: output index
+    # - data: the dataset loaded with nt2.read
+    #
+    # any type data manipulation & plotting routine goes here
+    # e.g.
+    fig = plt.figure()
+    ax = fig.add_subplot(111)
+    (data.N_1 + data.N_2).isel(t=ti).plot(ax=ax, cmap="viridis")
+    #                      ^
+    #                 selecting timestep by index
+
+# then simply pass this function to the routine:
+data.makeMovie(plot_frame, num_cpus=8, framerate="10", ...)
+#                                   ^
+#                 (optional) by default all available threads are used
+```
+
+`makeMovie` also accepts a number of arguments used by `ffmpeg`, such as the framerate, the compression rate, etc. Run the following to see all the arguments:
+
+```python
+import nt2.export as nt2e
+nt2e.makeMovie?
+```
+
 <!-- 
 ### Accessing particles
 

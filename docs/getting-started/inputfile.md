@@ -12,7 +12,7 @@ Entity reads almost all the information (except for the problem generator) about
 <div id="input"></div>
 
 <script type="module">
-    fetch('https://raw.githubusercontent.com/entity-toolkit/entity/v1.0.0/input.example.toml')
+    fetch('https://raw.githubusercontent.com/entity-toolkit/entity/master/input.example.toml')
         .then(response => response.text())
         .then(text => {
             const input = document.getElementById('input');
