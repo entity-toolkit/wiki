@@ -1,0 +1,40 @@
+.three-diagram {
+  position: relative;
+}
+
+.lil-gui {
+  font-family: $mono-font;
+
+  @include light-theme {
+    --text-color: "black";
+    --background-color: #{darken(map-get($light-palette, "bg"), 6%)};
+    --widget-color: #{darken(map-get($light-palette, "bg"), 16%)};
+    --hover-color: #{darken(map-get($light-palette, "bg"), 25%)};
+    --title-background-color: var(--md-accent-fg-color);
+    --number-color: #{darken(map-get($light-palette, "one"), 10%)};
+  }
+
+  @include dark-theme {
+    color: lighten(map-get($light-palette, "one"), 25%);
+  }
+}
+
+.lil-gui.root {
+  position: absolute;
+
+  &.align-top {
+    top: 0;
+  }
+
+  &.align-bottom {
+    bottom: 0;
+  }
+
+  &.align-left {
+    left: 0;
+  }
+
+  &.align-right {
+    right: 0;
+  }
+}

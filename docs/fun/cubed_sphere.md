@@ -6,7 +6,8 @@ title: Cubed sphere
 
     The panel is interactive
 
-<div id="plot_cubed_sphere" class="p5canvas"></div>
+{% include "html/threejs.html" %}
 
-<script src="../3d_cubed_sphere.js"></script>
-{% include "html/p5js.html" %}
+<div class="three-diagram" id="three-cubed-sphere"></div>
+
+<script type="module" src="../threejs_cubed_sphere.js"></script>

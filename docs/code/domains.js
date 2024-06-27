@@ -191,6 +191,7 @@ document.addEventListener("DOMContentLoaded", () => {
   camera.lookAt(0, 0, 0);
 
   const controls = new OrbitControls(camera, renderer.domElement);
+  controls.enableDamping = true;
 
   function animate() {
     for (let i = 0; i < spheres.length; i++) {
