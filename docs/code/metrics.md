@@ -258,7 +258,7 @@ The `in` and `out` template arguments for the `convert<>` and `transform<>` func
     vec_t<Dim::_3D> v_Cntrv;
     // define v_Cntrv
     vec_t<Dim::_3D> v_XYZ { ZERO };
-    metric.template transform_xyz<Crd::Cd, Crd::XYZ>(x_Code, v_Cntrv, v_XYZ);
+    metric.template transform_xyz<Idx::U, Idx::XYZ>(x_Code, v_Cntrv, v_XYZ);
     ```
 
 Below is a diagram demonstrating all the possible transformations.
