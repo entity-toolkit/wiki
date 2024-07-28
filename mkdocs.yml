@@ -14,6 +14,7 @@ nav:
       - Understanding the units: getting-started/units.md
       - Output & visualization: getting-started/vis.md
       - Documenting: getting-started/docs.md
+      - F.A.Q.: getting-started/faq.md
   - PIC algorithm: "numerics/pic.md"
   - Understanding the code:
       - "code/hierarchy.md"

@@ -60,8 +60,8 @@ docker run -it \
 # uncomment one of the two lines below to give container...
 # ... access to the GPU (see above). otherwise, if no runtime access needed...
 # ... leave the lines commented
-#  --runtime=nvidia --gpus all  # < NVIDIA cards
-#  --device /dev/kfd --device /dev/dri --security-opt seccomp=unconfined  # < AMD cards
+#  --runtime=nvidia --gpus all \ # < NVIDIA cards
+#  --device /dev/kfd --device /dev/dri --security-opt seccomp=unconfined \ # < AMD cards
   --name myentity_<tag> \
   -p 8080:8080 \
   -v "$(pwd)":/home/<MOUNT_DIRECTORY>/ \

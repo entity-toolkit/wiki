@@ -93,7 +93,6 @@ Elapsed time: 11.12 s
 ................................................................................
 ```
 
-
 <!-- To enable data dumping (output), one needs to compile with the `-D output=ON` flag. 
 
 `entity-GUI.xc` runs the simulation together with the GUI. The simulation lives as long as the GUI window is open. Additionally, `entity-GUI.xc` also accepts the `-scale <S>` flag, where `<S>` is the scale factor for the GUI (e.g. `-scale 2` will make the GUI twice as big; this setting depends on the personal preference and the monitor DPI/resolution used).
