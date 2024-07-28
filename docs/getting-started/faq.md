@@ -66,7 +66,7 @@ hide:
         ```
         so the GPU we need has `Device` ID of `0` (since it's the dedicated GPU, it might automatically turn off when idle to save power on laptops; hence `Power = 0.0W`). Now we can run the code with: 
         ```sh
-        HSA_OVERRIDE_GFX_VERSION=11.0.0 HIP_VISIBLE_DEVICES=1 ROCR_VISIBLE_DEVICES=1 ./executable ...
+        HSA_OVERRIDE_GFX_VERSION=11.0.0 HIP_VISIBLE_DEVICES=0 ROCR_VISIBLE_DEVICES=0 ./executable ...
         ```
 
 
