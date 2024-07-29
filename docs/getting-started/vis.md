@@ -52,7 +52,7 @@ The output is configured using the following configurations in the `input` file:
 12. Min/max energies for binning the energy distribution [default to 1e-3 -> 1e3]
 13. whether to use logarithmic energy bins or linear
 
-Output is written in the run directory in a single `hdf5` file: `MySimulation.h5`. All the steps are written in the same file, and the time step is stored as an attribute of the dataset: `Step0`, `Step1`, `Step2`, etc. Thus to access, say, the `Ez` field at the 10th output step (not the same as the simulation timestep), one has to access the dataset `/Step9/Ez` in the `hdf5` file. If one needs the `X1` coordinates of particles of species 2 at the 5th output step, one has to access the dataset `/Step4/X1_2` in the `hdf5` file, etc.
+Output is written in the run directory in a single `hdf5` file: `MySimulation.h5`. All the steps are written in the same file, and the time step is stored as an attribute of the dataset: `Step0`, `Step1`, `Step2`, etc. Thus to access, say, the `Ez` field at the 10th output step (not the same as the simulation timestep), one has to access the dataset `/Step9/fE3` in the `hdf5` file. If one needs the `X1` coordinates of particles of species 2 at the 5th output step, one has to access the dataset `/Step4/pX1_2` in the `hdf5` file, etc.
 
 Following is the list of the supported fields
 
@@ -84,15 +84,16 @@ and particle quantities
 !!! note "Refining fields and particle quantities for the output"
 
     One can specify particular components to output for the `Tij` fields: `T0i` will output the `T00`, `T01`, and `T02` components, while `Tii` will output only the diagonal components: `T11`, `T22`, and `T33`, and `Tij` will output all the 6 components. One can also specify the particle species which will be used to compute the moments or output particle quantities: `Rho_1` (density of species 1), `N_2_3` (number density of species 2 and 3), `Tij_1_3` (energy-momentum tensor for species 1 and 3), etc. 
-    <!-- Or for the particle quantities: `X_1_2` will write the coordinates of particles of species 1 and 2 only. If no species are specified, the moments will be computed for all the species with $m_s \ne 0$. -->
 
 All of the vector fields are interpolated to cell centers before the output, and converted to orthonormal basis. The particle-based moments are smoothed with a stencil (specified in the input file; `mom_smooth`) for each particle.
+
+In addition, one can write custom user-defined field quantities to the output with the fields. Refer to [the following section](../code/problem_generators.md#custom-field-output) for more details.
 
 !!! warning "Can one track particles at different times?"
 
     Particle tracking (outputting the same batch of particles at every timestep) is unfortunately not yet implemented, and will unlikely be available due to limitations imposed by the nature of GPU computations.
 
-## `nt2py`
+## [`nt2py`](https://pypi.org/project/nt2py/)
 
 We provide the `nt2py` python package to help easily access and manipulate the simulation data. `nt2py` package uses the [`dask`](https://docs.dask.org/en/stable/) and [`xarray`](https://docs.xarray.dev/en/stable/) libraries together with [`h5py`](https://pypi.org/project/h5py/) and [`h5pickle`](https://github.com/DaanVanVugt/h5pickle) to [lazily load](https://en.wikipedia.org/wiki/Lazy_loading) the output data and provide a convenient interface for the data analysis and quick visualization. 
 
@@ -190,6 +191,81 @@ Particles and spectra can, in turn, be accessed via `data.particles[s]`, where `
 
     You can access the documentation of the `nt2py` functions and methods of the `Data` object by calling `nt2r.<function>?` in the jupyter notebook or `help(nt2r.<function>)` in the python console.
 
+### Accessing particles
+
+Particles are stored in the same `data` object and are lazily preloaded when one calls `nt2.Data(...)`, as we did above. To access the particle data, use `data.particles`, which returns a python dictionary where the key is particles species index, and the value is an `xarray` Dataset with the particle data. For example, to access the `x` and `y` coordinates of the first species, one can do:
+
+```python
+data.particles[1].x
+data.particles[1].y
+```
+
+The shape of the returned dataset is number of particles times the number of time steps. To select the data at a specific time step, one can use the same `sel` or `isel` methods mentioned above. For example, to access the 10-th output timestep of the 3-rd species, one can do:
+
+```python
+data.particles[3].isel(t=10).x
+```
+
+Scatter plotting the particles on a 2D plane is quite easy, since `xarray` has a built-in `plot.scatter` method:
+
+```python
+species_3 = data.particles[3]
+species_4 = data.particles[4]
+
+species_3.isel(t=-1)\
+  .plot.scatter(x="x", y="y", 
+                label=species_3.attrs["label"])
+species_4.isel(t=-1)\
+  .plot.scatter(x="x", y="y", 
+                label=species_4.attrs["label"])
+```
+
+??? showplot "scatter plot $\{x,~y\}$"
+
+    ![nt2demo3](../assets/images/howto/nt2-demo-3.png)
+
+!!! code "`isel` indexing"
+
+    `isel(t=-1)` selects the last time step.
+
+Or one can plot the same in phase space:
+
+```python
+species_3.isel(t=-1)\
+  .plot.scatter(x="ux", y="uy", 
+                label=species_3.attrs["label"])
+species_4.isel(t=-1)\
+  .plot.scatter(x="ux", y="uy", 
+                label=species_4.attrs["label"])
+```
+
+??? showplot "scatter plot $\{u_x,~u_y\}$"
+
+    ![nt2demo4](../assets/images/howto/nt2-demo-4.png)
+
+
+### Accessing runtime spectra
+
+Distribution functions for all particle species in the box are also written with the data at specified timesteps. These can be accessed via `data.spectra`, which has several different fields. As in particles & fields, you can access the data at different times using `data.spectra.isel(t=...)` or `data.spectra.sel(t=...)`. The energy bins are written into `data.spectra.e`; by default, the binning is done logarithmically in $\gamma - 1$ for massive particles and energy, $E$, for the photons. Below is an example script to build a distribution function of electron-positron pairs at output step `t=450`:
+
+```python
+sp = data.spectra.isel(t=450)
+
+plt.figure(figsize=(6, 3))
+plt.xscale("log")
+plt.yscale("log")
+plt.plot(sp.e, sp.n_1 + sp.n_2, c="r")
+plt.ylim(10, 3e5)
+plt.xlabel(r"$\gamma - 1$")
+plt.xlim(sp.e.min(), 1)
+```
+
+???+ showplot "particle spectra"
+
+    ![nt2demo5](../assets/images/howto/nt2-demo-5.png)
+
+---
+
 ### Exporting movies
 
 To produce animations, `nt2py` provides a shortcut helper function which saves the frames using multiple threads, and then calls `ffmpeg` to merge them into a video file. 
@@ -220,54 +296,3 @@ data.makeMovie(plot_frame, num_cpus=8, framerate="10", ...)
 import nt2.export as nt2e
 nt2e.makeMovie?
 ```
-
-<!-- 
-### Accessing particles
-
-Particles are stored in the same `data` object and are lazily preloaded when one calls `nt2.Data(...)`, as we did above. To access the particle data, use `data.particles`, which returns a python dictionary where the key is particles species index, and the value is an `xarray` Dataset with the particle data. For example, to access the `x` and `y` coordinates of the first species, one can do:
-
-```python
-data.particles[1].x
-data.particles[1].y
-```
-
-The shape of the returned dataset is number of particles times the number of time steps. To select the data at a specific time step, one can use the same `sel` or `isel` methods mentioned above. For example, to access the 10-th output timestep of the 3-rd species, one can do:
-
-```python
-data.particles[3].isel(t=10).x
-```
-
-![nt2demo3](../assets/images/howto/nt2-demo-3.png){width=50%, align=right} 
-
-Scatter plotting the particles on a 2D plane is quite easy, since `xarray` has a built-in `plot.scatter` method:
-
-```python
-species_3 = data.particles[3]
-species_4 = data.particles[4]
-
-species_3.isel(t=-1)\
-  .plot.scatter(x="x", y="y", 
-                label=species_3.attrs["label"])
-species_4.isel(t=-1)\
-  .plot.scatter(x="x", y="y", 
-                label=species_4.attrs["label"])
-```
-
-!!! code "`isel` indexing"
-
-    `isel(t=-1)` selects the last time step.
-
-![nt2demo4](../assets/images/howto/nt2-demo-4.png){width=50%, align=right} 
-
-Or one can plot the same in phase space:
-
-```python
-species_3.isel(t=-1)\
-  .plot.scatter(x="ux", y="uy", 
-                label=species_3.attrs["label"])
-species_4.isel(t=-1)\
-  .plot.scatter(x="ux", y="uy", 
-                label=species_4.attrs["label"])
-```
-
--->

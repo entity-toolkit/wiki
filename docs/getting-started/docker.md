@@ -50,7 +50,7 @@ We provide the following configurations (tags) as separate images:
 Images for these containers are all stored on the [Docker hub](https://hub.docker.com/repository/docker/morninbru/entity/general). If you do not wish to use `docker compose` to download the pre-made ones from the Docker hub, you may also build the images yourself from the corresponding `Dockerfile`-s also provided with the source code. You can do that by going to the `dev/` directory in the root of the source code, and running: 
 
 ```sh
-docker build --no-cache -t myentity:<toolkit> -f Dockerfile.<toolkit>
+docker build --no-cache -t myentity:<toolkit> -f Dockerfile.<toolkit> .
 ```
 
 substituting one of the values for the `<toolkit>` mentioned above. You may then launch a container using the built image by running the following from the code source directory (or any other directory you wish to mount inside the container):

@@ -416,6 +416,99 @@ Again, as everything else in the problem generator, the force (rather, the accel
     Note, that among the functions mentioned throughout this section, you may specify only the ones you actually need, and ignore the ones you don't (i.e., there is no need to provide dummy functions that return zero), as the code will automatically determine at compile-time which functions are present.
 
 
+## Custom field output
+
+The code also allows for custom-defined fields to be written together with other field quantities during the output. To enable that, simply define the name of your field in the input file:
+
+```toml
+[output.fields]
+  ...
+  custom = ["my_field"]
+  ...
+```
+
+There can be as many custom fields as one needs. And then in the problem generator, populate the corresponding field by defining the following function:
+
+```c++
+void CustomFieldOutput(const std::string&    name,//(1)!
+                        ndfield_t<M::Dim, 6> buffer,//(2)!
+                        std::size_t          index,//(3)!
+                        const Domain<S, M>&  domain) {//(4)!
+  if (name == "my_field") {
+    // 1D example (can be easily generalized)
+    if constexpr (M::Dim == Dim::_1D) {
+      const auto& EM = domain.fields.em;
+      Kokkos::parallel_for(
+        "MyField",
+        domain.mesh.rangeActiveCells(),
+        Lambda(index_t i1) {
+          const auto      i1_ = COORD(i1);
+          coord_t<M::Dim> x_Ph { ZERO };
+          // convert coordinate to physical basis:
+          metric.template convert<Crd::Cd, Crd::Ph>({ i1_ }, x_Ph);
+          // compute whatever needs to be written
+          // ... may also depend on the EM fields from the `domain`
+          // ... in this example -- output Ex * x^2
+          buffer(i1, index) = SQR(x_Ph[0]) *
+                              metric.template transform<1, Idx::U, Idx::T>(
+                                { i1_ + HALF },
+                                EM(i1, em::ex1));
+          // here we also convert Ex1(i + 1/2) to Tetrad basis
+        });
+    }
+  } else {
+    raise::Error("Custom output not provided", HERE);
+  }
+}
+```
+
+1. the same name that went into the input file
+2. buffer array where the field is going to be written into
+3. an index of the buffer array where the field is written into
+4. reference of the local subdomain
+
+Alternatively, you can precompute the desired quantity in the `CustomPostStep` function and then simply copy to the buffer in the same function:
+
+```c++
+// assuming 2D and that the desired quantity is saved in `cbuff`
+template <SimEngine::type S, class M>
+struct PGen : public arch::ProblemGenerator<S, M> {
+  // ...
+
+  array_t<real_t**> cbuff;
+  
+  // ...
+
+  void CustomPostStep(std::size_t step, long double, Domain<S, M>& domain) {
+    if (step == 0) {
+      // allocate the array at time = 0
+      cbuff = array_t<real_t**>("cbuff",
+                                domain.mesh.n_all(in::x1),
+                                domain.mesh.n_all(in::x2));
+    }
+    // populate the buffer (can be done at specific timesteps)
+    Kokkos::parallel_for(
+      "FillCbuff",
+      domain.mesh.rangeActiveCells(),
+      Lambda(index_t i1, index_t i2) {
+        // ...
+      });
+  }
+
+  void CustomFieldOutput(const std::string&    name,
+                          ndfield_t<M::Dim, 6> buffer,
+                          std::size_t          index,
+                          const Domain<S, M>&) {
+    if (name == "my_field") {
+      Kokkos::deep_copy(Kokkos::subview(buffer, Kokkos::ALL, Kokkos::ALL, index), cbuff);
+    } else {
+      // ...
+    }
+  }
+};
+```
+
+Keep in mind that the custom field output is written as-is, i.e., no additional interpolation or transformation is applied. So make sure the quantity you output is covariant (i.e., does not depend on the resolution or the stretching of coordinates; essentially, always output "physical" covariant/contravariant vectors or transform them to the tetrad basis).
 
 {% include "html/d3js.html" %}
 <script src="../atm-boundaries.js">
