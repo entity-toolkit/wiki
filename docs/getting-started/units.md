@@ -58,8 +58,8 @@ We can then rewrite our equations in the "dimensionless" form, by renormalizing 
 
 $$
 \begin{aligned}
-\text{with}~~~&\bm{e}\equiv \bm{E}/B_0,~~~\bm{b}\equiv \bm{B}/B_0,~~~\bm{j}\equiv \bm{J}/J_0,\\
-&\tilde{q}_i \equiv q_i/q_0,~~~\tilde{m}_i \equiv m_i/m_0\\\\
+\text{with}~~~&\bm{e}\equiv \bm{E}/B_0,~~~\bm{b}\equiv \bm{B}/B_0,~~~\bm{j}\equiv 4\pi\bm{J}/J_0,\\
+&\tilde{q}_i \equiv q_i/q_0,~~~\tilde{m}_i \equiv m_i/m_0,~~~q_0/m_0 \equiv 1,~~~c\equiv 1\\\\
 \text{Maxwell's equations}&
 \begin{cases}
 \frac{\partial\bm{b}}{\partial t} = -\nabla\times\bm{e}\\\\
@@ -71,7 +71,7 @@ $$
 \frac{d\bm{x}_i}{dt} = \bm{\beta}_i
 \end{cases}\\\\
 \text{Deposited current}:&~
-\bm{j}=\frac{1}{V}\sum\limits_{i\in V} \tilde{q}_i w_i \bm{\beta}_i
+\bm{j}=\frac{V_0}{V}\frac{1}{\texttt{PPC}_0}\sum\limits_{i\in V} \tilde{q}_i w_i \bm{\beta}_i
 \end{aligned}
 $$
 
@@ -90,10 +90,10 @@ V_0 \equiv \begin{cases}
 \end{cases}
 $$
 
-The interpretation of this is quite simple: if you initialize $\textrm{PPC}$ particles per each cell with weights $w_p$ moving in the $x_1$ direction with a velocity $\beta^{\hat{i}}$, their number density and the current density the impose would be:
+The interpretation of this is quite simple: if you initialize $\textrm{PPC}$ particles per each cell with charges of $q = \tilde{q}q_0$, having an average weight of $w$, and moving with an average velocity $\beta^{\hat{i}}$, their number density and the current density they impose would be:
 
 $$
-\frac{n}{n_0} = \frac{\textrm{PPC}}{\textrm{PPC}_0} \frac{V_0}{\sqrt{h}}w_p ,~~~\frac{J^{\hat{i}}}{J_0} = \frac{\textrm{PPC}}{\textrm{PPC}_0}\frac{V_0}{\sqrt{h}}w_p \beta^{\hat{i}}.
+\frac{n}{n_0} = \frac{\textrm{PPC}}{\textrm{PPC}_0} \frac{V_0}{\sqrt{h}}w ,~~~\frac{4\pi J^{\hat{i}}}{J_0} = \underbrace{\frac{\textrm{PPC}}{\textrm{PPC}_0}\frac{V_0}{\sqrt{h}}w}_{n/n_0} \tilde{q} \beta^{\hat{i}}.
 $$
 
 Notice, that these quantities are independent of the resolution of the simulation, and the value of $\textrm{PPC}_0$. 
@@ -116,7 +116,7 @@ Equations that rely on pure electromagnetism (e.g., no quantum effects) can be d
 
 $$
 n\to \tilde{n} n_0,~~~m\to \tilde{m}m_0,~~~q\to \tilde{q}q_0\\
-\bm{B}\to \bm{b} B_0,~~~\bm{E}\to \bm{e} B_0,~~~\bm{J}\to \bm{j} J_0\\
+\bm{B}\to \bm{b} B_0,~~~\bm{E}\to \bm{e} B_0,~~~4\pi\bm{J}\to \bm{j} J_0\\
 ct\to t
 $$
 
