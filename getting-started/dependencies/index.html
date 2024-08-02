@@ -1,0 +1,801 @@
+
+<!DOCTYPE html>
+
+<html class="no-js" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<link href="https://entity-toolkit.github.io/wiki/getting-started/dependencies/" rel="canonical"/>
+<link href="../compile-run/" rel="prev"/>
+<link href="../docker/" rel="next"/>
+<link href="../../assets/logo.svg" rel="icon"/>
+<meta content="mkdocs-1.6.0, mkdocs-material-9.5.21" name="generator"/>
+<title>Dependencies - Entity: wiki</title>
+<link href="../../assets/stylesheets/main.66ac8b77.min.css" rel="stylesheet"/>
+<link href="../../assets/stylesheets/palette.06af60db.min.css" rel="stylesheet"/>
+<style>:root{--md-annotation-icon:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 20c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8m0-18A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10A10 10 0 0 0 12 2m1 5h-2v4H7v2h4v4h2v-4h4v-2h-4V7Z"/></svg>');}</style>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css?family=DM+Sans:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback" rel="stylesheet"/>
+<style>:root{--md-text-font:"DM Sans";--md-code-font:"JetBrains Mono"}</style>
+<link href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css" rel="stylesheet"/>
+<link href="../../css/tikzjax/fonts.css" rel="stylesheet"/>
+<script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+<link href="../../assets/stylesheets/extra-style.yy05961a.min.css" rel="stylesheet"/></head>
+<body data-md-color-accent="indigo" data-md-color-primary="indigo" data-md-color-scheme="default" dir="ltr">
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#dependencies">
+          Skip to content
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header md-header--shadow" data-md-component="header">
+<nav aria-label="Header" class="md-header__inner md-grid">
+<a aria-label="Entity: wiki" class="md-header__button md-logo" data-md-component="logo" href="../.." title="Entity: wiki">
+<img alt="logo" src="../../assets/logo.svg"/>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
+            Entity: wiki
+          </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              Dependencies
+            
+          </span>
+</div>
+</div>
+</div>
+<form class="md-header__option" data-md-component="palette">
+<input aria-label="Switch to dark mode" class="md-option" data-md-color-accent="indigo" data-md-color-media="(prefers-color-scheme: light)" data-md-color-primary="indigo" data-md-color-scheme="default" id="__palette_0" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_1" hidden="" title="Switch to dark mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7M9 21a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-1H9v1Z"></path></svg>
+</label>
+<input aria-label="Switch to light mode" class="md-option" data-md-color-accent="indigo" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-primary="indigo" data-md-color-scheme="slate" id="__palette_1" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_0" hidden="" title="Switch to light mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7M9 21v-1h6v1a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1m3-17a5 5 0 0 0-5 5c0 2.05 1.23 3.81 3 4.58V16h4v-2.42c1.77-.77 3-2.53 3-4.58a5 5 0 0 0-5-5Z"></path></svg>
+</label>
+</form>
+<script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+<label class="md-header__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="Search" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="Search" required="" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"></path></svg>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"></path></svg>
+</label>
+<nav aria-label="Search" class="md-search__options">
+<button aria-label="Clear" class="md-search__icon md-icon" tabindex="-1" title="Clear" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"></path></svg>
+</button>
+</nav>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            Initializing search
+          </div>
+<ol class="md-search-result__list" role="presentation"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="md-header__source">
+<a class="md-source" data-md-component="source" href="https://github.com/entity-toolkit/entity" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M23.546 10.93 13.067.452a1.55 1.55 0 0 0-2.188 0L8.708 2.627l2.76 2.76a1.838 1.838 0 0 1 2.327 2.341l2.658 2.66a1.838 1.838 0 0 1 1.9 3.039 1.837 1.837 0 0 1-2.6 0 1.846 1.846 0 0 1-.404-1.996L12.86 8.955v6.525c.176.086.342.203.488.348a1.848 1.848 0 0 1 0 2.6 1.844 1.844 0 0 1-2.609 0 1.834 1.834 0 0 1 0-2.598c.182-.18.387-.316.605-.406V8.835a1.834 1.834 0 0 1-.996-2.41L7.636 3.7.45 10.881c-.6.605-.6 1.584 0 2.189l10.48 10.477a1.545 1.545 0 0 0 2.186 0l10.43-10.43a1.544 1.544 0 0 0 0-2.187"></path></svg>
+</div>
+<div class="md-source__repository">
+    entity
+  </div>
+</a>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Navigation" class="md-nav md-nav--primary md-nav--integrated" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="Entity: wiki" class="md-nav__button md-logo" data-md-component="logo" href="../.." title="Entity: wiki">
+<img alt="logo" src="../../assets/logo.svg"/>
+</a>
+    Entity: wiki
+  </label>
+<div class="md-nav__source">
+<a class="md-source" data-md-component="source" href="https://github.com/entity-toolkit/entity" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M23.546 10.93 13.067.452a1.55 1.55 0 0 0-2.188 0L8.708 2.627l2.76 2.76a1.838 1.838 0 0 1 2.327 2.341l2.658 2.66a1.838 1.838 0 0 1 1.9 3.039 1.837 1.837 0 0 1-2.6 0 1.846 1.846 0 0 1-.404-1.996L12.86 8.955v6.525c.176.086.342.203.488.348a1.848 1.848 0 0 1 0 2.6 1.844 1.844 0 0 1-2.609 0 1.834 1.834 0 0 1 0-2.598c.182-.18.387-.316.605-.406V8.835a1.834 1.834 0 0 1-.996-2.41L7.636 3.7.45 10.881c-.6.605-.6 1.584 0 2.189l10.48 10.477a1.545 1.545 0 0 0 2.186 0l10.43-10.43a1.544 1.544 0 0 0 0-2.187"></path></svg>
+</div>
+<div class="md-source__repository">
+    entity
+  </div>
+</a>
+</div>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../..">
+<span class="md-ellipsis">
+    Home
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+<span class="md-ellipsis">
+    Getting started
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="true" aria-labelledby="__nav_2_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_2">
+<span class="md-nav__icon md-icon"></span>
+            Getting started
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../compile-run/">
+<span class="md-ellipsis">
+    Compiling/running
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active">
+<input class="md-nav__toggle md-toggle" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
+<span class="md-ellipsis">
+    Dependencies
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<a class="md-nav__link md-nav__link--active" href="./">
+<span class="md-ellipsis">
+    Dependencies
+  </span>
+</a>
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#preinstalling-third-party-libraries">
+<span class="md-ellipsis">
+      Preinstalling third-party libraries
+    </span>
+</a>
+<nav aria-label="Preinstalling third-party libraries" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#anaconda">
+<span class="md-ellipsis">
+      Anaconda
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#environment-modules">
+<span class="md-ellipsis">
+      Environment modules
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#build-scripts">
+<span class="md-ellipsis">
+      Build scripts
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#modulefiles">
+<span class="md-ellipsis">
+      Modulefiles
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../docker/">
+<span class="md-ellipsis">
+    Docker
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../inputfile/">
+<span class="md-ellipsis">
+    Input file
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../units/">
+<span class="md-ellipsis">
+    Understanding the units
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../vis/">
+<span class="md-ellipsis">
+    Output &amp; visualization
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../docs/">
+<span class="md-ellipsis">
+    Documenting
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../faq/">
+<span class="md-ellipsis">
+    F.A.Q.
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../numerics/pic/">
+<span class="md-ellipsis">
+    PIC algorithm
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_4" type="checkbox"/>
+<label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+<span class="md-ellipsis">
+    Understanding the code
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_4_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_4">
+<span class="md-nav__icon md-icon"></span>
+            Understanding the code
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../code/hierarchy/">
+<span class="md-ellipsis">
+    Hierarchy of structures
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../code/domains/">
+<span class="md-ellipsis">
+    Metadomain, subdomains and meshes
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../code/fields_particles/">
+<span class="md-ellipsis">
+    Fields and particles
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../code/metrics/">
+<span class="md-ellipsis">
+    Metrics
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../code/problem_generators/">
+<span class="md-ellipsis">
+    Problem generators
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../code/structure/">
+<span class="md-ellipsis">
+    Code structure
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../guidelines/">
+<span class="md-ellipsis">
+    Guidelines
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+<span class="md-ellipsis">
+    Useful things
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_6_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_6">
+<span class="md-nav__icon md-icon"></span>
+            Useful things
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../useful/float-comparison/">
+<span class="md-ellipsis">
+    Floating point comparison
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../useful/theory_pic/">
+<span class="md-ellipsis">
+    Theory behind PIC
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../useful/ks/">
+<span class="md-ellipsis">
+    Kerr metric
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_7" type="checkbox"/>
+<label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+<span class="md-ellipsis">
+    Fun
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_7_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_7">
+<span class="md-nav__icon md-icon"></span>
+            Fun
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../fun/coords/">
+<span class="md-ellipsis">
+    Axisymmetric coordinates
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../fun/cubed_sphere/">
+<span class="md-ellipsis">
+    Cubed sphere
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_8" type="checkbox"/>
+<label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+<span class="md-ellipsis">
+    Events
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_8_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_8">
+<span class="md-nav__icon md-icon"></span>
+            Events
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../events/sceecs2024/instructions/">
+<span class="md-ellipsis">
+    SCEECS Summer School 2024
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<article class="md-content__inner md-typeset">
+<h1 id="dependencies">Dependencies<a class="headerlink" href="#dependencies" title="Permanent link">¶</a></h1>
+<p>To compile the code you need to have the following dependencies installed:</p>
+<ul>
+<li><a href="https://cmake.org/"><code>CMake</code></a> (version &gt;= 3.16; verify by running <code>cmake --version</code>).</li>
+<li><a href="https://gcc.gnu.org/"><code>GCC</code></a> (version &gt;= 8.3.1; verify by running <code>g++ --version</code>), <a href="https://llvm.org/, tested on version &gt;= 11; verify by running clang++ --version"><code>llvm</code></a> or <a href="https://www.intel.com/content/www/us/en/developer/tools/oneapi/dpc-compiler.html">Intel C++ compiler</a> (version &gt;= 19.1 or higher; verify by running <code>icx --version</code>).</li>
+<li>to compile for GPUs, you need to have the <a href="https://developer.nvidia.com/cuda-toolkit"><code>CUDA toolkit</code></a> installed (version &gt;= 11.0; verify by running <code>nvcc --version</code>).</li>
+<li><code>MPI</code> (e.g., <code>OpenMPI</code>, <code>MPICH</code>, etc.; verify by running <code>mpicxx --version</code>) for multi-node simulations.</li>
+<li><code>HDF5</code> for data output (verify by running <code>h5c++ --version</code>).</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Cuda compatibility</p>
+<p>Note, that different versions of <code>CUDA</code> are compatible with different host compiler versions (i.e., <code>gcc</code>, <code>llvm</code>, etc.). Please, refer to the <a href="https://gist.github.com/ax3l/9489132">following curated list</a> for the compatibility matrix.</p>
+</div>
+<p>All the other third-party dependencies, such as <code>Kokkos</code> and <code>ADIOS2</code>, are included in the repository as submodules and are automatically compiled when you run <code>cmake</code>. </p>
+<h2 id="preinstalling-third-party-libraries">Preinstalling third-party libraries<a class="headerlink" href="#preinstalling-third-party-libraries" title="Permanent link">¶</a></h2>
+<p>To speed up the compilation process, it is often beneficial to precompile the third-party libraries and use those during the build process, either by setting the appropriate environment variables, using it within a conda environment or by using environment modules. Alternatively, of course, you can use the libraries provided by your system package manager, or the cluster's module system.</p>
+<h3 id="anaconda">Anaconda<a class="headerlink" href="#anaconda" title="Permanent link">¶</a></h3>
+<p>If you want to have <code>ADIOS2</code> with the serial <code>HDF5</code> support (i.e., without <code>MPI</code>) installed in the conda environment, we provide a shell script <code>conda-entity-nompi.sh</code> which installs the proper compiler, the <code>hdf5</code> library, and the <code>ADIOS2</code>. Run the scripts via:</p>
+<div class="language-shell highlight"><pre><span></span><code><span class="nb">source</span><span class="w"> </span>conda-entity-nompi.sh
+</code></pre></div>
+<p>This also <code>pip</code>-installs the <code>nt2.py</code> package for post-processing. With this configuration, the <code>Kokkos</code> library will be built in-tree.</p>
+<h3 id="environment-modules">Environment modules<a class="headerlink" href="#environment-modules" title="Permanent link">¶</a></h3>
+<p>The form below allows you to generate the appropriate build scripts and optionally the environment modules for the libraries you want to compile and install. Library interdependencies are automatically resolved, and the form will only show the necessary fields for the libraries you select.</p>
+<form id="dependencies-form">
+<div class="grid">
+<fieldset>
+<legend>Libraries to compile</legend>
+<p>
+<input id="mpi" name="lib_mpi" type="checkbox" value="mpi"/>
+<label for="mpi">MPI</label>
+</p>
+<p>
+<input id="hdf5" name="lib_hdf5" type="checkbox" value="hdf5"/>
+<label for="hdf5">HDF5</label><br/>
+</p>
+<p>
+<input id="kokkos" name="lib_kokkos" type="checkbox" value="kokkos"/>
+<label for="kokkos">Kokkos</label><br/>
+</p>
+<p>
+<input id="adios2" name="lib_adios2" type="checkbox" value="adios2"/>
+<label for="adios2">ADIOS2</label><br/>
+</p>
+</fieldset>
+<fieldset id="configs_fieldset">
+<legend>Configurations</legend>
+<p>
+<input id="use_modules" name="use_modules" type="checkbox" value="use_modules"/>
+<label for="use_modules">Use environment modules</label><br/>
+</p>
+<p>
+<div class="textfield" id="use_modules_path">
+<input name="use_modules_path" placeholder="$HOME/.modules/modfiles" type="text">
+<label for="use_modules_path">Modulefiles parent directory</label>
+</input></div>
+</p>
+<p>
+<div class="textfield" id="host_compiler_module">
+<input name="host_compiler_module" placeholder="example: gcc/9" required="" type="text">
+<label for="host_compiler_module">Host compiler</label>
+</input></div>
+</p>
+<p>
+<div class="textfield" id="gpu_compiler_module">
+<input name="gpu_compiler_module" placeholder="example: cudatoolkit/12.2" required="" type="text">
+<label for="gpu_compiler_module">GPU compiler</label>
+</input></div>
+</p>
+</fieldset>
+<fieldset id="mpi_fieldset">
+<legend>MPI settings</legend>
+<p>
+<div class="textfield" id="mpi_module">
+<input name="mpi_module" placeholder="ex.: openmpi/5.0.2" required="" type="text">
+<label>MPI module</label>
+</input></div>
+</p>
+<p>
+<input id="mpi_use_gpu" name="mpi_use_gpu" type="checkbox" value="mpi_use_gpu"/>
+<label for="mpi_use_gpu">GPU support</label><br/>
+</p>
+<p>
+<div class="textfield" id="mpi_src">
+<input name="mpi_src" placeholder="$HOME/src/mpi" type="text">
+<label>Path to source code</label>
+</input></div>
+</p>
+<p>
+<div class="textfield" id="mpi_install">
+<input name="mpi_install" placeholder="$HOME/.modules/mpi" type="text">
+<label>Install path</label>
+</input></div>
+</p>
+</fieldset>
+<fieldset id="hdf5_fieldset">
+<legend>HDF5 settings</legend>
+<p>
+<div class="textfield" id="hdf5_module">
+<input name="hdf5_module" placeholder="ex.: hdf5/mpi-5.0.2" required="" type="text">
+<label>HDF5 module</label>
+</input></div>
+</p>
+<p>
+<input id="hdf5_use_mpi" name="hdf5_use_mpi" type="checkbox" value="hdf5_use_mpi"/>
+<label for="hdf5_use_mpi">MPI support</label><br/>
+</p>
+<p>
+<div class="textfield" id="hdf5_src">
+<input name="hdf5_src" placeholder="$HOME/src/hdf5" type="text">
+<label>Path to source code</label>
+</input></div>
+</p>
+<p>
+<div class="textfield" id="hdf5_install">
+<input name="hdf5_install" placeholder="$HOME/.modules/hdf5" type="text">
+<label>Install path</label>
+</input></div>
+</p>
+<p>
+<div class="textfield" id="hdf5_mpi_path">
+<input name="hdf5_mpi_path" placeholder="$MPIHOME" type="text">
+<label>Path to MPI installation</label>
+</input></div>
+</p>
+<p>
+<div class="textfield" id="hdf5_mpi_module">
+<input id="hdf5_mpi_module" name="hdf5_mpi_module" placeholder="example: open-mpi/5.0" type="text">
+<label>MPI module name</label>
+</input></div>
+</p>
+</fieldset>
+<fieldset id="kokkos_fieldset">
+<legend>Kokkos settings</legend>
+<p>
+<div class="textfield" id="kokkos_module">
+<input name="kokkos_module" placeholder="ex.: kokkos/cuda-12.2/gcc-11" required="" type="text">
+<label>Kokkos module</label>
+</input></div>
+</p>
+<p>
+<input id="use_kokkos_debug" name="use_kokkos_debug" type="checkbox" value="use_kokkos_debug"/>
+<label for="use_kokkos_debug">Debug mode</label><br/>
+</p>
+<p>
+<input id="kokkos_use_gpu" name="kokkos_use_gpu" type="checkbox" value="kokkos_use_gpu"/>
+<label for="kokkos_use_gpu">GPU support</label><br/>
+</p>
+<p>
+<label for="kokkos_cpuarch">CPU architecture: </label>
+<select id="kokkos_cpuarch" name="kokkos_cpuarch">
+<option value="NATIVE">Native</option>
+<optgroup label="ARM">
+<option value="A64FX">ARMv8.2 with SVE Support</option>
+<option value="ARMV80">ARMv8.0</option>
+<option value="ARMV81">ARMv8.1</option>
+<option value="ARMV8_THUNDERX">ARMv8 ThunderX</option>
+<option value="ARMV8_THUNDERX2">ARMv8 ThunderX2</option>
+</optgroup>
+<optgroup label="AMD">
+<option value="AMDAVX">AMDAVX</option>
+<option value="ZEN">Zen</option>
+<option value="ZEN2">Zen 2</option>
+<option value="ZEN3">Zen 3</option>
+</optgroup>
+<optgroup label="Intel">
+<option value="SPR">Sapphire Rapids</option>
+<option value="SKX">Skylake</option>
+<option value="BDW">Broadwell</option>
+<option value="HSW">Haswell</option>
+<option value="SNB">Sandy Bridge</option>
+<option value="KNL">Knights Landing</option>
+<option value="KNC">Knights Corner</option>
+</optgroup>
+<optgroup label="IBM">
+<option value="POWER9">POWER9</option>
+<option value="POWER8">POWER8</option>
+</optgroup>
+</select>
+</p>
+<p id="kokkos_gpuarch_selector">
+<label for="kokkos_gpuarch">GPU architecture: </label>
+<select id="kokkos_gpuarch" name="kokkos_gpuarch">
+<option value="NATIVE">Native</option>
+<optgroup label="NVIDIA">
+<option value="HOPPER90">Hopper 9.0: H100</option>
+<option value="ADA89">Ada Lovelace 8.9: L4/L40</option>
+<option value="AMPERE86">Ampere 8.6: A40/A10/A16/A2</option>
+<option value="AMPERE80">Ampere 8.0: A100/A30</option>
+<option value="TURING75">Turing 7.5: T4</option>
+<option value="VOLTA72">Volta 7.2</option>
+<option value="VOLTA70">Volta 7.0: V100</option>
+<option value="PASCAL61">Pascal 6.1: P40/P4</option>
+<option value="PASCAL60">Pascal 6.0: P100</option>
+<option value="MAXWELL53">Maxwell 5.3</option>
+<option value="MAXWELL52">Maxwell 5.2: M60/M40</option>
+<option value="MAXWELL50">Maxwell 5.0</option>
+<option value="KEPLER37">Kepler 3.7: K80</option>
+<option value="KEPLER35">Kepler 3.5: K40/K20</option>
+<option value="KEPLER32">Kepler 3.2</option>
+<option value="KEPLER30">Kepler 3.0: K10</option>
+</optgroup>
+<optgroup label="AMD">
+<option value="AMD_GFX942">GFX942: MI300A/MI300X</option>
+<option value="AMD_GFX940">GFX940: MI300A (pre-production)</option>
+<option value="AMD_GFX90A">GFX90A: MI200 series</option>
+<option value="AMD_GFX908">GFX90A: MI100</option>
+<option value="AMD_GFX906">GFX906: MI50/MI60</option>
+<option value="AMD_GFX1100">GFX1100: 7900xt</option>
+<option value="AMD_GFX1030">GFX1030: V620/W6800</option>
+</optgroup>
+<optgroup label="Intel">
+<option value="INTEL_PVC">Xe-HPC: Max 1550</option>
+<option value="INTEL_XEHP">Xe-HP</option>
+<option value="INTEL_DG1">Iris Xe MAX (DG1)</option>
+<option value="INTEL_GEN12LP">Gen12LP: UHD Graphics 770</option>
+<option value="INTEL_GEN11">Gen11: UHD Graphics</option>
+<option value="INTEL_GEN9">Gen9: HD Graphics 510/Iris Pro 580</option>
+<option value="INTEL_GEN">Just-In-Time compilation</option>
+</optgroup>
+</select>
+</p>
+<p>
+<div class="textfield" id="kokkos_src">
+<input name="kokkos_src" placeholder="$HOME/src/kokkos" type="text">
+<label>Path to source code</label>
+</input></div>
+</p>
+<p>
+<div class="textfield" id="kokkos_install">
+<input name="kokkos_install" placeholder="$HOME/.modules/kokkos" type="text">
+<label>Install path</label>
+</input></div>
+</p>
+</fieldset>
+<fieldset id="adios2_fieldset">
+<legend>ADIOS2 settings</legend>
+<p>
+<div class="textfield" id="adios2_module">
+<input name="adios2_module" placeholder="ex.: adios2/gcc-11/hdf5-1.14" required="" type="text">
+<label>ADIOS2 module</label>
+</input></div>
+</p>
+<p>
+<input id="adios2_use_mpi" name="adios2_use_mpi" type="checkbox" value="adios2_use_mpi"/>
+<label for="adios2_use_mpi">MPI support</label><br/>
+</p>
+<p>
+<div class="textfield" id="adios2_src">
+<input name="adios2_src" placeholder="$HOME/src/adios2" type="text">
+<label>Path to source code</label>
+</input></div>
+</p>
+<p>
+<div class="textfield" id="adios2_install">
+<input name="adios2_install" placeholder="$HOME/.modules/adios2" type="text">
+<label>Install path</label>
+</input></div>
+</p>
+<p>
+<div class="textfield" id="adios2_mpi_path">
+<input name="adios2_mpi_path" placeholder="$MPIHOME" type="text">
+<label>Path to MPI installation</label>
+</input></div>
+</p>
+<p>
+<div class="textfield" id="adios2_mpi_module">
+<input id="adios2_mpi_module" name="adios2_mpi_module" placeholder="example: open-mpi/5.0" type="text">
+<label>MPI module name</label>
+</input></div>
+</p>
+<p>
+<div class="textfield" id="adios2_hdf5_path">
+<input name="adios2_hdf5_path" placeholder="$HDF5_ROOT" type="text">
+<label>Path to HDF5 installation</label>
+</input></div>
+</p>
+<p>
+<div class="textfield" id="adios2_hdf5_module">
+<input id="adios2_hdf5_module" name="adios2_hdf5_module" placeholder="example: hdf5/1.14.2" type="text">
+<label>HDF5 module name</label>
+</input></div>
+</p>
+</fieldset>
+</div>
+</form>
+<h2 id="build-scripts">Build scripts<a class="headerlink" href="#build-scripts" title="Permanent link">¶</a></h2>
+<div class="language-sh highlight"><span class="filename">MPI build/install script</span><pre><span></span><code>
+</code></pre></div>
+<div class="language-sh highlight"><span class="filename">HDF5 build/install script</span><pre><span></span><code>
+</code></pre></div>
+<div class="language-sh highlight"><span class="filename">Kokkos build/install script</span><pre><span></span><code>
+</code></pre></div>
+<div class="language-sh highlight"><span class="filename">ADIOS2 build/install script</span><pre><span></span><code>
+</code></pre></div>
+<h2 id="modulefiles">Modulefiles<a class="headerlink" href="#modulefiles" title="Permanent link">¶</a></h2>
+<div class="language-sh highlight"><pre><span></span><code>
+</code></pre></div>
+<div class="language-sh highlight"><pre><span></span><code>
+</code></pre></div>
+<div class="language-sh highlight"><pre><span></span><code>
+</code></pre></div>
+<div class="language-sh highlight"><pre><span></span><code>
+</code></pre></div>
+<div class="language-sh highlight"><pre><span></span><code>
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>We also provide a command-line tool called <a href="https://github.com/entity-toolkit/ntt-dploy"><code>ntt-dploy</code></a> which can be used for the same purpose.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>We assume that the source codes for each library are already downloaded and placed in the appropriate directories. Here's where you can download the source codes:</p>
+<ul>
+<li>Kokkos: <a href="https://github.com/kokkos/kokkos/releases" target="_blank">https://github.com/kokkos/kokkos/releases</a>;</li>
+<li>ADIOS2: <a href="https://github.com/ornladios/ADIOS2/releases" target="_blank">https://github.com/ornladios/ADIOS2/releases</a>;</li>
+<li>HDF5: <a href="https://github.com/HDFGroup/hdf5/releases" target="_blank">https://github.com/HDFGroup/hdf5/releases</a>, ZLIB: <a href="https://github.com/madler/zlib/releases" target="_blank">https://github.com/madler/zlib/releases</a>, LIBAEC: <a href="https://github.com/MathisRosenhauer/libaec/releases" target="_blank">https://github.com/MathisRosenhauer/libaec/releases</a>; follow instructions <a href="https://github.com/HDFGroup/hdf5/blob/develop/release_docs/INSTALL_CMake.txt" target="_blank">here</a> to place the proper source files;</li>
+<li>Open MPI: <a href="https://github.com/open-mpi/ompi" target="_blank">https://github.com/open-mpi/ompi</a>.</li>
+</ul>
+</div>
+<script src="../dependencies.js"></script>
+</article>
+</div>
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+</div>
+</main>
+<footer class="md-footer">
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
+<div class="md-copyright__highlight">
+      Copyright © 2021++, Entity dev team
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+      Material for MkDocs
+    </a>
+</div>
+<div class="md-social">
+<a class="md-social__link" href="https://github.com/entity-toolkit/entity/" rel="noopener" target="_blank" title="github.com">
+<svg viewbox="0 0 496 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"></path></svg>
+</a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tracking", "toc.integrate", "content.code.annotate", "content.code.copy", "navigation.indexes", "content.tooltips", "header.autohide"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+<script src="../../assets/javascripts/bundle.a7c05c9e.min.js"></script>
+<script src="../../js/katex.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"></script>
+<script src="../../js/tikzjax.js"></script>
+</body>
+</html>
