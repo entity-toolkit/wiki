@@ -119,6 +119,8 @@ Elapsed time: 11.12 s
 
 ## Testing
 
+<span class="since-version">1.0.0</span>
+
 To compile the unit tests, you need to specify the `-D TESTS=ON` flag when configuring the code with `cmake`. After the code is compiled, you can run the tests with the following command:
 ```shell
 ctest --test-dir build/
@@ -135,6 +137,10 @@ ctest --test-dir build/ -R particle
 
 
 ### HIP/ROCm @ AMD GPUs
+
+<a href="https://github.com/entity-toolkit/entity/pull/50">
+  <span class="since-version">1.1.0</span>
+</a>
 
 Compiling on AMD GPUs is typically not an issue: 
 

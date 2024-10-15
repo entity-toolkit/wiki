@@ -3,6 +3,10 @@ hide:
   - footer
 ---
 
+<a href="https://github.com/entity-toolkit/entity/pull/51">
+  <span class="since-version">1.1.0</span>
+</a>
+
 `Entity toolkit` provides docker images for setting up a development environment with all the dependencies already preinstalled. To start a container with the proper image, simply go to the root of the source code, and run: 
 
 ```sh

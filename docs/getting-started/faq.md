@@ -9,9 +9,9 @@ hide:
 
 ## Code usage
 
-??? faq "I want to have a custom ..."
+??? faq "I want to have a custom boundary/injection/driving/distribution function/output."
     
-    Here, "..." can be "boundary/injection conditions," "driving," "injection," "distribution function," "output." All of that *can* be done via the tools provided by the problem generator. Please inspect carefully the [section dedicated to that](../code/problem_generators.md).
+    All of that *can* be done via the tools provided by the problem generator. Please inspect carefully the [section dedicated to that](../code/problem_generators.md).
 
 
 ## Technical

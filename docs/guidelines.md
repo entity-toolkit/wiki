@@ -13,6 +13,11 @@ When not sure what a specific function does, or how to include a particular modu
 
 ## Codestyle guide
 
+### `clang-format`
+
+To maintain coherence throughout the source code, we use `clang-format` to enforce a uniform style. A corresponding `.clang-format` file with all the style-related settings can be found in the root directory of the code. To use this, one needs to have the `clang-format` executable (typically provided with the `llvm` package). After installing the `clang-format` itself (check by running `clang-format --version`), you can use it either manually by running `clang-format .` in the route directory of the code, or attach it to your favorite code editor to run on save. For VSCode, the recommended extension is [`xaver.clang-format`](https://github.com/xaverh/vscode-clang-format), for vim -- [`rhysd/vim-clang-format`](https://vimawesome.com/plugin/vim-clang-format), for nvim -- [`stevearc/conform.nvim`](https://github.com/stevearc/conform.nvim), for [emacs](https://www.vim.org/download.php).
+
+
 ### General
 
 * Use `const` and `auto` declarations where possible.

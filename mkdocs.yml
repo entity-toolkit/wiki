@@ -13,6 +13,7 @@ nav:
       # - Writing a problem generator: getting-started/pgen.md
       - Understanding the units: getting-started/units.md
       - Output & visualization: getting-started/vis.md
+      - Writing checkpoints & restarting: getting-started/checkpoints.md
       - Documenting: getting-started/docs.md
       - F.A.Q.: getting-started/faq.md
   - PIC algorithm: "numerics/pic.md"
@@ -22,7 +23,7 @@ nav:
       - "code/fields_particles.md"
       - "code/metrics.md"
       - "code/problem_generators.md"
-      - "code/structure.md"
+      # - "code/structure.md"
   - Guidelines: "guidelines.md"
   - Useful things:
       - Floating point comparison: "useful/float-comparison.md"

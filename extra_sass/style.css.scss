@@ -294,6 +294,25 @@ optgroup {
   font-weight: bold;
 }
 
+/* --------------------------------- tags ----------------------------------- */
+.since-version::before {
+  content: "> Since v";
+}
+.since-version {
+  font-size: 0.8em;
+  font-style: italic;
+  padding: 0.1rem 0.3rem;
+  border-radius: 0.25rem;
+  color: white;
+  @include dark-theme {
+    background-color: lighten(map-get($dark-palette, "one"), 15%);
+    border: 1px solid lighten(map-get($dark-palette, "three"), 45%);
+  }
+  @include light-theme {
+    background-color: darken(map-get($light-palette, "three"), 2%);
+  }
+}
+
 /* extra */
 
 @import "index/_index.css.scss";
