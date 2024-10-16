@@ -99,12 +99,7 @@ unset CURRENT_DIR`);
     if (gpuarch !== "") {
       suffix += " @ " + gpuarch;
     }
-    for (const mod of modules) {
-      if (prereqs === "") {
-        prereqs = "\nprereq            ";
-      }
-      prereqs += ` ${mod}`;
-    }
+    prereqs = modules.map((m) => "prereq             " + m).join('\n');
     for (const flag of cflags) {
       if (!flag.startsWith("CMAKE")) {
         flags.push(`setenv ${flag.split('=')[0]}` + ' ' + flag.split('=')[1]);
@@ -122,7 +117,8 @@ proc ModulesHelp { } {
 
 module-whatis      "Sets up ${suffix}"    
 
-conflict           kokkos${prereqs}
+conflict           kokkos
+${prereqs}
 
 set                basedir      ${kokkos_install}
 prepend-path       PATH         $basedir/bin
@@ -268,12 +264,7 @@ unset CURRENT_DIR`);
     if (use.mpi || use.mpisupport) {
       suffix = "ADIOS2 with MPI support";
     }
-    for (const mod of modules) {
-      if (prereqs === "") {
-        prereqs = "\nprereq            ";
-      }
-      prereqs += ` ${mod}`;
-    }
+    prereqs = modules.map((m) => "prereq             " + m).join('\n');
     for (const flag of cflags) {
       if (flag.includes("MPI") || flag.includes("HDF5")) {
         flags.push(`setenv ${flag.split('=')[0]}` + ' ' + flag.split('=')[1]);
@@ -291,7 +282,8 @@ puts stderr "\\t${suffix}\\n"
 
 module-whatis      "Sets up ${suffix}"    
 
-conflict           adios2${prereqs}
+conflict           adios2
+${prereqs}
 
 set                basedir      ${adios2_install}
 prepend-path       PATH         $basedir/bin
@@ -402,12 +394,7 @@ unset CURRENT_DIR`);
     if (use.mpi || use.mpisupport) {
       suffix = "HDF5 with MPI support";
     }
-    for (const mod of modules) {
-      if (prereqs === "") {
-        prereqs = "\nprereq            ";
-      }
-      prereqs += ` ${mod}`;
-    }
+    prereqs = modules.map((m) => "prereq             " + m).join('\n');
     modfile = (`#%Module1.0######################################################################
 ##
 ## ${suffix} modulefile
@@ -419,7 +406,8 @@ proc ModulesHelp { } {
 
 module-whatis      "Sets up ${suffix}"    
 
-conflict           hdf5 phdf5 hdf5-mpi hdf5-parallel${prereqs}
+conflict           hdf5 phdf5 hdf5-mpi hdf5-parallel
+${prereqs}
 
 set                basedir               ${hdf5_install}
 prepend-path       PATH                  $basedir/bin
@@ -516,12 +504,7 @@ unset CURRENT_DIR`);
     if (use.gpusupport) {
       suffix = "MPI with GPU support";
     }
-    for (const mod of modules) {
-      if (prereqs === "") {
-        prereqs = "\nprereq            ";
-      }
-      prereqs += ` ${mod}`;
-    }
+    prereqs = modules.map((m) => "prereq             " + m).join('\n');
     modfile = (`#%Module1.0######################################################################
 ##
 ## ${suffix} modulefile
@@ -533,7 +516,8 @@ proc ModulesHelp { } {
 
 module-whatis      "Sets up ${suffix}"
 
-conflict           mpi ompi openmpi mpich intel-mpi${prereqs}
+conflict           mpi ompi openmpi mpich intel-mpi open-mpi
+${prereqs}
 
 set                basedir               ${mpi_install}
 prepend-path       PATH                  $basedir/bin
