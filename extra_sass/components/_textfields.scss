@@ -1,0 +1,52 @@
+form .textfield {
+  position: relative;
+
+  input {
+    line-height: 1.5rem;
+    padding-left: 0.2rem;
+    outline: none;
+    transition: 0.02s ease-out;
+    background: var(--md-default-bg);
+
+    border: solid var(--col-tab-border);
+    border-width: 0 0 1px 0;
+
+    & + label {
+      position: absolute;
+      left: 0.2rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: gray;
+      transition: 0.1s ease-out;
+      transform-origin: left top;
+      pointer-events: none;
+    }
+
+    &:required {
+      &:placeholder-shown {
+        border-color: var(--col-tab-border);
+      }
+    }
+
+    &:focus + label,
+    &:not(:placeholder-shown) + label {
+      padding: 0 0.25rem;
+      background: var(--md-default-bg-color);
+    }
+
+    &:focus + label {
+      color: var(--md-default-fg-color);
+      top: 0;
+      transform: translateY(-60%) scale(0.75) !important;
+    }
+
+    &:not(:placeholder-shown) + label {
+      top: 0;
+      transform: translateY(-60%) scale(0.75) !important;
+    }
+
+    &:not(:focus)::placeholder {
+      opacity: 0;
+    }
+  }
+}

@@ -7,15 +7,15 @@
 
   @include light-theme {
     --text-color: "black";
-    --background-color: #{darken(map-get($light-palette, "bg"), 6%)};
-    --widget-color: #{darken(map-get($light-palette, "bg"), 16%)};
-    --hover-color: #{darken(map-get($light-palette, "bg"), 25%)};
+    --background-color: #{darken($col-light-bg, 6%)};
+    --widget-color: #{darken($col-light-bg, 16%)};
+    --hover-color: #{darken($col-light-bg, 25%)};
     --title-background-color: var(--md-accent-fg-color);
-    --number-color: #{darken(map-get($light-palette, "one"), 10%)};
+    --number-color: #{darken($col-light-1, 10%)};
   }
 
   @include dark-theme {
-    color: lighten(map-get($light-palette, "one"), 25%);
+    color: lighten($col-dark-1, 25%);
   }
 }
 
@@ -38,3 +38,4 @@
     right: 0;
   }
 }
+

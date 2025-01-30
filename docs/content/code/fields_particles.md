@@ -31,7 +31,7 @@ All of the field arrays have a type `real_t` which compilers to `float` when usi
 
 !!! note "Staggering"
 
-    Keep in mind that the field components stored in all these arrays are staggered not only in time, but also in space. Entity employs the [Yee grid staggering](https://en.wikipedia.org/wiki/Finite-difference_time-domain_method), and this the electric fields are stored at the corresponding cell edges, while the magnetic fields are stored at the cell faces. To see how those fields are staggered in time, refer to the [PIC algorithm section](../numerics/pic.md).
+    Keep in mind that the field components stored in all these arrays are staggered not only in time, but also in space. Entity employs the [Yee grid staggering](https://en.wikipedia.org/wiki/Finite-difference_time-domain_method), and this the electric fields are stored at the corresponding cell edges, while the magnetic fields are stored at the cell faces. To see how those fields are staggered in time, refer to the [PIC algorithm section](./pic.md).
 
 !!! code "Field loops"
 

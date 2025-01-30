@@ -1,0 +1,47 @@
+.hljs-section {
+  color: var(--md-code-hl-keyword-color);
+}
+.hljs-emphasis {
+  color: var(--md-code-hl-special-color);
+}
+.hljs-number {
+  color: var(--md-code-hl-number-color);
+}
+.hljs-function {
+  color: var(--md-code-hl-function-color);
+}
+.hljs-constant {
+  color: var(--md-code-hl-constant-color);
+}
+.hljs-keyword {
+  color: var(--md-code-hl-keyword-color);
+}
+.hljs-string {
+  color: var(--md-code-hl-string-color);
+}
+.hljs-title {
+  color: var(--md-code-hl-name-color);
+}
+.hljs-operator {
+  color: var(--md-code-hl-operator-color);
+}
+.hljs-punctuation {
+  color: var(--md-code-hl-punctuation-color);
+}
+.hljs-comment {
+  color: var(--md-code-hl-comment-color);
+}
+.hljs-meta {
+  color: var(--md-code-hl-generic-color);
+}
+.hljs-variable {
+  color: var(--md-code-hl-variable-color);
+}
+.hljs {
+  color: var(--md-code-fg-color);
+  background: var(--md-code-bg-color);
+}
+
+.hide-overflow-x code {
+  white-space: pre-wrap !important;
+}

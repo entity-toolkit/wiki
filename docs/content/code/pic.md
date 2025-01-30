@@ -3,6 +3,8 @@ hide:
   - footer
 ---
 
+# PIC Algorithm
+
 ## 3+1 Formalism
 
 To facilitate both GR and non-GR equations in a single framework while still retaining the maximum level of generality, we employ the 3+1 formalism for projecting the space-time (see, e.g., [Gourgoulhon, 2012](https://link.springer.com/book/10.1007/978-3-642-24525-1)).
@@ -11,11 +13,11 @@ In the most general 3+1 formulation, the metric and its inverse in arbitrary coo
 
 \begin{align*}
 g_{\mu\nu}&=\begin{bmatrix}
--\alpha^2+\beta_k\beta^k & \beta_i \\ 
+-\alpha^2+\beta_k\beta^k & \beta_i \\
 \beta_j & h_{ij}
 \end{bmatrix}\\\\
 g^{\mu\nu}&=\begin{bmatrix}
--1/\alpha^2 & \beta^i/\alpha^2 \\ 
+-1/\alpha^2 & \beta^i/\alpha^2 \\
 \beta^j/\alpha^2 & h^{ij}-\beta^i\beta^j/\alpha^2
 \end{bmatrix}
 \end{align*}
@@ -92,6 +94,16 @@ $$
 $$
 
 Here $u_i$ are the three components of the particle's covariant four-velocity, $x^i$ is its position, $\gamma = \sqrt{\varepsilon+h^{ij}u_{i}u_j}$ is the energy of the particle ($\varepsilon\equiv 1$ for massive particles, and $\varepsilon\equiv 0$ for photons), $h_{ij}$, $h^{ij}$, $\sqrt{h}$ as well as $\alpha$, and $\beta^i$ are the metric coefficients at particle's position. $D^i$ and $B^i$ are the contravariant field components also measured at particle's position.
+
+### Covariant current deposition
+
+Charged particles deposit currents, $\bm{J}^i$, that go into Maxwell's equations as source terms. In general $\bm{J}^i = \rho \bm{\beta}^i c$, where $\rho$ is the charge density measured in the lab frame. Coupled with the equations of motion and Maxwell's equations, this relation ensures exact charge conservation, i.e., $\nabla\cdot \bm{J}^\mu\equiv \bm{J}^\mu_{;\mu} = 0$, where $\bm{J}^\mu$ is the contravariant four-current with $J^0 = \rho c$. Substituting $\tilde{\rho}\equiv \sqrt{h}\rho$, and $\bm{\mathcal{J}}^i\equiv \sqrt{h}\bm{J}^i$, we can rewrite the charge conservation in a more concise form:
+
+$$
+\frac{\partial \tilde{\rho}}{\partial t} + \partial_i \bm{\mathcal{J}}^i = 0
+$$
+
+Thus, depositing currents as $\bm{\mathcal{J}}^i$ and then converting to $\bm{J}^i=\bm{\mathcal{J}}^i/\sqrt{h}$ one can ensure that the exact charge conservation is maintained.
 
 ## Special-relativistic PIC
 
@@ -172,7 +184,6 @@ For the non-GR case we use an explicit leapfrog integrator for both fields and t
     $$
     t=t^{(n+1)}
     $$
-
 
 ### Particle pusher in SR
 
@@ -347,7 +358,7 @@ for spec := range species {
 
 ### Particle pusher in GR
 
-Particle pusher in GR is slightly more complicated, as we can no longer transform into a global Cartesian frame, and thus unavoidably have to deal with the ["geodesic" term](../3p1.md#equations-of-motion-for-particles) in the equation of motion.
+Particle pusher in GR is slightly more complicated, as we can no longer transform into a global Cartesian frame, and thus unavoidably have to deal with the ["geodesic" term](#equations-of-motion-for-particles) in the equation of motion.
 
 ```go
 // em <-- 4D array of d/b-fields, with d defined @ t^n (1)
@@ -423,17 +434,7 @@ for spec := range species {
 1. :grey_exclamation: To save memory, we store the fields at two time levels, and two different 4D arrays. Here we want to ensure we are passing the fields at time `t^n`. See step #2 in the diagram above.
 
 
-## Covariant current deposition
-
-Charged particles deposit currents, $\bm{J}^i$, that go into Maxwell's equations as source terms. In general $\bm{J}^i = \rho \bm{\beta}^i c$, where $\rho$ is the charge density measured in the lab frame. Coupled with the equations of motion and Maxwell's equations, this relation ensures exact charge conservation, i.e., $\nabla\cdot \bm{J}^\mu\equiv \bm{J}^\mu_{;\mu} = 0$, where $\bm{J}^\mu$ is the contravariant four-current with $J^0 = \rho c$. Substituting $\tilde{\rho}\equiv \sqrt{h}\rho$, and $\bm{\mathcal{J}}^i\equiv \sqrt{h}\bm{J}^i$, we can rewrite the charge conservation in a more concise form:
-
-$$
-\frac{\partial \tilde{\rho}}{\partial t} + \partial_i \bm{\mathcal{J}}^i = 0
-$$
-
-Thus, depositing currents as $\bm{\mathcal{J}}^i$ and then converting to $\bm{J}^i=\bm{\mathcal{J}}^i/\sqrt{h}$ one can ensure that the exact charge conservation is maintained (see [charge-conservative current deposition](/how/pic#charge-conservative-current-deposition)).
-
-
 <script src="../numerics-srpic.js"></script>
 <script src="../numerics-grpic.js"></script>
 {% include "html/d3js.html" %}
+

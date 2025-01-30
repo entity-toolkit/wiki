@@ -1,0 +1,28 @@
+@import url("https://fonts.googleapis.com/css2?family=Slabo+13px&display=swap");
+
+@mixin title-font {
+  font-family: "Slabo 13px", serif;
+}
+
+$mono-font: "JetBrains Mono", monospace;
+$serif-font: "DM Sans", serif;
+
+:root {
+  --md-text-font: #{$serif-font};
+  --md-code-font: #{$mono-font};
+  font-variant-ligatures: normal;
+  font-size: 1.25em;
+  font-smooth: auto;
+}
+
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  @include title-font;
+}

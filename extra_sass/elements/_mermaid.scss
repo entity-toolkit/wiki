@@ -1,16 +1,16 @@
-[data-md-color-scheme="default"] {
+[data-md-color-scheme="ntt-light"] {
   --mermaid-edge-color: #343946;
 }
 
-[data-md-color-scheme="slate"] {
+[data-md-color-scheme="ntt-dark"] {
   --mermaid-edge-color: #ececec;
 }
 
-
 :root {
-  &>* {
+  & > * {
     --md-mermaid-font-family: #{$mono-font};
     --md-mermaid-label-fg-color: var(--md-default-fg-color);
     --md-mermaid-edge-color: var(--mermaid-edge-color);
   }
 }
+

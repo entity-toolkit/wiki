@@ -6,35 +6,34 @@ site_url: https://entity-toolkit.github.io/wiki
 nav:
   - Home: index.md
   - Getting started:
-      - Compiling/running: getting-started/compile-run.md
-      - Dependencies: getting-started/dependencies.md
-      - Docker: getting-started/docker.md
-      - Input file: getting-started/inputfile.md
+      - Compiling/running: content/getting-started/compile-run.md
+      - Dependencies: content/getting-started/dependencies.md
+      - Docker: content/getting-started/docker.md
+      - Input file: content/getting-started/inputfile.md
       # - Writing a problem generator: getting-started/pgen.md
-      - Understanding the units: getting-started/units.md
-      - Output & visualization: getting-started/vis.md
-      - Writing checkpoints & restarting: getting-started/checkpoints.md
-      - Documenting: getting-started/docs.md
-      - F.A.Q.: getting-started/faq.md
-  - PIC algorithm: "numerics/pic.md"
+      - Understanding the units: content/getting-started/units.md
+      - Output & visualization: content/getting-started/vis.md
+      - Writing checkpoints & restarting: content/getting-started/checkpoints.md
+      - Documenting: content/getting-started/docs.md
+      - F.A.Q.: content/getting-started/faq.md
   - Understanding the code:
-      - "code/hierarchy.md"
-      - "code/domains.md"
-      - "code/fields_particles.md"
-      - "code/metrics.md"
-      - "code/problem_generators.md"
+      - content/code/pic.md
+      - content/code/hierarchy.md
+      - content/code/domains.md
+      - content/code/fields_particles.md
+      - content/code/metrics.md
+      - content/code/problem_generators.md
+      - content/code/guidelines.md
       # - "code/structure.md"
-  - Guidelines: "guidelines.md"
   - Useful things:
-      - Floating point comparison: "useful/float-comparison.md"
-      - Theory behind PIC: "useful/theory_pic.md"
-      - Kerr metric: "useful/ks.md"
+      - Floating point comparison: content/useful/float-comparison.md
+      - Theory behind PIC: content/useful/theory_pic.md
+      - Kerr metric: content/useful/ks.md
   - Fun:
-      - Axisymmetric coordinates: "fun/coords.md"
-      - Cubed sphere: "fun/cubed_sphere.md"
+      - Axisymmetric coordinates: content/fun/coords.md
+      - Cubed sphere: content/fun/cubed_sphere.md
   - Events:
-      - SCEECS Summer School 2024: "events/sceecs2024/instructions.md"
-         
+      - SCEECS Summer School 2024: content/events/sceecs2024/instructions.md
 
 markdown_extensions:
   - pymdownx.superfences:
@@ -86,13 +85,13 @@ theme:
 
   palette:
     - media: "(prefers-color-scheme: light)"
-      scheme: default
+      scheme: ntt-light
       toggle:
         icon: material/lightbulb
         name: Switch to dark mode
 
     - media: "(prefers-color-scheme: dark)"
-      scheme: slate
+      scheme: ntt-dark
       toggle:
         icon: material/lightbulb-outline
         name: Switch to light mode
@@ -101,13 +100,15 @@ theme:
     code: "JetBrains Mono"
   features:
     - navigation.tracking
+    - navigation.indexes
+    - navigation.expand
     # - navigation.prune
     - toc.integrate
     - content.code.annotate
     - content.code.copy
-    - navigation.indexes
     - content.tooltips
     - header.autohide
+    - search.highlight
     # - navigation.top
     # - navigation.instant
 

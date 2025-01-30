@@ -1,11 +1,11 @@
 .p5canvas {
   input {
     @include light-theme {
-      background-color: darken(map-get($light-palette, "bg"), 5%);
+      background-color: darken($col-light-bg, 5%);
     }
 
     @include dark-theme {
-      background-color: lighten(map-get($dark-palette, "bg"), 4%);
+      background-color: lighten($col-dark-bg, 4%);
     }
 
     &,
@@ -45,3 +45,4 @@
     height: 100% !important;
   }
 }
+

@@ -127,7 +127,7 @@ data.Rho.sel(t=98, method="nearest") # (1)!
 
 1. The `method="nearest"` is used to select the closest time step to the requested time.
 
-![nt2demo1](../assets/images/howto/nt2-demo-1.png){width=50%, align=right} 
+![nt2demo1](../../assets/images/howto/nt2-demo-1.png){width=50%, align=right} 
 
 We can then plot the selected data using the `plot` method of the `xarray` Dataset:
 
@@ -166,7 +166,7 @@ data.Rho\
 
 1. The difference between `isel` and `sel` is that `isel` uses the integer indices along the given dimension, while `sel` uses the physical coordinates.
 
-![nt2demo2](../assets/images/howto/nt2-demo-2.png){width=50%, align=right} 
+![nt2demo2](../../assets/images/howto/nt2-demo-2.png){width=50%, align=right} 
 
 One can also do more complicated things, such as building a 1D plot of the evolution of the mean $B^2$ in the box:
 
@@ -222,7 +222,7 @@ species_4.isel(t=-1)\
 
 ??? showplot "scatter plot $\{x,~y\}$"
 
-    ![nt2demo3](../assets/images/howto/nt2-demo-3.png)
+    ![nt2demo3](../../assets/images/howto/nt2-demo-3.png)
 
 !!! code "`isel` indexing"
 
@@ -241,7 +241,7 @@ species_4.isel(t=-1)\
 
 ??? showplot "scatter plot $\{u_x,~u_y\}$"
 
-    ![nt2demo4](../assets/images/howto/nt2-demo-4.png)
+    ![nt2demo4](../../assets/images/howto/nt2-demo-4.png)
 
 
 ### Accessing runtime spectra
@@ -262,7 +262,7 @@ plt.xlim(sp.e.min(), 1)
 
 ???+ showplot "particle spectra"
 
-    ![nt2demo5](../assets/images/howto/nt2-demo-5.png)
+    ![nt2demo5](../../assets/images/howto/nt2-demo-5.png)
 
 ---
 

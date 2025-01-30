@@ -1,0 +1,23 @@
+.tabbed-content {
+  border: 1px solid;
+  border-top: none;
+  padding: 0 1rem;
+
+  @include light-theme {
+    background-color: darken($col-light-bg, 3%);
+    border-color: darken($col-light-border, 3%);
+  }
+
+  @include dark-theme {
+    background-color: $col-dark-bg-alt;
+    border-color: $col-dark-border;
+  }
+}
+
+.js .md-typeset .tabbed-labels::before {
+  height: 2rem;
+  background-color: var(--col-tab-bg) !important;
+  border-radius: 0.25rem 0.25rem 0 0;
+  border-bottom: 4px solid var(--md-typeset-a-color);
+  z-index: -1;
+}

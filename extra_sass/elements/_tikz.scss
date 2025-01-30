@@ -1,0 +1,39 @@
+[data-md-color-scheme="ntt-light"] {
+  --tikz-text-color: black;
+  --tikz-bg-color: var(--col-light-1);
+}
+
+[data-md-color-scheme="ntt-dark"] {
+  --tikz-text-color: white;
+  --tikz-bg-color: var(--col-dark-1);
+}
+
+.tikz {
+  path {
+    fill: none;
+  }
+
+  @include light-theme {
+    path {
+      stroke: black;
+    }
+
+    g > text,
+    svg > g > g > g > g > g > path,
+    svg > g > g > g > g > g > g > path {
+      fill: black;
+    }
+  }
+
+  @include dark-theme {
+    path {
+      stroke: white;
+    }
+
+    g > text,
+    svg > g > g > g > g > g > path,
+    svg > g > g > g > g > g > g > path {
+      fill: white;
+    }
+  }
+}

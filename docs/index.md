@@ -23,7 +23,6 @@ hide:
 
 This documentation includes everything you need to know to get started with using and/or contributing to the `Entity toolkit`. If you find bugs or issues, please feel free to add a GitHub issue or submit a pull request. Users with significant contributions to the code will be added to the list of developers, and assigned an emoji of their choice (important).[^1]
 
-
 <!-- ::cards::cols=3 image-bg
 
 - title: Core framework
@@ -46,16 +45,20 @@ This documentation includes everything you need to know to get started with usin
 
 ::/cards:: -->
 
-### Dev team (alphabetical)
+### Lead developers
 
-* 💁‍♂️ Alexander Chernoglazov {[@SChernoglazov](https://github.com/SChernoglazov): PIC}
+* :coffee: Hayk Hakobyan {[@haykh](https://github.com/haykh)}
+* :potato: Jens Mahlmann {[@jmahlmann](https://github.com/jmahlmann)}
+* :person_tipping_hand: Alexander Chernoglazov {[@SChernoglazov](https://github.com/SChernoglazov)}
+* :bubble_tea: Alisa Galishnikova {[@alisagk](https://github.com/alisagk)}
+* :dolphin: Sasha Philippov {[@sashaph](https://github.com/sashaph)}
+
+### Contributors (alphabetical)
+
+* :eyes: Yangyang Cai {[@StaticObserver](https://github.com/StaticObserver): GR}
 * :tea: Benjamin Crinquand {[@bcrinquand](https://github.com/bcrinquand): GR, cubed-sphere}
-* :bubble_tea: Alisa Galishnikova {[@alisagk](https://github.com/alisagk): GR}
-* :coffee: Hayk Hakobyan {[@haykh](https://github.com/haykh): framework, PIC, GR, cubed-sphere, MPI}
-* :potato: Jens Mahlmann {[@jmahlmann](https://github.com/jmahlmann): cubed-sphere, framework, MPI}
-* :dolphin: Sasha Philippov {[@sashaph](https://github.com/sashaph): all-around}
-* 🤷‍♂️ Arno Vanthieghem {[@vanthieg](https://github.com/vanthieg): PIC, framework}
-* 😺 Muni Zhou {[@munizhou](https://github.com/munizhou): PIC}
+* :shrug: Arno Vanthieghem {[@vanthieg](https://github.com/vanthieg): PIC, framework}
+* :cat: Muni Zhou {[@munizhou](https://github.com/munizhou): PIC}
 
 <!-- ### Timeline -->
 
@@ -85,38 +88,38 @@ This documentation includes everything you need to know to get started with usin
 
 ::/timeline:: -->
 
-<style>
-[data-md-color-scheme="default"] .entity-cover {
-  background-image: url("assets/cover_light.gif");
-}
-
-[data-md-color-scheme="slate"] .entity-cover {
-  background-image: url("assets/cover_dark.gif");
-}
-</style>
+<!-- <style> -->
+<!-- [data-md-color-scheme="ntt-light"] .entity-cover { -->
+<!--   background-image: url("assets/cover_light.gif"); -->
+<!-- } -->
+<!---->
+<!-- [data-md-color-scheme="ntt-dark"] .entity-cover { -->
+<!--   background-image: url("assets/cover_dark.gif"); -->
+<!-- } -->
+<!-- </style> -->
 
 ### Supporting grants
 
 The development of the code was supported by the following grants and awards:
 
-- <span>U.S. Department of Energy</span> under contract number DE-AC02-09CH11466. 
-- <span>NSF</span> Cyberinfrastructure for Sustained Scientific Innovation (CSSI) program.
-- <span>NVIDIA Corporation</span> Academic Hardware Grant Program.
+* <span>U.S. Department of Energy</span> under contract number DE-AC02-09CH11466.
+* <span>NSF</span> Cyberinfrastructure for Sustained Scientific Innovation (CSSI) program.
+* <span>NVIDIA Corporation</span> Academic Hardware Grant Program.
 
-The developers are pleased to acknowledge that the work was performed using the Princeton Research Computing resources at <span>Princeton University</span> which is a consortium of groups led by the Princeton Institute for Computational Science and Engineering (PICSciE) and Office of Information Technology's Research Computing. 
+The developers are pleased to acknowledge that the work was performed using the Princeton Research Computing resources at <span>Princeton University</span> which is a consortium of groups led by the Princeton Institute for Computational Science and Engineering (PICSciE) and Office of Information Technology's Research Computing.
 
 [^1]: [Icons](https://game-icons.net/) are used under the [CC BY 3.0 license](https://creativecommons.org/licenses/by/3.0/); created by [Delapouite](https://delapouite.com/), and [Lorc](https://lorcblog.blogspot.com/).
 
-
 <script>
   document.addEventListener('DOMContentLoaded', () => {
-    const el = document.getElementById('dev-team-alphabetical');
+    let el = document.getElementById("contributors-alphabetical")
     let ul = el.nextElementSibling;
     if (ul) {
       Array.from(ul.children).forEach(li => {
-        const tags_str = />:(.*)\}/.exec(li.innerHTML)[1];
-        const tags = tags_str.split(',').map(c => c.trim());
-        li.innerHTML = li.innerHTML.replace(tags_str, tags.map(t => `<span class="tag ${t.toLowerCase().replace(' ', '_')}">${t}</span>`).join(''));
+        let tags_str = />:(.*)\}/.exec(li.innerHTML);
+        let tags = tags_str[1].split(',').map(c => c.trim());
+        li.innerHTML = li.innerHTML.replace(tags_str[1],
+              tags.map(t => `<span class="tag ${t.toLowerCase().replace(' ', '_')}">${t}</span>`).join(''));
       });
     }
   });

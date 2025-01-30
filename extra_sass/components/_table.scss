@@ -1,0 +1,31 @@
+$groups: (
+  "tr-gr1": $col-light-1,
+  "tr-gr2": $col-light-2,
+  "tr-gr3": $col-light-4,
+);
+
+@each $gr, $num in $groups {
+  .#{$gr} td {
+    position: relative;
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      opacity: 0.15;
+      pointer-events: none;
+      background: #{$num};
+    }
+  }
+
+  span[#{$gr}] {
+    width: 20px;
+    height: 1em;
+    display: inline-block;
+    opacity: 0.4;
+    background-color: #{$num};
+  }
+}
