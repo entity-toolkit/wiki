@@ -57,6 +57,7 @@ This documentation includes everything you need to know to get started with usin
 
 * :eyes: Yangyang Cai {[@StaticObserver](https://github.com/StaticObserver): GR}
 * :tea: Benjamin Crinquand {[@bcrinquand](https://github.com/bcrinquand): GR, cubed-sphere}
+* :radio: Siddhant Solanki {[@sidruns30](https://github.com/sidruns30): framework}
 * :shrug: Arno Vanthieghem {[@vanthieg](https://github.com/vanthieg): PIC, framework}
 * :cat: Muni Zhou {[@munizhou](https://github.com/munizhou): PIC}
 
