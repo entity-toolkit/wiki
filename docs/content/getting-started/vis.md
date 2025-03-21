@@ -54,7 +54,7 @@ The output is configured using the following configurations in the `input` file:
 
 Output is written in the run directory in a single `hdf5` file: `MySimulation.h5`. All the steps are written in the same file, and the time step is stored as an attribute of the dataset: `Step0`, `Step1`, `Step2`, etc. Thus to access, say, the `Ez` field at the 10th output step (not the same as the simulation timestep), one has to access the dataset `/Step9/fE3` in the `hdf5` file. If one needs the `X1` coordinates of particles of species 2 at the 5th output step, one has to access the dataset `/Step4/pX1_2` in the `hdf5` file, etc.
 
-Following is the list of the supported fields
+Following is the list of all supported fields
 
 | Field name | Description                              | Normalization  |
 | ---------- | ---------------------------------------- | -------------- |
@@ -66,6 +66,7 @@ Following is the list of the supported fields
 | `Rho`      | Mass density                             | $m_0 n_0$      |
 | `Charge`   | Charge density                           | $q_0 n_0$      |
 | `N`        | Number density                           | $n_0$          |
+| `V`        &nbsp;<a href="https://github.com/entity-toolkit/entity/pull/69"> <span class="since-version">1.2.0</span> </a> | Mean 3-velocity                          | dimensionless |
 | `Nppc`     | Raw number of particles per cell         | dimensionless  |
 | `Nppc`     | Raw number of particles per cell         | dimensionless  |
 | `Tij`      | Energy-momentum tensor (all components)  | $m_0 n_0$      |
@@ -78,12 +79,12 @@ and particle quantities
 | Particle quantity | Description                                               | Units         |
 | ----------------- | --------------------------------------------------------- | ------------- |
 | `X`               | Coordinates (all components)                              | physical      |
-| `U`               | Four-velocities in the orthonormal frame (all components) | dimensionless |
+| `U`               | Four-velocities (all components)                          | dimensionless |
 | `W`               | Weights                                                   | dimensionless |
 
-!!! note "Refining fields and particle quantities for the output"
+!!! note "Refining moments for the output"
 
-    One can specify particular components to output for the `Tij` fields: `T0i` will output the `T00`, `T01`, and `T02` components, while `Tii` will output only the diagonal components: `T11`, `T22`, and `T33`, and `Tij` will output all the 6 components. One can also specify the particle species which will be used to compute the moments or output particle quantities: `Rho_1` (density of species 1), `N_2_3` (number density of species 2 and 3), `Tij_1_3` (energy-momentum tensor for species 1 and 3), etc. 
+    One can specify particular components to output for the `Tij` fields: `T0i` will output the `T00`, `T01`, and `T02` components, while `Tii` will output only the diagonal components: `T11`, `T22`, and `T33`, and `Tij` will output all the 6 components. For quantities computed from particles (moments of the distribution), one can also specify the particle species which will be used to compute the moments: `Rho_1` (density of species 1), `N_2_3` (number density of species 2 and 3), `Tij_1_3` (energy-momentum tensor for species 1 and 3), etc. 
 
 All of the vector fields are interpolated to cell centers before the output, and converted to orthonormal basis. The particle-based moments are smoothed with a stencil (specified in the input file; `mom_smooth`) for each particle.
 
@@ -111,8 +112,12 @@ pip install nt2py # (2)!
 Now simply import the `nt2` module and load the output data:
 
 ```python
-import nt2.read as nt2r
-data = nt2r.Data("MySimulation.h5") # (1)!
+import nt2
+
+data = nt2r.Data(path="MySimulation.h5", single_file=True) # (1)!
+
+# or if saving as multiple files
+data = nt2r.Data(path="MySimulation")
 ```
 
 1. Note, that even though the `h5` file can be quite large, the data is loaded lazily, so the memory consumption is minimal; data chunks are only loaded when they are actually needed for the analysis or visualization.
@@ -122,7 +127,7 @@ data = nt2r.Data("MySimulation.h5") # (1)!
 Data selection is conveniently done with the `sel` and `isel` methods for the `xarray` Datasets ([more info](https://docs.xarray.dev/en/stable/user-guide/indexing.html)). For example, to select the `Rho` field around physical time `t=98`, one can do:
 
 ```python
-data.Rho.sel(t=98, method="nearest") # (1)!
+data.fields.Rho.sel(t=98, method="nearest") # (1)!
 ```
 
 1. The `method="nearest"` is used to select the closest time step to the requested time.
@@ -132,7 +137,7 @@ data.Rho.sel(t=98, method="nearest") # (1)!
 We can then plot the selected data using the `plot` method of the `xarray` Dataset:
 
 ```python
-data.Rho\
+data.fields.Rho\
   .sel(t=98, method="nearest")\
   .plot(
     norm=mpl.colors.Normalize(0, 1e2),  # (2)!
@@ -145,7 +150,7 @@ data.Rho\
 If the resolution is too high, one can also coarsen the data before plotting:
 
 ```python
-data.Rho\
+data.fields.Rho\
   .sel(t=98, method="nearest")\
   .coarsen(x=16, y=4).mean()\
   .plot(
@@ -156,7 +161,7 @@ data.Rho\
 or downsample:
 
 ```python
-data.Rho\
+data.fields.Rho\
   .sel(t=98, method="nearest")\
   .isel(x=slice(None, None, 16), y=slice(None, None, 4))\ # (1)!
   .plot(
@@ -171,7 +176,7 @@ data.Rho\
 One can also do more complicated things, such as building a 1D plot of the evolution of the mean $B^2$ in the box:
 
 ```python
-data.Bx**2 + data.By**2 + data.Bz**2\
+data.fields.Bx**2 + data.fields.By**2 + data.fields.Bz**2\
   .mean(("x", "y"))\
   .plot()
 ```
@@ -179,7 +184,7 @@ data.Bx**2 + data.By**2 + data.Bz**2\
 or make "waterfall" plots, collapsing the quantity along one of the axis, and plotting vs the other axis and time:
 
 ```python
-(data.Rho_2 - data.Rho_1)\
+(data.fields.Rho_2 - data.fields.Rho_1)\
   .mean("x")\
   .plot(yincrease=False)
 ```
