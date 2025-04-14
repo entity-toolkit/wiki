@@ -81,15 +81,15 @@ There are three special definitions one may provide in the problem generator tha
 
 ## Initializing fields
 
-To initialize electromagnetic fields to specific values, one may provide a custom class called `init_fields`:
+To initialize electromagnetic fields to specific values, one may provide a custom class called `init_flds`:
 
 ```c++
 template <SimEngine::type S, class M>
 struct PGen : public arch::ProblemGenerator<S, M> {
   // ...
   
-  // the name of the class may be arbitrary, but the instance must be named `init_fields`
-  FancyFieldInitializer<S, M> init_fields;
+  // the name of the class may be arbitrary, but the instance must be named `init_flds`
+  FancyFieldInitializer<S, M> init_flds;
 };
 ```
 
@@ -132,13 +132,13 @@ template <SimEngine::type S, class M>
 struct PGen : public arch::ProblemGenerator<S, M> {
   // ...
   
-  SinusoidalField<S, M> init_fields;
+  SinusoidalField<S, M> init_flds;
 
-  // initialize the `init_fields` by passing the parameters from the input
+  // initialize the `init_flds` by passing the parameters from the input
   inline PGen(const SimulationParams& p, const Metadomain<S, M>&)
       : arch::ProblemGenerator<S, M> { p }
-      , init_fields { p.template get<real_t>("setup.kx"), 
-                      p.template get<real_t>("setup.amplitude") } 
+      , init_flds { p.template get<real_t>("setup.kx"), 
+                    p.template get<real_t>("setup.amplitude") } 
       {}
 };
 ```

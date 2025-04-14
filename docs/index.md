@@ -60,7 +60,6 @@ This documentation includes everything you need to know to get started with usin
 * :shrug: Arno Vanthieghem {[@vanthieg](https://github.com/vanthieg)}
 * :cat: Muni Zhou {[@munizhou](https://github.com/munizhou)}
 
-
 <!-- ### Timeline -->
 
 <!-- 

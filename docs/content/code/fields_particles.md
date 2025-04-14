@@ -75,7 +75,7 @@ All of the field arrays have a type `real_t` which compilers to `float` when usi
 | `dx1_prev` | `prtldx_t` | same as `dx1` but for the previous step | always |
 | `dx2_prev` | `prtldx_t` | same as `dx2` but for the previous step | 2D or 3D |
 | `dx3_prev` | `prtldx_t` | same as `dx3` but for the previous step | 3D |
-| vector of `pld` | `real_t` | custom particle payloads | as needed (defined in the input) |
+| `pld` | `real_t` | custom particle payloads (2D array) |  as needed (defined in the input) |
 
 `prtldx_t` is a type alias for `real_t` which is used for the displacement of the particle w.r.t. the corner of the cell (this can be changed to be half-precision). Notice, that we additionally store the `phi` coordinate for the particles in non-Cartesian 2D simulations. While in GR this is totally optional, in SR it is required to keep track of the full particle coordinate, to be able to convert to and from the global Cartesian metric.
 
@@ -128,21 +128,8 @@ classDiagram
     +array_t~prtldx_t*~ dx2_prev
     +array_t~prtldx_t*~ dx3_prev
     +array_t~short*~ tag
-    +vector~array_t~real_t*~~ pld
+    +array_t~real_t**~ pld
     +array_t~real_t*~ phi
-    +array_mirror_t~int*~ i1_h
-    +array_mirror_t~int*~ i2_h
-    +array_mirror_t~int*~ i3_h
-    +array_mirror_t~prtldx_t*~ dx1_h
-    +array_mirror_t~prtldx_t*~ dx2_h
-    +array_mirror_t~prtldx_t*~ dx3_h
-    +array_mirror_t~real_t*~ ux1_h
-    +array_mirror_t~real_t*~ ux2_h
-    +array_mirror_t~real_t*~ ux3_h
-    +array_mirror_t~real_t*~ weight_h
-    +array_mirror_t~real_t*~ phi_h
-    +array_mirror_t~short*~ tag_h
-    +vector<array_mirror_t~real_t*~> pld_h
     +rangeActiveParticles() range_t
     +rangeAllParticles() range_t
     +npart() size_t
