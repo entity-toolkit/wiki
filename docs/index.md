@@ -45,21 +45,21 @@ This documentation includes everything you need to know to get started with usin
 
 ::/cards:: -->
 
-### Lead developers
-
-* :coffee: Hayk Hakobyan {[@haykh](https://github.com/haykh)}
-* :potato: Jens Mahlmann {[@jmahlmann](https://github.com/jmahlmann)}
-* :person_tipping_hand: Alexander Chernoglazov {[@SChernoglazov](https://github.com/SChernoglazov)}
-* :bubble_tea: Alisa Galishnikova {[@alisagk](https://github.com/alisagk)}
-* :dolphin: Sasha Philippov {[@sashaph](https://github.com/sashaph)}
-
 ### Contributors (alphabetical)
 
-* :eyes: Yangyang Cai {[@StaticObserver](https://github.com/StaticObserver): GR}
-* :tea: Benjamin Crinquand {[@bcrinquand](https://github.com/bcrinquand): GR, cubed-sphere}
-* :radio: Siddhant Solanki {[@sidruns30](https://github.com/sidruns30): framework}
-* :shrug: Arno Vanthieghem {[@vanthieg](https://github.com/vanthieg): PIC, framework}
-* :cat: Muni Zhou {[@munizhou](https://github.com/munizhou): PIC}
+* :guitar: Ludwig Böss {[@LudwigBoess](https://github.com/LudwigBoess)}
+* :eyes: Yangyang Cai {[@StaticObserver](https://github.com/StaticObserver)}
+* :person_tipping_hand: Alexander Chernoglazov {[@SChernoglazov](https://github.com/SChernoglazov)}
+* :tea: Benjamin Crinquand {[@bcrinquand](https://github.com/bcrinquand)}
+* :bubble_tea: Alisa Galishnikova {[@alisagk](https://github.com/alisagk)}
+* :locomotive: Evgeny Gorbunov {[@Alcauchy](https://github.com/Alcauchy)}
+* :coffee: Hayk Hakobyan {[@haykh](https://github.com/haykh)}
+* :potato: Jens Mahlmann {[@jmahlmann](https://github.com/jmahlmann)}
+* :dolphin: Sasha Philippov {[@sashaph](https://github.com/sashaph)}
+* :radio: Siddhant Solanki {[@sidruns30](https://github.com/sidruns30)}
+* :shrug: Arno Vanthieghem {[@vanthieg](https://github.com/vanthieg)}
+* :cat: Muni Zhou {[@munizhou](https://github.com/munizhou)}
+
 
 <!-- ### Timeline -->
 
