@@ -18,6 +18,7 @@ The output is configured using the following configurations in the `input` file:
   format = "hdf5" # (2)!
   interval = 100 # (3)!
   interval_time = 0.1 # (8)!
+  separate_files = true # (15)!
 
   [output.fields]
     quantities = ["B", "E", "Rho_1_2", "..."] # (1)!
@@ -32,6 +33,9 @@ The output is configured using the following configurations in the `input` file:
     e_min = 1e-2 # (12)!
     e_max = 1e3
     log_bins = true # (13)!
+
+  [output.stats]
+    quantities = ["N", "Npart", "ExB", "J.E"] # (14)!
 
   [output.debug]
     as_is = false # (10)!
@@ -51,8 +55,10 @@ The output is configured using the following configurations in the `input` file:
 11. write the ghost cells [defaults to false]
 12. Min/max energies for binning the energy distribution [default to 1e-3 -> 1e3]
 13. whether to use logarithmic energy bins or linear
+14. box reduced quantities to output as stats
+15. whether to write in a single file or into separate files
 
-Output is written in the run directory in a single `hdf5` file: `MySimulation.h5`. All the steps are written in the same file, and the time step is stored as an attribute of the dataset: `Step0`, `Step1`, `Step2`, etc. Thus to access, say, the `Ez` field at the 10th output step (not the same as the simulation timestep), one has to access the dataset `/Step9/fE3` in the `hdf5` file. If one needs the `X1` coordinates of particles of species 2 at the 5th output step, one has to access the dataset `/Step4/pX1_2` in the `hdf5` file, etc.
+Output is written in the run directory either in a single `hdf5` file, `MySimulation.h5`, or in the directory with the same name `MySimulation`. 
 
 Following is the list of all supported fields
 
@@ -70,8 +76,8 @@ Following is the list of all supported fields
 | `Nppc`     | Raw number of particles per cell         | dimensionless  |
 | `Nppc`     | Raw number of particles per cell         | dimensionless  |
 | `Tij`      | Energy-momentum tensor (all components)  | $m_0 n_0$      |
-| `divE`     | Divergence of $E$                        | arb. units     |
-| `divD`     | GR: divergence of $D$                    | arb. units     |
+| `divE`    &nbsp;<a href="https://github.com/entity-toolkit/entity/pull/69"> <span class="since-version">1.2.0</span> </a> | Divergence of $E$                        | arb. units     |
+| `divD`   &nbsp;<a href="https://github.com/entity-toolkit/entity/pull/69"> <span class="since-version">1.2.0</span> </a>  | GR: divergence of $D$                    | arb. units     |
 | `A`        | GR: 2D vector potential $A_\varphi$      | arb. units     |
 
 and particle quantities
@@ -82,9 +88,23 @@ and particle quantities
 | `U`               | Four-velocities (all components)                          | dimensionless |
 | `W`               | Weights                                                   | dimensionless |
 
+The code also has an output of box-averaged stats into a `.csv` file, which are simply scalars per each output timestep. The following quantities can be computed
+
+| Box-reduced quantity   | Description                                               | Units              |
+| ---------------------- | --------------------------------------------------------- | ------------------ |
+| `E2`                   | Total $E^2$                                               | $B_0^2$            |
+| `B2`                   | Total $B^2$                                               | $B_0^2$            |
+| `ExB`                  | Total $\bm{E}\times \bm{B}$                               | $B_0^2$            |
+| `J.E`                  | Total $\bm{J}\cdot \bm{E}$                                | $4\pi q_0 n_0 B_0$ |
+| `N`                    | Total $n$                                                 | $n_0$              |
+| `Npart`                | Total # of particles                                      | dimensionless      |
+| `Rho`                  | Total mass density                                        | $m_0 n_0$          |
+| `Charge`               | Total charge density                                      | $q_0 n_0$          |
+| `Tij`                  | Energy-momentum tensor (all components)                   | $m_0 n_0$          |
+
 !!! note "Refining moments for the output"
 
-    One can specify particular components to output for the `Tij` fields: `T0i` will output the `T00`, `T01`, and `T02` components, while `Tii` will output only the diagonal components: `T11`, `T22`, and `T33`, and `Tij` will output all the 6 components. For quantities computed from particles (moments of the distribution), one can also specify the particle species which will be used to compute the moments: `Rho_1` (density of species 1), `N_2_3` (number density of species 2 and 3), `Tij_1_3` (energy-momentum tensor for species 1 and 3), etc. 
+    One can specify particular components to output for the `Tij` fields/stats: `T0i` will output the `T00`, `T01`, and `T02` components, while `Tii` will output only the diagonal components: `T11`, `T22`, and `T33`, and `Tij` will output all the 6 components. For quantities computed from particles (moments of the distribution), one can also specify the particle species which will be used to compute the moments: `Rho_1` (density of species 1), `N_2_3` (number density of species 2 and 3), `Tij_1_3` (energy-momentum tensor for species 1 and 3), etc. 
 
 All of the vector fields are interpolated to cell centers before the output, and converted to orthonormal basis. The particle-based moments are smoothed with a stencil (specified in the input file; `mom_smooth`) for each particle.
 
