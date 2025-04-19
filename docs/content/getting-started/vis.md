@@ -88,7 +88,7 @@ and particle quantities
 | `U`               | Four-velocities (all components)                          | dimensionless |
 | `W`               | Weights                                                   | dimensionless |
 
-The code also has an output of box-averaged stats into a `.csv` file, which are simply scalars per each output timestep. The following quantities can be computed
+<a href="https://github.com/entity-toolkit/entity/pull/69"> <span class="since-version">1.2.0</span> </a> The code also has an output of box-averaged stats into a `.csv` file, which are simply scalars per each output timestep. The following quantities can be computed
 
 | Box-reduced quantity   | Description                                               | Units              |
 | ---------------------- | --------------------------------------------------------- | ------------------ |
