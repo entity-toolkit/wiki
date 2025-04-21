@@ -110,17 +110,17 @@ The developers are pleased to acknowledge that the work was performed using the 
 
 <!--[^1]: [Icons](https://game-icons.net/) are used under the [CC BY 3.0 license](https://creativecommons.org/licenses/by/3.0/); created by [Delapouite](https://delapouite.com/), and [Lorc](https://lorcblog.blogspot.com/).-->
 
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    let el = document.getElementById("contributors-alphabetical")
-    let ul = el.nextElementSibling;
-    if (ul) {
-      Array.from(ul.children).forEach(li => {
-        let tags_str = />:(.*)\}/.exec(li.innerHTML);
-        let tags = tags_str[1].split(',').map(c => c.trim());
-        li.innerHTML = li.innerHTML.replace(tags_str[1],
-              tags.map(t => `<span class="tag ${t.toLowerCase().replace(' ', '_')}">${t}</span>`).join(''));
-      });
-    }
-  });
-</script>
+<!-- <script> -->
+<!--   document.addEventListener('DOMContentLoaded', () => { -->
+<!--     let el = document.getElementById("contributors-alphabetical") -->
+<!--     let ul = el.nextElementSibling; -->
+<!--     if (ul) { -->
+<!--       Array.from(ul.children).forEach(li => { -->
+<!--         let tags_str = />:(.*)\}/.exec(li.innerHTML); -->
+<!--         let tags = tags_str[1].split(',').map(c => c.trim()); -->
+<!--         li.innerHTML = li.innerHTML.replace(tags_str[1], -->
+<!--               tags.map(t => `<span class="tag ${t.toLowerCase().replace(' ', '_')}">${t}</span>`).join('')); -->
+<!--       }); -->
+<!--     } -->
+<!--   }); -->
+<!-- </script> -->
