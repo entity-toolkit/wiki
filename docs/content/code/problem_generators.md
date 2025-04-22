@@ -281,7 +281,21 @@ struct PGen : public arch::ProblemGenerator<S, M> {
 1. `x_2` extent of the global domain can be directly read from the metadomain instance passed to the constructor.
 2. Here, the value of `1.0` corresponds to the probability of `1.0` returned by the spatial distribution class.
 
-## Atmospheric boundaries
+## Boundary Conditions
+
+Entity supports a number of boundary conditions for fields and particles which we will list in the following section.
+We currently provide:
+```
+[grid.boundaries]
+    fields = ["PERIODIC", "MATCH", "FIXED", "ATMOSPHERE", "CUSTOM", "HORIZON", "CONDUCTOR"]
+    particles ["PERIODIC", "ABSORB", "ATMOSPHERE", "CUSTOM", "REFLECT", "HORIZON"]
+```
+
+### Periodic boundaries
+
+This boundary condition is valid for both fields and particles and is quite self-explanatory. It simply maps fields and particles outside of the domain on one side into the domain on the other side.
+
+### Atmospheric boundaries
 
 There is a special type of boundary condition named "atmosphere," which applies an additional "gravitational" force to particles and automatically replenishes the plasma to a given target level, while also resetting the fields to a specific value. For Cartesian geometry this boundary condition can be applied in the arbitrary direction, while for spherical/qspherical coordinates, it is only applicable in the $-\hat{x}_1$ (same as $-\hat{r})$ dimension. Thes boundary conditions are specified just like any other ones, via the `fields` and `particles` input parameters of the `[grid.boundaries]` section of the input file. 
 
@@ -343,6 +357,121 @@ Below is a diagram which indicates how the atmospheric boundary conditions opera
 
 <div class="d3-diagram" id="atm-bcs"></div>
 
+### Conductor boundaries
+
+Another kind of special boundary condition is the perfect (magnetic) conductor boundary. This boundary should be used in combination with reflecting boundaries for particles.
+You can think of the perfect conductor as introducing a mirror charge outside the boundary.
+
+An example usage can be found in the `srpic/shock/shock.toml`:
+
+```
+[grid.boundaries]
+    fields = [["CONDUCTOR", "MATCH"], ["PERIODIC"]]
+    particles = [["REFLECT", "ABSORB"], ["PERIODIC"]]
+```
+
+A perfect conductor satisfies the equations $\hat{\mathfb{n}} \times \mathfb{B} = 0$ and $\hat{\mathfb{n}} \dot{\mathfb{E}} = 0$, where $\hat{\mathfb{n}}$ is the surface normal of the boundary.
+This is achieved by setting $E$- and $B$-field at distance $x$ from the boundary to:
+
+|                 **E-field**                     |                    **B-field**                     |
+|:-----------------------------------------------:|:--------------------------------------------------:|
+| $E_\parallel(-\vec{x}) = - E_\perp(+\vec{x})$   | $B_\parallel(-\vec{x}) = - B_\parallel(+\vec{x})$  |
+| $E_\perp(0) = 0$                                | $B_\parallel(0) = 0$                               |
+| $E_\parallel(-\vec{x}) = E_\parallel(+\vec{x})$ | $B_\perp(-\vec{x}) = B_\perp(+\vec{x})$            |
+
+Please note that currents should be reflected in the same way, which in entity is handled in the current filtering step. Hence you need at least `current_filters = 1` for this boundary condition to work properly.
+
+These boundary conditions do not require any additional input paremeters.
+
+### Match boundaries
+
+If you want to drive the fields at your boundary to a given value you can do so using the `MATCH` boundary conditions.
+You can define the behavior of this driving towards the target field with the `grid.boundaries.match` parameters:
+
+```
+[grid.boundaries.match]
+  # Size of the matching layer in each direction for fields in physical (code) units:
+  #   @type: float or array of tuples
+  #   @default: 1% of the domain size (in shortest dimension)
+  #   @note: In spherical, this is the size of the layer in r from the outer wall
+  #   @example: ds = 1.5 (will set the same for all directions)
+  #   @example: ds = [[1.5], [2.0, 1.0], [1.1]] (will duplicate 1.5 for +/- x1 and 1.1 for +/- x3)
+  #   @example: ds = [[], [1.5], []] (will only set for x2)
+  ds = ""
+  # Absorption coefficient for fields:
+  #   @type: float: -inf < ... < inf, != 0
+  #   @default: 1.0
+  coeff = ""
+```
+
+In your problem generator you only need to define a `MatchFields` method which should inherit from a `struct` that defines the field components you want to drive.
+
+```c++
+template <Dimension D>
+struct BoundaryFields {
+  /*
+    Defines the fields you want to drive your boundary towards
+  */
+
+  // functions take the physical coordinate as an argument
+  Inline auto ex1(const coord_t<D>&) const -> real_t {
+    // return something
+  }
+  
+  // ex2, ex3
+
+  Inline auto bx1(const coord_t<D>&) const -> real_t {
+    // return something ...
+  }
+
+  // bx2, bx3
+};
+
+template <SimEngine::type S, class M>
+// ...
+BoundaryFields<D> bc_flds;
+
+struct PGen : public arch::ProblemGenerator<S, M> {
+  // ...
+
+  // This function is called within the BC kernel
+  auto MatchFields(real_t time) const -> BoundaryFields<D> {
+    return bc_flds;
+  }
+};
+```
+
+### Fixed field boundaries
+
+With `FIXED` boundary conditions you can set field components in your boundary cells to a given value.
+This can be either a fixed value or inherited from a previously defined `struct`.
+For this you need to define a method `FixFieldsConst(const bc_in&, const em& comp)` which should return a pair of the value you want to set and a bool if the component should be set or not.
+
+In this example $E_y$- and $E_z$-component are set to zero in the boundary, while all other components remain untouched:
+
+```c++
+// ...
+
+template <SimEngine::type S, class M>
+// ...
+
+struct PGen : public arch::ProblemGenerator<S, M> {
+  // ...
+
+  // This function is called within the BC kernel
+  auto FixFieldsConst(const bc_in&, const em& comp) const
+      -> std::pair<real_t, bool> {
+      if (comp == em::ex2) {
+        return { ZERO, true };
+      } else if (comp == em::ex3) {
+        return { ZERO, true };
+      } else {
+        return { ZERO, false };
+      }
+    }
+};
+```
+
 ## Custom post-timestep routines
 
 Often times, one needs to intervene to the simulation process to perform some custom operations by updating the fields or the particles (for instance, to apply special boundary conditions, inject particles etc.). The safest way of performing this is at the end of each timestep, when all the quantities have already been computed and stored. For that, Entity allows users to define another special method in the problem generator called `CustomPostStep`. It accepts the current timestep, the current physical time, and the local subdomain as a parameter. For instance, to inject particles at a given rate, one can write:
@@ -361,6 +490,115 @@ struct PGen : public arch::ProblemGenerator<S, M> {
 
 Or you may also manually access the fields and particles through the `domain.fields` and `domain.species[...]` objects, respectively, and perform any operations you need. Be mindful, however, that all the raw quantities stored within the `domain` object are in the code units (for more details, see the [fields and particles](./fields_particles.md) section; for ways to convert from one system/basis to another, see the [metric](./metrics.md) section).
 
+## Particle purging
+
+The custom post-timestep can also be used to purge particles within a given range in the domain. This can be useful to inject fresh plasma in a part of the domain and make sure that the old plasma has been removed before the fresh injection.
+
+We will use the example of the shock setup to illustrate this. Here plasma that is to the right of a given `xmin` is purged and the fields are reset before new plasma is injected.
+
+```c++
+// ...
+template <Dimension D>
+struct InitFields {
+  /*
+    Defines the fields at initialisation
+  */
+
+  // functions take the physical coordinate as an argument
+  Inline auto ex1(const coord_t<D>&) const -> real_t {
+    // return something
+  }
+  
+  // ex2, ex3
+
+  Inline auto bx1(const coord_t<D>&) const -> real_t {
+    // return something ...
+  }
+
+  // bx2, bx3
+};
+
+template <SimEngine::type S, class M>
+// ...
+
+struct PGen : public arch::ProblemGenerator<S, M> {
+  // ...
+  InitFields<D> init_flds;
+
+  void CustomPostStep(timestep_t step, simtime_t time, Domain<S, M>& domain) {
+    // ...
+
+    /*
+      tag particles inside the injection zone as dead
+    */
+    const auto& mesh = domain.mesh;
+    // loop over particle species
+    for (auto s { 0u }; s < 2; ++s) {
+      // get particle properties
+      auto& species = domain.species[s];
+      auto  i1      = species.i1;
+      auto  dx1     = species.dx1;
+      auto  tag     = species.tag;  
+    
+      Kokkos::parallel_for(
+          "RemoveParticles",
+          species.rangeActiveParticles(),
+          Lambda(index_t p) {
+            // check if the particle is already dead
+            if (tag(p) == ParticleTag::dead) {
+              return;
+            }
+            // convert particle position to grid coordinates
+            const auto x_Cd = static_cast<real_t>(i1(p)) +
+                              static_cast<real_t>(dx1(p));
+            // convert grid coordinates to physical coordinates
+            const auto x_Ph = mesh.metric.template convert<1, Crd::Cd, Crd::XYZ>(
+              x_Cd);
+            
+            // if particle position is to the right of xmin tag as dead
+            if (x_Ph > xmin) {
+              tag(p) = ParticleTag::dead;
+            }
+          });
+      }
+
+    /*
+      Reset the fields inside the purged region
+    */
+    // define indice range to reset fields
+    boundaries_t<bool> incl_ghosts;
+    for (auto d = 0; d < M::Dim; ++d) {
+      incl_ghosts.push_back({ false, false });
+    }
+
+    // define box to reset fields
+    boundaries_t<real_t> purge_box;
+    // loop over all dimension
+    for (auto d = 0u; d < M::Dim; ++d) {
+      if (d == 0) {
+        purge_box.push_back({ xmin, global_xmax });
+      } else {
+        purge_box.push_back(Range::All);
+      }
+    }
+
+    const auto extent = domain.mesh.ExtentToRange(purge_box, incl_ghosts);
+    tuple_t<std::size_t, M::Dim> x_min { 0 }, x_max { 0 };
+    for (auto d = 0; d < M::Dim; ++d) {
+      x_min[d] = extent[d].first;
+      x_max[d] = extent[d].second;
+    }
+
+    Kokkos::parallel_for("ResetFields",
+                         CreateRangePolicy<M::Dim>(x_min, x_max),
+                         arch::SetEMFields_kernel<decltype(init_flds), S, M> {
+                           domain.fields.em,
+                           init_flds,
+                           domain.mesh.metric });
+
+  }
+};
+```
 ## Custom external force
 
 Similar to all the other custom routines, one may also define a custom external force which will optionally be applied to the particles together with the electromagnetic pusher. This is done by defining an arbitrary class with an instance named `ext_force`, which implements three methods: `fx1()`, `fx2()`, `fx3()`. For instance, to apply a force in the $x_1$ direction decaying over time, one would write:
