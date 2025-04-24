@@ -180,7 +180,7 @@ struct PGen : public arch::ProblemGenerator<S, M> {
 };
 ```
 
-To initialize a non-uniform distribution and/or an arbitrary energy distribution, we will need to provide our own classes, which in turn must inherit from the `arch::SpatialDistribution<S, M>` and `arch::EnergyDistribution<S, M>`. For instance, let us initialize a distribution of two particle species counterstreaming in opposing direction with their velocities depending on the $x_2$ ($y$) coordinate, distributed in space according to a Gaussian profile. We first need to define the energy distribution:
+To initialize a non-uniform distribution and/or an arbitrary energy distribution, we will need to provide our own classes, which in turn must inherit from the `arch::SpatialDistribution<S, M>` and `arch::EnergyDistribution<S, M>`. For instance, let us initialize a distribution of two particle species counter-streaming in opposing direction with their velocities depending on the $x_2$ ($y$) coordinate, distributed in space according to a Gaussian profile. We first need to define the energy distribution:
 
 ```c++
 template <SimEngine::type S, class M>
