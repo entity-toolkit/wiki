@@ -363,6 +363,10 @@ Below is a diagram which indicates how the atmospheric boundary conditions opera
 
 ### Conductor boundaries
 
+<a href="https://github.com/entity-toolkit/entity/pull/84">
+  <span class="since-version">1.2.0</span>
+</a>
+
 Another kind of special boundary condition is the perfect (magnetic) conductor boundary. This boundary should be used in combination with reflecting boundaries for particles. You can think of the perfect conductor as introducing a mirror charge outside the boundary.
 
 An example usage can be found in the `srpic/shock/shock.toml`:
@@ -389,6 +393,10 @@ Note that the current densities which might propagate beyond the particle stenci
 These boundary conditions do not require any additional input paremeters.
 
 ### Match boundaries
+
+<a href="https://github.com/entity-toolkit/entity/pull/69">
+  <span class="since-version">1.2.0</span>
+</a>
 
 If you want to drive the fields at your boundary to a given value you can do so using the `MATCH` boundary conditions. You can define the width across which the code drives the fields the target values with the `grid.boundaries.match.ds` parameter:
 
@@ -465,6 +473,10 @@ If the `struct` does not explicitly define certain components (in the example ab
 
 ### Fixed field boundaries
 
+<a href="https://github.com/entity-toolkit/entity/pull/69">
+  <span class="since-version">1.2.0</span>
+</a>
+
 With `FIXED` boundary conditions you can explicitly set the field components at the boundary cells to a given predefined value. For this you need to define a method `FixFieldsConst(const bc_in&, const em& comp)` which should return a pair of the value you want to set, and a bool if the component should be set or not.
 
 In this example, the $E^2$, and $E^3$ components are set to zero in the boundary, while all the other components remain untouched:
@@ -494,6 +506,37 @@ struct PGen : public arch::ProblemGenerator<S, M> {
     }
 };
 ```
+
+!!! hint "Changing BCs at runtime"
+
+    One can change the boundary conditions at runtime by directly accessing the global metadomain, for example, in the `CustomPostStep` routine. Below is an example of how to do that (chaging boundaries to `MATCH` for fields and `ABSORB` for particles in $\pm x$ and $\pm y$ at a certain time):
+    ```c++
+    template <SimEngine::type S, class M>
+    struct PGen : public arch::ProblemGenerator<S, M> {
+      // ...
+      Metadomain<S, M>& metadomain;
+      bool bc_opened { false };
+      // ...
+      inline PGen(const SimulationParams& p, Metadomain<S, M>& m) : 
+        : arch::ProblemGenerator<S, M>(p)
+        , metadomain { m } {}
+
+      void CustomPostStep(timestep_t, simtime_t time, Domain<S, M>&) {
+        if ((time > t_open) and (not bc_opened)) { // (1)!
+          bc_opened = true;
+          metadomain.setFldsBC(bc_in::Mx1, FldsBC::MATCH); // (2)!
+          metadomain.setPrtlBC(bc_in::Mx1, PrtlBC::ABSORB);
+          metadomain.setFldsBC(bc_in::Px1, FldsBC::MATCH);
+          metadomain.setPrtlBC(bc_in::Px1, PrtlBC::ABSORB);
+        }
+        // ...
+      }
+    };
+    ```
+
+    1. check if not already opened & open after certain time
+    2. first argument is the direction in which to change the boundary; `M`/`P` stand for minus/plus
+
 
 ## Custom post-timestep routines
 
