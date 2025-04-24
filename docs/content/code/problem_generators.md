@@ -285,10 +285,14 @@ struct PGen : public arch::ProblemGenerator<S, M> {
 
 Entity supports a number of boundary conditions for fields and particles which we will list in the following section.
 We currently provide:
-```
+
+```toml
 [grid.boundaries]
-    fields = ["PERIODIC", "MATCH", "FIXED", "ATMOSPHERE", "CUSTOM", "HORIZON", "CONDUCTOR"]
-    particles ["PERIODIC", "ABSORB", "ATMOSPHERE", "CUSTOM", "REFLECT", "HORIZON"]
+  # one of: ["PERIODIC", "MATCH", "FIXED", "ATMOSPHERE", "CUSTOM", "HORIZON", "CONDUCTOR"]
+  fields = "" 
+
+  # one of: ["PERIODIC", "ABSORB", "ATMOSPHERE", "CUSTOM", "REFLECT", "HORIZON"]
+  particles = ""
 ```
 
 ### Periodic boundaries
@@ -359,36 +363,36 @@ Below is a diagram which indicates how the atmospheric boundary conditions opera
 
 ### Conductor boundaries
 
-Another kind of special boundary condition is the perfect (magnetic) conductor boundary. This boundary should be used in combination with reflecting boundaries for particles.
-You can think of the perfect conductor as introducing a mirror charge outside the boundary.
+Another kind of special boundary condition is the perfect (magnetic) conductor boundary. This boundary should be used in combination with reflecting boundaries for particles. You can think of the perfect conductor as introducing a mirror charge outside the boundary.
 
 An example usage can be found in the `srpic/shock/shock.toml`:
 
-```
+```toml
 [grid.boundaries]
     fields = [["CONDUCTOR", "MATCH"], ["PERIODIC"]]
     particles = [["REFLECT", "ABSORB"], ["PERIODIC"]]
 ```
 
-A perfect conductor satisfies the equations $\hat{\mathfb{n}} \times \mathfb{B} = 0$ and $\hat{\mathfb{n}} \dot{\mathfb{E}} = 0$, where $\hat{\mathfb{n}}$ is the surface normal of the boundary.
-This is achieved by setting $E$- and $B$-field at distance $x$ from the boundary to:
+A perfect conductor satisfies the equations $\hat{\boldsymbol{n}} \times \boldsymbol{B} = 0$ and $\hat{\boldsymbol{n}} \cdot \boldsymbol{E} = 0$, where $\hat{\boldsymbol{n}}$ is the surface normal of the boundary. This is achieved by setting $E$- and $B$-field at distance $x$ from the boundary to:
 
-|                 **E-field**                     |                    **B-field**                     |
-|:-----------------------------------------------:|:--------------------------------------------------:|
-| $E_\parallel(-\vec{x}) = - E_\perp(+\vec{x})$   | $B_\parallel(-\vec{x}) = - B_\parallel(+\vec{x})$  |
-| $E_\perp(0) = 0$                                | $B_\parallel(0) = 0$                               |
-| $E_\parallel(-\vec{x}) = E_\parallel(+\vec{x})$ | $B_\perp(-\vec{x}) = B_\perp(+\vec{x})$            |
+| **E-field** | **B-field** |
+| --- | --- | 
+| $E_\perp(-\vec{x}) = - E_\perp(+\vec{x})$   | $B_\parallel(-\vec{x}) = - B_\parallel(+\vec{x})$  |
+| $E_\perp(0) = 0$                                | $B_\parallel(0) = 0$ |
+| $E_\parallel(-\vec{x}) = E_\parallel(+\vec{x})$ | $B_\perp(-\vec{x}) = B_\perp(+\vec{x})$ |
 
-Please note that currents should be reflected in the same way, which in entity is handled in the current filtering step. Hence you need at least `current_filters = 1` for this boundary condition to work properly.
+where $\perp$ is the component perpendicular to $\hat{\boldsymbol{n}}$ (tangential to the conductor boundary), while $||$ component is along $\hat{\boldsymbol{n}}$ (perpendicular to the conductor boundary).
+
+Note that the current densities which might propagate beyond the particle stencil due to filtering, should be reflected in the same way as the electric fields; in the `Entity` this is handled at the current filtering kernel. 
+<!-- Hence you need at least `current_filters = 1` for this boundary condition to work properly. -->
 
 These boundary conditions do not require any additional input paremeters.
 
 ### Match boundaries
 
-If you want to drive the fields at your boundary to a given value you can do so using the `MATCH` boundary conditions.
-You can define the behavior of this driving towards the target field with the `grid.boundaries.match` parameters:
+If you want to drive the fields at your boundary to a given value you can do so using the `MATCH` boundary conditions. You can define the width across which the code drives the fields the target values with the `grid.boundaries.match.ds` parameter:
 
-```
+```toml
 [grid.boundaries.match]
   # Size of the matching layer in each direction for fields in physical (code) units:
   #   @type: float or array of tuples
@@ -398,17 +402,21 @@ You can define the behavior of this driving towards the target field with the `g
   #   @example: ds = [[1.5], [2.0, 1.0], [1.1]] (will duplicate 1.5 for +/- x1 and 1.1 for +/- x3)
   #   @example: ds = [[], [1.5], []] (will only set for x2)
   ds = ""
-  # Absorption coefficient for fields:
-  #   @type: float: -inf < ... < inf, != 0
-  #   @default: 1.0
-  coeff = ""
 ```
 
-In your problem generator you only need to define a `MatchFields` method which should inherit from a `struct` that defines the field components you want to drive.
+!!! note
+
+    Under the hood, the matching boundary conditions simply apply the following condition to the field components:
+    $$
+      A^{\rm new} = A^{\rm old}s + A^{\rm target} (1-s),~~~ s\equiv \tanh{\left(\frac{|x^i - x^i_b|}{ds_i/4}\right)}
+    $$
+    where $x^i$ is the physical coordinate in the direction $i$, $x^i_b$ -- is the corresponding boundary in that direction, and $A$ is one of the $E$ (or $D$ in GR) or $B$ components. The user is responsible for supplying the target values (in the problem generator, see below), and the values of $ds_i$ (for all directions) from the input file.
+
+In the problem generator one only needs to define a `MatchFields` method which should inherit from a `struct` that defines the field components you want to drive (the name of the struct can be arbitrary, as long as the name of the function returning it is `MatchFields`). 
 
 ```c++
 template <Dimension D>
-struct BoundaryFields {
+struct MyBoundaryFields {
   /*
     Defines the fields you want to drive your boundary towards
   */
@@ -428,37 +436,52 @@ struct BoundaryFields {
 };
 
 template <SimEngine::type S, class M>
-// ...
-BoundaryFields<D> bc_flds;
-
 struct PGen : public arch::ProblemGenerator<S, M> {
   // ...
 
   // This function is called within the BC kernel
-  auto MatchFields(real_t time) const -> BoundaryFields<D> {
+  // (potentially, bc_flds may depend on time)
+  auto MatchFields(simtime_t time) const -> MyBoundaryFields<D> {
+    const auto bc_flds = BoundaryFields<D>{};
     return bc_flds;
   }
 };
 ```
 
+All the coordinate conversions and field staggering is performed automatically, so all specified coordinates are in physical units, while the field values are normalized to $B_0$.
+
+If the `struct` does not explicitly define certain components (in the example above, `ex2`, `ex3`, `bx2`, `bx3` are omitted), the code will not apply any specific boundaries to them. If you wish to damp the fields to zero, you will have to explicitly specify it, e.g.,
+
+```cpp
+  // ...
+  Inline auto ex2(const coord_t<D>&) const -> real_t {
+    return ZERO;
+  }
+```
+
+!!! note "Matching boundaries in different directions"
+
+    You might need to have separate matching boundaries (i.e., fields being matched to different values) in different directions. For example, you may have one set of BCs in $\pm x$, while completely different conditions in $\pm y$. This can be achieved by specifying separately `MatchFieldsInX1` (for $\pm x$) and `MatchFieldsInX2` (in $\pm y$) instead of `MatchFields`. The function will still take time as the argument and return a class defining BCs in each distinct direction.
+
 ### Fixed field boundaries
 
-With `FIXED` boundary conditions you can set field components in your boundary cells to a given value.
-This can be either a fixed value or inherited from a previously defined `struct`.
-For this you need to define a method `FixFieldsConst(const bc_in&, const em& comp)` which should return a pair of the value you want to set and a bool if the component should be set or not.
+With `FIXED` boundary conditions you can explicitly set the field components at the boundary cells to a given predefined value. For this you need to define a method `FixFieldsConst(const bc_in&, const em& comp)` which should return a pair of the value you want to set, and a bool if the component should be set or not.
 
-In this example $E_y$- and $E_z$-component are set to zero in the boundary, while all other components remain untouched:
+In this example, the $E^2$, and $E^3$ components are set to zero in the boundary, while all the other components remain untouched:
 
 ```c++
 // ...
 
 template <SimEngine::type S, class M>
-// ...
-
 struct PGen : public arch::ProblemGenerator<S, M> {
   // ...
 
   // This function is called within the BC kernel
+  // the first element in the pair ...
+  // ... determines the value to which the component is set
+  // while the second bool component ...
+  // ... determines whether that component is updated at all
+  // ... i.e., if bool is false, the first component is simply ignored
   auto FixFieldsConst(const bc_in&, const em& comp) const
       -> std::pair<real_t, bool> {
       if (comp == em::ex2) {
