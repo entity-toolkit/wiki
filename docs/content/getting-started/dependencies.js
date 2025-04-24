@@ -1,9 +1,13 @@
 document.addEventListener("DOMContentLoaded", () => {
+  const all_tabs = document
+    .querySelector("#building-dependencies-from-source ~ .tabbed-set")
+    .querySelector(".tabbed-content")
+    .getElementsByClassName("tabbed-block");
   let tabs = {
-    mpi: document.getElementsByClassName("tabbed-block")[0],
-    hdf5: document.getElementsByClassName("tabbed-block")[1],
-    adios2: document.getElementsByClassName("tabbed-block")[2],
-    kokkos: document.getElementsByClassName("tabbed-block")[3],
+    mpi: all_tabs[0],
+    hdf5: all_tabs[1],
+    adios2: all_tabs[2],
+    kokkos: all_tabs[3],
   };
 
   const kokkos_use_gpu = () =>

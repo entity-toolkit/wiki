@@ -11,8 +11,14 @@ $serif-font: "DM Sans", serif;
   --md-text-font: #{$serif-font};
   --md-code-font: #{$mono-font};
   font-variant-ligatures: normal;
-  font-size: 1.25em;
+  font-size: 1.35em;
   font-smooth: auto;
+}
+
+@media (max-width: 600px) {
+  :root {
+    font-size: 1.2em;
+  }
 }
 
 * {

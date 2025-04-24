@@ -26,6 +26,8 @@ All the other third-party dependencies, such as `Kokkos` and `ADIOS2`, are inclu
 
     To play with the code with all the dependencies already installed in the containerized environment, please refer to [the section on Docker](./docker.md).
 
+---
+
 ## Preinstalling third-party libraries
 
 To speed up the compilation process, it is often beneficial to precompile & install the third-party libraries and use those during the build process, either by setting the appropriate environment variables, using it within a conda/spack environment, or by using environment modules. Alternatively, of course, you can use the libraries provided by your system package manager (`pacman`, `apt`, `brew`, `nix`, ...), or the cluster's module system.
@@ -34,11 +36,132 @@ To speed up the compilation process, it is often beneficial to precompile & inst
 
     If the system you're working on has `MPI` or `HDF5` already installed (either through environment modules or any package manager), it's highly recommended to use these libraries, instead of building your own. Instructions for these two here are provided as a last resort.
 
-### Spack
+### Spack (recommended)
 
-<a href="https://github.com/entity-toolkit/entity/pull/69">
-  <span class="since-version">1.2.0</span>
-</a>
+[Spack](https://spack.readthedocs.io/en/latest/) is essentially a package manager for HPC systems which allows to install all the dependencies locally, optionally cross-compiling them with the already available libraries. If spack is not already available on your system (or on a cluster), you can simply download it (preferably to your home directory) with:
+
+```sh
+git clone -c feature.manyFiles=true --depth=2 https://github.com/spack/spack.git
+```
+
+and add the following to your `.bashrc` or `.zshrc` (or analogous) startup file:
+
+```sh
+. spack/share/spack/setup-env.sh
+```
+
+to activate `spack` on shell login.
+
+#### Identifying pre-installed compilers/packages
+
+Since spack compiles everything from the source code, it is recommended to use as many of the already pre-installed packages as possible. In particular, you can use the already installed compilers, or big libraries, such as the MPI and HDF5. To make spack aware of their existence, you can simply run:
+
+```sh
+# to add compilers
+spack compiler add
+# and to add all libraries
+spack external find
+```
+
+!!! note
+
+    If your machine is using environment modules, you may need to first load the compilers/libraries you need, before running the command above, e.g.:
+    ```sh
+    module load gcc/13
+    module load openmpi/5
+    ```
+
+If for some reason spack does not find the local package you need, you may want to add it manually, by modifying the `$HOME/.spack/packages.yaml` file to add the following (example for locally installed `cuda` and `openmpi`):
+```yaml
+packages:
+  # ...
+  cuda:
+    buildable: false
+    externals:
+    - prefix: /opt/cuda/
+      spec: cuda@12.8
+  openmpi:
+    buildable: false
+    externals:
+    - prefix: /usr/
+      spec: openmpi@5.0.6
+```
+
+Then you can run, e.g., `spack spec cuda` to check whether it finds the package: `[e]` at the front will indicate that it found the external package, if so -- you can "install" it in spack by using `spack install cuda` or `spack install openmpi`.
+
+To check which packages `spack` has found, simply run `spack find` or to check the compilers, run `spack compilers`.
+
+!!! note
+
+    It is strongly recommended to use the pre-installed `MPI`, `CUDA` and other big libraries, instead of installing them via `spack` since these can be specifically configured on the machine you're running on.
+
+#### Setting up spack environment
+
+After that, it is recommended to create a spack environment and install all the other libraries within it. To do so, first create & activate the environment by running:
+
+```sh
+spack env create entity-env
+spack env activate entity-env
+```
+
+Whenever you activate this environment, spack will automatically add the libraries installed within it to the `PATH` so that `cmake` can identify them when compiling the `Entity`. Within the environment you may now install all the necessary libraries. Below we present the possible commands you may need to run for each of them. Make sure to first check which dependencies will `spack` use to compile the library before actually installing. For that, you can run, e.g.,
+
+```sh
+spack spec kokkos <OPTIONS>
+```
+
+which will show all the dependencies it will use. In front of each dependency, you'll see one of the following:
+
+* `[e]`: external (locally installed) package, 
+
+* `[+]`: a package already installed within spack, 
+
+* `[-]`: a package that will be downloaded and built during the installation.
+
+Once you're satisfied, you may run `spack install --add kokkos <OPTIONS>` to actually perform the installation (within the environment).
+
+=== "`HDF5`"
+    It is highly recommended to use the `HDF5` already installed on the cluster and find it via `spack` as described above. Nonetheless, you may also install it via `spack` using the following command:
+    ```sh
+    spack install --add hdf5 +cxx
+    ```
+    You may also add `-mpi` flag to disable the `MPI` support.
+
+=== "`ADIOS2`"
+    Because we rely on `HDF5` together with the `ADIOS2`, it is recommended to have `hdf5` installed externally (and make sure `spack` sees that installation by running `spack spec hdf5`). You can then install `ADIOS2` (in a `spack` environment) using the following command:
+    ```sh
+    spack install --add adios2 +hdf5 +pic
+    ```
+    You may also add `-mpi` option to disable the `MPI` support (`HDF5` will also have to be serial for that to work).
+
+=== "`Kokkos`"
+    For `Kokkos`, you will always use the following settings `+pic +aggressive_vectorization` on top of the architecture specific settings. For example, to compile with `CUDA` support on Ampere80 architecture (A100 card), you can do
+    ```sh
+    spack install --add kokkos +pic +aggressive_vectorization +cuda +wrapper cuda_arch=80
+    ```
+
+    And, again, before running this command, make sure to run it with `spack spec ...` instead of `spack install --add` with the same options just to make sure spack will not install an external CUDA.
+
+!!! note
+
+    Sometimes `spack` might not recognize the CPU architecture properly, especially when compiling on a node different from the one where the code will be running (e.g., login node vs compute node). In that case, when compiling the `kokkos`, you may need to provide also the following option: `target=zen2` (or other target cpu architecture). This might fail on the first try, since by default `spack` does not allow for manual architecture specification, in which case first reconfigure spack using `spack config add concretizer:targets:host_compatible:false`, and then try again.
+
+!!! tip  "`spack info`"
+
+    To see all the available configuration options for a given package, simply run `spack info <PACKAGE>`.
+
+!!! tip "Using an explicit compiler"
+
+    You can instruct `spack` to use a specific compiler which it has identified (find out by running `spack compilers`) by adding the following flag (example for `clang`):
+    ```sh
+    spack install <PACKAGE> <OPTIONS> %clang
+    ```
+
+!!! tip "Garbage collection"
+    
+    Simply uninstalling the package may left behind some build caches which often take up a lot of space. To get rid of these, you may run `spack gc` which will try its best to delete all these caches as well as all the unused packages.
+
+---
 
 ### Anaconda
 
@@ -49,6 +172,8 @@ source conda-entity-nompi.sh
 ```
 
 This also `pip`-installs the `nt2.py` package for post-processing. With this configuration, the `Kokkos` library will be built in-tree.
+
+---
 
 ### Building dependencies from source
 
@@ -73,18 +198,21 @@ The form below allows you to generate the appropriate build scripts and optional
     __Procedure__:
 
     1. Download the <a href="https://github.com/open-mpi/ompi" target="_blank">OpenMPI source code</a>:
-      ```sh 
-      git clone https://github.com/open-mpi/ompi.git 
-      cd ompi
-      ```
+    ```sh 
+    git clone https://github.com/open-mpi/ompi.git 
+    cd ompi
+    ```
+
     2. Run the script below to configure
     <div class="script">
     </div>
+
     3. Compile & install with
     ```sh
     make -j
     make install
     ```
+
     4. Optionally, if using environment modules, create a modulefile with the following content:
     <div class="module">
     </div>
@@ -306,6 +434,10 @@ The form below allows you to generate the appropriate build scripts and optional
     </div>
     Change the `<KOKKOS_INSTALL_DIR>` and add `module load`s for the appropriate host compiler/CUDA/HIP/SYCL as needed.
 
+!!! note
+
+    We also provide a command-line tool called [`ntt-dploy`](https://github.com/entity-toolkit/ntt-dploy) which can be used for the same purpose.
+
 !!! note "Nix"
 
     <a href="https://github.com/entity-toolkit/entity/pull/69">
@@ -322,8 +454,5 @@ The form below allows you to generate the appropriate build scripts and optional
     ```
     Note the escapes of quotation marks when specifying a string argument.
 
-!!! note
-
-    We also provide a command-line tool called [`ntt-dploy`](https://github.com/entity-toolkit/ntt-dploy) which can be used for the same purpose.
 
 <script src="../dependencies.js"></script>

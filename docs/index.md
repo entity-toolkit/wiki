@@ -45,23 +45,20 @@ This documentation includes everything you need to know to get started with usin
 
 ::/cards:: -->
 
-### Lead developers
-
-* :coffee: Hayk Hakobyan {[@haykh](https://github.com/haykh)}
-* :potato: Jens Mahlmann {[@jmahlmann](https://github.com/jmahlmann)}
-* :person_tipping_hand: Alexander Chernoglazov {[@SChernoglazov](https://github.com/SChernoglazov)}
-* :bubble_tea: Alisa Galishnikova {[@alisagk](https://github.com/alisagk)}
-* :dolphin: Sasha Philippov {[@sashaph](https://github.com/sashaph)}
-
 ### Contributors (alphabetical)
 
-* :guitar: Ludwig Böss {[@LudwigBoess](https://github.com/LudwigBoess): PIC, framework}
-* :eyes: Yangyang Cai {[@StaticObserver](https://github.com/StaticObserver): GR}
-* :tea: Benjamin Crinquand {[@bcrinquand](https://github.com/bcrinquand): GR, cubed-sphere}
-* :steam_locomotive: Evgeny Gorbunov {[@Alcauchy](https://github.com/Alcauchy): PIC, framework}
-* :radio: Siddhant Solanki {[@sidruns30](https://github.com/sidruns30): framework}
-* :shrug: Arno Vanthieghem {[@vanthieg](https://github.com/vanthieg): PIC, framework}
-* :cat: Muni Zhou {[@munizhou](https://github.com/munizhou): PIC}
+* :guitar: Ludwig Böss {[@LudwigBoess](https://github.com/LudwigBoess)}
+* :eyes: Yangyang Cai {[@StaticObserver](https://github.com/StaticObserver)}
+* :person_tipping_hand: Alexander Chernoglazov {[@SChernoglazov](https://github.com/SChernoglazov)}
+* :tea: Benjamin Crinquand {[@bcrinquand](https://github.com/bcrinquand)}
+* :bubble_tea: Alisa Galishnikova {[@alisagk](https://github.com/alisagk)}
+* :locomotive: Evgeny Gorbunov {[@Alcauchy](https://github.com/Alcauchy)}
+* :coffee: Hayk Hakobyan {[@haykh](https://github.com/haykh)}
+* :potato: Jens Mahlmann {[@jmahlmann](https://github.com/jmahlmann)}
+* :dolphin: Sasha Philippov {[@sashaph](https://github.com/sashaph)}
+* :radio: Siddhant Solanki {[@sidruns30](https://github.com/sidruns30)}
+* :shrug: Arno Vanthieghem {[@vanthieg](https://github.com/vanthieg)}
+* :cat: Muni Zhou {[@munizhou](https://github.com/munizhou)}
 
 <!-- ### Timeline -->
 
@@ -113,17 +110,17 @@ The developers are pleased to acknowledge that the work was performed using the 
 
 <!--[^1]: [Icons](https://game-icons.net/) are used under the [CC BY 3.0 license](https://creativecommons.org/licenses/by/3.0/); created by [Delapouite](https://delapouite.com/), and [Lorc](https://lorcblog.blogspot.com/).-->
 
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    let el = document.getElementById("contributors-alphabetical")
-    let ul = el.nextElementSibling;
-    if (ul) {
-      Array.from(ul.children).forEach(li => {
-        let tags_str = />:(.*)\}/.exec(li.innerHTML);
-        let tags = tags_str[1].split(',').map(c => c.trim());
-        li.innerHTML = li.innerHTML.replace(tags_str[1],
-              tags.map(t => `<span class="tag ${t.toLowerCase().replace(' ', '_')}">${t}</span>`).join(''));
-      });
-    }
-  });
-</script>
+<!-- <script> -->
+<!--   document.addEventListener('DOMContentLoaded', () => { -->
+<!--     let el = document.getElementById("contributors-alphabetical") -->
+<!--     let ul = el.nextElementSibling; -->
+<!--     if (ul) { -->
+<!--       Array.from(ul.children).forEach(li => { -->
+<!--         let tags_str = />:(.*)\}/.exec(li.innerHTML); -->
+<!--         let tags = tags_str[1].split(',').map(c => c.trim()); -->
+<!--         li.innerHTML = li.innerHTML.replace(tags_str[1], -->
+<!--               tags.map(t => `<span class="tag ${t.toLowerCase().replace(' ', '_')}">${t}</span>`).join('')); -->
+<!--       }); -->
+<!--     } -->
+<!--   }); -->
+<!-- </script> -->
