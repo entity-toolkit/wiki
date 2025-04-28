@@ -719,6 +719,50 @@ Again, as everything else in the problem generator, the force (rather, the accel
 
     Note, that among the functions mentioned throughout this section, you may specify only the ones you actually need, and ignore the ones you don't (i.e., there is no need to provide dummy functions that return zero), as the code will automatically determine at compile-time which functions are present.
 
+## Custom external current
+
+In case one need to apply external current to the system, it is possible to do so via defining the arbitrary class `ext_current`, which implements three methods: `jx1()`, `jx2()`, `jx3()`. For example, to apply a constant sinusoidal current $j_{x3}$ in the $x_1$ direction, one could write:
+```c++
+ template <Dimension D>
+  struct ImmaRealLiveWire {
+    ImmaRealLiveWire(real_t amplitude, real_t k)
+      : amp { amplitude }
+      , k { k } {};
+
+    Inline auto jx1(const coord_t<D>& x_Ph) const -> real_t {
+        return ZERO;
+      }
+
+    Inline auto jx2(const coord_t<D>& x_Ph) const -> real_t {
+        return ZERO;
+      }
+
+    Inline auto jx3(const coord_t<D>& x_Ph) const -> real_t {
+        return amp * math::sin(k * x_Ph[0]);
+      }
+
+    private:
+      const real_t amp, k; 
+}
+
+// and then in the problem generator class
+template <SimEngine::type S, class M>
+struct PGen : public arch::ProblemGenerator<S, M> {
+  // ...
+  ImmaRealLiveWire<D> ext_current;
+  // and read the parameters from the input
+  inline PGen(const SimulationParams& p, const Metadomain<S, M>& global_domain)
+    : arch::ProblemGenerator<S, M> { p }
+    , ext_current { p.template get<real_t>("setup.amplitude"),
+                  p.template get<real_t>("setup.k") }
+    {}
+};
+```  
+Keep in mind, that, in comparison to the external force, all components of the current has to be defined in the structure, even if they supposed to return zero. 
+!!! note "External current"
+
+    Note that the external current is currently limited to work only in Minkowski space. 
+
 
 ## Custom field output
 
