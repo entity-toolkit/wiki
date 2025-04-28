@@ -97,7 +97,79 @@ This section goes over some instructions on how to compile & run the `Entity` on
 
 === "`Zaratan` (UMD)"
 
-    @Женя
+    **Installing the dependencies**
+
+    We will rely on spack to compile on Zaratan. But first of all, the correct compiler should be loaded:
+
+    ```sh
+    module load gcc/11.3.0
+    ```
+    After that, add the following to `~/.spack/packages.yaml`:
+    ```yaml
+    packages:
+      cuda:
+        buildable: false
+        externals:
+        - prefix: /cvmfs/hpcsw.umd.edu/spack-software/2023.11.20/linux-rhel8-x86_64/gcc-11.3.0/cuda-12.3.0-fvfg7yyq63nunqvkn7a5fzh6e77quxty
+          spec: cuda@12.3
+        - modules:
+          - cuda/12.3
+          spec: cuda@12.3
+      cmake:
+         buildable: false
+         externals:
+         - prefix: /usr
+           spec: cmake@3.26.5
+    ```
+    Next, you should create a virtual environment
+    ```sh
+    spack env create entity-env
+    spack env activate entity-env
+    ```
+    and activate it with 
+    ```sh
+    spacktivate entity-env
+    ```
+    install the required packages within the environment running the following command: 
+    ```sh
+    spack add hdf5 +mpi
+    spack add adios2 +hdf5 
+    spack add kokkos +cuda +wrapper cuda_arch=80
+    spack add openmpi +cuda
+    ```
+    Install the packages with `spack install`. Now, to load the packages within the environment, do:  
+    ```sh 
+    spack load hdf5 adios2 kokkos openmpi
+    ```
+    
+    **Compiling**
+    To compile after the neccassary modules were installed, run
+    ```sh
+    cmake -B build -D pgen=<PROBLEM_GENERATOR> -D Kokkos_ENABLE_CUDA=ON -D mpi=on -D output=on
+    cmake --build build -j
+    ```
+    **Running**
+    The batch script should look like this:
+    ```sh
+    #!/bin/bash
+    #SBATCH -p gpu
+    #SBATCH -t 00:30:00
+    #SBATCH -n 1
+    #SBATCH -c 1
+    #SBATCH --gpus=a100_1g.5gb:1
+    #SBATCH --output=test.out
+    #SBATCH --error=test.err
+
+    module load gcc/11.3.0
+    . <HOME>/spack/share/spack/setup-env.sh
+    spack env activate entity-env
+    spack load hdf5 kokkos adios2 cuda openmpi
+
+    mpirun ./entity.xc -input input.toml 
+    ```
+    _Last updated: 4/29/2025_
+
+
 
 === "`Rusty` (CCA)"
     
