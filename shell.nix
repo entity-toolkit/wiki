@@ -11,6 +11,8 @@ pkgs.mkShell rec {
     pyright
     taplo
     vscode-langservers-extracted
+    yaml-language-server
+    typescript-language-server
     emmet-ls
     markdown-oxide
     zlib

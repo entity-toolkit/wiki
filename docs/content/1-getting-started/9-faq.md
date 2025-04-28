@@ -11,7 +11,7 @@ hide:
 
 ???+ faq "I want to have a custom boundary/injection/driving/distribution function/output."
     
-    All of that *can* be done via the tools provided by the problem generator. Please inspect carefully the [section dedicated to that](../code/problem_generators.md). Also have a look at the set of officially supported problem generators some of which might implement a variation of what your original intent is.
+    All of that *can* be done via the tools provided by the problem generator. Please inspect carefully the [section dedicated to that](../2-code/6-problem_generators.md). Also have a look at the set of officially supported problem generators some of which might implement a variation of what your original intent is.
 
 ## Technical
 
@@ -27,4 +27,4 @@ hide:
 
     - CUDA @ NVIDIA GPUs: make sure you have a version of `gcc` which is supported by the version of CUDA you are using; check out [this unofficial compatibility matrix](https://gist.github.com/ax3l/9489132#nvcc). In particular, Intel compilers are not very compatible with CUDA, and it is recommended to use `gcc` instead (you won't gain much by using Intel anyway, since CUDA will be doing the heavy-lifting).
   
-    - HIP/ROCm @ AMD GPUs: ROCm library is a headache. The documentation is even more so. We have a [dedicated section](./compile-run.md#hiprocm-amd-gpus) specifically discussing compilation with HIP. Make sure to check it before opening an issue.
+    - HIP/ROCm @ AMD GPUs: ROCm library is a headache. The documentation is even more so. We have a [dedicated section](./1-compile-run.md#hiprocm-amd-gpus) specifically discussing compilation with HIP. Make sure to check it before opening an issue.

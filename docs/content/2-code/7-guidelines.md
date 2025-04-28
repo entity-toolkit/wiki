@@ -3,6 +3,8 @@ hide:
   - footer
 ---
 
+# Code guidelines
+
 Two general places to find information on C++-specific questions are [cppreference](https://en.cppreference.com/w/) and [learncpp](https://www.learncpp.com/). For Kokkos-related questions, one can refer to the [Kokkos documentation](https://kokkos.org/kokkos-core-wiki/) as well as the [Kokkos tutorials](https://github.com/kokkos/kokkos-tutorials) for practical examples. For ADIOS2-related issues, refer to the [ADIOS2 documentation](https://adios2.readthedocs.io/en/latest/), and the [examples on their github](https://github.com/ornladios/ADIOS2/tree/master/examples).
 
 When not sure what a specific function does, or how to include a particular module, first check [the documentation](https://entity-toolkit.github.io/wiki) (you can do a keyword search). Another good option to figure things out on your own, is to look at how the particular modules/functions in questions are used in the unit tests (in the corresponding `tests/` directories). If non of that answers your questions, please feel free to open a [github issue](https://github.com/entity-toolkit/entity/issues).

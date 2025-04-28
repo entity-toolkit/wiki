@@ -303,7 +303,7 @@ This boundary condition is valid for both fields and particles and is quite self
 
 There is a special type of boundary condition named "atmosphere," which applies an additional "gravitational" force to particles and automatically replenishes the plasma to a given target level, while also resetting the fields to a specific value. For Cartesian geometry this boundary condition can be applied in the arbitrary direction, while for spherical/qspherical coordinates, it is only applicable in the $-\hat{x}_1$ (same as $-\hat{r})$ dimension. Thes boundary conditions are specified just like any other ones, via the `fields` and `particles` input parameters of the `[grid.boundaries]` section of the input file. 
 
-The injected particle distribution is in Boltzmann-equilibrium with the gravity: $\bm{u}\cdot\nabla_{\bm{x}} f + m \bm{g}\cdot \nabla_{\bm{u}} f = 0$; the scale-height and the temperature of of the atmosphere are configurable from [the input file](../getting-started/inputfile.md) using the `grid.boundaries.atmosphere` parameters. The user also has a control over the peak density of the atmosphere, the extent to which the force is acting, as well as the particle species that are being injected. 
+The injected particle distribution is in Boltzmann-equilibrium with the gravity: $\bm{u}\cdot\nabla_{\bm{x}} f + m \bm{g}\cdot \nabla_{\bm{u}} f = 0$; the scale-height and the temperature of of the atmosphere are configurable from [the input file](../1-getting-started/3-inputfile.md) using the `grid.boundaries.atmosphere` parameters. The user also has a control over the peak density of the atmosphere, the extent to which the force is acting, as well as the particle species that are being injected. 
 
 ```toml
 [grid.boundaries.atmosphere]
@@ -554,7 +554,7 @@ struct PGen : public arch::ProblemGenerator<S, M> {
 };
 ```
 
-Or you may also manually access the fields and particles through the `domain.fields` and `domain.species[...]` objects, respectively, and perform any operations you need. Be mindful, however, that all the raw quantities stored within the `domain` object are in the code units (for more details, see the [fields and particles](./fields_particles.md) section; for ways to convert from one system/basis to another, see the [metric](./metrics.md) section).
+Or you may also manually access the fields and particles through the `domain.fields` and `domain.species[...]` objects, respectively, and perform any operations you need. Be mindful, however, that all the raw quantities stored within the `domain` object are in the code units (for more details, see the [fields and particles](./4-fields_particles.md) section; for ways to convert from one system/basis to another, see the [metric](./5-metrics.md) section).
 
 ## Particle purging
 

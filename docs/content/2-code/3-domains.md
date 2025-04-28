@@ -52,7 +52,7 @@ Remember, that the local code-unit coordinates in Entity go from $0$ to $n_i$ (w
 <script type="module" src="../domains.js"></script>
 
 
-The diagram below demonstrates the structure of the metadomain object, the subdomains, and the mesh with all the contained variables and methods. Fields and particles are described [in the following section](./fields_particles.md), while the metrics are [discussed here](./metrics.md).
+The diagram below demonstrates the structure of the metadomain object, the subdomains, and the mesh with all the contained variables and methods. Fields and particles are described [in the following section](./4-fields_particles.md), while the metrics are [discussed here](./5-metrics.md).
 
 ```mermaid
 classDiagram

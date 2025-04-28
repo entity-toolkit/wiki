@@ -11,7 +11,7 @@ hide:
     - `framework/containers/species.h`
     - `framework/containers/particles.h`
 
-To store the main data of the simulation, the fields and the particles, Entity provides container classes `Fields<D,S>` and `Particles<D,C>`, where `D` is a template argument for the dimension, `S` for the simulation engine, and `C` for the coordinate type. Notice, that none of these objects know anything about the geometry of the space-time (i.e., the metric), and thus they should be used in conjunction with the `Mesh<M>` object [discussed here](./domains.md).
+To store the main data of the simulation, the fields and the particles, Entity provides container classes `Fields<D,S>` and `Particles<D,C>`, where `D` is a template argument for the dimension, `S` for the simulation engine, and `C` for the coordinate type. Notice, that none of these objects know anything about the geometry of the space-time (i.e., the metric), and thus they should be used in conjunction with the `Mesh<M>` object [discussed here](./3-domains.md).
 
 Depending on the simulation engine, and the coordinate system, these object allocate some of the built-in arrays, while ignoring the others. Below is a full breakdown for all the arrays for both of these classes. We assume that $n_i$ is the number of cells on the given subdomain in the $i$-th direction.
 
@@ -31,7 +31,7 @@ All of the field arrays have a type `real_t` which compilers to `float` when usi
 
 !!! note "Staggering"
 
-    Keep in mind that the field components stored in all these arrays are staggered not only in time, but also in space. Entity employs the [Yee grid staggering](https://en.wikipedia.org/wiki/Finite-difference_time-domain_method), and this the electric fields are stored at the corresponding cell edges, while the magnetic fields are stored at the cell faces. To see how those fields are staggered in time, refer to the [PIC algorithm section](./pic.md).
+    Keep in mind that the field components stored in all these arrays are staggered not only in time, but also in space. Entity employs the [Yee grid staggering](https://en.wikipedia.org/wiki/Finite-difference_time-domain_method), and this the electric fields are stored at the corresponding cell edges, while the magnetic fields are stored at the cell faces. To see how those fields are staggered in time, refer to the [PIC algorithm section](./1-pic.md).
 
 !!! code "Field loops"
 

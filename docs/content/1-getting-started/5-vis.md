@@ -108,7 +108,7 @@ and particle quantities
 
 All of the vector fields are interpolated to cell centers before the output, and converted to orthonormal basis. The particle-based moments are smoothed with a stencil (specified in the input file; `mom_smooth`) for each particle.
 
-In addition, one can write custom user-defined field quantities to the output with the fields. Refer to [the following section](../code/problem_generators.md#custom-field-output) for more details.
+In addition, one can write custom user-defined field quantities to the output with the fields. Refer to [the following section](../2-code/6-problem_generators.md#custom-field-output) for more details.
 
 !!! warning "Can one track particles at different times?"
 

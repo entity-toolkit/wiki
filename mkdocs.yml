@@ -6,26 +6,27 @@ site_url: https://entity-toolkit.github.io/wiki
 nav:
   - Home: index.md
   - Getting started:
-      - Compiling/running: content/getting-started/compile-run.md
-      - Dependencies: content/getting-started/dependencies.md
-      - Docker: content/getting-started/docker.md
-      - Input file: content/getting-started/inputfile.md
-      # - Writing a problem generator: getting-started/pgen.md
-      - Understanding the units: content/getting-started/units.md
-      - Output & visualization: content/getting-started/vis.md
-      - Writing checkpoints & restarting: content/getting-started/checkpoints.md
-      - Documenting: content/getting-started/docs.md
-      - F.A.Q.: content/getting-started/faq.md
+      - Compiling/running: content/1-getting-started/1-compile-run.md
+      - Dependencies: content/1-getting-started/2-dependencies.md
+      - Input file: content/1-getting-started/3-inputfile.md
+      # - Writing a problem generator: 1-getting-started/pgen.md
+      - Understanding the units: content/1-getting-started/4-units.md
+      - Output & visualization: content/1-getting-started/5-vis.md
+      - Writing checkpoints & restarting: content/1-getting-started/6-checkpoints.md
+      - Documenting: content/1-getting-started/7-docs.md
+      - Docker: content/1-getting-started/8-docker.md
+      - F.A.Q.: content/1-getting-started/9-faq.md
   - Understanding the code:
-      - content/code/pic.md
-      - content/code/hierarchy.md
-      - content/code/domains.md
-      - content/code/fields_particles.md
-      - content/code/metrics.md
-      - content/code/problem_generators.md
-      - content/code/guidelines.md
+      - content/2-code/1-pic.md
+      - content/2-code/2-hierarchy.md
+      - content/2-code/3-domains.md
+      - content/2-code/4-fields_particles.md
+      - content/2-code/5-metrics.md
+      - content/2-code/6-problem_generators.md
+      - content/2-code/7-guidelines.md
       # - "code/structure.md"
   - Useful things:
+      - Cluster setups: content/useful/cluster-setups.md
       - Floating point comparison: content/useful/float-comparison.md
       - Theory behind PIC: content/useful/theory_pic.md
       - Kerr metric: content/useful/ks.md

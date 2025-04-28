@@ -24,7 +24,7 @@ All the other third-party dependencies, such as `Kokkos` and `ADIOS2`, are inclu
 
 !!! note
 
-    To play with the code with all the dependencies already installed in the containerized environment, please refer to [the section on Docker](./docker.md).
+    To play with the code with all the dependencies already installed in the containerized environment, please refer to [the section on Docker](./8-docker.md).
 
 ---
 
