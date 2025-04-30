@@ -3,15 +3,16 @@ hide:
   - footer
 ---
 
-This section goes over some instructions on how to compile & run the `Entity` on some of the most widely utilized clusters.
+This section goes over some instructions on how to compile & run the `Entity` on some of the most widely utilized clusters. While the main libraries we rely on, `Kokkos` and `ADIOS2` can be built in-tree (i.e., together with the code when you launch the compiler), it is nonetheless recommended to pre-install them separately (if not already installed on the cluster) and use them as external dependencies, since that will significantly cut down the compilation time.
 
 
 !!! note "Contribute!"
 
     If you don't see a cluster you are running the code on here, please be kind to those that will come after us and contribute instructions for that specific cluster. `Entity` is only as strong as the community supporting it, and by contributing a few sentences, you may have an immense effect in the longrun.
 
-
 === "`Stellar` (Princeton)"
+
+    [`Stellar`](https://researchcomputing.princeton.edu/systems/stellar) cluster at Princeton University has 6 nodes with 2 NVIDIA A100 GPUs (Ampere 8.0 microarchitecture) each and 128-core AMD EPYC Rome CPUs (Zen2 microarchitecture).
 
     **Installing the dependencies**
 
@@ -70,7 +71,7 @@ This section goes over some instructions on how to compile & run the `Entity` on
     During the compilation, passing any `-D Kokkos_***` or `-D ADIOS2_***` flags is not necessary, while `-D mpi=ON/OFF` is still needed, since in theory the code can also be compiled without MPI.
 
     To run the code, the submit script should look something like this:
-    ```bash
+    ```slurm
     #!/bin/bash
     #SBATCH -n 4 (1)
     #SBATCH -t 00:30:00
@@ -86,7 +87,7 @@ This section goes over some instructions on how to compile & run the `Entity` on
     spack env activate entity-env
     spack load gcc cuda openmpi kokkos adios2
 
-    srun entity.xc -input <INPUTFILE> 
+    srun entity.xc -input <INPUT>.toml
     ```
 
     1. total number of tasks (GPUs)
@@ -96,6 +97,8 @@ This section goes over some instructions on how to compile & run the `Entity` on
     _Last updated: 4/28/2025_
 
 === "`Zaratan` (UMD)"
+
+    [`Zaratan`](https://hpcc.umd.edu/hpcc/zaratan.html) cluster at the University of Maryland has 20 nodes with 4 NVIDIA A100 GPUs (Ampere 8.0) and a 128-core AMD EPYC (Zen2) CPUs each, as well as 8 nodes with NVIDIA H100 GPUs (Hopper 9.0) and Intel Xeon Platinum 8468 (Sapphire Rapids). Below, we describe how to run the code on the A100 nodes; for the H100 nodes the procedure is similar with the only exception being that different flags need to be specified when installing the `Kokkos` library (plus, you might need to manually specify `target=<CPUARCH>` as the login nodes have a different microarchitecture than the H100 compute nodes).
 
     **Installing the dependencies**
 
@@ -121,36 +124,27 @@ This section goes over some instructions on how to compile & run the `Entity` on
          - prefix: /usr
            spec: cmake@3.26.5
     ```
-    Next, you should create a virtual environment
+    Next, you should create a virtual environment and activate it
     ```sh
     spack env create entity-env
     spack env activate entity-env
     ```
-    and activate it with 
+    From within the environment, install the required packages within the environment running the following command: 
     ```sh
-    spacktivate entity-env
-    ```
-    install the required packages within the environment running the following command: 
-    ```sh
-    spack add hdf5 +mpi
-    spack add adios2 +hdf5 
-    spack add kokkos +cuda +wrapper cuda_arch=80
+    spack add hdf5 +mpi +cxx
+    spack add adios2 +hdf5 +pic
+    spack add kokkos +cuda +wrapper cuda_arch=80 +pic +aggressive_vectorization
     spack add openmpi +cuda
     ```
-    Install the packages with `spack install`. Now, to load the packages within the environment, do:  
+    After that, install the packages with `spack install`. Now, to load the packages within the environment, do:  
     ```sh 
     spack load hdf5 adios2 kokkos openmpi
     ```
     
-    **Compiling**
-    To compile after the neccassary modules were installed, run
-    ```sh
-    cmake -B build -D pgen=<PROBLEM_GENERATOR> -D Kokkos_ENABLE_CUDA=ON -D mpi=on -D output=on
-    cmake --build build -j
-    ```
-    **Running**
-    The batch script should look like this:
-    ```sh
+    **Compiling & running the code**
+
+    Compilation of the code is performed as usual, and there is no need for any additional `-D Kokkos_***` or `-D ADIOS2_***` flags. The batch script for submitting the job should look like this:
+    ```slurm
     #!/bin/bash
     #SBATCH -p gpu
     #SBATCH -t 00:30:00
@@ -165,17 +159,23 @@ This section goes over some instructions on how to compile & run the `Entity` on
     spack env activate entity-env
     spack load hdf5 kokkos adios2 cuda openmpi
 
-    mpirun ./entity.xc -input input.toml 
+    mpirun ./entity.xc -input <INPUT>.toml 
     ```
-    _Last updated: 4/29/2025_
 
+    _Last updated: 4/29/2025_
 
 
 === "`Rusty` (CCA)"
     
     @Alisa
 
+=== "`Vista` (TACC)"
+
+    @Женя
+
 === "`DeltaAI` (NCSA)"
+
+    **Installing the dependencies**
 
     [`DeltaAI`](https://docs.ncsa.illinois.edu/systems/deltaai/en/latest/index.html) uses GH200 nodes. These are NVIDIA superchip nodes with 4x H100 GPUs and 4x ARM CPUs with 72 cores each.
     This makes the setup a bit more tedious, but luckily most dependencies are already installed.
@@ -190,7 +190,7 @@ This section goes over some instructions on how to compile & run the `Entity` on
     module load cray-hdf5-parallel
     ```
 
-    I would recommend to install `kokkos` and `ADIOS2` from source with the following settings:
+    We would recommend installing `Kokkos` and `ADIOS2` from source with the following settings:
 
     ```sh
     # Kokkos
@@ -230,7 +230,7 @@ This section goes over some instructions on how to compile & run the `Entity` on
     cmake --install build
     ```
 
-    You can then add module files for both libraries or add them to your path directly. Just be sure to export the relevant `kokkos` settings.
+    You can then add module files for both libraries (as described [here](../1-getting-started/2-dependencies.md#building-dependencies-from-source)) or add them to your path directly. Just be sure to export the relevant `kokkos` settings.
     ```sh
     # in the kokkos module file
     setenv  Kokkos_ENABLE_CUDA              ON
@@ -238,16 +238,18 @@ This section goes over some instructions on how to compile & run the `Entity` on
     setenv  Kokkos_ARCH_HOPPER90            ON
     ```
     
+    **Compiling & running the code**
+
     `DeltaAI`'s `mpich` seems to not be `CUDA` aware (or it's bugged), so you will always need to add the flag `gpu_aware_mpi=OFF`.
 
     Your `cmake` setting should look something like this:
     ```sh
-    cmake -B build -D pgen=srpic/weibel -D output=ON -D mpi=ON -D CMAKE_CXX_COMPILER=CC -D CMAKE_C_COMPILER=cc -D gpu_aware_mpi=OFF
+    cmake -B build -D pgen=<PGEN> -D mpi=ON -D CMAKE_CXX_COMPILER=CC -D CMAKE_C_COMPILER=cc -D gpu_aware_mpi=OFF
     ```
 
     Finally an example `SLURM` script using the full node looks like this:
 
-    ```bash
+    ```slurm
     #!/bin/bash
     #SBATCH --nodes=2
     #SBATCH --ntasks-per-node=4
@@ -274,9 +276,10 @@ This section goes over some instructions on how to compile & run the `Entity` on
     export MPICH_GPU_SUPPORT_ENABLED=1
     export MPICH_OFI_VERBOSE=1
 
-    srun ./entity.xc -input shock.toml
+    srun ./entity.xc -input <INPUT>.toml
     ```
 
+    _Last updated: 4/28/2025_
 
 === "`Perlmutter` (NERSC)"
 
