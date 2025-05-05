@@ -167,11 +167,11 @@ This section goes over some instructions on how to compile & run the `Entity` on
 
 === "`Rusty` (CCA)"
     
-    @Alisa
+    _WIP_
 
 === "`Vista` (TACC)"
 
-    @Женя
+    _WIP_
 
 === "`DeltaAI` (NCSA)"
 
@@ -283,15 +283,15 @@ This section goes over some instructions on how to compile & run the `Entity` on
 
 === "`Perlmutter` (NERSC)"
 
-    @Hayk + @Sasha
+    _WIP_
 
 === "`Frontier` (ORNL)"
 
-    @Jens + @Hayk
+    _WIP_
 
-=== "IAS???"
+=== "(IAS)"
 
-    @Sasha
+    _WIP_
 
 !!! warning "Mind the dates"
 
