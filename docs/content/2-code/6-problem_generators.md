@@ -558,45 +558,38 @@ Or you may also manually access the fields and particles through the `domain.fie
 
 ## Particle purging
 
-The custom post-timestep can also be used to purge particles within a given range in the domain. This can be useful to inject fresh plasma in a part of the domain and make sure that the old plasma has been removed before the fresh injection.
+The custom post-timestep can also be used to purge particles within a given region of the domain. This can be useful to inject fresh plasma in the part of the domain and make sure that the old plasma has been removed before replenishing.
 
-We will use the example of the shock setup to illustrate this. Here plasma that is to the right of a given `xmin` is purged and the fields are reset before new plasma is injected.
+!!! warning "Conserving the currents"
+
+    Keep in mind that removing charged particles in general will violate charge conservation, unless the $E$-fields are then explicitly forced to obey $\nabla\cdot\boldsymbol{E}=4\pi \rho$. For that reason, in the example below, along with purging particles we will also reset the fields in that region.
+
+Below we use the example from the shock setup to illustrate particle purging routine. Here, all plasma particles that have $x>x_{\rm min}$ (denoted `xmin` in the code) is purged and the fields are reset before new plasma is injected.
 
 ```c++
-// ...
 template <Dimension D>
 struct InitFields {
-  /*
-    Defines the fields at initialisation
-  */
+  /**
+   * Defines the fields at initialisation
+  **/
 
-  // functions take the physical coordinate as an argument
   Inline auto ex1(const coord_t<D>&) const -> real_t {
-    // return something
+    return /*...*/; //(1)!
   }
-  
-  // ex2, ex3
 
   Inline auto bx1(const coord_t<D>&) const -> real_t {
-    // return something ...
+    return /*...*/;
   }
-
-  // bx2, bx3
 };
 
 template <SimEngine::type S, class M>
-// ...
-
 struct PGen : public arch::ProblemGenerator<S, M> {
-  // ...
   InitFields<D> init_flds;
 
   void CustomPostStep(timestep_t step, simtime_t time, Domain<S, M>& domain) {
-    // ...
-
-    /*
-      tag particles inside the injection zone as dead
-    */
+    /**
+     * tag particles inside the injection zone as dead
+    **/
     const auto& mesh = domain.mesh;
     // loop over particle species
     for (auto s { 0u }; s < 2; ++s) {
@@ -621,7 +614,7 @@ struct PGen : public arch::ProblemGenerator<S, M> {
             const auto x_Ph = mesh.metric.template convert<1, Crd::Cd, Crd::XYZ>(
               x_Cd);
             
-            // if particle position is to the right of xmin tag as dead
+            // if the particle position is to the right of xmin, tag it as dead
             if (x_Ph > xmin) {
               tag(p) = ParticleTag::dead;
             }
@@ -631,13 +624,14 @@ struct PGen : public arch::ProblemGenerator<S, M> {
     /*
       Reset the fields inside the purged region
     */
-    // define indice range to reset fields
+    // define indices range to reset fields
+    // (not including ghost zones in either direction)
     boundaries_t<bool> incl_ghosts;
     for (auto d = 0; d < M::Dim; ++d) {
       incl_ghosts.push_back({ false, false });
     }
 
-    // define box to reset fields
+    // define the rectangular box region where fields are reset
     boundaries_t<real_t> purge_box;
     // loop over all dimension
     for (auto d = 0u; d < M::Dim; ++d) {
@@ -648,7 +642,9 @@ struct PGen : public arch::ProblemGenerator<S, M> {
       }
     }
 
+    // convert physical extent to a range of cells
     const auto extent = domain.mesh.ExtentToRange(purge_box, incl_ghosts);
+    // record the range min/max boundaries in each dimension
     tuple_t<std::size_t, M::Dim> x_min { 0 }, x_max { 0 };
     for (auto d = 0; d < M::Dim; ++d) {
       x_min[d] = extent[d].first;
@@ -665,6 +661,9 @@ struct PGen : public arch::ProblemGenerator<S, M> {
   }
 };
 ```
+
+1. because we essentially remove the particles, the returned E-fields must have zero divergence.
+
 ## Custom external force
 
 Similar to all the other custom routines, one may also define a custom external force which will optionally be applied to the particles together with the electromagnetic pusher. This is done by defining an arbitrary class with an instance named `ext_force`, which implements three methods: `fx1()`, `fx2()`, `fx3()`. For instance, to apply a force in the $x_1$ direction decaying over time, one would write:
@@ -721,47 +720,56 @@ Again, as everything else in the problem generator, the force (rather, the accel
 
 ## Custom external current
 
-In case one need to apply external current to the system, it is possible to do so via defining the arbitrary class `ext_current`, which implements three methods: `jx1()`, `jx2()`, `jx3()`. For example, to apply a constant sinusoidal current $j_{x3}$ in the $x_1$ direction, one could write:
+<a href="https://github.com/entity-toolkit/entity/pull/92">
+  <span class="since-version">1.2.0</span>
+</a>
+
+There are specific instances, where one needs to apply a source term to the Ampere's law as additional (external) currents (e.g., driven turbulence). This can easily be achieved by defining an arbitrary class instance called `ext_current`, which implements 3 methods: `jx1()`, `jx2()`, `jx3()` -- each returning the corresponding external current component in units of $j_0$. For instance, to apply a constant sinusoidal current $j_3$ as a function of $x_1$, one could write:
+
 ```c++
- template <Dimension D>
-  struct ImmaRealLiveWire {
-    ImmaRealLiveWire(real_t amplitude, real_t k)
-      : amp { amplitude }
-      , k { k } {};
+template <Dimension D>
+struct ImmaRealLiveWire { //(1)!
+  ImmaRealLiveWire(real_t amplitude, real_t k)
+    : amp { amplitude }
+    , k { k } {};
 
-    Inline auto jx1(const coord_t<D>& x_Ph) const -> real_t {
-        return ZERO;
-      }
+  Inline auto jx1(const coord_t<D>& x_Ph) const -> real_t {
+      return ZERO;
+    }
 
-    Inline auto jx2(const coord_t<D>& x_Ph) const -> real_t {
-        return ZERO;
-      }
+  Inline auto jx2(const coord_t<D>& x_Ph) const -> real_t {
+      return ZERO;
+    }
 
-    Inline auto jx3(const coord_t<D>& x_Ph) const -> real_t {
-        return amp * math::sin(k * x_Ph[0]);
-      }
+  Inline auto jx3(const coord_t<D>& x_Ph) const -> real_t {
+      return amp * math::sin(k * x_Ph[0]);
+    }
 
-    private:
-      const real_t amp, k; 
-}
+  private:
+    const real_t amp, k; 
+};
 
-// and then in the problem generator class
 template <SimEngine::type S, class M>
 struct PGen : public arch::ProblemGenerator<S, M> {
-  // ...
   ImmaRealLiveWire<D> ext_current;
-  // and read the parameters from the input
+
   inline PGen(const SimulationParams& p, const Metadomain<S, M>& global_domain)
     : arch::ProblemGenerator<S, M> { p }
     , ext_current { p.template get<real_t>("setup.amplitude"),
-                  p.template get<real_t>("setup.k") }
+                    p.template get<real_t>("setup.k") } //(2)!
     {}
 };
 ```  
-Keep in mind, that, in comparison to the external force, all components of the current has to be defined in the structure, even if they supposed to return zero. 
+
+1. name of the class is not important, as long as its instance declared in the problem generator class itself is called `ext_current`.
+
+2. directly initialize the `ext_current` in the `PGen` constructor by passing values read from the input.
+
+Keep in mind, that in contrast to the external force, all of the components of the current have to be defined in the structure, even if they return zero. 
+
 !!! note "External current"
 
-    Note that the external current is currently limited to work only in Minkowski space. 
+    The external current routine is currently only limited to work in Minkowski space. 
 
 
 ## Custom field output
