@@ -250,7 +250,7 @@ forms a closed system of equations, otherwise known as the Vlasov-Maxwell system
 \nabla\cdot\bm{E} &= 4\pi \underbrace{\sum\limits_s q_s\int f_s(\bm{x},\bm{u}',t)d^3\bm{u}'}_{\rho},
 \end{align*}
 
-are satisfied automatically, if one follows the evolution using the system of equations in $(1)$ and $(2)$. In the most general case, this system is 6-dimensional and non-linear, so solving it numerically is not only challenging, but also costly. 
+are satisfied automatically, if one follows the evolution using the system of equations in $(8)$ and $(9)$. In the most general case, this system is 6-dimensional and non-linear, so solving it numerically is not only challenging, but also costly. 
 
 Particle-in-cell (PIC) algorithm is a widely used technique which significantly simplifies the solution of this system. To introduce the technique, we first need to decompose the 6D distribution function $f_s$ into special basis functions in phase-space by introducing a finite number of the so-called *macroparticles*:
 
@@ -266,7 +266,7 @@ $$
 
 where $V$ is a finite volume in the real space which includes the origin. Here and further we will use the terms *particle* and *macroparticle* interchangeable, but one should really think of these entities (ha-ha), as discrete sampling of the original continuous distribution function.
 
-Plugging $(3)$ into $(1)$, we get the following equation (for brevity, we use $\delta_{\bm{u}} = \delta(\bm{u}-\bm{u}_i^s)$, and $S_{\bm{x}}=S(\bm{x}-\bm{x}_i^s)$):
+Plugging $(10)$ into $(8)$, we get the following equation (for brevity, we use $\delta_{\bm{u}} = \delta(\bm{u}-\bm{u}_i^s)$, and $S_{\bm{x}}=S(\bm{x}-\bm{x}_i^s)$):
 
 \begin{equation}
 \begin{aligned}
@@ -295,13 +295,13 @@ Plugging $(3)$ into $(1)$, we get the following equation (for brevity, we use $\
 \end{aligned}
 \end{equation}
 
-where again, we used the fact that $\partial \bm{F}_s/\partial \bm{u} = 0$. We are now ready to derive the evolution equations for macroparticles which will exactly reproduce (given large-enough number of them) the original solution of the Vlasov-Maxwell system. We integrate equation $(4)$ separately over $d^3\bm{x}$ and $d^3\bm{u}$:
+where again, we used the fact that $\partial \bm{F}_s/\partial \bm{u} = 0$. We are now ready to derive the evolution equations for macroparticles which will exactly reproduce (given large-enough number of them) the original solution of the Vlasov-Maxwell system. We integrate equation $(11)$ separately over $d^3\bm{x}$ and $d^3\bm{u}$:
 
 \begin{align*}
-\int (4)~d^3\bm{x}'d^3\bm{u}' =&
+\int (11)~d^3\bm{x}'d^3\bm{u}' =&
   \sum \limits_i w_i^s
-\left[(4.1)+(4.2)\right] = 0, \\
-(4.1)=& \int  d^3\bm{x}'
+\left[(11.1)+(11.2)\right] = 0, \\
+(11.1)=& \int  d^3\bm{x}'
   \frac{\partial S_{\bm{x}'}}{\partial \bm{x}'}
   \int d^3\bm{u}'
   \left(
@@ -317,7 +317,7 @@ where again, we used the fact that $\partial \bm{F}_s/\partial \bm{u} = 0$. We a
   \left(
     \frac{d\bm{x}_i^s}{dt} - \frac{\bm{u}_i^s}{\gamma_i}
   \right)\cdot d\bm{\xi}',\\
-(4.2)=&\int d^3\bm{u}'
+(11.2)=&\int d^3\bm{u}'
   \frac{\partial \delta_{\bm{u}'}}{\partial \bm{u}'}\cdot
   \left(
     \frac{d\bm{u}_i^s}{dt} - 
@@ -339,9 +339,9 @@ where we used the Gauss-Ostrogradsky theorem to transform the integral in phase-
 
 Naively, one could recognize the equations of motion for particles with coordinates $\bm{x}_i^s$, and four-velocities $\bm{u}_i^s$. But the striking and crucial difference from regular equations of motion is in the fact that the force in this case is effectively "interpolated" for each macroparticle using the shape function $S$. The absence of this in the first equation is due to our choice of the $\delta$-function for the "shape" in velocity space. 
 
-One should really think of the system $(5)$ as $6N$-dimensional system of characteristic equations along which the convective derivative of $f_s$ (given by eq. $1$) is exactly zero. 
+One should really think of the system $(12)$ as $6N$-dimensional system of characteristic equations along which the convective derivative of $f_s$ (given by eq. $8$) is exactly zero. 
 
-To see how these macroparticles should induce current densities in our algorithm to exactly satisfy the charge conservation, i.e., $\nabla\cdot\bm{E} = 4\pi \rho$, we differentiate the latter equation in time, substituting $f_s$ from $(3)$, to get the following:
+To see how these macroparticles should induce current densities in our algorithm to exactly satisfy the charge conservation, i.e., $\nabla\cdot\bm{E} = 4\pi \rho$, we differentiate the latter equation in time, substituting $f_s$ from $(10)$, to get the following:
 
 $$
 \nabla\cdot\left(
@@ -357,7 +357,7 @@ meaning that the divergence of the deposited current density has to satisfy
 
 ## Discretization
 
-Having the system of equations on macroparticles defined in $(5)$, and with the equations for the electromagnetic fields $(2)$ and the current density constrained by $(6)$, we can proceed to formulate the particle-in-cell numerical scheme. 
+Having the system of equations on macroparticles defined in $(12)$, and with the equations for the electromagnetic fields $(9)$ and the current density constrained by $(13)$, we can proceed to formulate the particle-in-cell numerical scheme. 
 
 First, we discretize the electromagnetic fields and the current densities following the [Yee staggering convention](https://en.wikipedia.org/wiki/Finite-difference_time-domain_method#FDTD_models_and_methods). According to that, the $(i,j,k)$ element of each of the field components is defined in slightly different spatial locations:
 
@@ -381,9 +381,9 @@ Here we use Cartesian coordinates, but this convention naturally translates to a
 
 Time in PIC is also discretized (we typically use the index $n$ to indicate the timestep). In our particular case, for the forward-integration we employ the so-called [leapfrog algorithm](https://en.wikipedia.org/wiki/Leapfrog_integration), where the electric and magnetic fields are defined to be staggered with respect to each other by half a timestep (defined to be $\Delta t$). In other words, we have $\bm{E}^{(n)}$, and $\bm{B}^{(n-1/2)}$. 
 
-Coordinates and velocities of macroparticles are tracked separately and have continuous values at each discrete timestep. We use the same leapfrog algorithm for integrating particle equations of motion defined in $(5)$, and thus the velocities and coordinates are staggered with respect to each other in time: $\bm{x}_i^{(n)}$, and $\bm{u}_i^{(n-1/2)}$.
+Coordinates and velocities of macroparticles are tracked separately and have continuous values at each discrete timestep. We use the same leapfrog algorithm for integrating particle equations of motion defined in $(12)$, and thus the velocities and coordinates are staggered with respect to each other in time: $\bm{x}_i^{(n)}$, and $\bm{u}_i^{(n-1/2)}$.
 
-There are two ingredients which were left out in this picture: interpolation of the electromagnetic force from the grid to the position of the particle (required by the second equation in eq. $(5)$), and the deposition of currents on the discretized grid, which have to satisfy the requirement in $(6)$ to conserve charge. For both of these issues, we first need to make a choice of the shape function, $S(\bm{x})$. By far the most common choice is the first-order (linear) shape, defined as:
+There are two ingredients which were left out in this picture: interpolation of the electromagnetic force from the grid to the position of the particle (required by the second equation in eq. $(12)$), and the deposition of currents on the discretized grid, which have to satisfy the requirement in $(13)$ to conserve charge. For both of these issues, we first need to make a choice of the shape function, $S(\bm{x})$. By far the most common choice is the first-order (linear) shape, defined as:
 
 \begin{align*}
 S(\bm{x}) = \begin{cases}
@@ -392,7 +392,7 @@ S(\bm{x}) = \begin{cases}
 \end{cases}
 \end{align*}
 
-Using this definition, the integral in $(5)$ is simply a linear interpolation of each field component from each corresponding location to the position of the particle.
+Using this definition, the integral in $(12)$ is simply a linear interpolation of each field component from each corresponding location to the position of the particle.
 
 Current deposition is slightly trickier, and we will not go through the entire derivation of the algorithm (for the reference, see [Esirkepov 2001](https://ui.adsabs.harvard.edu/abs/2001CoPhC.135..144E/abstract) or [Umeda+ 2003](https://ui.adsabs.harvard.edu/abs/2003CoPhC.156...73U/abstract)). However, it can be shown mathematically, that asserting specific properties for the shape function (e.g., symmetry in all directions, etc.), there exists a unique set of coefficients to translate the shape function of each particle at timesteps $(n)$ and $(n+1)$ to the deposited current components. 
 

@@ -22,6 +22,8 @@ To compile the code you need to have the following dependencies installed:
 
 All the other third-party dependencies, such as `Kokkos` and `ADIOS2`, are included in the repository as submodules and can be automatically compiled when you run `cmake` (although, we recommend to install `ADIOS2` externally as it can take a while to compile). 
 
+In addition to this section, we also provide more detailed instructions on how to set up the dependencies as well as the submit scripts for the most popular and widely used clusters [in the following section](../useful/cluster-setups.md).
+
 !!! note
 
     To play with the code with all the dependencies already installed in the containerized environment, please refer to [the section on Docker](./8-docker.md).

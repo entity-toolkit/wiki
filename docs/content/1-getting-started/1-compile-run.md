@@ -21,21 +21,25 @@ First, make sure you have all [the necessary dependencies](2-dependencies.md) in
         If you have not set up your github `ssh` yet, please follow the instructions [here](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent). Alternatively, you can clone the repository with `https` as shown above.
 
 1. _Configure_ the code from the root directory using `cmake`, e.g.:
-  ```shell
+  ```sh
   # from the root of the repository
   cmake -B build -D pgen=<PROBLEM_GENERATOR> -D Kokkos_ENABLE_CUDA=ON <...>
   ```
-  All the build options are specified using the `-D` flag followed by the argument and its value (as shown above). Boolean options are specified as `ON` or `OFF`. The following are all the options that can be specified:
+
+    Problem generators can either be one of the default ones, located in the `pgens/` directory (e.g., `-D pgen=reconnection`), or the ones from the [`entity-pgens`](https://github.com/entity-toolkit/entity-pgens) submodule, in which case you need to prepend a `pgens/` suffix (e.g., `-D pgen=pgens/kelvin-helmholtz`; make sure you have the submodule downloaded with `git submodule update --init --recursive --remote`). Alternatively, you may pass a path to any directory containing your problem generator `pgen.hpp` (either relative or absolute path).
+
+    All the build options are specified using the `-D` flag followed by the argument and its value (as shown above). Boolean options are specified as `ON` or `OFF`. The following are all the options that can be specified:
 
     | Option | Description | Values | Default |
     | --- | --- | --- | --- |
-    | `pgen` | problem generator | see `<engine>/pgen/` directory | `dummy` |
+    | `pgen` | problem generator | e.g., see `pgens/` directory |  |
     | `precision` | floating point precision | `single`, `double` | `single` |
     | `output` | enable output | `ON`, `OFF` | `ON` |
     | `mpi` | enable multi-node support | `ON`, `OFF` | `OFF` |
+    | `gpu_aware_mpi` <a href="https://github.com/entity-toolkit/entity/pull/105"> <span class="since-version">1.2.0</span>  </a>  | enable GPU-aware MPI communications | `ON`, `OFF` | `ON` |
     | `DEBUG` | enable debug mode | `ON`, `OFF` | `OFF` |
     | `TESTS` | compile the unit tests | `ON`, `OFF` | `OFF` |
-    
+
     Optionally, when compiling the Kokkos/ADIOS2 in-tree, there are some CMake and other library-specific options (for [Kokkos](https://kokkos.github.io/kokkos-core-wiki/keywords.html) and [ADIOS2](https://adios2.readthedocs.io/en/latest/setting_up/setting_up.html#cmake-options)) that can be specified along with the above ones. While the code picks most of these options for the end-user, some of them can/should be specified manually. In particular:
 
     | Option | Description | Values | Default |
@@ -54,9 +58,9 @@ First, make sure you have all [the necessary dependencies](2-dependencies.md) in
         When simply compiling with `-D Kokkos_ENABLE_CUDA=ON` or `_HIP=ON` without additional flags, `CMake` will try to deduce the GPU architecture based on the machine you are compiling on. Oftentimes this might not be the same as the architecture of the machine you are planning to run on (and sometimes the former might lack GPU altogether). To be more explicit, you can specify the GPU architecture manually using the `-D Kokkos_ARCH_***=ON` flags. For example, to explicitly compile for `A100` GPUs, you can use `-D Kokkos_ARCH_AMPERE80=ON`. For `V100` -- use `-D Kokkos_ARCH_VOLTA70=ON`.
 
 
-1. After `cmake` is done configuring the code, a directory named `build` will be created in the root directory. You can now compile the code by running:
-  ```shell
-  cmake --build build -j <NCORES>
+1. After the `cmake` is done configuring the code, a directory named `build` will be created in the root directory. You can now compile the code by running:
+  ```sh
+  cmake --build build -j $(nproc)
   ```
   where `<NCORES>` is the number of cores you want to use for the compilation (if you skip the `<NCORES>` and just put `-j`, `cmake` will attempt to take as many threads as possible). Note, that the `-j` flag is optional, and if not specified, the code will compile using a single core.
 
@@ -66,7 +70,7 @@ First, make sure you have all [the necessary dependencies](2-dependencies.md) in
 
 You can run the code with the following command:
 
-```shell
+```sh
 /path/to/entity.xc -input /path/to/input_file.toml
 ```
 `entity.xc` runs headlessly, producing several diagnostic outputs. `.info` file contains the general information about the simulation including all the parameters used, the compiler version, the architecture, etc. `.log` file contains timestamps of each simulation substep and is mainly used for debugging purposes. In case the simulation fails or throws warnings, an `.err` file will be generated, containing the error message. The simulation also dumps a live stdout report after each successfull simulation step, which contains information about the time spent on each simulation substep, the number of active particles, and the estimated time for completion. It may look something like this:
