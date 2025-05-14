@@ -26,7 +26,7 @@ First, make sure you have all [the necessary dependencies](2-dependencies.md) in
   cmake -B build -D pgen=<PROBLEM_GENERATOR> -D Kokkos_ENABLE_CUDA=ON <...>
   ```
 
-    Problem generators can either be one of the default ones, located in the `pgens/` directory (e.g., `-D pgen=reconnection`), or the ones from the [`entity-pgens`](https://github.com/entity-toolkit/entity-pgens) submodule, in which case you need to prepend a `pgens/` suffix (e.g., `-D pgen=pgens/kelvin-helmholtz`; make sure you have the submodule downloaded with `git submodule update --init --recursive --remote`). Alternatively, you may pass a path to any directory containing your problem generator `pgen.hpp` (either relative or absolute path).
+    Problem generators can either be one of the default ones, located in the `pgens/` directory (e.g., `-D pgen=reconnection`), or the ones from the [`entity-pgens`](https://github.com/entity-toolkit/entity-pgens) submodule, in which case you need to prepend a `pgens/` suffix (e.g., `-D pgen=pgens/kelvin-helmholtz`; make sure you have the submodule downloaded with `git submodule update --init`). Alternatively, you may pass a path to any directory containing your problem generator `pgen.hpp` (either relative or absolute path).
 
     All the build options are specified using the `-D` flag followed by the argument and its value (as shown above). Boolean options are specified as `ON` or `OFF`. The following are all the options that can be specified:
 
