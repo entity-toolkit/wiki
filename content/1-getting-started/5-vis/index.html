@@ -1,0 +1,877 @@
+
+<!DOCTYPE html>
+
+<html class="no-js" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<link href="https://entity-toolkit.github.io/wiki/content/1-getting-started/5-vis/" rel="canonical"/>
+<link href="../4-units/" rel="prev"/>
+<link href="../6-checkpoints/" rel="next"/>
+<link href="../../../assets/logo.svg" rel="icon"/>
+<meta content="mkdocs-1.6.0, mkdocs-material-9.5.21" name="generator"/>
+<title>Output &amp; visualization - Entity: wiki</title>
+<link href="../../../assets/stylesheets/main.66ac8b77.min.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/palette.06af60db.min.css" rel="stylesheet"/>
+<style>:root{--md-annotation-icon:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 20c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8m0-18A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10A10 10 0 0 0 12 2m1 5h-2v4H7v2h4v4h2v-4h4v-2h-4V7Z"/></svg>');}</style>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css?family=DM+Sans:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback" rel="stylesheet"/>
+<style>:root{--md-text-font:"DM Sans";--md-code-font:"JetBrains Mono"}</style>
+<link href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css" rel="stylesheet"/>
+<link href="../../../css/tikzjax/fonts.css" rel="stylesheet"/>
+<script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+<link href="../../../assets/stylesheets/extra-style.xe5wug8d.min.css" rel="stylesheet"/></head>
+<body data-md-color-accent="indigo" data-md-color-primary="indigo" data-md-color-scheme="ntt-light" dir="ltr">
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#output-visualization">
+          Skip to content
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header md-header--shadow" data-md-component="header">
+<nav aria-label="Header" class="md-header__inner md-grid">
+<a aria-label="Entity: wiki" class="md-header__button md-logo" data-md-component="logo" href="../../.." title="Entity: wiki">
+<img alt="logo" src="../../../assets/logo.svg"/>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
+            Entity: wiki
+          </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              Output &amp; visualization
+            
+          </span>
+</div>
+</div>
+</div>
+<form class="md-header__option" data-md-component="palette">
+<input aria-label="Switch to dark mode" class="md-option" data-md-color-accent="indigo" data-md-color-media="(prefers-color-scheme: light)" data-md-color-primary="indigo" data-md-color-scheme="ntt-light" id="__palette_0" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_1" hidden="" title="Switch to dark mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7M9 21a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-1H9v1Z"></path></svg>
+</label>
+<input aria-label="Switch to light mode" class="md-option" data-md-color-accent="indigo" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-primary="indigo" data-md-color-scheme="ntt-dark" id="__palette_1" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_0" hidden="" title="Switch to light mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7M9 21v-1h6v1a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1m3-17a5 5 0 0 0-5 5c0 2.05 1.23 3.81 3 4.58V16h4v-2.42c1.77-.77 3-2.53 3-4.58a5 5 0 0 0-5-5Z"></path></svg>
+</label>
+</form>
+<script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+<label class="md-header__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="Search" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="Search" required="" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"></path></svg>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"></path></svg>
+</label>
+<nav aria-label="Search" class="md-search__options">
+<button aria-label="Clear" class="md-search__icon md-icon" tabindex="-1" title="Clear" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"></path></svg>
+</button>
+</nav>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            Initializing search
+          </div>
+<ol class="md-search-result__list" role="presentation"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="md-header__source">
+<a class="md-source" data-md-component="source" href="https://github.com/entity-toolkit/entity" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M23.546 10.93 13.067.452a1.55 1.55 0 0 0-2.188 0L8.708 2.627l2.76 2.76a1.838 1.838 0 0 1 2.327 2.341l2.658 2.66a1.838 1.838 0 0 1 1.9 3.039 1.837 1.837 0 0 1-2.6 0 1.846 1.846 0 0 1-.404-1.996L12.86 8.955v6.525c.176.086.342.203.488.348a1.848 1.848 0 0 1 0 2.6 1.844 1.844 0 0 1-2.609 0 1.834 1.834 0 0 1 0-2.598c.182-.18.387-.316.605-.406V8.835a1.834 1.834 0 0 1-.996-2.41L7.636 3.7.45 10.881c-.6.605-.6 1.584 0 2.189l10.48 10.477a1.545 1.545 0 0 0 2.186 0l10.43-10.43a1.544 1.544 0 0 0 0-2.187"></path></svg>
+</div>
+<div class="md-source__repository">
+    entity
+  </div>
+</a>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Navigation" class="md-nav md-nav--primary md-nav--integrated" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="Entity: wiki" class="md-nav__button md-logo" data-md-component="logo" href="../../.." title="Entity: wiki">
+<img alt="logo" src="../../../assets/logo.svg"/>
+</a>
+    Entity: wiki
+  </label>
+<div class="md-nav__source">
+<a class="md-source" data-md-component="source" href="https://github.com/entity-toolkit/entity" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M23.546 10.93 13.067.452a1.55 1.55 0 0 0-2.188 0L8.708 2.627l2.76 2.76a1.838 1.838 0 0 1 2.327 2.341l2.658 2.66a1.838 1.838 0 0 1 1.9 3.039 1.837 1.837 0 0 1-2.6 0 1.846 1.846 0 0 1-.404-1.996L12.86 8.955v6.525c.176.086.342.203.488.348a1.848 1.848 0 0 1 0 2.6 1.844 1.844 0 0 1-2.609 0 1.834 1.834 0 0 1 0-2.598c.182-.18.387-.316.605-.406V8.835a1.834 1.834 0 0 1-.996-2.41L7.636 3.7.45 10.881c-.6.605-.6 1.584 0 2.189l10.48 10.477a1.545 1.545 0 0 0 2.186 0l10.43-10.43a1.544 1.544 0 0 0 0-2.187"></path></svg>
+</div>
+<div class="md-source__repository">
+    entity
+  </div>
+</a>
+</div>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../..">
+<span class="md-ellipsis">
+    Home
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+<span class="md-ellipsis">
+    Getting started
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="true" aria-labelledby="__nav_2_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_2">
+<span class="md-nav__icon md-icon"></span>
+            Getting started
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../1-compile-run/">
+<span class="md-ellipsis">
+    Compiling/running
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../2-dependencies/">
+<span class="md-ellipsis">
+    Dependencies
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../3-inputfile/">
+<span class="md-ellipsis">
+    Input file
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../4-units/">
+<span class="md-ellipsis">
+    Understanding the units
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active">
+<input class="md-nav__toggle md-toggle" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
+<span class="md-ellipsis">
+    Output &amp; visualization
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<a class="md-nav__link md-nav__link--active" href="./">
+<span class="md-ellipsis">
+    Output &amp; visualization
+  </span>
+</a>
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#nt2py">
+<span class="md-ellipsis">
+      nt2py
+    </span>
+</a>
+<nav aria-label="nt2py" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#accessing-fields">
+<span class="md-ellipsis">
+      Accessing fields
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#accessing-particles">
+<span class="md-ellipsis">
+      Accessing particles
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#accessing-runtime-spectra">
+<span class="md-ellipsis">
+      Accessing runtime spectra
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#exporting-movies">
+<span class="md-ellipsis">
+      Exporting movies
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../6-checkpoints/">
+<span class="md-ellipsis">
+    Writing checkpoints &amp; restarting
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../7-docs/">
+<span class="md-ellipsis">
+    Documenting
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../8-docker/">
+<span class="md-ellipsis">
+    Docker
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../9-faq/">
+<span class="md-ellipsis">
+    F.A.Q.
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+<span class="md-ellipsis">
+    Understanding the code
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_3_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_3">
+<span class="md-nav__icon md-icon"></span>
+            Understanding the code
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../2-code/1-pic/">
+<span class="md-ellipsis">
+    PIC Algorithm
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../2-code/2-hierarchy/">
+<span class="md-ellipsis">
+    Hierarchy of structures
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../2-code/3-domains/">
+<span class="md-ellipsis">
+    Metadomain, subdomains and meshes
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../2-code/4-fields_particles/">
+<span class="md-ellipsis">
+    Fields and particles
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../2-code/5-metrics/">
+<span class="md-ellipsis">
+    Metrics
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../2-code/6-problem_generators/">
+<span class="md-ellipsis">
+    Problem generators
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../2-code/7-guidelines/">
+<span class="md-ellipsis">
+    Code guidelines
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_4" type="checkbox"/>
+<label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+<span class="md-ellipsis">
+    Useful things
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_4_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_4">
+<span class="md-nav__icon md-icon"></span>
+            Useful things
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../useful/cluster-setups/">
+<span class="md-ellipsis">
+    Cluster setups
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../useful/float-comparison/">
+<span class="md-ellipsis">
+    Floating point comparison
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../useful/theory_pic/">
+<span class="md-ellipsis">
+    Theory behind PIC
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../useful/ks/">
+<span class="md-ellipsis">
+    Kerr metric
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_5" type="checkbox"/>
+<label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+<span class="md-ellipsis">
+    Fun
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_5_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_5">
+<span class="md-nav__icon md-icon"></span>
+            Fun
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../fun/coords/">
+<span class="md-ellipsis">
+    Axisymmetric coordinates
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../fun/cubed_sphere/">
+<span class="md-ellipsis">
+    Cubed sphere
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+<span class="md-ellipsis">
+    Events
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_6_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_6">
+<span class="md-nav__icon md-icon"></span>
+            Events
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../events/sceecs2024/instructions/">
+<span class="md-ellipsis">
+    SCEECS Summer School 2024
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<article class="md-content__inner md-typeset">
+<h1 id="output-visualization">Output &amp; visualization<a class="headerlink" href="#output-visualization" title="Permanent link">¶</a></h1>
+<p>To enable the runtime output of the simulation data, configure the code with the <code>-D output=ON</code> flag. As a backend <code>Entity</code> uses the open-source <a href="https://github.com/ornladios/ADIOS2">ADIOS2</a> library compiled in-place. The output is written in the <a href="https://adios2.readthedocs.io/en/latest/engines/engines.html#hdf5">HDF5</a> format, however, more formats will be added in the future. </p>
+<p>The output is configured using the following configurations in the <code>input</code> file:</p>
+<div class="language-toml highlight"><pre><span></span><code><span class="k">[simulation]</span>
+<span class="w">  </span><span class="n">name</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="s2">"MySimulation"</span><span class="w"> </span><span class="c1"># (5)!</span>
+
+<span class="w">  </span><span class="c1"># ...</span>
+<span class="k">[output]</span>
+<span class="w">  </span><span class="n">format</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"hdf5"</span><span class="w"> </span><span class="c1"># (2)!</span>
+<span class="w">  </span><span class="n">interval</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">100</span><span class="w"> </span><span class="c1"># (3)!</span>
+<span class="w">  </span><span class="n">interval_time</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.1</span><span class="w"> </span><span class="c1"># (8)!</span>
+<span class="w">  </span><span class="n">separate_files</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="w"> </span><span class="c1"># (15)!</span>
+
+<span class="w">  </span><span class="k">[output.fields]</span>
+<span class="w">    </span><span class="n">quantities</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">"B"</span><span class="p">,</span><span class="w"> </span><span class="s2">"E"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Rho_1_2"</span><span class="p">,</span><span class="w"> </span><span class="s2">"..."</span><span class="p">]</span><span class="w"> </span><span class="c1"># (1)!</span>
+<span class="w">    </span><span class="n">stride</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="c1"># (9)!</span>
+<span class="w">    </span><span class="n">mom_smooth</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="c1"># (4)!</span>
+
+<span class="w">  </span><span class="k">[output.particles]</span>
+<span class="w">    </span><span class="n">species</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">]</span><span class="w"> </span><span class="c1"># (7)!</span>
+<span class="w">    </span><span class="n">stride</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="c1"># (6)!</span>
+
+<span class="w">  </span><span class="k">[output.spectra]</span>
+<span class="w">    </span><span class="n">e_min</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1e-2</span><span class="w"> </span><span class="c1"># (12)!</span>
+<span class="w">    </span><span class="n">e_max</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1e3</span>
+<span class="w">    </span><span class="n">log_bins</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="w"> </span><span class="c1"># (13)!</span>
+
+<span class="w">  </span><span class="k">[output.stats]</span>
+<span class="w">    </span><span class="n">quantities</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">"N"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Npart"</span><span class="p">,</span><span class="w"> </span><span class="s2">"ExB"</span><span class="p">,</span><span class="w"> </span><span class="s2">"J.E"</span><span class="p">]</span><span class="w"> </span><span class="c1"># (14)!</span>
+
+<span class="w">  </span><span class="k">[output.debug]</span>
+<span class="w">    </span><span class="n">as_is</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="w"> </span><span class="c1"># (10)!</span>
+<span class="w">    </span><span class="n">ghosts</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="w"> </span><span class="c1"># (11)!</span>
+</code></pre></div>
+<ol>
+<li>fields to write</li>
+<li>output format (current supported: "HDF5", or "disabled" for no output)</li>
+<li>output interval (in the number of time steps)</li>
+<li>smoothing stencil size for moments (in the number of cells) [defaults to 1]</li>
+<li>title is used for the output filename</li>
+<li>stride used for particle output (write every <code>prtl_stride</code>-th particle) [defaults to 100]</li>
+<li>particle species to output</li>
+<li>output interval in time units (overrides <code>interval</code> if specified)</li>
+<li>stride used for field output (write every <code>fields_stride</code>-th cell) [defaults to 1]</li>
+<li>write the field quantities as-is (without conversion/interpolation) [defaults to false]</li>
+<li>write the ghost cells [defaults to false]</li>
+<li>Min/max energies for binning the energy distribution [default to 1e-3 -&gt; 1e3]</li>
+<li>whether to use logarithmic energy bins or linear</li>
+<li>box reduced quantities to output as stats</li>
+<li>whether to write in a single file or into separate files</li>
+</ol>
+<p>Output is written in the run directory either in a single <code>hdf5</code> file, <code>MySimulation.h5</code>, or in the directory with the same name <code>MySimulation</code>. </p>
+<p>Following is the list of all supported fields</p>
+<table>
+<thead>
+<tr>
+<th>Field name</th>
+<th>Description</th>
+<th>Normalization</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>E</code></td>
+<td>Electric field (all components)</td>
+<td><span class="arithmatex">\(B_0\)</span></td>
+</tr>
+<tr>
+<td><code>B</code></td>
+<td>Magnetic field (all components)</td>
+<td><span class="arithmatex">\(B_0\)</span></td>
+</tr>
+<tr>
+<td><code>D</code></td>
+<td>GR: electric field (all components)</td>
+<td><span class="arithmatex">\(B_0\)</span></td>
+</tr>
+<tr>
+<td><code>H</code></td>
+<td>GR: aux. magnetic field (all components)</td>
+<td><span class="arithmatex">\(B_0\)</span></td>
+</tr>
+<tr>
+<td><code>J</code></td>
+<td>Current density (all components)</td>
+<td><span class="arithmatex">\(4\pi q_0 n_0\)</span></td>
+</tr>
+<tr>
+<td><code>Rho</code></td>
+<td>Mass density</td>
+<td><span class="arithmatex">\(m_0 n_0\)</span></td>
+</tr>
+<tr>
+<td><code>Charge</code></td>
+<td>Charge density</td>
+<td><span class="arithmatex">\(q_0 n_0\)</span></td>
+</tr>
+<tr>
+<td><code>N</code></td>
+<td>Number density</td>
+<td><span class="arithmatex">\(n_0\)</span></td>
+</tr>
+<tr>
+<td><code>V</code>         <a href="https://github.com/entity-toolkit/entity/pull/69"> <span class="since-version">1.2.0</span> </a></td>
+<td>Mean 3-velocity</td>
+<td>dimensionless</td>
+</tr>
+<tr>
+<td><code>Nppc</code></td>
+<td>Raw number of particles per cell</td>
+<td>dimensionless</td>
+</tr>
+<tr>
+<td><code>Nppc</code></td>
+<td>Raw number of particles per cell</td>
+<td>dimensionless</td>
+</tr>
+<tr>
+<td><code>Tij</code></td>
+<td>Energy-momentum tensor (all components)</td>
+<td><span class="arithmatex">\(m_0 n_0\)</span></td>
+</tr>
+<tr>
+<td><code>divE</code>     <a href="https://github.com/entity-toolkit/entity/pull/69"> <span class="since-version">1.2.0</span> </a></td>
+<td>Divergence of <span class="arithmatex">\(E\)</span></td>
+<td>arb. units</td>
+</tr>
+<tr>
+<td><code>divD</code>    <a href="https://github.com/entity-toolkit/entity/pull/69"> <span class="since-version">1.2.0</span> </a></td>
+<td>GR: divergence of <span class="arithmatex">\(D\)</span></td>
+<td>arb. units</td>
+</tr>
+<tr>
+<td><code>A</code></td>
+<td>GR: 2D vector potential <span class="arithmatex">\(A_\varphi\)</span></td>
+<td>arb. units</td>
+</tr>
+</tbody>
+</table>
+<p>and particle quantities</p>
+<table>
+<thead>
+<tr>
+<th>Particle quantity</th>
+<th>Description</th>
+<th>Units</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>X</code></td>
+<td>Coordinates (all components)</td>
+<td>physical</td>
+</tr>
+<tr>
+<td><code>U</code></td>
+<td>Four-velocities (all components)</td>
+<td>dimensionless</td>
+</tr>
+<tr>
+<td><code>W</code></td>
+<td>Weights</td>
+<td>dimensionless</td>
+</tr>
+</tbody>
+</table>
+<p><a href="https://github.com/entity-toolkit/entity/pull/69"> <span class="since-version">1.2.0</span> </a> The code also has an output of box-averaged stats into a <code>.csv</code> file, which are simply scalars per each output timestep. The following quantities can be computed</p>
+<table>
+<thead>
+<tr>
+<th>Box-reduced quantity</th>
+<th>Description</th>
+<th>Units</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>E2</code></td>
+<td>Total <span class="arithmatex">\(E^2\)</span></td>
+<td><span class="arithmatex">\(B_0^2\)</span></td>
+</tr>
+<tr>
+<td><code>B2</code></td>
+<td>Total <span class="arithmatex">\(B^2\)</span></td>
+<td><span class="arithmatex">\(B_0^2\)</span></td>
+</tr>
+<tr>
+<td><code>ExB</code></td>
+<td>Total <span class="arithmatex">\(\bm{E}\times \bm{B}\)</span></td>
+<td><span class="arithmatex">\(B_0^2\)</span></td>
+</tr>
+<tr>
+<td><code>J.E</code></td>
+<td>Total <span class="arithmatex">\(\bm{J}\cdot \bm{E}\)</span></td>
+<td><span class="arithmatex">\(4\pi q_0 n_0 B_0\)</span></td>
+</tr>
+<tr>
+<td><code>N</code></td>
+<td>Total <span class="arithmatex">\(n\)</span></td>
+<td><span class="arithmatex">\(n_0\)</span></td>
+</tr>
+<tr>
+<td><code>Npart</code></td>
+<td>Total # of particles</td>
+<td>dimensionless</td>
+</tr>
+<tr>
+<td><code>Rho</code></td>
+<td>Total mass density</td>
+<td><span class="arithmatex">\(m_0 n_0\)</span></td>
+</tr>
+<tr>
+<td><code>Charge</code></td>
+<td>Total charge density</td>
+<td><span class="arithmatex">\(q_0 n_0\)</span></td>
+</tr>
+<tr>
+<td><code>Tij</code></td>
+<td>Energy-momentum tensor (all components)</td>
+<td><span class="arithmatex">\(m_0 n_0\)</span></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Refining moments for the output</p>
+<p>One can specify particular components to output for the <code>Tij</code> fields/stats: <code>T0i</code> will output the <code>T00</code>, <code>T01</code>, and <code>T02</code> components, while <code>Tii</code> will output only the diagonal components: <code>T11</code>, <code>T22</code>, and <code>T33</code>, and <code>Tij</code> will output all the 6 components. For quantities computed from particles (moments of the distribution), one can also specify the particle species which will be used to compute the moments: <code>Rho_1</code> (density of species 1), <code>N_2_3</code> (number density of species 2 and 3), <code>Tij_1_3</code> (energy-momentum tensor for species 1 and 3), etc. </p>
+</div>
+<p>All of the vector fields are interpolated to cell centers before the output, and converted to orthonormal basis. The particle-based moments are smoothed with a stencil (specified in the input file; <code>mom_smooth</code>) for each particle.</p>
+<p>In addition, one can write custom user-defined field quantities to the output with the fields or stats. Refer to <a href="../../2-code/6-problem_generators/#custom-field-output">the following section</a> for more details.</p>
+<div class="admonition warning">
+<p class="admonition-title">Can one track particles at different times?</p>
+<p>Particle tracking (outputting the same batch of particles at every timestep) is unfortunately not yet implemented, and will unlikely be available due to limitations imposed by the nature of GPU computations.</p>
+</div>
+<h2 id="nt2py"><a href="https://pypi.org/project/nt2py/"><code>nt2py</code></a><a class="headerlink" href="#nt2py" title="Permanent link">¶</a></h2>
+<p>We provide the <code>nt2py</code> python package to help easily access and manipulate the simulation data. <code>nt2py</code> package uses the <a href="https://docs.dask.org/en/stable/"><code>dask</code></a> and <a href="https://docs.xarray.dev/en/stable/"><code>xarray</code></a> libraries together with <a href="https://pypi.org/project/h5py/"><code>h5py</code></a> and <a href="https://github.com/DaanVanVugt/h5pickle"><code>h5pickle</code></a> to <a href="https://en.wikipedia.org/wiki/Lazy_loading">lazily load</a> the output data and provide a convenient interface for the data analysis and quick visualization. </p>
+<p>To start using <code>nt2py</code>, it is recommended to create a python virtual environment and install the required packages:</p>
+<div class="language-shell highlight"><pre><span></span><code>python3<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>.venv
+<span class="nb">source</span><span class="w"> </span>.venv/bin/activate<span class="w"> </span><span class="c1"># (1)!</span>
+pip<span class="w"> </span>install<span class="w"> </span>nt2py<span class="w"> </span><span class="c1"># (2)!</span>
+</code></pre></div>
+<ol>
+<li>Now all the packages will be installed in the <code>.venv</code> directory which you can remove at any time without affecting the system.</li>
+<li>If you plan to use jupyter you might also need to run the following <code>pip install jupyterlab ipykernel</code>.</li>
+</ol>
+<p>Now simply import the <code>nt2</code> module and load the output data:</p>
+<div class="language-python highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">nt2</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="n">nt2r</span><span class="o">.</span><span class="n">Data</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="s2">"MySimulation.h5"</span><span class="p">,</span> <span class="n">single_file</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="c1"># (1)!</span>
+
+<span class="c1"># or if saving as multiple files</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">nt2r</span><span class="o">.</span><span class="n">Data</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="s2">"MySimulation"</span><span class="p">)</span>
+</code></pre></div>
+<ol>
+<li>Note, that even though the <code>h5</code> file can be quite large, the data is loaded lazily, so the memory consumption is minimal; data chunks are only loaded when they are actually needed for the analysis or visualization.</li>
+</ol>
+<h3 id="accessing-fields">Accessing fields<a class="headerlink" href="#accessing-fields" title="Permanent link">¶</a></h3>
+<p>Data selection is conveniently done with the <code>sel</code> and <code>isel</code> methods for the <code>xarray</code> Datasets (<a href="https://docs.xarray.dev/en/stable/user-guide/indexing.html">more info</a>). For example, to select the <code>Rho</code> field around physical time <code>t=98</code>, one can do:</p>
+<div class="language-python highlight"><pre><span></span><code><span class="n">data</span><span class="o">.</span><span class="n">fields</span><span class="o">.</span><span class="n">Rho</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">t</span><span class="o">=</span><span class="mi">98</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">"nearest"</span><span class="p">)</span> <span class="c1"># (1)!</span>
+</code></pre></div>
+<ol>
+<li>The <code>method="nearest"</code> is used to select the closest time step to the requested time.</li>
+</ol>
+<p><img align="right" alt="nt2demo1" src="../../../assets/images/howto/nt2-demo-1.png" width="50%,"> </img></p>
+<p>We can then plot the selected data using the <code>plot</code> method of the <code>xarray</code> Dataset:</p>
+<div class="language-python highlight"><pre><span></span><code><span class="n">data</span><span class="o">.</span><span class="n">fields</span><span class="o">.</span><span class="n">Rho</span>\
+  <span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">t</span><span class="o">=</span><span class="mi">98</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">"nearest"</span><span class="p">)</span>\
+  <span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+    <span class="n">norm</span><span class="o">=</span><span class="n">mpl</span><span class="o">.</span><span class="n">colors</span><span class="o">.</span><span class="n">Normalize</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">1e2</span><span class="p">),</span>  <span class="c1"># (2)!</span>
+    <span class="n">cmap</span><span class="o">=</span><span class="s2">"jet"</span><span class="p">)</span> <span class="c1"># (1)!</span>
+</code></pre></div>
+<ol>
+<li>The <code>norm</code> and <code>cmap</code> arguments are used to set the colorbar limits and the colormap just like in normal <code>matplotlib</code> context.</li>
+<li>Make sure to also <code>module load matplotlib as mpl</code>.</li>
+</ol>
+<p>If the resolution is too high, one can also coarsen the data before plotting:</p>
+<div class="language-python highlight"><pre><span></span><code><span class="n">data</span><span class="o">.</span><span class="n">fields</span><span class="o">.</span><span class="n">Rho</span>\
+  <span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">t</span><span class="o">=</span><span class="mi">98</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">"nearest"</span><span class="p">)</span>\
+  <span class="o">.</span><span class="n">coarsen</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>\
+  <span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+    <span class="n">norm</span><span class="o">=</span><span class="n">mpl</span><span class="o">.</span><span class="n">colors</span><span class="o">.</span><span class="n">Normalize</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">1e2</span><span class="p">),</span>
+    <span class="n">cmap</span><span class="o">=</span><span class="s2">"jet"</span><span class="p">)</span>
+</code></pre></div>
+<p>or downsample:</p>
+<div class="language-python highlight"><pre><span></span><code><span class="n">data</span><span class="o">.</span><span class="n">fields</span><span class="o">.</span><span class="n">Rho</span>\
+  <span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">t</span><span class="o">=</span><span class="mi">98</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">"nearest"</span><span class="p">)</span>\
+  <span class="o">.</span><span class="n">isel</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="nb">slice</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="mi">16</span><span class="p">),</span> <span class="n">y</span><span class="o">=</span><span class="nb">slice</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>\ <span class="c1"># (1)!</span>
+  <span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+    <span class="n">norm</span><span class="o">=</span><span class="n">mpl</span><span class="o">.</span><span class="n">colors</span><span class="o">.</span><span class="n">Normalize</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">1e2</span><span class="p">),</span>
+    <span class="n">cmap</span><span class="o">=</span><span class="s2">"jet"</span><span class="p">)</span>
+</code></pre></div>
+<ol>
+<li>The difference between <code>isel</code> and <code>sel</code> is that <code>isel</code> uses the integer indices along the given dimension, while <code>sel</code> uses the physical coordinates.</li>
+</ol>
+<p><img align="right" alt="nt2demo2" src="../../../assets/images/howto/nt2-demo-2.png" width="50%,"> </img></p>
+<p>One can also do more complicated things, such as building a 1D plot of the evolution of the mean <span class="arithmatex">\(B^2\)</span> in the box:</p>
+<div class="language-python highlight"><pre><span></span><code><span class="n">data</span><span class="o">.</span><span class="n">fields</span><span class="o">.</span><span class="n">Bx</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">data</span><span class="o">.</span><span class="n">fields</span><span class="o">.</span><span class="n">By</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">data</span><span class="o">.</span><span class="n">fields</span><span class="o">.</span><span class="n">Bz</span><span class="o">**</span><span class="mi">2</span>\
+  <span class="o">.</span><span class="n">mean</span><span class="p">((</span><span class="s2">"x"</span><span class="p">,</span> <span class="s2">"y"</span><span class="p">))</span>\
+  <span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</code></pre></div>
+<p>or make "waterfall" plots, collapsing the quantity along one of the axis, and plotting vs the other axis and time:</p>
+<div class="language-python highlight"><pre><span></span><code><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">fields</span><span class="o">.</span><span class="n">Rho_2</span> <span class="o">-</span> <span class="n">data</span><span class="o">.</span><span class="n">fields</span><span class="o">.</span><span class="n">Rho_1</span><span class="p">)</span>\
+  <span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="s2">"x"</span><span class="p">)</span>\
+  <span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">yincrease</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</code></pre></div>
+<p>Particles and spectra can, in turn, be accessed via <code>data.particles[s]</code>, where <code>s</code> is the species index, and <code>data.spectra</code>.</p>
+<div class="admonition code">
+<p class="admonition-title"><code>nt2py</code> documentation</p>
+<p>You can access the documentation of the <code>nt2py</code> functions and methods of the <code>Data</code> object by calling <code>nt2r.&lt;function&gt;?</code> in the jupyter notebook or <code>help(nt2r.&lt;function&gt;)</code> in the python console.</p>
+</div>
+<h3 id="accessing-particles">Accessing particles<a class="headerlink" href="#accessing-particles" title="Permanent link">¶</a></h3>
+<p>Particles are stored in the same <code>data</code> object and are lazily preloaded when one calls <code>nt2.Data(...)</code>, as we did above. To access the particle data, use <code>data.particles</code>, which returns a python dictionary where the key is particles species index, and the value is an <code>xarray</code> Dataset with the particle data. For example, to access the <code>x</code> and <code>y</code> coordinates of the first species, one can do:</p>
+<div class="language-python highlight"><pre><span></span><code><span class="n">data</span><span class="o">.</span><span class="n">particles</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">x</span>
+<span class="n">data</span><span class="o">.</span><span class="n">particles</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">y</span>
+</code></pre></div>
+<p>The shape of the returned dataset is number of particles times the number of time steps. To select the data at a specific time step, one can use the same <code>sel</code> or <code>isel</code> methods mentioned above. For example, to access the 10-th output timestep of the 3-rd species, one can do:</p>
+<div class="language-python highlight"><pre><span></span><code><span class="n">data</span><span class="o">.</span><span class="n">particles</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">isel</span><span class="p">(</span><span class="n">t</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">x</span>
+</code></pre></div>
+<p>Scatter plotting the particles on a 2D plane is quite easy, since <code>xarray</code> has a built-in <code>plot.scatter</code> method:</p>
+<div class="language-python highlight"><pre><span></span><code><span class="n">species_3</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">particles</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+<span class="n">species_4</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">particles</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span>
+
+<span class="n">species_3</span><span class="o">.</span><span class="n">isel</span><span class="p">(</span><span class="n">t</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>\
+  <span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s2">"x"</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">"y"</span><span class="p">,</span> 
+                <span class="n">label</span><span class="o">=</span><span class="n">species_3</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s2">"label"</span><span class="p">])</span>
+<span class="n">species_4</span><span class="o">.</span><span class="n">isel</span><span class="p">(</span><span class="n">t</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>\
+  <span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s2">"x"</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">"y"</span><span class="p">,</span> 
+                <span class="n">label</span><span class="o">=</span><span class="n">species_4</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s2">"label"</span><span class="p">])</span>
+</code></pre></div>
+<details class="showplot">
+<summary>scatter plot <span class="arithmatex">\(\{x,~y\}\)</span></summary>
+<p><img alt="nt2demo3" src="../../../assets/images/howto/nt2-demo-3.png"/></p>
+</details>
+<div class="admonition code">
+<p class="admonition-title"><code>isel</code> indexing</p>
+<p><code>isel(t=-1)</code> selects the last time step.</p>
+</div>
+<p>Or one can plot the same in phase space:</p>
+<div class="language-python highlight"><pre><span></span><code><span class="n">species_3</span><span class="o">.</span><span class="n">isel</span><span class="p">(</span><span class="n">t</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>\
+  <span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s2">"ux"</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">"uy"</span><span class="p">,</span> 
+                <span class="n">label</span><span class="o">=</span><span class="n">species_3</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s2">"label"</span><span class="p">])</span>
+<span class="n">species_4</span><span class="o">.</span><span class="n">isel</span><span class="p">(</span><span class="n">t</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>\
+  <span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s2">"ux"</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">"uy"</span><span class="p">,</span> 
+                <span class="n">label</span><span class="o">=</span><span class="n">species_4</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s2">"label"</span><span class="p">])</span>
+</code></pre></div>
+<details class="showplot">
+<summary>scatter plot <span class="arithmatex">\(\{u_x,~u_y\}\)</span></summary>
+<p><img alt="nt2demo4" src="../../../assets/images/howto/nt2-demo-4.png"/></p>
+</details>
+<h3 id="accessing-runtime-spectra">Accessing runtime spectra<a class="headerlink" href="#accessing-runtime-spectra" title="Permanent link">¶</a></h3>
+<p>Distribution functions for all particle species in the box are also written with the data at specified timesteps. These can be accessed via <code>data.spectra</code>, which has several different fields. As in particles &amp; fields, you can access the data at different times using <code>data.spectra.isel(t=...)</code> or <code>data.spectra.sel(t=...)</code>. The energy bins are written into <code>data.spectra.e</code>; by default, the binning is done logarithmically in <span class="arithmatex">\(\gamma - 1\)</span> for massive particles and energy, <span class="arithmatex">\(E\)</span>, for the photons. Below is an example script to build a distribution function of electron-positron pairs at output step <code>t=450</code>:</p>
+<div class="language-python highlight"><pre><span></span><code><span class="n">sp</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">spectra</span><span class="o">.</span><span class="n">isel</span><span class="p">(</span><span class="n">t</span><span class="o">=</span><span class="mi">450</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xscale</span><span class="p">(</span><span class="s2">"log"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yscale</span><span class="p">(</span><span class="s2">"log"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">sp</span><span class="o">.</span><span class="n">e</span><span class="p">,</span> <span class="n">sp</span><span class="o">.</span><span class="n">n_1</span> <span class="o">+</span> <span class="n">sp</span><span class="o">.</span><span class="n">n_2</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s2">"r"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mf">3e5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">"$\gamma - 1$"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="n">sp</span><span class="o">.</span><span class="n">e</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="mi">1</span><span class="p">)</span>
+</code></pre></div>
+<details class="showplot" open="open">
+<summary>particle spectra</summary>
+<p><img alt="nt2demo5" src="../../../assets/images/howto/nt2-demo-5.png"/></p>
+</details>
+<hr/>
+<h3 id="exporting-movies">Exporting movies<a class="headerlink" href="#exporting-movies" title="Permanent link">¶</a></h3>
+<p>To produce animations, <code>nt2py</code> provides a shortcut helper function which saves the frames using multiple threads, and then calls <code>ffmpeg</code> to merge them into a video file. </p>
+<div class="language-python highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">plot_frame</span><span class="p">(</span><span class="n">ti</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+    <span class="c1"># function must take two parameters:</span>
+    <span class="c1"># - ti: output index</span>
+    <span class="c1"># - data: the dataset loaded with nt2.read</span>
+    <span class="c1">#</span>
+    <span class="c1"># any type data manipulation &amp; plotting routine goes here</span>
+    <span class="c1"># e.g.</span>
+    <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">)</span>
+    <span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">N_1</span> <span class="o">+</span> <span class="n">data</span><span class="o">.</span><span class="n">N_2</span><span class="p">)</span><span class="o">.</span><span class="n">isel</span><span class="p">(</span><span class="n">t</span><span class="o">=</span><span class="n">ti</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">"viridis"</span><span class="p">)</span>
+    <span class="c1">#                      ^</span>
+    <span class="c1">#                 selecting timestep by index</span>
+
+<span class="c1"># then simply pass this function to the routine:</span>
+<span class="n">data</span><span class="o">.</span><span class="n">makeMovie</span><span class="p">(</span><span class="n">plot_frame</span><span class="p">,</span> <span class="n">num_cpus</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">framerate</span><span class="o">=</span><span class="s2">"10"</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
+<span class="c1">#                                   ^</span>
+<span class="c1">#                 (optional) by default all available threads are used</span>
+</code></pre></div>
+<p><code>makeMovie</code> also accepts a number of arguments used by <code>ffmpeg</code>, such as the framerate, the compression rate, etc. Run the following to see all the arguments:</p>
+<div class="language-python highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">nt2.export</span> <span class="k">as</span> <span class="nn">nt2e</span>
+<span class="n">nt2e</span><span class="o">.</span><span class="n">makeMovie</span><span class="err">?</span>
+</code></pre></div>
+</article>
+</div>
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+</div>
+</main>
+<footer class="md-footer">
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
+<div class="md-copyright__highlight">
+      Copyright © 2021++, Entity dev team
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+      Material for MkDocs
+    </a>
+</div>
+<div class="md-social">
+<a class="md-social__link" href="https://github.com/entity-toolkit/entity/" rel="noopener" target="_blank" title="github.com">
+<svg viewbox="0 0 496 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"></path></svg>
+</a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tracking", "navigation.indexes", "navigation.expand", "toc.integrate", "content.code.annotate", "content.code.copy", "content.tooltips", "header.autohide", "search.highlight"], "search": "../../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+<script src="../../../assets/javascripts/bundle.a7c05c9e.min.js"></script>
+<script src="../../../js/katex.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"></script>
+<script src="../../../js/tikzjax.js"></script>
+</body>
+</html>
