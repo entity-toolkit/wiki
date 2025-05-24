@@ -786,10 +786,12 @@ The code also allows for custom-defined fields to be written together with other
 There can be as many custom fields as one needs. And then in the problem generator, populate the corresponding field by defining the following function:
 
 ```c++
-void CustomFieldOutput(const std::string&    name,//(1)!
-                        ndfield_t<M::Dim, 6> buffer,//(2)!
-                        std::size_t          index,//(3)!
-                        const Domain<S, M>&  domain) {//(4)!
+void CustomFieldOutput(const std::string&   name,//(1)!
+                       ndfield_t<M::Dim, 6> buffer,//(2)!
+                       index_t              index,//(3)!
+                       timestep_t,//(4)!
+                       simtime_t,//(5)!
+                       const Domain<S, M>&  domain) {//(6)!
   if (name == "my_field") {
     // 1D example (can be easily generalized)
     if constexpr (M::Dim == Dim::_1D) {
@@ -821,7 +823,9 @@ void CustomFieldOutput(const std::string&    name,//(1)!
 1. the same name that went into the input file
 2. buffer array where the field is going to be written into
 3. an index of the buffer array where the field is written into
-4. reference of the local subdomain
+4. completed step index
+5. completed step time in physical units
+6. reference of the local subdomain
 
 Alternatively, you can precompute the desired quantity in the `CustomPostStep` function and then simply copy to the buffer in the same function:
 
@@ -835,7 +839,7 @@ struct PGen : public arch::ProblemGenerator<S, M> {
   
   // ...
 
-  void CustomPostStep(std::size_t step, long double, Domain<S, M>& domain) {
+  void CustomPostStep(timestep_t step, simtime_t, Domain<S, M>& domain) {
     if (step == 0) {
       // allocate the array at time = 0
       cbuff = array_t<real_t**>("cbuff",
@@ -852,9 +856,11 @@ struct PGen : public arch::ProblemGenerator<S, M> {
   }
 
   void CustomFieldOutput(const std::string&    name,
-                          ndfield_t<M::Dim, 6> buffer,
-                          std::size_t          index,
-                          const Domain<S, M>&) {
+                         ndfield_t<M::Dim, 6> buffer,
+                         index_t              index,
+                         timestep_t,
+                         simtime_t,
+                         const Domain<S, M>&) {
     if (name == "my_field") {
       Kokkos::deep_copy(Kokkos::subview(buffer, Kokkos::ALL, Kokkos::ALL, index), cbuff);
     } else {
@@ -865,6 +871,37 @@ struct PGen : public arch::ProblemGenerator<S, M> {
 ```
 
 Keep in mind that the custom field output is written as-is, i.e., no additional interpolation or transformation is applied. So make sure the quantity you output is covariant (i.e., does not depend on the resolution or the stretching of coordinates; essentially, always output "physical" covariant/contravariant vectors or transform them to the tetrad basis).
+
+## Custom stats
+
+One can also write custom user-defined stats.
+
+```toml
+[output.stats]
+  ...
+  custom = ["my_stat"]
+  ...
+```
+
+Just like in the case with custom fields, you specify a special function in the problem generator class which has a name `CustomStat` and returns a single real value:
+
+```c++
+auto CustomStat(const std::string&   name,//(1)!
+                timestep_t,
+                simtime_t,
+                const Domain<S, M>&  domain) -> real_t {//(2)!
+  if (name == "my_stat") {
+    return 42.0;
+  } else {
+    raise::Error("Custom stat not provided", HERE);
+  }
+}
+``` 
+
+Reduction from all meshblocks of the custom stat is done automatically (the values are summed).
+
+1. the same name that went into the input file
+2. reference of the local subdomain
 
 {% include "html/d3js.html" %}
 <script src="../atm-boundaries.js">
