@@ -446,10 +446,10 @@ The form below allows you to generate the appropriate build scripts and optional
       <span class="since-version">1.2.0</span>
     </a>
 
-    On systems with the `nix` package manager, you can quickly make a development environment with all the dependencies installed using a `nix-shell` (from the root directory of the code):
+    On systems with the `nix` package manager, you can quickly make a development environment with all the dependencies installed using `nix-shell` (from the root directory of the code):
 
     ```sh
-    nix-shell dev/nix --arg hdf5 true --arg mpi true --arg gpu \"HIP\" --arg arch \"amd_gfx1100\"
+    nix-shell dev/nix --arg hdf5 true --arg mpi true --argstr gpu HIP --argstr arch amd_gfx1100
 
     # you can inspect the default settings by
     head dev/nix/shell.nix
