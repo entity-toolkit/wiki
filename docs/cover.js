@@ -1,16 +1,18 @@
+const supportsWebGL = () => {
+  const canvas = document.createElement("canvas");
+  return (
+    (canvas.getContext("webgl") ||
+      canvas.getContext("experimental-webgl")) instanceof
+    WebGLRenderingContext
+  );
+};
+
+const supports_web_gl = supportsWebGL();
+
 document.addEventListener(
   "DOMContentLoaded",
-  (event) => {
+  () => {
     const sketch = (p) => {
-      const supportsWebGL = () => {
-        const canvas = document.createElement("canvas");
-        return (
-          (canvas.getContext("webgl") ||
-            canvas.getContext("experimental-webgl")) instanceof
-          WebGLRenderingContext
-        );
-      };
-
       const hexToRgb = (hex) => {
         hex = hex.replace("#", "");
 
@@ -49,8 +51,8 @@ document.addEventListener(
         [0.48, 0.64, 0.6],
       ];
 
-      p.preload = function () {
-        if (!supportsWebGL()) {
+      p.preload = function() {
+        if (!supports_web_gl) {
           return;
         } else {
           shader = p.loadShader("cover.vert", "cover.frag");
@@ -68,7 +70,7 @@ document.addEventListener(
         document.body.getAttribute("data-md-color-media") ===
         "(prefers-color-scheme: dark)";
 
-      p.setup = function () {
+      p.setup = function() {
         if (!supportsWebGL()) {
           let cnv = p.createCanvas(w, h);
           cnv.parent("cover");
@@ -98,8 +100,8 @@ document.addEventListener(
         p.pop();
       };
 
-      p.draw = function () {
-        if (!supportsWebGL()) {
+      p.draw = function() {
+        if (!supports_web_gl) {
           p.clear();
           drawLetter("e", 0, 0);
           drawLetter("n", 1, 0.5);
