@@ -1,17 +1,20 @@
-const supportsWebGL = () => {
-  const canvas = document.createElement("canvas");
-  return (
-    (canvas.getContext("webgl") ||
-      canvas.getContext("experimental-webgl")) instanceof
-    WebGLRenderingContext
-  );
-};
-
-const supports_web_gl = supportsWebGL();
-
 document.addEventListener(
   "DOMContentLoaded",
   () => {
+    const supportsWebGL = () => {
+      const canvas = document.createElement("canvas");
+      return (
+        (canvas.getContext("webgl") ||
+          canvas.getContext("experimental-webgl")) instanceof
+        WebGLRenderingContext
+      );
+    };
+
+    const animations = [0, 1, 2, 3];
+    var animation = 0;
+
+    const supports_web_gl = supportsWebGL();
+
     const sketch = (p) => {
       const hexToRgb = (hex) => {
         hex = hex.replace("#", "");
@@ -25,19 +28,9 @@ document.addEventListener(
         return p.color(r, g, b);
       };
 
-      const Color = (r, g, b) => {
-        return { r: r, g: g, b: b };
-      };
-
       const s = 0.6;
       const w = 1280 * s,
         h = 384 * s;
-      const cell = 15 * s;
-      const noise_scale = 0.3;
-      const noise_variability = 0.2;
-      const Period = 200;
-      const DarkBG = Color(32, 33, 36);
-
       const col1 = hexToRgb("#0b7be5");
       const col2 = hexToRgb("#7d5fe7");
       const col3 = hexToRgb("#c459de");
@@ -45,16 +38,11 @@ document.addEventListener(
 
       let text_bg, shader;
 
-      const matrix = [
-        [0.36, 0.48, -0.8],
-        [-0.8, 0.6, 0],
-        [0.48, 0.64, 0.6],
-      ];
-
       p.preload = function() {
         if (!supports_web_gl) {
           return;
         } else {
+          animation = animations[Math.floor(Math.random() * animations.length)];
           shader = p.loadShader("cover.vert", "cover.frag");
           text_bg = p.createGraphics(w, h);
           text_bg.noStroke();
@@ -65,10 +53,6 @@ document.addEventListener(
           text_bg.text("entity", w / 2, h / 2);
         }
       };
-
-      const get_theme = () =>
-        document.body.getAttribute("data-md-color-media") ===
-        "(prefers-color-scheme: dark)";
 
       p.setup = function() {
         if (!supportsWebGL()) {
@@ -112,6 +96,7 @@ document.addEventListener(
         } else {
           p.clear();
           p.shader(shader);
+          shader.setUniform("anim", animation);
           shader.setUniform("textTex", text_bg);
           shader.setUniform("time", p.frameCount * 0.25);
           shader.setUniform("resolution", [w, h]);
@@ -122,7 +107,7 @@ document.addEventListener(
       };
     };
 
-    const myp5 = new p5(sketch);
+    new p5(sketch);
   },
   false,
 );

@@ -7,6 +7,10 @@ uniform float time;
 uniform vec2 resolution;
 uniform float mouseX;
 uniform float mouseY;
+uniform int anim;
+
+#define PI 3.1415926535
+#define TWO_PI 6.283185307
 
 vec4 permute(vec4 x) { return mod(((x * 34.0) + 1.0) * x, 289.0); }
 vec4 taylorInvSqrt(vec4 r) { return 1.79284291400159 - 0.85373472095314 * r; }
@@ -102,6 +106,29 @@ const vec3 col2 = vec3(0.833, 0.43, 0.49 + 0.1);
 const vec3 col3 = vec3(0.592, 0.49, 0.48 + 0.1);
 const vec3 col4 = vec3(0.564, 0.57, 0.57 + 0.1);
 
+float wave(float x, float t, float frequency, float kmag, float phase, float width) {
+  float xprime = x - (sin(kmag * x - frequency * time + phase) + 1.0) * 0.5;
+  return pow(1.0 - exp(-pow(xprime / width, 2.0)) * (sin(250.0 * xprime) + 2.0) / 3.0, 2.0);
+}
+
+float radial_wave(float r, float t, float frequency, float kmag, float width, float timevariability, float reprate) {
+  return 1.0 - 0.4 * sin(10.0 * exp(-pow(sin(kmag * TWO_PI * r - frequency * t) + timevariability * sin(reprate * t) + 1.0 + timevariability, 0.5) / (width * width))) - 0.4;
+}
+
+float cosmicrays(float x, float y, float t, float rotation_freq, float duration, float size) {
+  float tau = t / duration;
+  float tau0 = floor(tau);
+  float t0 = duration * tau0;
+  vec2 pos = (2.0 * (tau - tau0) - 1.0) * vec2(cos(rotation_freq * t0), sin(rotation_freq * t0));
+  vec2 vel = -vec2(cos(rotation_freq * t0), sin(rotation_freq * t0));
+  vec2 diff = (vec2(x, y) - pos);
+  float theta = acos((diff.x * vel.x + diff.y * vel.y) / length(diff));
+  return 2.0 * pow(2.0 * dot(diff, diff), size) * (1.0 - 0.8 * exp(-theta * theta / 0.06)) * exp(pow(tau - tau0, 2.0));
+  // return pow(2.0 * dot(diff, diff), 0.2) * (1.0 - exp(-theta*theta / 0.02));
+  // return (1.0 - exp(-theta*theta / 0.02));
+  // return (x * pos.x + y * pos.y) * 10.0;
+}
+
 void main() {
   vec2 aspect = vec2(1.0, resolution.x / resolution.y);
   vec2 uv = glCoord;
@@ -111,7 +138,36 @@ void main() {
   uv = floor(uv * aspect_inv + 0.5) / aspect_inv;
 
   vec2 amplitude = aspect * 0.1 * 2.0 * (randomV2(uv) - 0.5);
-  float dist = 0.5 * (cnoise(vec3(10.0 * uv / aspect, 0.05 * time)) + 1.0);
+  // 
+  // float dist = (0.5 * (1.0 + sin(10.0 * uv.x + 0.1 * time)) + 0.5) / 1.5;
+  // float xprime1 = uv.x - (sin(0.1 * (5.0 * uv.x - time)) + 1.0) * 0.5;
+  // float dist1 = 1.0 - exp(-pow(xprime1, 2.0) / 0.02) * (sin(250.0 * xprime1) + 2.0) * 0.33;
+  // float xprime2 = uv.x - (sin(0.1 * (2.0 * uv.x - time) + 10.0) + 1.0) * 0.5;
+  // float dist2 = 1.0 - exp(-pow(xprime2, 2.0) / 0.02) * (sin(100.0 * xprime2) + 2.0) * 0.33;
+  float dist = 0.0;
+  if (anim == 0) {
+    float dist1 = wave(uv.x, time, 0.1, 0.001, 0.0, 0.25);
+    float dist2 = wave(uv.x, time, 0.12, 0.01, 10.0, 0.15);
+    float dist3 = wave(uv.y, time, 0.1, 0.01, 0.0, 0.25);
+    float dist4 = wave(uv.y, time, 0.12, 0.02, 10.0, 0.15);
+    dist = pow(0.95 * (dist1 + dist2 + dist3 + dist4) * 0.25, 2.0);
+  } else if (anim == 1) {
+    dist = 0.5 * (cnoise(vec3(10.0 * uv / aspect, 0.05 * time)) + 1.0);
+  } else if (anim == 2) {
+    float radius = pow(uv.x - 0.5, 2.0) + pow((uv.y - 0.5) / aspect.y, 2.0);
+    dist = radial_wave(radius, time, 0.1, 25.0, 0.5, 0.2, 0.1);
+  } else if (anim == 3) {
+    float dist1 = cosmicrays(uv.x - 0.5, (uv.y - 0.5) / aspect.y, time + 100.0, 0.3, 50.0, 0.25);
+    float dist2 = cosmicrays(uv.x - 0.5, (uv.y - 0.5) / aspect.y, time + 10.0, 0.1, 30.0, 0.4);
+    float dist3 = cosmicrays(uv.x - 0.5, (uv.y - 0.5) / aspect.y, time + 60.0, 0.5, 80.0, 0.33);
+    dist = min(min(dist1, dist2), dist3);
+  }
+  // dist = clamp(dist1, 0.0, 1.0);
+  // dist = cosmicrays(uv.x - 0.5, (uv.y - 0.5) / aspect.y, 1410.0, 0.3, 400.0);
+  // dist = 1.0 - exp(-pow(sin(15.0 * TWO_PI * radius - 0.25 * time) + 0.0 * sin(0.6 * time) + 1.0, 0.5) / 0.25);
+  //
+  dist = clamp(dist, 0.0, 1.0);
+
   float distMouse = distance(uv * resolution, vec2(mouseX, mouseY));
   float decay = exp(-dist * dist / (0.3 * 0.3)) +
                 0.75 * exp(-distMouse * distMouse / (50.0 * 50.0));
@@ -124,8 +180,9 @@ void main() {
   if (dist >= 1.0 / 3.0 && dist < 2.0 / 3.0) {
     mul = mix(col2, col3, (dist - 1.0 / 3.0) * 3.0);
   }
-  if (dist >= 2.0 / 3.0 && dist < 1.0) {
+  if (dist >= 2.0 / 3.0 && dist <= 1.1) {
     mul = mix(col3, col4, (dist - 2.0 / 3.0) * 3.0);
   }
   gl_FragColor = vec4(color * hsl2rgb(mul), alpha);
+  // gl_FragColor = vec4(vec3(dist), alpha);
 }
