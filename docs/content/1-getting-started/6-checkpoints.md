@@ -18,13 +18,15 @@ Since the checkpoint writing relies on the `ADIOS2` library, to be able to use c
 | `interval` | # of timesteps between checkpoints | `1000` |
 | `interval_time` | code-unit time between checkpoints (overrides `interval` unless `interval_time < 0`) | `-1.0` |
 | `keep` | # of checkpoints to keep (e.g., `2` will keep the latest and the one before it, removing older ones; `-1` = keep all, `0` = disable checkpoint writing) | `-1` |
-| `walltime` | forces the simulation to write an additional checkpoint after a certain walltime from the beginning of the simulation | `""` |
+| `walltime` | forces the simulation to write an additional checkpoint after a certain walltime from the beginning of the simulation (`"00:00:00"` = disabled) | `"00:00:00"` |
+| `write_path` | path where the checkpoints will be written to | `"<simname>.ckpt"` |
+| `read_path` | path from where the checkpoints will be read | same as `write_path` |
 
 !!! note "Saving space"
 
     Since snapshots can become quite large, to save storage space, it is recommended to set the `keep` parameter small. Sometimes, it is useful to have at least one backup checkpoint (i.e., `keep >= 2`), as the simulation may crash (due to, e.g., time limit on clusters) during the checkpoint writing, in which case the latest checkpoint might become corrupted. 
 
-The simulation will then produce checkpoints of `BP5` format written in the `checkpoints/` directory. Together with the data, checkpoints will also store all the parameters of the simulation in the corresponding `.toml` file.
+The simulation will then produce checkpoints of `BP5` format written in the `<simname>.ckpt/` directory (or the `write_path` specified in the input). Together with the data, checkpoints will also store all the parameters of the simulation in the corresponding `.toml` file.
 
 !!! tip "Large simulations with limited time allocation"
 
