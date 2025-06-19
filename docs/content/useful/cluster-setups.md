@@ -171,7 +171,45 @@ This section goes over some instructions on how to compile & run the `Entity` on
 
 === "`Vista` (TACC)"
 
-    _WIP_
+    [`Vista`](https://tacc.utexas.edu/systems/vista/) cluster is a part of TACC research center. It consists of 600 Grace Hopper nodes, each hosting H200 GPU and 72 Grace CPUs. `Vista` does not require any specific modules to be installed. Before compiling, the following modules should be loaded:
+
+    ```
+    module load nvidia/24.7
+    module load cuda/12.5
+    module load kokkos/4.5.01-cuda
+    module load openmpi/5.0.5
+    module load adios2/2.10.2
+    module load phdf5/1.14.4
+    module load ucx/1.18.8
+    ``` 
+
+    The code can be then configured with the following command:
+
+    ```
+    cmake -B build -D mpi=ON -D pgen=<YOUR_PGEN>  -D output=ON -D Kokkos_ENABLE_CUDA=ON -D Kokkos_ARCH90=ON -D ADIOS2_USE_CUDA=ON -D ADIOS2_USE_MPI=ON
+    ```
+    While the `hdf5` output format works on `Vista`, we advise to use `BPFile`, as currently `hdf5` write is extremely slow with MPI for 2- and 3-dimensional problems.   
+    The sample submit script should look similar to this:
+
+    ```
+    #!/bin/bash
+    #SBATCH -A <PROJECT NUMBER>
+    #SBATCH -p gh
+    #SBATCH -t 16:00:00 #the code will run for 16 hours
+    #SBATCH -N 64       # 64 nodes will be used
+    #SBATCH -n 64       # 64 tasks in total will be launched
+    #SBATCH -J your_job_name
+    #SBATCH --output=test.out
+    #SBATCH --error=test.err
+    export UCX_MEMTYPE_CACHE=n
+    export UCX_TLS=rc,cuda_copy
+    export UCX_IB_REG_METHODS=rcache,direct
+    export UCX_RNDV_MEMTYPE_CACHE=n
+    echo "Launching application..."
+    ibrun ./entity.xc -input <INPUT>.toml
+    ```
+
+    _Last updated: 6/19/2025_
 
 === "`DeltaAI` (NCSA)"
 
@@ -292,6 +330,42 @@ This section goes over some instructions on how to compile & run the `Entity` on
 === "(IAS)"
 
     _WIP_
+
+=== "`LUMI` (CSC)"
+
+    [`LUMI`](https://www.lumi-supercomputer.eu/) cluster is located in Finland. It is equipped with 2978 nodes with 4 AMD MI250x GPUs and a single 64 cores AMD EPYC "Trento" CPU. The required modules to be loaded are:
+
+    ```
+    module load PrgEnv-cray
+    module load cray-mpich
+    module load craype-accel-amd-gfx90a
+    module load rocm
+    module load cray-hdf5-parallel/1.12.2.11
+    ``` 
+    The configuration command is standard. The `Kokkos` library, along with `adios2`, will be installed from code dependencies directly at compilation. It is also important to provide the `c++` and `c` compilers manually with environemntal variables `CC` and `cc` (they are already predefined given that all the modules mentioned above were loaded). So far, gpu-aware mpi is not supported on `LUMI`. The configuration command is the following:
+    ```
+    cmake -B build -D pgen=turbulence -D mpi=ON -D Kokkos_ENABLE_HIP=ON -D Kokkos_ARCH_AMD_GFX90A=ON -D CMAKE_CXX_COMPILER=CC -D CMAKE_C_COMPILER=cc -D gpu_aware_mpi=OFF
+    ``` 
+
+    The example submit script:
+
+    ```
+    #!/bin/bash -l
+    #SBATCH --job-name=examplejob   # Job name
+    #SBATCH --output=test.out # Name of stdout output file
+    #SBATCH --error=test.err  # Name of stderr error file
+    #SBATCH --partition=standard-g  # partition name
+    #SBATCH --nodes=8               # Total number of nodes 
+    #SBATCH --ntasks-per-node=8     # 8 MPI ranks per
+    #SBATCH --gpus-per-node=8
+    ##SBATCH --mem=0
+    #SBATCH --time=48:00:00       # Run time (d-hh:mm:ss)
+    #SBATCH --account=project_<NUMBER>  # Project for billing
+    export MPICH_GPU_SUPPORT_ENABLED=1
+    srun ./entity.xc -input <INPUT>.toml
+    ```
+
+    _Last updated: 6/19/2025_
 
 !!! warning "Mind the dates"
 
