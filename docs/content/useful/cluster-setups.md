@@ -171,9 +171,13 @@ This section goes over some instructions on how to compile & run the `Entity` on
 
 === "`Vista` (TACC)"
 
-    [`Vista`](https://tacc.utexas.edu/systems/vista/) cluster is a part of TACC research center. It consists of 600 Grace Hopper nodes, each hosting H200 GPU and 72 Grace CPUs. `Vista` does not require any specific modules to be installed. Before compiling, the following modules should be loaded:
+    [`Vista`](https://tacc.utexas.edu/systems/vista/) cluster is a part of TACC research center. It consists of 600 Grace Hopper nodes, each hosting H200 GPU and 72 Grace CPUs. 
 
-    ```
+    **Installing the dependencies**
+
+    `Vista` does not require any specific modules to be installed. Before compiling, the following modules should be loaded:
+
+    ```sh
     module load nvidia/24.7
     module load cuda/12.5
     module load kokkos/4.5.01-cuda
@@ -183,15 +187,17 @@ This section goes over some instructions on how to compile & run the `Entity` on
     module load ucx/1.18.8
     ``` 
 
+    **Compiling & running the code**
+
     The code can be then configured with the following command:
 
-    ```
+    ```sh
     cmake -B build -D mpi=ON -D pgen=<YOUR_PGEN>  -D output=ON -D Kokkos_ENABLE_CUDA=ON -D Kokkos_ARCH90=ON -D ADIOS2_USE_CUDA=ON -D ADIOS2_USE_MPI=ON
     ```
     While the `hdf5` output format works on `Vista`, we advise to use `BPFile`, as currently `hdf5` write is extremely slow with MPI for 2- and 3-dimensional problems.   
     The sample submit script should look similar to this:
 
-    ```
+    ```slurm
     #!/bin/bash
     #SBATCH -A <PROJECT NUMBER>
     #SBATCH -p gh
@@ -213,9 +219,10 @@ This section goes over some instructions on how to compile & run the `Entity` on
 
 === "`DeltaAI` (NCSA)"
 
+    [`DeltaAI`](https://docs.ncsa.illinois.edu/systems/deltaai/en/latest/index.html) uses GH200 nodes. These are NVIDIA superchip nodes with 4x H100 GPUs and 4x ARM CPUs with 72 cores each.
+
     **Installing the dependencies**
 
-    [`DeltaAI`](https://docs.ncsa.illinois.edu/systems/deltaai/en/latest/index.html) uses GH200 nodes. These are NVIDIA superchip nodes with 4x H100 GPUs and 4x ARM CPUs with 72 cores each.
     This makes the setup a bit more tedious, but luckily most dependencies are already installed.
 
     You can load the installed dependencies with
@@ -321,10 +328,10 @@ This section goes over some instructions on how to compile & run the `Entity` on
 
 === "`Perlmutter` (NERSC)"
 
-    **Installing the dependencies**
-    
     [`Perlmutter`](https://docs.nersc.gov/systems/perlmutter/architecture/) is a DoE cluster in LBNL with 4x NVIDIA A100 and a AMD EPYC 7763 CPU on each node. Note, that two different GPU configurations are available with 40 and 80 GB of VRAM respectively.
 
+    **Installing the dependencies**
+    
     The easiest way to use the code here is to compile and install your own modules manually. First, load the modules you will need for that:
     
     ```sh
@@ -439,7 +446,7 @@ This section goes over some instructions on how to compile & run the `Entity` on
     ```
 
     Use the following submit script for the slurm (example for 8 GPUs on 2 nodes; [details on available resources](https://docs.nersc.gov/systems/perlmutter/architecture/)):
-    ```sh
+    ```slurm
     #!/bin/bash
     #SBATCH --account=<ALLOCATION>
     #SBATCH --constraint=gpu
@@ -476,21 +483,24 @@ This section goes over some instructions on how to compile & run the `Entity` on
 
     [`LUMI`](https://www.lumi-supercomputer.eu/) cluster is located in Finland. It is equipped with 2978 nodes with 4 AMD MI250x GPUs and a single 64 cores AMD EPYC "Trento" CPU. The required modules to be loaded are:
 
-    ```
+    **Compiling & running the code**
+
+    ```sh
     module load PrgEnv-cray
     module load cray-mpich
     module load craype-accel-amd-gfx90a
     module load rocm
     module load cray-hdf5-parallel/1.12.2.11
     ``` 
+
     The configuration command is standard. The `Kokkos` library, along with `adios2`, will be installed from code dependencies directly at compilation. It is also important to provide the `c++` and `c` compilers manually with environemntal variables `CC` and `cc` (they are already predefined given that all the modules mentioned above were loaded). So far, gpu-aware mpi is not supported on `LUMI`. The configuration command is the following:
-    ```
+    ```sh
     cmake -B build -D pgen=turbulence -D mpi=ON -D Kokkos_ENABLE_HIP=ON -D Kokkos_ARCH_AMD_GFX90A=ON -D CMAKE_CXX_COMPILER=CC -D CMAKE_C_COMPILER=cc -D gpu_aware_mpi=OFF
     ``` 
 
     The example submit script:
 
-    ```
+    ```slurm
     #!/bin/bash -l
     #SBATCH --job-name=examplejob   # Job name
     #SBATCH --output=test.out # Name of stdout output file
