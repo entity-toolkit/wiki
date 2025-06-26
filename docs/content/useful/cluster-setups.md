@@ -239,6 +239,8 @@ This section goes over some instructions on how to compile & run the `Entity` on
     ml cmake/3.27.9 gcc/11.4.0 openblas/threaded-0.3.26 cuda/12.3.2 openmpi/cuda-4.0.7 hdf5/mpi-1.12.3
     . <HOME>/spack/share/spack/setup-env.sh
     spack env activate entity-env
+    export LD_PRELOAD=/mnt/sw/fi/cephtweaks/lib/libcephtweaks.so
+    export CEPHTWEAKS_LAZYIO=1
 
     srun entity.xc -input <INPUT>.toml
     ```
