@@ -167,7 +167,85 @@ This section goes over some instructions on how to compile & run the `Entity` on
 
 === "`Rusty` (CCA)"
     
-    _WIP_
+
+    `Rusty` cluster at Flatiron Institute has 36 nodes with 4 NVIDIA A100-80GB each and 36 nodes with 4 NVIDIA A100-40GB GPUs each and 64-core Icelake CPUs. It also has 18 nodes with 8 NVIDIA H100-80GB GPUs each and same CPU architecture. We will use nodes with A100 GPUs for the example below.
+
+    **Installing the dependencies**
+
+    The most straightforward way to set things up on the `Rusty` cluster, is to use `spack` [as described here](../1-getting-started/2-dependencies.md#spack-recommended). After downloading and initializing the shell-env, the easiest way to install the right modules for any type of nodes is to start an interactive session and log in to the nodes:
+    ```sh
+    salloc -C a100 -p gpu -N1 -n1 -c 4 --gpus-per-task=1
+    ssh workergpu[xxx]
+    ```
+    
+    Next, you can create a virtual environment and activate it:
+    ```sh
+    spack env create entity-env
+    spack env activate entity-env
+    ```
+
+    Then load the proper modules to-be-used during compilation, add compiler to spack, and find external libraries:
+    ```sh
+    module purge
+    ml cmake/3.27.9 gcc/11.4.0 openblas/threaded-0.3.26 cuda/12.3.2 openmpi/cuda-4.0.7 hdf5/mpi-1.12.3
+    spack compiler add
+    spack external find
+    ```
+    You can check that the corrrect external libraries were found by `spack spec [library]`.
+
+
+    Now we can install 2 libraries we will need: `Kokkos` and `ADIOS2`.
+    ```sh
+    spack add kokkos +cuda +wrapper cuda_arch=80 +pic +aggressive_vectorization
+    spack add adios2 +hdf5 +pic
+    spack install
+    ```
+
+    Note: if you wish to install this from the login nodes, you need to allow compilation on non-native architectures and specify target architecture (`linux-rocky8-icelake` for A100 GPUs nodes on `Rusty`):
+    ```sh
+    spack config add concretizer:targets:host_compatible:false
+    spack add kokkos +cuda +wrapper cuda_arch=80 +pic +aggressive_vectorization target=linux-rocky8-icelake 
+    spack add adios2 +hdf5 +pic target=linux-rocky8-icelake 
+    ```
+
+    You might want to first run these commands with `spec` instead of `add` to make sure spack recognizes the correct `gcc`, `cuda`, `openmpi`, and `hdf5` (they should be marked as `[e]` and should point to a local directory specified above).
+
+    **Compiling & running the code**
+
+    To compile the code on login nodes, load the modules and activate the spack enviroment: 
+    ```sh
+    module purge
+    ml cmake/3.27.9 gcc/11.4.0 openblas/threaded-0.3.26 cuda/12.3.2 openmpi/cuda-4.0.7 hdf5/mpi-1.12.3
+    spack env activate entity-env
+    ```
+    
+    During the compilation, passing any `-D Kokkos_***` or `-D ADIOS2_***` flags is not necessary, while `-D mpi=ON/OFF` is still needed, since in theory the code can also be compiled without MPI.
+
+    To run the code, the submit script should look something like this:
+    ```slurm
+    #!/bin/bash
+    #SBATCH -p gpu
+    #SBATCH --gpus-per-task=1
+    #SBATCH --cpus-per-task=16
+    #SBATCH --ntasks-per-node=4
+    #SBATCH --nodes=1 (*)
+    #SBATCH --gres=gpu:4
+    #SBATCH --constraint=a100-80gb
+    #SBATCH --time=00:30:00
+
+    # .. other sbatch directives
+
+    module purge
+    ml cmake/3.27.9 gcc/11.4.0 openblas/threaded-0.3.26 cuda/12.3.2 openmpi/cuda-4.0.7 hdf5/mpi-1.12.3
+    . <HOME>/spack/share/spack/setup-env.sh
+    spack env activate entity-env
+
+    srun entity.xc -input <INPUT>.toml
+    ```
+
+    (*) total number of nodes
+
+    _Last updated: 6/26/2025_
 
 === "`Vista` (TACC)"
 
