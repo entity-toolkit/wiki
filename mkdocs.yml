@@ -1,7 +1,7 @@
 site_name: "Entity: wiki"
 repo_url: https://github.com/entity-toolkit/entity
 repo_name: entity
-site_url: https://entity-toolkit.github.io/wiki
+site_url: https://entity-toolkit.github.io/
 
 nav:
   - Home: index.md
