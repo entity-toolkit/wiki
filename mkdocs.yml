@@ -71,7 +71,6 @@ plugins:
   - tags
   - search
   - macros
-  - extra-sass
 
 use_directory_urls: true
 
@@ -114,13 +113,14 @@ theme:
     # - navigation.instant
 
 extra_css:
-  - https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css
+  - https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css
   - css/tikzjax/fonts.css
+  - css/style.css
 
 extra_javascript:
   - js/katex.js
-  - https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js
-  - https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js
+  - https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.js
+  - https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/contrib/auto-render.min.js
   - js/tikzjax.js
 
 extra:
