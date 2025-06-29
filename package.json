@@ -1,8 +1,6 @@
 {
   "name": "entity-wiki",
-  "version": "1.0.0",
-  "description": "",
-  "homepage": "https://github.com/entity-toolkit/wiki#readme",
+  "homepage": "https://entity-toolkit.github.io",
   "bugs": {
     "url": "https://github.com/entity-toolkit/wiki/issues"
   },
@@ -10,19 +8,23 @@
     "type": "git",
     "url": "git+https://github.com/entity-toolkit/wiki.git"
   },
-  "license": "ISC",
-  "author": "",
-  "type": "commonjs",
-  "main": "index.js",
   "directories": {
     "doc": "docs"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "sass:watch": "sass extra_sass/style.scss docs/css/style.css --watch",
+    "sass:build": "sass extra_sass/style.scss docs/css/style.css",
+    "mkdocs:serve": "mkdocs serve",
+    "mkdocs:build": "mkdocs build",
+    "dev": "concurrently \"npm run sass:watch\" \"npm run mkdocs:serve\""
   },
   "dependencies": {
     "@fsouza/prettierd": "^0.26.1",
     "emmet-ls": "^0.4.2",
     "vscode-langservers-extracted": "^4.10.0"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.0",
+    "sass": "^1.89.2"
   }
 }
