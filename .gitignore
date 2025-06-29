@@ -1,7 +1,6 @@
 .DS_Store
 .venv
 site
-package-lock.json
 
 node_modules
 .vscode
