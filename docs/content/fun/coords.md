@@ -1,6 +1,10 @@
 ---
 hide:
   - footer
+libraries:
+  - p5
+scripts:
+  - axisymmetric_coords
 ---
 
 Below for visualization purposes we demonstrate three different axisymmetric systems: a regular spherical $(r,\theta,\phi)$, an equal area and a "quasi-spherical" $(\xi,\eta,\phi)$, where 
@@ -23,7 +27,4 @@ $$
 
 with $r_0$ and $h$ being user-controlled parameters. The interactive plot below demonstrates the difference between grids, uniformly discretized in each of these coordinate systems.
 
-<div id="plot_ax_01" class="p5canvas"></div>
-
-<script src="../coords-1.js"></script>
-{% include "html/p5js.html" %}
+<div id="plot_ax" class="p5canvas"></div>

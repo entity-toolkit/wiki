@@ -1,6 +1,11 @@
 ---
 hide:
   - footer
+libraries:
+  - d3
+scripts:
+  - numerics-srpic
+  - numerics-grpic
 ---
 
 # PIC Algorithm
@@ -432,9 +437,3 @@ for spec := range species {
 ```
 
 1. :grey_exclamation: To save memory, we store the fields at two time levels, and two different 4D arrays. Here we want to ensure we are passing the fields at time `t^n`. See step #2 in the diagram above.
-
-
-<script src="../numerics-srpic.js"></script>
-<script src="../numerics-grpic.js"></script>
-{% include "html/d3js.html" %}
-

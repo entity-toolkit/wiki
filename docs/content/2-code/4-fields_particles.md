@@ -1,6 +1,8 @@
 ---
 hide:
   - footer
+libraries:
+  - mermaid
 ---
 
 # Fields and particles
@@ -103,7 +105,7 @@ All of the particle arrays have shape of `maxnpart`, which is set at the beginni
 
 Below is the diagram showing the structure of the fields and particles objects, and how they are stored in the `Domain` object.
 
-```mermaid
+<pre class="mermaid-diagram">
 classDiagram
   class Domain~SimEngine, Metric~{
     see domains...*
@@ -176,4 +178,4 @@ classDiagram
   ParticleSpecies <|-- Particles : inherits
 
   note "+: public\n-: private\n#: protected\nunderline: static constexpr\nitalic: virtual"
-```
+</pre>

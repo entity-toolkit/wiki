@@ -1,6 +1,8 @@
 ---
 hide:
   - footer
+libraries:
+  - d3
 ---
 
 !!! abstract "tl;dr"
@@ -103,4 +105,3 @@ auto AlmostZero(T a, T eps = epsilon<T>) -> bool {
 
 
 <script src="../ulps.js"></script>
-{% include "html/d3js.html" %}

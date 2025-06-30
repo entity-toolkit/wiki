@@ -11,20 +11,31 @@
   "directories": {
     "doc": "docs"
   },
+  "type": "module",
   "scripts": {
-    "sass:watch": "sass extra_sass/style.scss docs/css/style.css --watch",
-    "sass:build": "sass extra_sass/style.scss docs/css/style.css",
+    "sass:watch": "sass sass/style.scss docs/css/style.css --watch",
+    "sass:build": "sass sass/style.scss docs/css/style.css",
+    "copy:three": "node js/copy-three.js",
+    "copy:hljs": "node js/copy-hljs.js",
+    "bundle": "node js/bundle.js && npm run copy:three && npm run copy:hljs",
     "mkdocs:serve": "mkdocs serve",
-    "mkdocs:build": "mkdocs build",
-    "dev": "concurrently \"npm run sass:watch\" \"npm run mkdocs:serve\""
+    "mkdocs:build": "mkdocs build --force",
+    "build": "npm run sass:build && npm run bundle && npm run mkdocs:build",
+    "dev": "npm run bundle && concurrently \"npm run sass:watch\" \"npm run mkdocs:serve\""
   },
   "dependencies": {
     "@fsouza/prettierd": "^0.26.1",
+    "@highlightjs/cdn-assets": "^11.11.1",
+    "d3": "^7.9.0",
     "emmet-ls": "^0.4.2",
+    "mermaid": "^11.7.0",
+    "p5": "^2.0.3",
+    "three": "^0.177.0",
     "vscode-langservers-extracted": "^4.10.0"
   },
   "devDependencies": {
     "concurrently": "^9.2.0",
+    "esbuild": "^0.25.5",
     "sass": "^1.89.2"
   }
 }

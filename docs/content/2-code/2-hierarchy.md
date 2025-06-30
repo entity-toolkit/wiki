@@ -1,11 +1,13 @@
 ---
 hide:
   - footer
+libraries:
+  - mermaid
 ---
 
 # Hierarchy of structures
 
-```mermaid
+<pre class="mermaid-diagram">
 classDiagram
   direction TB
   class Metadomain~SimEngine, Metric~{
@@ -52,4 +54,4 @@ classDiagram
   ParticleSpecies <|-- Particles : inherits
   MetricBase <|-- Metric : inherits
   Mesh --* Metric : contains
-```
+</pre>

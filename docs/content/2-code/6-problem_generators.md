@@ -1,6 +1,10 @@
 ---
 hide:
   - footer
+libraries:
+  - d3
+scripts:
+  - atm-boundaries
 ---
 
 # Problem generators
@@ -902,6 +906,3 @@ Reduction from all meshblocks of the custom stat is done automatically (the valu
 
 1. the same name that went into the input file
 2. reference of the local subdomain
-
-{% include "html/d3js.html" %}
-<script src="../atm-boundaries.js">

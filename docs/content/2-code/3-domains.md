@@ -1,6 +1,11 @@
 ---
 hide:
   - footer
+libraries:
+  - mermaid
+  - three
+scripts:
+  - domains
 ---
 
 # Metadomain, subdomains and meshes
@@ -45,16 +50,11 @@ Remember, that the local code-unit coordinates in Entity go from $0$ to $n_i$ (w
     ```
     Non-local subdomains are also referred to as placeholders, and one could check whether a given subdomain is a placeholder using the built-in `is_placeholder()` method.
 
-{% include "html/threejs.html" %}
-
 <div class="three-diagram" id="three-metadomain"></div>
-
-<script type="module" src="../domains.js"></script>
-
 
 The diagram below demonstrates the structure of the metadomain object, the subdomains, and the mesh with all the contained variables and methods. Fields and particles are described [in the following section](./4-fields_particles.md), while the metrics are [discussed here](./5-metrics.md).
 
-```mermaid
+<pre class="mermaid-diagram">
 classDiagram
   class Metadomain~SimEngine, Metric~{
     +Dimension D$
@@ -157,4 +157,4 @@ classDiagram
   Domain --* Particles : contains many
 
   note "+: public\n-: private\n#: protected\nunderline: static constexpr\nitalic: virtual"
-```
+</pre>

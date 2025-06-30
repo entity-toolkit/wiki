@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block extrahead %}
+  {{ super() }}
+  {% if page and page.meta.libraries %}
+    {% for lib in page.meta.libraries %}
+      {% if lib == "three" %}
+        <script type="importmap">
+          {
+            "imports": {
+              "three": "{{ base_url }}/js/vendor/three/three.module.min.js",
+              "three/addons/": "{{ base_url }}/js/vendor/three/examples/jsm/"
+            }
+          }
+        </script>
+      {% elif lib == "highlight" %}
+        <link rel="stylesheet"
+              href="{{ base_url }}/js/vendor/highlight.js/styles/github.min.css"
+              id="highlight-light"
+              media="screen">
+        <link rel="stylesheet"
+              href="{{ base_url }}/js/vendor/highlight.js/styles/github-dark.min.css"
+              id="highlight-dark"
+              media="screen">
+        <script src="{{ base_url }}/js/vendor/highlight.js/highlight.min.js"></script>
+        <script src="{{ base_url }}/js/hooks/highlight.js" defer></script>
+      {% else %}
+        <script src="{{ base_url }}/js/{{ lib }}.min.js"></script>
+        <script src="{{ base_url }}/js/hooks/{{ lib }}.js" defer></script>
+      {% endif %}
+    {% endfor %}
+  {% endif %}
+  {% if page and page.meta.scripts %}
+    {% for script in page.meta.scripts %}
+      <script type="module" src="{{ base_url }}/js/scripts/{{ script }}.js"></script>
+    {% endfor %}
+  {% endif %}
+{% endblock extrahead %}

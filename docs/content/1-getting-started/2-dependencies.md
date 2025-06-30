@@ -1,9 +1,11 @@
 ---
 hide:
   - footer
+libraries:
+  - highlight
+scripts:
+  - dependencies
 ---
-
-{% include "html/hljs.html" %}
 
 # Dependencies
 
@@ -455,6 +457,3 @@ The form below allows you to generate the appropriate build scripts and optional
     head dev/nix/shell.nix
     ```
     Note the escapes of quotation marks when specifying a string argument.
-
-
-<script src="../dependencies.js"></script>

@@ -1,6 +1,11 @@
 ---
 hide:
   - footer
+libraries:
+  - mermaid
+  - d3
+scripts:
+  - coord-stretching
 ---
 
 # Metrics
@@ -311,9 +316,10 @@ Below is a diagram demonstrating all the possible transformations.
 Schematics below shows the structure of the metric classes and their inheritance hierarchy with all the private/public variables and methods.
 
 
-```mermaid
+<pre class="mermaid-diagram">
 classDiagram
   direction LR
+  note "+: public<br>-: private<br>#: protected<br>underline: static constexpr<br>italic: virtual"
   class MetricBase~Dimension~{
     +bool is_metric$
     +Dimension Dim$
@@ -415,8 +421,4 @@ classDiagram
   Metric <|-- QKerrSchild : implements
   Metric <|-- KerrSchild0 : implements
   Mesh --* Metric : contains
-  note "+: public\n-: private\n#: protected\nunderline: static constexpr\nitalic: virtual"
-```
-
-{% include "html/d3js.html" %}
-<script src="../coord-stretching.js"></script>
+</pre>

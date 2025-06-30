@@ -30,5 +30,4 @@ jobs:
       - run: pip install -r requirements.txt
       - run: npm ci
         if: hashFiles('package-lock.json') != ''
-      - run: npm run sass:build
-      - run: mkdocs gh-deploy --force
+      - run: npm run build
