@@ -19,8 +19,7 @@
     "copy:hljs": "node js/copy-hljs.js",
     "bundle": "node js/bundle.js && npm run copy:three && npm run copy:hljs",
     "mkdocs:serve": "mkdocs serve",
-    "mkdocs:build": "mkdocs build --force",
-    "build": "npm run sass:build && npm run bundle && npm run mkdocs:build",
+    "build": "npm run sass:build && npm run bundle",
     "dev": "npm run bundle && concurrently \"npm run sass:watch\" \"npm run mkdocs:serve\""
   },
   "dependencies": {

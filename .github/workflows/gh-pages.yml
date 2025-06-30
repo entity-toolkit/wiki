@@ -31,3 +31,4 @@ jobs:
       - run: npm ci
         if: hashFiles('package-lock.json') != ''
       - run: npm run build
+      - run: mkdocs gh-deploy --force
