@@ -48,7 +48,7 @@ scripts:
   npm run dev
   ```
   To access the documentation simply open the [`http://127.0.0.1:8000/`](http://127.0.0.1:8000/) in your browser. 
-  > The `npm` command also compiles the `sass` styles into css, and minifies/copies the `js` libraries, placing them in the `docs/js/vendor` directory.
+  > The `npm` command also compiles the `sass` styles into `css`, and minifies/copies the `js` libraries, placing them in the `docs/js/vendor` directory.
 
 1. When satisfied with all the changes made simply push them to the `master` branch.
   ```shell
