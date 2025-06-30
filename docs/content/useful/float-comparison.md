@@ -7,12 +7,14 @@ scripts:
   - ulps
 ---
 
+# Floating point comparison
+
 !!! abstract "tl;dr"
 
     We use simplified floating-point (both single and double precision) comparison method in the code, which does not guarantee equality up to a single bit, but is good-enough for most practical purposes.
     
 
-# Truncation error
+## Truncation error
 
 Comparing floating-point numbers is [tricky](https://codingnest.com/the-little-things-comparing-floating-point-numbers/). In IEEE-754-compatible C++ compilers, floating point numbers are represented with 32 (`float`) or 64 (`double`) bits. In this representation, the first bit (or the last, depending on who you ask) is reserved for the sign, 8 (11) bits are reserved for the exponent in single (double) precision, and the remaining 23 (52) bits are reserved for the mantissa. For instance, below is the [representation](https://baseconvert.com/ieee-754-floating-point) of $-2^{-5}$ in single and double precision (notice, the mantissa digits are exactly zero, as we are consider an exact power of $2$):
 
@@ -37,7 +39,7 @@ Because of this truncation, two different real numbers can have identical bit re
     ```
     we see that they are indeed different, albeit very close.
 
-# Unit in the last place (ULP)
+## Unit in the last place (ULP)
 
 The most rigorous way to compare floating-point numbers in this context is to estimate their so-called ULP-distance ([unit in the last place](https://en.wikipedia.org/wiki/Unit_in_the_last_place)). If we picture the real number line as a continuum, with the truncated floating-point representation we can only express a finite set of the real numbers; we call these numbers float-representable. Let's consider an example. Below is the real number line, where we tag only the single precision floating-representable numbers between `1.0f` and `1.0f + 3e-7f`:
 
@@ -51,9 +53,9 @@ We see that between the numbers `1.0f` and `1.0f + 3e-7f` there are only $2$ dis
 
 In practice, of course, especially when dealing transcendental functions and numbers, it is [theoretically impossible](https://en.wikipedia.org/wiki/Rounding#Table-maker's_dilemma) to guarantee that the result of a computation is within a certain ULP-distance from the true value. The best-practice is to allow on average between $0.5$ and $1$ ULP error margin. 
 
-# Floating-point comparison
+## Floating-point comparison
 
-## The correct way
+### The correct way
 
 More often, instead of comparing the numerical values with the "real" ones, we need to compare them with other numerical values: e.g., compare the energy of the system at the beginning of the simulation with its energy at the end. Since C++11, the compilers [provide a function](https://en.cppreference.com/w/cpp/types/numeric_limits/epsilon) `std::numeric_limits<T>::epsilon()` that returns the ULP distance between $a$ and the next float-representable number, where $a\in [1;2)$. For instance, `std::numeric_limits<float>::epsilon()` returns $\varepsilon_{32}\equiv 2^{-23}$, which is the ULP distance between $1$ and $1 + \varepsilon_{32}\approx 1 + 1.2\cdot 10^{-7}$. So for any given pair of numbers $a$ and $b$ in the $[1;2)$ interval, these two numbers are single-precision-float-equal within $1$ ULP if $|a-b|<=\varepsilon_{32}$. We can also generalize this to the numbers in an arbitrary interval by bringing them to the same exponent, to get the following equality condition:
 
@@ -71,7 +73,7 @@ template <class T> auto equal_within_1ulp(T a, T b) -> bool {
 
 Then `equal_within_1ulp(1.0f, 1.0f + 1e-7f)` evaluates to `false`, while `equal_within_1ulp(1.0f, 1.0f + 1e-8f)` evaluates to `true`. Evaluating this function can become computationally expensive, and besides that, it relies on the `std::` library functions, some of which are not portable on GPUs. So, in practice, we often use a simpler comparison method.
 
-## The simpler way
+### The simpler way
 
 In the code, we use a simpler comparison method, which does not guarantee equality up to $1$ ULP, but is nonetheless accurate enough for most practical purposes. Instead of directly renormalizing the exponents of each of the numbers, we simply evaluate the relative difference of the two numbers and compare it against the epsilon for the given type:
 

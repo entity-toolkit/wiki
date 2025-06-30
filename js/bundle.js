@@ -12,17 +12,8 @@ const eslibs = {
     "path": "dist",
     "file": "d3.min.js",
   },
-  p5: {
-    "name": "p5",
-    "path": "lib",
-    "file": "p5.min.js",
-  },
 };
 
-const hlPath = './node_modules/@highlightjs/cdn-assets';
-const hlDestPath = './docs/js/vendor/highlight.js';
-const threePath = './node_modules/three';
-const threeDestPath = './docs/js/vendor/three';
 
 for (const [_, entry] of Object.entries(eslibs)) {
   esbuild.buildSync({
@@ -33,10 +24,22 @@ for (const [_, entry] of Object.entries(eslibs)) {
   });
 }
 
+const hlPath = './node_modules/@highlightjs/cdn-assets';
+const hlDestPath = './docs/js/vendor/highlight.js';
 mkdirSync(hlDestPath, { recursive: true });
 cpSync(`${hlPath}`, `${hlDestPath}`, { recursive: true });
 
+const threePath = './node_modules/three';
+const threeDestPath = './docs/js/vendor/three';
 mkdirSync(threeDestPath, { recursive: true });
 cpSync(`${threePath}/build/three.module.min.js`, `${threeDestPath}/three.module.min.js`);
 cpSync(`${threePath}/build/three.core.min.js`, `${threeDestPath}/three.core.min.js`);
 cpSync(`${threePath}/examples/jsm`, `${threeDestPath}/examples/jsm`, { recursive: true });
+
+const katexPath = './node_modules/katex';
+const katexDestPath = './docs/js/vendor/katex';
+mkdirSync(katexDestPath, { recursive: true });
+cpSync(`${katexPath}/dist/katex.min.js`, `${katexDestPath}/katex.min.js`);
+cpSync(`${katexPath}/dist/katex.min.css`, `${katexDestPath}/katex.min.css`);
+cpSync(`${katexPath}/dist/fonts/`, `${katexDestPath}/fonts/`, { recursive: true });
+cpSync(`${katexPath}/dist/contrib/`, `${katexDestPath}/contrib/`, { recursive: true });

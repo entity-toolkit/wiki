@@ -7,15 +7,15 @@ site_url: https://haykh.github.io/entity-wiki-test/
 nav:
   - Home: index.md
   - Getting started:
-      - Compiling/running: content/1-getting-started/1-compile-run.md
-      - Dependencies: content/1-getting-started/2-dependencies.md
-      - Input file: content/1-getting-started/3-inputfile.md
-      - Understanding the units: content/1-getting-started/4-units.md
-      - Output & visualization: content/1-getting-started/5-vis.md
-      - Writing checkpoints & restarting: content/1-getting-started/6-checkpoints.md
-      - Documenting: content/1-getting-started/7-docs.md
-      - Docker: content/1-getting-started/8-docker.md
-      - F.A.Q.: content/1-getting-started/9-faq.md
+      - content/1-getting-started/1-compile-run.md
+      - content/1-getting-started/2-dependencies.md
+      - content/1-getting-started/3-inputfile.md
+      - content/1-getting-started/4-units.md
+      - content/1-getting-started/5-vis.md
+      - content/1-getting-started/6-checkpoints.md
+      - content/1-getting-started/7-docs.md
+      - content/1-getting-started/8-docker.md
+      - content/1-getting-started/9-faq.md
   - Understanding the code:
       - content/2-code/1-pic.md
       - content/2-code/2-hierarchy.md
@@ -25,15 +25,15 @@ nav:
       - content/2-code/6-problem_generators.md
       - content/2-code/7-guidelines.md
   - Useful things:
-      - Cluster setups: content/useful/cluster-setups.md
-      - Floating point comparison: content/useful/float-comparison.md
-      - Theory behind PIC: content/useful/theory_pic.md
-      - Kerr metric: content/useful/ks.md
+      - content/useful/cluster-setups.md
+      - content/useful/float-comparison.md
+      - content/useful/theory_pic.md
+      - content/useful/ks.md
   - Fun:
-      - Axisymmetric coordinates: content/fun/coords.md
-      - Cubed sphere: content/fun/cubed_sphere.md
+      - content/fun/coords.md
+      - content/fun/cubed_sphere.md
   - Events:
-      - SCEECS Summer School 2024: content/events/sceecs2024/instructions.md
+      - content/events/sceecs2024/instructions.md
 
 markdown_extensions:
   - pymdownx.arithmatex:
@@ -48,18 +48,19 @@ markdown_extensions:
       emoji_generator: !!python/name:material.extensions.emoji.to_svg
   - pymdownx.tasklist:
       custom_checkbox: true
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.snippets
   - toc:
       permalink: true
   - tables
   - attr_list
   - admonition
-  - footnotes
-  - def_list
-  - pymdownx.details
-  - pymdownx.superfences
-  - md_in_html
-  - neoteroi.cards
-  - neoteroi.timeline
+  # - footnotes
+  # - def_list
+  # - md_in_html
+  # - neoteroi.cards
+  # - neoteroi.timeline
 
 plugins:
   - tags
@@ -107,19 +108,11 @@ theme:
     # - navigation.instant
 
 extra_css:
-  - https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css
-  - css/tikzjax/fonts.css
   - css/style.css
-
-extra_javascript:
-  - js/katex.js
-  - https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.js
-  - https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/contrib/auto-render.min.js
-  - js/tikzjax.js
 
 extra:
   social:
-    - icon: fontawesome/brands/github
+    - icon: fontawesome/brands/git
       link: https://github.com/entity-toolkit/entity/
 
 copyright: Copyright &copy; 2021++, Entity dev team

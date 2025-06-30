@@ -1,0 +1,102 @@
+classDiagram
+  class Metadomain~SimEngine, Metric~{
+    +Dimension D$
+    -uint g_ndomains
+    -vector~int~ g_decomposition
+    -vector~uint~ g_ndomains_per_dim
+    -vector~vector~uint~~ g_domain_offsets
+    -map~vector|uint~ g_domain_offset2index
+    -vector~Domain~SimEngine,Metric~~ g_subdomains
+    -vector~uint~ g_local_subdomain_indices
+    -Mesh~Metric~ g_mesh
+    -const map~string|real_t~ g_metric_params
+    -const vector~ParticleSpecies~ g_species_params
+    -out::Writer g_writer
+    -int g_mpi_rank
+    -int g_mpi_size
+    +runOnLocalDomains(Func, Args...)
+    +runOnLocalDomainsConst(Func, Args...)
+    +Communicate(Domain, CommTags)
+    +InitWriter(SimulationParams)
+    +Write(SimulationParams, size_t, float)
+    +ndomains() uint
+    +ndomains_per_dim() vector~uint~
+    +subdomain(uint) const &Domain
+    +subdomain_ptr(uint) *Domain
+    +mesh() const &Mesh
+    +species_params() const vector~ParticleSpecies~
+    +local_subdomain_indices() const vector~uint~
+    +createEmptyDomains()
+    +redefineNeighbors()
+    +redefineBoundaries()
+    +initialValidityCheck()
+    +finalValidityCheck()
+    +metricCompatibilityCheck()
+  }
+  class Domain~SimEngine, Metric~{
+    +Dimension D$
+    -int m_index
+    -vector~uint~ m_offset_ndomains
+    -vector~size_t~ m_offset_ncells
+    -map~dir_t|CommBC~ m_comm_bc
+    -map~dir_t|uint~ m_neighbor_idx
+    -int m_mpi_rank
+    +Mesh~Metric~ mesh
+    +Fields~Dimension|SimEngine~ fields
+    +vector~Particles~Dimension|CoordType~~ species
+    +index() int
+    +offset_ndomains() vector~uint~
+    +offset_ncells() vector~size_t~
+    +neighbor_idx_in(dir_t) uint
+    +is_placeholder() bool
+    +set_neighbor_idx(dir_t, uint)
+    +mpi_rank() int
+    +set_mpi_rank(int)
+  }
+  class Grid~Dimension~{
+    #vector~size_t~ m_resolution
+    +i_min(in::) size_t
+    +i_max(in::) size_t
+    +n_active(in::) size_t
+    +n_active(in::) vector~size_t~
+    +n_all(in::) size_t
+    +n_all(in::) vector~size_t~
+    +rangeActiveCells[|OnHost]() range_t~D~
+    +rangeAllCells[|OnHost]() range_t~D~
+    +rangeCells[|OnHost](boxRegion_t~D~) range_t~D~
+  }
+  class Mesh~Metric~{
+    +Dimension D$
+    +bool is_mesh$
+    -vector~pair~real_t~~ m_extents
+    -map~dir_t|FldsBC~ m_flds_bc
+    -map~dir_t|PrtlBC~ m_prtl_bc
+    -const map~str|real_t~ m_metric_params
+    +Metric~Dimension~ metric
+    +extent(in::) pair~real_t~
+    +extent() vector~pair~real_t~~
+    +flds_bc() vector~pair~FldsBC~~
+    +prtl_bc() vector~pair~PrtlBC~~
+    +flds_bc_in(dir_t d) FldsBC
+    +prtl_bc_in(dir_t d) PrtlBC
+    +set_flds_bc(dir_t d, FldsBC bc)
+    +set_prtl_bc(dir_t d, PrtlBC bc)
+  }
+  class Metric~Dimension~{
+    see metrics...*
+  }
+  class Fields~Dimension, SimEngine~{
+    see fields...*
+  }
+  class Particles~Dimension, CoordType~{
+    see particles...*
+  }
+  Domain --* Mesh : contains
+  Grid <|-- Mesh : inherits
+  Mesh --* Metric : contains
+  Metadomain --* Domain : contains many
+  Metadomain --* Mesh : contains
+  Domain --* Fields : contains
+  Domain --* Particles : contains many
+
+  note "+: public\n-: private\n#: protected\nunderline: static constexpr\nitalic: virtual"

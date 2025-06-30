@@ -3,6 +3,8 @@ hide:
   - footer
 ---
 
+# Kerr metric
+
 !!! note
 
     To keep things clean we will assume $r_g \equiv GM_\bullet/c^2 = 1$ and $a\equiv J_\bullet c/(GM_\bullet^2)$. Dots "$\cdot$" will be used instead of zeros "0" for visual clarity.

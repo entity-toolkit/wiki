@@ -3,7 +3,6 @@
 site
 
 node_modules
-.vscode
 
 docs/js/vendor/
 docs/css/style.css

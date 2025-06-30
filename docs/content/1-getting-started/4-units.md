@@ -3,6 +3,8 @@ hide:
   - footer
 ---
 
+# Understanding the units
+
 ## Physical units
 
 !!! note

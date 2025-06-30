@@ -3,13 +3,15 @@ hide:
   - footer
 ---
 
+# Editing the documentation
+
 `entity` documentation is automatically generated using the `mkdocs` framework and the [`Material for mkdocs`](https://squidfunk.github.io/mkdocs-material/) theme. When you commit/push to the `wiki` branch the static website is automatically compiled and pushed to the `gh-pages` branch of the main repository.
 
 !!! hint
 
     Documentations are created using `markdown` syntax which is then automatically parsed and converted into `html`. As such, any `html`/`css`/`js` code you write in the markdown file will be automatically rendered. 
 
-To add global `css` styling (using `scss` syntax), add a file into `sass/` directory and import it in `style.scss`. To add external javascript, e.g., in `file.js` file, simply create the file in `docs/js/scripts/` and include it in the header of the corresponding markdown file.
+To add global `css` styling (using `scss` syntax), add a file into `sass/` directory and import it in `style.scss` via `@use 'myfile'`. To add external javascript, e.g., in `file.js` file, simply create the file in `docs/js/scripts/` and include it in the header of the corresponding markdown file:
 
 ```yaml
 ---
@@ -17,6 +19,29 @@ scripts:
   - file
 ---
 ```
+
+Some third-party libraries can be included on the given page in a similar way. Below is the full list of supported ones:
+
+```yaml
+---
+libraries:
+  - d3 #(1)!
+  - p5 #(2)!
+  - mermaid #(3)!
+  - three #(4)!
+  - highlight #(5)!
+  - tikzjax #(6)!
+---
+```
+
+1. vector graphics, schemes and diagrams with [`d3js`](https://d3js.org/)
+2. interactive visualizations and easy WebGL access via [`p5js`](https://p5js.org/)
+3. rendering of [`mermaid` diagrams](https://mermaid.js.org/)
+4. 3D visualizations using WebGL in [`threejs`](https://threejs.org/)
+5. code highlighting with [`highlight.js`](https://highlightjs.org/)
+6. `Tikz` diagrams via [`TikzJax` framework](https://tikzjax.com/)
+
+> `Katex` (for rendering $\LaTeX$) is automatically added to all pages.
 
 ## Workflow
 

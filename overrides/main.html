@@ -1,6 +1,12 @@
 {% extends "base.html" %}
 {% block extrahead %}
   {{ super() }}
+  {# katex #}
+  <link rel="stylesheet" href="{{ base_url }}/js/vendor/katex/katex.min.css">
+  <script src="{{ base_url }}/js/vendor/katex/katex.min.js"></script>
+  <script src="{{ base_url }}/js/vendor/katex/contrib/auto-render.min.js"></script>
+  <script src="{{ base_url }}/js/hooks/katex.js" defer></script>
+  {# optional libraries #}
   {% if page and page.meta.libraries %}
     {% for lib in page.meta.libraries %}
       {% if lib == "three" %}
@@ -23,12 +29,19 @@
               media="screen">
         <script src="{{ base_url }}/js/vendor/highlight.js/highlight.min.js"></script>
         <script src="{{ base_url }}/js/hooks/highlight.js" defer></script>
+      {% elif lib == "tikzjax" %}
+        <link rel="stylesheet" href="{{ base_url }}/css/extra/tikzjax/fonts.css">
+        <script src="{{ base_url }}/js/extra/tikzjax/tikzjax.js"></script>
+      {% elif lib == "p5" %}
+        <script src="{{ base_url }}/js/extra/p5js/p5.min.js"></script>
+        <script src="{{ base_url }}/js/hooks/p5.js" defer></script>
       {% else %}
         <script src="{{ base_url }}/js/vendor/{{ lib }}.min.js"></script>
         <script src="{{ base_url }}/js/hooks/{{ lib }}.js" defer></script>
       {% endif %}
     {% endfor %}
   {% endif %}
+  {# document-specific scripts #}
   {% if page and page.meta.scripts %}
     {% for script in page.meta.scripts %}
       <script type="module" src="{{ base_url }}/js/scripts/{{ script }}.js"></script>

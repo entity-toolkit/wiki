@@ -3,6 +3,8 @@ hide:
   - footer
 ---
 
+# Writing checkpoints & restarting
+
 <a href="https://github.com/entity-toolkit/entity/pull/67">
   <span class="since-version">1.2.0</span>
 </a>

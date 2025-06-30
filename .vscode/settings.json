@@ -1,0 +1,18 @@
+{
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/bower_components": true,
+    "**/*.code-search": true,
+    "**/js/*": true,
+    "**/*.map": true,
+    "**/package-lock.json": true,
+    "**/package.json": true,
+    "**/.old": true,
+  },
+  "files.associations": {
+    "*.html": "jinja-html",
+  },
+  "[jinja-html]": {
+    "editor.defaultFormatter": "monosans.djlint",
+  }
+}

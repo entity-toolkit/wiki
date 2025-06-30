@@ -3,6 +3,8 @@ hide:
   - footer
 ---
 
+# Cluster setups
+
 This section goes over some instructions on how to compile & run the `Entity` on some of the most widely utilized clusters. While the main libraries we rely on, `Kokkos` and `ADIOS2` can be built in-tree (i.e., together with the code when you launch the compiler), it is nonetheless recommended to pre-install them separately (if not already installed on the cluster) and use them as external dependencies, since that will significantly cut down the compilation time.
 
 

@@ -30,34 +30,49 @@ document.addEventListener(
         h = 384 * s;
       let col1, col2, col3, col4;
 
-      let text_bg, shader;
+      let text_bg, shader, font_mono;
 
-      p.preload = function () {
+      p.preload = () => {
         if (!supports_web_gl) {
           return;
         } else {
-          animation = animations[Math.floor(Math.random() * animations.length)];
-          shader = p.loadShader("cover.vert", "cover.frag");
-
-          text_bg = p.createGraphics(w, h);
-          text_bg.noStroke();
-          text_bg.fill(255, 0, 0);
-          text_bg.textFont("monospace");
-          text_bg.textSize(280 * s);
-          text_bg.textAlign(p.CENTER, p.CENTER);
-          text_bg.text("entity", w / 2, h / 2);
+          font_mono = p.loadFont("assets/fonts/MonaspiceKrNerdFont.otf", () => {
+            console.log("Font loaded successfully");
+          }, () => {
+            console.error("Error loading font");
+          });
+          shader = p.loadShader("js/scripts/cover.vert", "js/scripts/cover.frag", () => {
+            console.log("Shader loaded successfully");
+          }, () => {
+            console.error("Error loading shader");
+          });
         }
       };
 
-      p.setup = function () {
+      p.setup = () => {
         if (!supports_web_gl) {
+          const comment = p.createElement(
+            "p",
+            "[WebGL not supported in this browser, using fallback animation]");
+          comment.class("webgl-fallback");
+          comment.parent("cover");
           let cnv = p.createCanvas(w, h);
           cnv.parent("cover");
-          p.textFont("monospace");
+          p.textFont(font_mono);
           p.textSize(280 * s);
           p.textAlign(p.CENTER, p.CENTER);
           p.fill(255, 0, 0);
         } else {
+          animation = animations[Math.floor(Math.random() * animations.length)];
+
+          text_bg = p.createGraphics(w, h);
+          text_bg.noStroke();
+          text_bg.fill(255, 0, 0);
+          text_bg.textFont(font_mono);
+          text_bg.textSize(280 * s);
+          text_bg.textAlign(p.CENTER, p.CENTER);
+          text_bg.text("entity", w / 2, h / 2);
+
           let cnv = p.createCanvas(w, h, p.WEBGL);
           cnv.parent("cover");
         }
@@ -84,9 +99,9 @@ document.addEventListener(
         p.pop();
       };
 
-      p.draw = function () {
+      p.draw = () => {
         if (!supports_web_gl) {
-          p.background(0);
+          p.background(0, 0, 0, 0);
           drawLetter("e", 0, 0);
           drawLetter("n", 1, 0.5);
           drawLetter("t", 2, 1);
@@ -94,6 +109,7 @@ document.addEventListener(
           drawLetter("t", 4, 2);
           drawLetter("y", 5, 2.5);
         } else {
+          p.clear();
           p.shader(shader);
           shader.setUniform("anim", animation);
           shader.setUniform("textTex", text_bg);
@@ -101,7 +117,6 @@ document.addEventListener(
           shader.setUniform("resolution", [w, h]);
           shader.setUniform("mouseX", p.mouseX);
           shader.setUniform("mouseY", p.mouseY);
-
           p.rect(0, 0, w, h);
         }
       };

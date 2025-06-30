@@ -3,6 +3,8 @@ hide:
   - footer
 ---
 
+# SCEECS Summer School 2024
+
 There are two environments for running the code: the WUSTL cluster, and the CCA (Flatiron Inst. Cluster). Either should work ok, but the resources on the CCA cluster might be limited. Below are the instructions for both of these:
 
 

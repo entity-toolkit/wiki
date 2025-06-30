@@ -3,6 +3,8 @@ hide:
   - footer
 ---
 
+# Theory behind PIC
+
 !!! abstract "tl;dr"
 
     Our goal in this section be to derive an equation which could describe an evolution of a collection of charged particles in self-induced eletric and magnetic fields. Ultimately, since we will want to solve this partial differential equation on the computer, we will construct an algorithm relying on the method of characteristics which approximates the exact solution, when the number of integrated characteristics (macroparticles) tends to infinity.

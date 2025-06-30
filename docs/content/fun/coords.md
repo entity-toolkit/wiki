@@ -7,6 +7,8 @@ scripts:
   - axisymmetric_coords
 ---
 
+# Axisymmetric coordinates
+
 Below for visualization purposes we demonstrate three different axisymmetric systems: a regular spherical $(r,\theta,\phi)$, an equal area and a "quasi-spherical" $(\xi,\eta,\phi)$, where 
 
 $$

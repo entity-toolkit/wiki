@@ -3,6 +3,8 @@ hide:
   - footer
 ---
 
+# Compiling/running
+
 First, make sure you have all [the necessary dependencies](2-dependencies.md) installed (`Kokkos` and `ADIOS2` can be built in-tree with the code, so no additional configuration necessary).
 
 ## Configuring & compiling

@@ -3,6 +3,8 @@ hide:
   - footer
 ---
 
+# F.A.Q.
+
 !!! abstract "tl;dr"
 
     Here we collect the most frequent questions that might occur. Please, make sure to inspect this section before filing a GitHub issue.

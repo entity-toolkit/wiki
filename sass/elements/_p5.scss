@@ -2,6 +2,16 @@
 @use "sass:color";
 
 .p5canvas {
+  .webgl-fallback {
+    @include colors.light-theme {
+      color: color.scale(colors.$col-light-fg, $alpha: -75%);
+    }
+
+    @include colors.dark-theme {
+      color: color.scale(colors.$col-dark-fg, $alpha: -75%);
+    }
+  }
+
   input {
     width: 60px;
 
