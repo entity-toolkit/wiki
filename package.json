@@ -15,9 +15,7 @@
   "scripts": {
     "sass:watch": "sass sass/style.scss docs/css/style.css --watch",
     "sass:build": "sass sass/style.scss docs/css/style.css",
-    "copy:three": "node js/copy-three.js",
-    "copy:hljs": "node js/copy-hljs.js",
-    "bundle": "node js/bundle.js && npm run copy:three && npm run copy:hljs",
+    "bundle": "node js/bundle.js",
     "mkdocs:serve": "mkdocs serve",
     "build": "npm run sass:build && npm run bundle",
     "dev": "npm run bundle && concurrently \"npm run sass:watch\" \"npm run mkdocs:serve\""

@@ -1,3 +1,47 @@
+@use "../colors" as colors;
+@use "sass:map";
+
+#contributors-alphabetical + ul li span {
+  list-style-type: circle;
+}
+
+#contributors-alphabetical + ul li span {
+  padding: 0 0.3em;
+  margin: 0 0.1em;
+  border-radius: 0.4em;
+  color: white;
+}
+
+$colors: (
+  1: colors.$col-light-1,
+  2: colors.$col-light-2,
+  3: colors.$col-light-3,
+  4: colors.$col-light-4,
+  5: colors.$col-light-5,
+  6: colors.$col-light-6,
+);
+
+$contribgroups: (
+  "framework": 1,
+  "pic": 2,
+  "gr": 3,
+  "cubed-sphere": 4,
+  "mpi": 5,
+  "all-around": 6,
+);
+
+@each $gr, $num in $contribgroups {
+  .tag.#{$gr} {
+    background-color: map.get($colors, $num);
+  }
+}
+
+#supporting-grants + p + ul span,
+#supporting-grants + p + ul + p > span {
+  text-decoration: underline;
+}
+
+
 // .entity-cover {
 //   width: 100%;
 //   height: 200px;
@@ -34,43 +78,3 @@
 // [data-md-color-scheme="default"] .nt-card.vis .nt-card-image {
 //   background-image: url("../icons/vis-icon-dark.svg") !important;
 // }
-
-#contributors-alphabetical + ul li span {
-  list-style-type: circle;
-}
-
-#contributors-alphabetical + ul li span {
-  padding: 0 0.3em;
-  margin: 0 0.1em;
-  border-radius: 0.4em;
-  color: white;
-}
-
-$colors: (
-  1: $col-light-1,
-  2: $col-light-2,
-  3: $col-light-3,
-  4: $col-light-4,
-  5: $col-light-5,
-  6: $col-light-6,
-);
-
-$contribgroups: (
-  "framework": 1,
-  "pic": 2,
-  "gr": 3,
-  "cubed-sphere": 4,
-  "mpi": 5,
-  "all-around": 6,
-);
-
-@each $gr, $num in $contribgroups {
-  .tag.#{$gr} {
-    background-color: map-get($colors, $num);
-  }
-}
-
-#supporting-grants + p + ul span,
-#supporting-grants + p + ul + p > span {
-  text-decoration: underline;
-}

@@ -1,11 +1,16 @@
+@use "../colors" as colors;
+@use "sass:color";
+
 .p5canvas {
   input {
-    @include light-theme {
-      background-color: darken($col-light-bg, 5%);
+    width: 60px;
+
+    @include colors.light-theme {
+      background-color: color.adjust(colors.$col-light-bg, $lightness: -5%);
     }
 
-    @include dark-theme {
-      background-color: lighten($col-dark-bg, 4%);
+    @include colors.dark-theme {
+      background-color: color.adjust(colors.$col-dark-bg, $lightness: 4%);
     }
 
     &,
@@ -18,8 +23,6 @@
     &[type="number"]:hover {
       cursor: text;
     }
-
-    width: 60px;
 
     &[type="range"] {
       width: 120px;
@@ -45,4 +48,3 @@
     height: 100% !important;
   }
 }
-

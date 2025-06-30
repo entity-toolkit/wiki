@@ -1,3 +1,5 @@
+@use "../colors" as colors;
+
 @keyframes gradient {
   0% {
     background-position: 0% 50%;
@@ -16,7 +18,7 @@ header {
   background-size: 400% 400% !important;
   animation: gradient 15s ease infinite;
 
-  @include light-theme {
+  @include colors.light-theme {
     background: linear-gradient(
       -45deg,
       var(--col-light-1),
@@ -26,7 +28,7 @@ header {
     );
   }
 
-  @include dark-theme {
+  @include colors.dark-theme {
     background: linear-gradient(
       -45deg,
       var(--col-dark-1),

@@ -1,21 +1,25 @@
+@use "../colors" as colors;
+@use "../fonts" as fonts;
+@use "sass:color";
+
 .three-diagram {
   position: relative;
 }
 
 .lil-gui {
-  font-family: $mono-font;
+  font-family: fonts.$mono-font;
 
-  @include light-theme {
+  @include colors.light-theme {
     --text-color: "black";
-    --background-color: #{darken($col-light-bg, 6%)};
-    --widget-color: #{darken($col-light-bg, 16%)};
-    --hover-color: #{darken($col-light-bg, 25%)};
+    --background-color: #{color.adjust(colors.$col-light-bg, $lightness: -6%)};
+    --widget-color: #{color.adjust(colors.$col-light-bg, $lightness: -16%)};
+    --hover-color: #{color.adjust(colors.$col-light-bg, $lightness: -25%)};
     --title-background-color: var(--md-accent-fg-color);
-    --number-color: #{darken($col-light-1, 10%)};
+    --number-color: #{color.adjust(colors.$col-light-1, $lightness: -10%)};
   }
 
-  @include dark-theme {
-    color: lighten($col-dark-1, 25%);
+  @include colors.dark-theme {
+    color: color.adjust(colors.$col-dark-1, $lightness: 25%);
   }
 }
 
@@ -38,4 +42,3 @@
     right: 0;
   }
 }
-

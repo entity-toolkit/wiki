@@ -1,25 +1,21 @@
-@use "sass:map";
-@use "sass:color";
-@import "_colors.scss";
-@import "_fonts.scss";
+@use "colors";
+@use "fonts";
 
-$layout-breakpoint-small: 960px;
+@use "components/header";
+@use "components/table";
+@use "components/tabs";
+@use "components/admonitions";
+@use "components/textfields";
+@use "components/dropdowns";
+@use "components/tags";
+@use "components/code";
+@use "components/navigation";
 
-@import "components/_header.scss";
-@import "components/_table.scss";
-@import "components/_tabs.scss";
-@import "components/_admonitions.scss";
-@import "components/_textfields.scss";
-@import "components/_dropdowns.scss";
-@import "components/_tags.scss";
-@import "components/_code.scss";
-@import "components/_navigation.scss";
+@use "elements/tikz";
+@use "elements/d3";
+@use "elements/katex";
+@use "elements/mermaid";
+@use "elements/p5";
+@use "elements/threejs";
 
-@import "elements/_tikz.scss";
-@import "elements/_d3.scss";
-@import "elements/_katex.scss";
-@import "elements/_mermaid.scss";
-@import "elements/_p5.scss";
-@import "elements/_threejs.scss";
-
-@import "pages/_index.scss";
+@use "pages/index";

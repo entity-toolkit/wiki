@@ -1,3 +1,5 @@
+@use "../colors" as colors;
+
 [data-md-color-scheme="ntt-light"] {
   --tikz-text-color: black;
   --tikz-bg-color: var(--col-light-1);
@@ -13,7 +15,7 @@
     fill: none;
   }
 
-  @include light-theme {
+  @include colors.light-theme {
     path {
       stroke: black;
     }
@@ -25,7 +27,7 @@
     }
   }
 
-  @include dark-theme {
+  @include colors.dark-theme {
     path {
       stroke: white;
     }

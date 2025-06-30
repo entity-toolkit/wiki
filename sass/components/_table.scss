@@ -1,7 +1,9 @@
+@use "../colors" as colors;
+
 $groups: (
-  "tr-gr1": $col-light-1,
-  "tr-gr2": $col-light-2,
-  "tr-gr3": $col-light-4,
+  "tr-gr1": colors.$col-light-1,
+  "tr-gr2": colors.$col-light-2,
+  "tr-gr3": colors.$col-light-4,
 );
 
 @each $gr, $num in $groups {

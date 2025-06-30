@@ -1,10 +1,11 @@
-/* Katex */
+@use "../fonts" as fonts;
+
 .katex-display {
   margin: 0px;
 }
 
 .katex .text>.mord {
-  font-family: $serif-font;
+  font-family: fonts.$serif-font;
   font-weight: normal;
 }
 

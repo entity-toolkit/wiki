@@ -1,15 +1,18 @@
-.d3-diagram {
+@use "../colors" as colors;
+@use "../fonts" as fonts;
+@use "../layout.scss" as layout;
 
+.d3-diagram {
   text,
   .label {
-    font-family: $mono-font;
+    font-family: fonts.$mono-font;
   }
 
   &#d3-code-structure text {
-    font-size: 1.0em;
+    font-size: 1em;
   }
 
-  @include dark-theme {
+  @include colors.dark-theme {
     text tspan {
       fill: white;
     }
@@ -19,7 +22,7 @@
     }
   }
 
-  @include light-theme {
+  @include colors.light-theme {
     text tspan {
       fill: black;
     }
@@ -38,11 +41,10 @@
 
   .label,
   .tick text {
-    @media (max-width: $layout-breakpoint-small) {
+    font-size: 16px;
+    @media (max-width: layout.$layout-breakpoint-small) {
       font-size: 10px;
     }
-
-    font-size: 16px;
   }
 
   .arrowhead {

@@ -1,16 +1,19 @@
+@use "../colors" as colors;
+@use "sass:color";
+
 .tabbed-content {
   border: 1px solid;
   border-top: none;
   padding: 0 1rem;
 
-  @include light-theme {
-    background-color: darken($col-light-bg, 3%);
-    border-color: darken($col-light-border, 3%);
+  @include colors.light-theme {
+    background-color: color.adjust(colors.$col-light-bg, $lightness: -3%);
+    border-color: color.adjust(colors.$col-light-border, $lightness: -3%);
   }
 
-  @include dark-theme {
-    background-color: $col-dark-bg-alt;
-    border-color: $col-dark-border;
+  @include colors.dark-theme {
+    background-color: colors.$col-dark-bg-alt;
+    border-color: colors.$col-dark-border;
   }
 }
 

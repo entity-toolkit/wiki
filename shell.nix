@@ -7,6 +7,7 @@ pkgs.mkShell rec {
   nativeBuildInputs = with pkgs; [
     pkgs."python312"
     pkgs."python312Packages".pip
+    nodePackages.nodejs
     black
     pyright
     taplo
@@ -30,6 +31,9 @@ pkgs.mkShell rec {
       source .venv/bin/activate
       pip install -r requirements.txt
     fi
-    echo "${name} nix-shell activated: $(which python)"
+    if [ ! -d node_modules ]; then
+      npm i
+    fi
+    echo "${name} nix-shell activated: $(which python) $(which npm)"
   '';
 }
