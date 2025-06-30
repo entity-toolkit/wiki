@@ -37,21 +37,18 @@ scripts:
   pip install -r requirements.txt
   ```
 
-1. (Optionally) install all the `node` packages using (from the root directory):
+1. Install all the `node` packages using (from the root directory):
   ```shell
   npm i
   ```
-  > If you don't have `npm`, try [the following instruction](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm). Otherwise, in the next step instead of `npm run dev` run `mkdocs serve`.
+  > If you don't have `npm`, try [the following instruction](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm).
 
 1. Start the reactive server that will generate the website and will dynamically update any changes made to the documentation.
   ```shell
-  # if npm is installed
   npm run dev
-  # otherwise (will not recompile the sass)
-  mkdocs serve
   ```
   To access the documentation simply open the [`http://127.0.0.1:8000/`](http://127.0.0.1:8000/) in your browser. 
-  > The `npm` command also compiles the `sass` styles into css, minifies the `js` libraries, placing them in the `docs/js` directory. If you don't need to add any `sass` or code, you may simply run `mkdocs serve` without using any of the `npm` commands.
+  > The `npm` command also compiles the `sass` styles into css, and minifies/copies the `js` libraries, placing them in the `docs/js/vendor` directory.
 
 1. When satisfied with all the changes made simply push them to the `master` branch.
   ```shell

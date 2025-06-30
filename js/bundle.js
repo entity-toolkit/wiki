@@ -21,7 +21,7 @@ const libs = {
 for (const [_, entry] of Object.entries(libs)) {
   esbuild.buildSync({
     entryPoints: [`node_modules/${entry.name}/${entry.path}/${entry.file}`],
-    outfile: `docs/js/${entry.file}`,
+    outfile: `docs/js/vendor/${entry.file}`,
     bundle: false,
     minify: true
   });
