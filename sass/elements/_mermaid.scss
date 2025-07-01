@@ -10,7 +10,6 @@
 
 :root {
   &>* {
-    --md-mermaid-font-family: #{fonts.$mono-font};
     --md-mermaid-label-fg-color: var(--md-default-fg-color);
     --md-mermaid-edge-color: var(--mermaid-edge-color);
   }

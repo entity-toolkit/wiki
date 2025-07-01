@@ -33,20 +33,18 @@ document.addEventListener(
       let text_bg, shader, font_mono;
 
       p.preload = () => {
-        if (!supports_web_gl) {
-          return;
-        } else {
-          font_mono = p.loadFont("assets/fonts/MonaspiceKrNerdFont.otf", () => {
-            console.log("Font loaded successfully");
-          }, () => {
-            console.error("Error loading font");
-          });
+        if (supports_web_gl) {
           shader = p.loadShader("js/scripts/cover.vert", "js/scripts/cover.frag", () => {
             console.log("Shader loaded successfully");
           }, () => {
             console.error("Error loading shader");
           });
         }
+        font_mono = p.loadFont("assets/fonts/MonaspiceKrNerdFont.otf", () => {
+          console.log("Font loaded successfully");
+        }, () => {
+          console.error("Error loading font");
+        });
       };
 
       p.setup = () => {
@@ -58,10 +56,11 @@ document.addEventListener(
           comment.parent("cover");
           let cnv = p.createCanvas(w, h);
           cnv.parent("cover");
+          p.noStroke();
+          p.fill(255, 0, 0);
           p.textFont(font_mono);
           p.textSize(280 * s);
           p.textAlign(p.CENTER, p.CENTER);
-          p.fill(255, 0, 0);
         } else {
           animation = animations[Math.floor(Math.random() * animations.length)];
 
@@ -71,7 +70,7 @@ document.addEventListener(
           text_bg.textFont(font_mono);
           text_bg.textSize(280 * s);
           text_bg.textAlign(p.CENTER, p.CENTER);
-          text_bg.text("entity", w / 2, h / 2);
+          text_bg.text("entity", w / 2, h / 3);
 
           let cnv = p.createCanvas(w, h, p.WEBGL);
           cnv.parent("cover");
@@ -100,7 +99,9 @@ document.addEventListener(
       };
 
       p.draw = () => {
+        p.clear();
         if (!supports_web_gl) {
+          p.push();
           p.background(0, 0, 0, 0);
           drawLetter("e", 0, 0);
           drawLetter("n", 1, 0.5);
@@ -108,8 +109,8 @@ document.addEventListener(
           drawLetter("i", 3, 1.5);
           drawLetter("t", 4, 2);
           drawLetter("y", 5, 2.5);
+          p.pop();
         } else {
-          p.clear();
           p.shader(shader);
           shader.setUniform("anim", animation);
           shader.setUniform("textTex", text_bg);

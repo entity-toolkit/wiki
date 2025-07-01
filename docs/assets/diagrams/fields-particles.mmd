@@ -1,10 +1,30 @@
 classDiagram
-  class Domain~SimEngine, Metric~{
-    see domains...*
+  class Domain~SimEngine, class~ {
+    see domain...*
   }
-  class Particles~Dimension, CoordType~{
-    -size_t m_npart
-    -size_t m_ntags
+  class ParticleSpecies {
+    #const spidx_t m_index
+    #const string m_label
+    #const float m_mass
+    #const float m_charge
+    #npart_t m_maxnpart
+    #const PrtlPusher m_pusher
+    #const bool m_use_gca
+    #const Cooling m_cooling
+    #const ushort m_npld
+    +index() spidx_t
+    +label() string
+    +mass() float
+    +charge() float
+    +maxnpart() npart_t
+    +pusher() PrtlPusher
+    +use_gca() bool
+    +cooling() Cooling
+    +npld() ushort
+  }
+  class Particles~Dimension, Coord~ {
+    -npart_t m_npart
+    -bool m_is_sorted
     +array_t~int*~ i1
     +array_t~int*~ i2
     +array_t~int*~ i3
@@ -24,17 +44,19 @@ classDiagram
     +array_t~short*~ tag
     +array_t~real_t**~ pld
     +array_t~real_t*~ phi
-    +rangeActiveParticles() range_t
-    +rangeAllParticles() range_t
-    +npart() size_t
+    +rangeActiveParticles() range_t~1D~
+    +rangeAllParticles() range_t~1D~
+    +npart() npart_t
+    +is_sorted() bool
     +ntags() size_t
     +memory_footprint() size_t
-    +npart_per_tag() vector~size_t~
-    +set_npart(size_t)
-    +SortByTags() vector~size_t~
-    +SyncHostDevice()
+    +NpartsPerTagAndOffsets() vector~npart_t~,array_t~npart_t*~
+    +set_npart(npart_t n) void
+    +set_unsorted() void
+    +RemoveDead() void
+    +SyncHostDevice() void
   }
-  class Fields~Dimension, SimEngine~{
+  class Fields~Dimension, SimEngine~ {
     +ndfield_t~D, 6~ em
     +ndfield_t~D, 6~ bckp
     +ndfield_t~D, 3~ cur
@@ -44,27 +66,7 @@ classDiagram
     +ndfield_t~D, 3~ cur0
     +memory_footprint() size_t
   }
-  class ParticleSpecies {
-    -ushort m_index
-    -string m_label
-    -float m_mass
-    -float m_charge
-    -size_t m_maxnpart
-    -PrtlPusher m_pusher
-    -bool m_use_gca
-    -Cooling m_cooling
-    -ushort m_npld
-    +index() ushort
-    +label() string
-    +mass() float
-    +charge() float
-    +maxnpart() size_t
-    +pusher() PrtlPusher
-    +use_gca() bool
-    +cooling() Cooling
-    +npld() ushort
-  }
-  
+
   Domain --* Particles : contains many
   Domain --* Fields : contains
   ParticleSpecies <|-- Particles : inherits

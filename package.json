@@ -16,6 +16,7 @@
     "sass:watch": "sass sass/style.scss docs/css/style.css --watch",
     "sass:build": "sass sass/style.scss docs/css/style.css",
     "bundle": "node js/bundle.js",
+    "diagrams:generate": "python3 codestruct/mermaidify.py --branch 1.2.0rc",
     "mkdocs:serve": "mkdocs serve",
     "build": "npm run sass:build && npm run bundle",
     "dev": "npm run bundle && concurrently \"npm run sass:watch\" \"npm run mkdocs:serve\""

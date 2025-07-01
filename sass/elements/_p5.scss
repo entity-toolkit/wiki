@@ -3,6 +3,8 @@
 
 .p5canvas {
   .webgl-fallback {
+    position: absolute;
+
     @include colors.light-theme {
       color: color.scale(colors.$col-light-fg, $alpha: -75%);
     }
