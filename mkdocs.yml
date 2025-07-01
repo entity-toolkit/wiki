@@ -1,8 +1,8 @@
 site_name: "Entity: wiki"
 repo_url: https://github.com/entity-toolkit/entity
 repo_name: entity
-site_url: https://entity-toolkit.github.io/wiki/
-# site_url: https://haykh.github.io/entity-wiki-test/
+# site_url: https://entity-toolkit.github.io/wiki/
+site_url: https://haykh.github.io/entity-wiki-test/
 
 nav:
   - Home: index.md
@@ -60,9 +60,9 @@ markdown_extensions:
   - tables
   - attr_list
   - admonition
+  - md_in_html
   # - footnotes
   # - def_list
-  # - md_in_html
   # - neoteroi.cards
   # - neoteroi.timeline
 

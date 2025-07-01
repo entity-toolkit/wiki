@@ -31,3 +31,60 @@ $groups: (
     background-color: #{$num};
   }
 }
+
+.input-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9em;
+
+  th,
+  td {
+    text-align: left;
+    padding: 8px 12px;
+    vertical-align: top;
+  }
+
+  thead th {
+    font-weight: 600;
+    position: sticky;
+    top: 0;
+  }
+
+  .key-cell {
+    white-space: nowrap;
+  }
+
+  .indent {
+    display: inline-block;
+    width: calc(var(--depth) * 1.75em);
+    /* Increased indent for clarity */
+  }
+
+  .key-cell strong {
+    cursor: pointer;
+    user-select: none;
+    /* Prevents text selection on double click */
+  }
+
+  .collapsed-row {
+    display: none;
+  }
+
+  td:nth-child(3) {
+    /* Description column */
+    max-width: 450px;
+    white-space: normal;
+  }
+
+  pre {
+    margin: 0;
+    font-family: inherit;
+    white-space: pre-wrap;
+    /* Wrap long default values */
+    word-break: break-all;
+  }
+
+  em {
+    font-style: italic;
+  }
+}

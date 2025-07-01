@@ -1,0 +1,1129 @@
+<table class="input-table">
+  <tbody>
+    <tr data-row-id="row-0">
+      <td class="key-cell">
+        <span class="indent" style="--depth: 0"></span><strong>▸ </strong>
+      </td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr data-row-id="row-1" data-parent-id="row-0" class="collapsed-row">
+      <td class="key-cell">
+        <span class="indent" style="--depth: 1"></span
+        ><strong>▸ particles</strong>
+      </td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr data-row-id="row-2" data-parent-id="row-1" class="collapsed-row">
+      <td class="key-cell">
+        <span class="indent" style="--depth: 2"></span
+        ><strong>▸ species</strong>
+      </td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr data-row-id="row-3" data-parent-id="row-2" class="collapsed-row">
+      <td class="key-cell">
+        <span class="indent" style="--depth: 3"></span>charge
+      </td>
+      <td>float</td>
+      <td>Charge of the species (in units of fiducial charge):</td>
+      <td><pre></pre></td>
+    </tr>
+    <tr data-row-id="row-4" data-parent-id="row-2" class="collapsed-row">
+      <td class="key-cell">
+        <span class="indent" style="--depth: 3"></span>cooling
+      </td>
+      <td>string</td>
+      <td>Radiation reaction to use for the species:</td>
+      <td><pre>&quot;None&quot;</pre></td>
+    </tr>
+    <tr data-row-id="row-5" data-parent-id="row-2" class="collapsed-row">
+      <td class="key-cell">
+        <span class="indent" style="--depth: 3"></span>label
+      </td>
+      <td>string</td>
+      <td>Label of the species:</td>
+      <td>
+        <pre>
+&quot;s*&quot; (where &quot;*&quot; is the species index starting at 1)</pre
+        >
+      </td>
+    </tr>
+    <tr data-row-id="row-6" data-parent-id="row-2" class="collapsed-row">
+      <td class="key-cell">
+        <span class="indent" style="--depth: 3"></span>mass
+      </td>
+      <td>float</td>
+      <td>Mass of the species (in units of fiducial mass):</td>
+      <td><pre></pre></td>
+    </tr>
+    <tr data-row-id="row-7" data-parent-id="row-2" class="collapsed-row">
+      <td class="key-cell">
+        <span class="indent" style="--depth: 3"></span>maxnpart
+      </td>
+      <td>unsigned int: &gt; 0</td>
+      <td>Maximum number of particles per task:</td>
+      <td><pre></pre></td>
+    </tr>
+    <tr data-row-id="row-8" data-parent-id="row-2" class="collapsed-row">
+      <td class="key-cell">
+        <span class="indent" style="--depth: 3"></span>n_payloads
+      </td>
+      <td>unsigned short</td>
+      <td>
+        Number of additional (payload) variables for each particle of the given
+        species:
+      </td>
+      <td><pre>0</pre></td>
+    </tr>
+    <tr data-row-id="row-9" data-parent-id="row-2" class="collapsed-row">
+      <td class="key-cell">
+        <span class="indent" style="--depth: 3"></span>pusher
+      </td>
+      <td>string</td>
+      <td>Pusher algorithm for the species:</td>
+      <td>
+        <pre>
+&quot;Boris&quot; for massive and &quot;Photon&quot; for massless</pre
+        >
+      </td>
+    </tr>
+    <tr data-row-id="row-10">
+      <td class="key-cell">
+        <span class="indent" style="--depth: 0"></span
+        ><strong>▸ algorithms</strong>
+      </td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr data-row-id="row-11" data-parent-id="row-10" class="collapsed-row">
+      <td class="key-cell">
+        <span class="indent" style="--depth: 1"></span>current_filters
+      </td>
+      <td>unsigned short: &gt;= 0</td>
+      <td>Number of current smoothing passes:</td>
+      <td><pre>0</pre></td>
+    </tr>
+    <tr data-row-id="row-12" data-parent-id="row-10" class="collapsed-row">
+      <td class="key-cell">
+        <span class="indent" style="--depth: 1"></span><strong>▸ gca</strong>
+      </td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr data-row-id="row-13" data-parent-id="row-12" class="collapsed-row">
+      <td class="key-cell">
+        <span class="indent" style="--depth: 2"></span>e_ovr_b_max
+      </td>
+      <td>float: 0.0 &lt; ... &lt; 1.0</td>
+      <td>Maximum value for E/B allowed for GCA particles:</td>
+      <td><pre>0.9</pre></td>
+    </tr>
+    <tr data-row-id="row-14" data-parent-id="row-12" class="collapsed-row">
+      <td class="key-cell">
+        <span class="indent" style="--depth: 2"></span>larmor_max
+      </td>
+      <td>float</td>
+      <td>
+        Maximum Larmor radius allowed for GCA particles (in physical units):
+      </td>
+      <td><pre>0.0</pre></td>
+    </tr>
+    <tr data-row-id="row-15" data-parent-id="row-10" class="collapsed-row">
+      <td class="key-cell">
+        <span class="indent" style="--depth: 1"></span><strong>▸ gr</strong>
+      </td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr data-row-id="row-16" data-parent-id="row-15" class="collapsed-row">
+      <td class="key-cell">
+        <span class="indent" style="--depth: 2"></span>pusher_eps
+      </td>
+      <td>float: &gt; 0</td>
+      <td>Stepsize for numerical differentiation in GR pusher:</td>
+      <td><pre>1e-6</pre></td>
+    </tr>
+    <tr data-row-id="row-17" data-parent-id="row-15" class="collapsed-row">
+      <td class="key-cell">
+        <span class="indent" style="--depth: 2"></span>pusher_niter
+      </td>
+      <td>unsigned short: &gt; 0</td>
+      <td>Number of iterations for the Newton-Raphson method in GR pusher:</td>
+      <td><pre>10</pre></td>
+    </tr>
+    <tr data-row-id="row-18" data-parent-id="row-10" class="collapsed-row">
+      <td class="key-cell">
+        <span class="indent" style="--depth: 1"></span
+        ><strong>▸ synchrotron</strong>
+      </td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr data-row-id="row-19" data-parent-id="row-18" class="collapsed-row">
+      <td class="key-cell">
+        <span class="indent" style="--depth: 2"></span>gamma_rad
+      </td>
+      <td>float: &gt; 0</td>
+      <td>Radiation reaction limit gamma-factor for synchrotron:</td>
+      <td><pre></pre></td>
+    </tr>
+    <tr data-row-id="row-20" data-parent-id="row-10" class="collapsed-row">
+      <td class="key-cell">
+        <span class="indent" style="--depth: 1"></span
+        ><strong>▸ timestep</strong>
+      </td>
+      <td></td>
+      <td>Section with automatically inferred parameters.</td>
+      <td></td>
+    </tr>
+    <tr data-row-id="row-21" data-parent-id="row-20" class="collapsed-row">
+      <td class="key-cell">
+        <span class="indent" style="--depth: 2"></span>CFL
+      </td>
+      <td>float: 0.0 &lt; ... &lt; 1.0</td>
+      <td>Courant-Friedrichs-Lewy number:</td>
+      <td><pre>0.95</pre></td>
+    </tr>
+    <tr data-row-id="row-22" data-parent-id="row-20" class="collapsed-row">
+      <td class="key-cell">
+        <span class="indent" style="--depth: 2"></span>correction
+      </td>
+      <td>float: ~1</td>
+      <td>Correction factor for the speed of light used in field solver:</td>
+      <td><pre>1.0</pre></td>
+    </tr>
+    <tr data-parent-id="row-20" class="collapsed-row">
+      <td class="key-cell">
+        <span class="indent" style="--depth: 2"></span>dt [= CFL * dx0]
+      </td>
+      <td>float</td>
+      <td>timestep duration</td>
+      <td><em>(inferred)</em></td>
+    </tr>
+    <tr data-row-id="row-23" data-parent-id="row-10" class="collapsed-row">
+      <td class="key-cell">
+        <span class="indent" style="--depth: 1"></span
+        ><strong>▸ toggles</strong>
+      </td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr data-row-id="row-24" data-parent-id="row-23" class="collapsed-row">
+      <td class="key-cell">
+        <span class="indent" style="--depth: 2"></span>deposit
+      </td>
+      <td>bool</td>
+      <td>Toggle for the current deposition:</td>
+      <td><pre>true</pre></td>
+    </tr>
+    <tr data-row-id="row-25" data-parent-id="row-23" class="collapsed-row">
+      <td class="key-cell">
+        <span class="indent" style="--depth: 2"></span>fieldsolver
+      </td>
+      <td>bool</td>
+      <td>Toggle for the field solver:</td>
+      <td><pre>true</pre></td>
+    </tr>
+    <tr data-row-id="row-26">
+      <td class="key-cell">
+        <span class="indent" style="--depth: 0"></span
+        ><strong>▸ checkpoint</strong>
+      </td>
+      <td></td>
+      <td>Section with automatically inferred parameters.</td>
+      <td></td>
+    </tr>
+    <tr data-row-id="row-27" data-parent-id="row-26" class="collapsed-row">
+      <td class="key-cell">
+        <span class="indent" style="--depth: 1"></span>interval
+      </td>
+      <td>unsigned int: &gt; 0</td>
+      <td>Number of timesteps between checkpoints:</td>
+      <td><pre>1000</pre></td>
+    </tr>
+    <tr data-row-id="row-28" data-parent-id="row-26" class="collapsed-row">
+      <td class="key-cell">
+        <span class="indent" style="--depth: 1"></span>interval_time
+      </td>
+      <td>float: &gt; 0</td>
+      <td>Physical (code) time interval between checkpoints:</td>
+      <td><pre>-1.0 (disabled)</pre></td>
+    </tr>
+    <tr data-row-id="row-29" data-parent-id="row-26" class="collapsed-row">
+      <td class="key-cell">
+        <span class="indent" style="--depth: 1"></span>keep
+      </td>
+      <td>int</td>
+      <td>Number of checkpoints to keep:</td>
+      <td><pre>2</pre></td>
+    </tr>
+    <tr data-row-id="row-30" data-parent-id="row-26" class="collapsed-row">
+      <td class="key-cell">
+        <span class="indent" style="--depth: 1"></span>read_path
+      </td>
+      <td>string</td>
+      <td>Parent directory to use when resuming from a checkpoint</td>
+      <td><pre>inherits from `write_path`</pre></td>
+    </tr>
+    <tr data-row-id="row-31" data-parent-id="row-26" class="collapsed-row">
+      <td class="key-cell">
+        <span class="indent" style="--depth: 1"></span>walltime
+      </td>
+      <td>string</td>
+      <td>Write a checkpoint once after a fixed walltime</td>
+      <td><pre>&quot;00:00:00&quot; (disabled)</pre></td>
+    </tr>
+    <tr data-row-id="row-32" data-parent-id="row-26" class="collapsed-row">
+      <td class="key-cell">
+        <span class="indent" style="--depth: 1"></span>write_path
+      </td>
+      <td>string</td>
+      <td>Parent directory to write checkpoints to</td>
+      <td><pre>&quot;&lt;simname&gt;.ckpt&quot;</pre></td>
+    </tr>
+    <tr data-parent-id="row-26" class="collapsed-row">
+      <td class="key-cell">
+        <span class="indent" style="--depth: 1"></span>is_resuming
+      </td>
+      <td>bool</td>
+      <td>
+        Whether the simulation is resuming from a checkpoint
+        <em>from command-line flag</em>
+      </td>
+      <td><em>(inferred)</em></td>
+    </tr>
+    <tr data-parent-id="row-26" class="collapsed-row">
+      <td class="key-cell">
+        <span class="indent" style="--depth: 1"></span>start_step
+      </td>
+      <td>unsigned int</td>
+      <td>
+        Timestep of the checkpoint used to resume
+        <em>from automatically determined during restart</em>
+      </td>
+      <td><em>(inferred)</em></td>
+    </tr>
+    <tr data-parent-id="row-26" class="collapsed-row">
+      <td class="key-cell">
+        <span class="indent" style="--depth: 1"></span>start_time
+      </td>
+      <td>float</td>
+      <td>
+        Time of the checkpoint used to resume
+        <em>from automatically determined during restart</em>
+      </td>
+      <td><em>(inferred)</em></td>
+    </tr>
+    <tr data-row-id="row-33">
+      <td class="key-cell">
+        <span class="indent" style="--depth: 0"></span
+        ><strong>▸ diagnostics</strong>
+      </td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr data-row-id="row-34" data-parent-id="row-33" class="collapsed-row">
+      <td class="key-cell">
+        <span class="indent" style="--depth: 1"></span>blocking_timers
+      </td>
+      <td>bool</td>
+      <td>Blocking timers between successive algorithms:</td>
+      <td><pre>false</pre></td>
+    </tr>
+    <tr data-row-id="row-35" data-parent-id="row-33" class="collapsed-row">
+      <td class="key-cell">
+        <span class="indent" style="--depth: 1"></span>colored_stdout
+      </td>
+      <td>bool</td>
+      <td>Enable colored stdout</td>
+      <td><pre>true</pre></td>
+    </tr>
+    <tr data-row-id="row-36" data-parent-id="row-33" class="collapsed-row">
+      <td class="key-cell">
+        <span class="indent" style="--depth: 1"></span>interval
+      </td>
+      <td>int: &gt; 0</td>
+      <td>Number of timesteps between diagnostic logs:</td>
+      <td><pre>1</pre></td>
+    </tr>
+    <tr data-row-id="row-37" data-parent-id="row-33" class="collapsed-row">
+      <td class="key-cell">
+        <span class="indent" style="--depth: 1"></span>log_level
+      </td>
+      <td>string</td>
+      <td>Specify the log level:</td>
+      <td><pre>&quot;VERBOSE&quot;</pre></td>
+    </tr>
+    <tr data-row-id="row-38">
+      <td class="key-cell">
+        <span class="indent" style="--depth: 0"></span><strong>▸ grid</strong>
+      </td>
+      <td></td>
+      <td>Section with automatically inferred parameters.</td>
+      <td></td>
+    </tr>
+    <tr data-row-id="row-39" data-parent-id="row-38" class="collapsed-row">
+      <td class="key-cell">
+        <span class="indent" style="--depth: 1"></span
+        ><strong>▸ boundaries</strong>
+      </td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr data-row-id="row-40" data-parent-id="row-39" class="collapsed-row">
+      <td class="key-cell">
+        <span class="indent" style="--depth: 2"></span><strong>▸ absorb</strong>
+      </td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr data-row-id="row-41" data-parent-id="row-40" class="collapsed-row">
+      <td class="key-cell">
+        <span class="indent" style="--depth: 3"></span>ds
+      </td>
+      <td>float</td>
+      <td>
+        Size of the absorption layer for particles in physical (code) units:
+      </td>
+      <td><pre>1% of the domain size (in shortest dimension)</pre></td>
+    </tr>
+    <tr data-row-id="row-42" data-parent-id="row-39" class="collapsed-row">
+      <td class="key-cell">
+        <span class="indent" style="--depth: 2"></span
+        ><strong>▸ atmosphere</strong>
+      </td>
+      <td></td>
+      <td>Section with automatically inferred parameters.</td>
+      <td></td>
+    </tr>
+    <tr data-row-id="row-43" data-parent-id="row-42" class="collapsed-row">
+      <td class="key-cell">
+        <span class="indent" style="--depth: 3"></span>density
+      </td>
+      <td>float</td>
+      <td>Peak number density of the atmosphere at base in units of n0</td>
+      <td><pre></pre></td>
+    </tr>
+    <tr data-row-id="row-44" data-parent-id="row-42" class="collapsed-row">
+      <td class="key-cell">
+        <span class="indent" style="--depth: 3"></span>ds
+      </td>
+      <td>float</td>
+      <td>
+        Distance from the edge to which the gravity is imposed in physical units
+      </td>
+      <td><pre>0.0</pre></td>
+    </tr>
+    <tr data-row-id="row-45" data-parent-id="row-42" class="collapsed-row">
+      <td class="key-cell">
+        <span class="indent" style="--depth: 3"></span>height
+      </td>
+      <td>float</td>
+      <td>Pressure scale-height in physical units</td>
+      <td><pre></pre></td>
+    </tr>
+    <tr data-row-id="row-46" data-parent-id="row-42" class="collapsed-row">
+      <td class="key-cell">
+        <span class="indent" style="--depth: 3"></span>species
+      </td>
+      <td>array of ints of size 2</td>
+      <td>Species indices of particles that populate the atmosphere</td>
+      <td><pre></pre></td>
+    </tr>
+    <tr data-row-id="row-47" data-parent-id="row-42" class="collapsed-row">
+      <td class="key-cell">
+        <span class="indent" style="--depth: 3"></span>temperature
+      </td>
+      <td>float</td>
+      <td>Temperature of the atmosphere in units of m0 c^2</td>
+      <td><pre></pre></td>
+    </tr>
+    <tr data-parent-id="row-42" class="collapsed-row">
+      <td class="key-cell">
+        <span class="indent" style="--depth: 3"></span>g [= temperature /
+        height]
+      </td>
+      <td>float</td>
+      <td>
+        Acceleration due to imposed gravity
+        <em
+          >from `grid.boundaries.atmosphere.temperature`,
+          `grid.boundaries.atmosphere.height`</em
+        >
+      </td>
+      <td><em>(inferred)</em></td>
+    </tr>
+    <tr data-row-id="row-48" data-parent-id="row-39" class="collapsed-row">
+      <td class="key-cell">
+        <span class="indent" style="--depth: 2"></span>fields
+      </td>
+      <td>1/2/3-size array of string tuples, each of size 1 or 2</td>
+      <td>Boundary conditions for fields:</td>
+      <td><pre></pre></td>
+    </tr>
+    <tr data-row-id="row-49" data-parent-id="row-39" class="collapsed-row">
+      <td class="key-cell">
+        <span class="indent" style="--depth: 2"></span><strong>▸ match</strong>
+      </td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr data-row-id="row-50" data-parent-id="row-49" class="collapsed-row">
+      <td class="key-cell">
+        <span class="indent" style="--depth: 3"></span>ds
+      </td>
+      <td>float or array of tuples</td>
+      <td>
+        Size of the matching layer in each direction for fields in physical
+        (code) units:
+      </td>
+      <td><pre>1% of the domain size (in shortest dimension)</pre></td>
+    </tr>
+    <tr data-row-id="row-51" data-parent-id="row-39" class="collapsed-row">
+      <td class="key-cell">
+        <span class="indent" style="--depth: 2"></span>particles
+      </td>
+      <td>1/2/3-size array of string tuples, each of size 1 or 2</td>
+      <td>Boundary conditions for fields:</td>
+      <td><pre></pre></td>
+    </tr>
+    <tr data-row-id="row-52" data-parent-id="row-38" class="collapsed-row">
+      <td class="key-cell">
+        <span class="indent" style="--depth: 1"></span>extent
+      </td>
+      <td>1/2/3-size array of float tuples, each of size 2</td>
+      <td>Physical extent of the grid:</td>
+      <td><pre></pre></td>
+    </tr>
+    <tr data-row-id="row-53" data-parent-id="row-38" class="collapsed-row">
+      <td class="key-cell">
+        <span class="indent" style="--depth: 1"></span><strong>▸ metric</strong>
+      </td>
+      <td></td>
+      <td>Section with automatically inferred parameters.</td>
+      <td></td>
+    </tr>
+    <tr data-row-id="row-54" data-parent-id="row-53" class="collapsed-row">
+      <td class="key-cell">
+        <span class="indent" style="--depth: 2"></span>ks_a
+      </td>
+      <td>float: 0 &lt; ... &lt; 1</td>
+      <td>Spin parameter for the Kerr Schild metric:</td>
+      <td><pre>0.0</pre></td>
+    </tr>
+    <tr data-row-id="row-55" data-parent-id="row-53" class="collapsed-row">
+      <td class="key-cell">
+        <span class="indent" style="--depth: 2"></span>metric
+      </td>
+      <td>string</td>
+      <td>Metric on the grid</td>
+      <td><pre></pre></td>
+    </tr>
+    <tr data-row-id="row-56" data-parent-id="row-53" class="collapsed-row">
+      <td class="key-cell">
+        <span class="indent" style="--depth: 2"></span>qsph_h
+      </td>
+      <td>float: -1 &lt; ... &lt; 1</td>
+      <td>
+        h paramter for the QSpherical metric, th = x2 + 2*h x2
+        (pi-2*x2)*(pi-x2)/pi^2:
+      </td>
+      <td><pre>0.0 (e.g., x2 = th)</pre></td>
+    </tr>
+    <tr data-row-id="row-57" data-parent-id="row-53" class="collapsed-row">
+      <td class="key-cell">
+        <span class="indent" style="--depth: 2"></span>qsph_r0
+      </td>
+      <td>float: -inf &lt; ... &lt; rmin</td>
+      <td>r0 paramter for the QSpherical metric, x1 = log(r-r0):</td>
+      <td><pre>0.0 (e.g., x1 = log(r))</pre></td>
+    </tr>
+    <tr data-parent-id="row-53" class="collapsed-row">
+      <td class="key-cell">
+        <span class="indent" style="--depth: 2"></span>coord
+      </td>
+      <td>string</td>
+      <td>Coordinate system on the grid <em>from `grid.metric.metric`</em></td>
+      <td><em>(inferred)</em></td>
+    </tr>
+    <tr data-parent-id="row-53" class="collapsed-row">
+      <td class="key-cell">
+        <span class="indent" style="--depth: 2"></span>ks_rh
+      </td>
+      <td>float</td>
+      <td>
+        Size of the horizon for GR Kerr Schild <em>from `grid.metric.ks_a`</em>
+      </td>
+      <td><em>(inferred)</em></td>
+    </tr>
+    <tr data-parent-id="row-53" class="collapsed-row">
+      <td class="key-cell">
+        <span class="indent" style="--depth: 2"></span>params
+      </td>
+      <td>map&lt;string, float&gt;</td>
+      <td>
+        A map of all metric-specific parameters together (for easy access)
+        <em>from `grid.metric`</em>
+      </td>
+      <td><em>(inferred)</em></td>
+    </tr>
+    <tr data-row-id="row-58" data-parent-id="row-38" class="collapsed-row">
+      <td class="key-cell">
+        <span class="indent" style="--depth: 1"></span>resolution
+      </td>
+      <td>array of uint of size 1, 2 or 3</td>
+      <td>Spatial resolution of the grid:</td>
+      <td><pre></pre></td>
+    </tr>
+    <tr data-parent-id="row-38" class="collapsed-row">
+      <td class="key-cell">
+        <span class="indent" style="--depth: 1"></span>dim
+      </td>
+      <td>short (1, 2, 3)</td>
+      <td>Dimensionality of the grid <em>from `grid.resolution`</em></td>
+      <td><em>(inferred)</em></td>
+    </tr>
+    <tr data-row-id="row-59">
+      <td class="key-cell">
+        <span class="indent" style="--depth: 0"></span><strong>▸ output</strong>
+      </td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr data-row-id="row-60" data-parent-id="row-59" class="collapsed-row">
+      <td class="key-cell">
+        <span class="indent" style="--depth: 1"></span><strong>▸ debug</strong>
+      </td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr data-row-id="row-61" data-parent-id="row-60" class="collapsed-row">
+      <td class="key-cell">
+        <span class="indent" style="--depth: 2"></span>as_is
+      </td>
+      <td>bool</td>
+      <td>Output fields &quot;as is&quot; without conversions:</td>
+      <td><pre>false</pre></td>
+    </tr>
+    <tr data-row-id="row-62" data-parent-id="row-60" class="collapsed-row">
+      <td class="key-cell">
+        <span class="indent" style="--depth: 2"></span>ghosts
+      </td>
+      <td>bool</td>
+      <td>Output fields with values in ghost cells:</td>
+      <td><pre>false</pre></td>
+    </tr>
+    <tr data-row-id="row-63" data-parent-id="row-59" class="collapsed-row">
+      <td class="key-cell">
+        <span class="indent" style="--depth: 1"></span><strong>▸ fields</strong>
+      </td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr data-row-id="row-64" data-parent-id="row-63" class="collapsed-row">
+      <td class="key-cell">
+        <span class="indent" style="--depth: 2"></span>custom
+      </td>
+      <td>array of strings</td>
+      <td>Custom (user-defined) field quantities:</td>
+      <td><pre>[]</pre></td>
+    </tr>
+    <tr data-row-id="row-65" data-parent-id="row-63" class="collapsed-row">
+      <td class="key-cell">
+        <span class="indent" style="--depth: 2"></span>downsampling
+      </td>
+      <td>array of unsigned int &gt;= 1</td>
+      <td>Downsample factor for the output of fields:</td>
+      <td><pre>[1, 1, 1]</pre></td>
+    </tr>
+    <tr data-row-id="row-66" data-parent-id="row-63" class="collapsed-row">
+      <td class="key-cell">
+        <span class="indent" style="--depth: 2"></span>enable
+      </td>
+      <td>bool</td>
+      <td>Toggle for the field output:</td>
+      <td><pre>true</pre></td>
+    </tr>
+    <tr data-row-id="row-67" data-parent-id="row-63" class="collapsed-row">
+      <td class="key-cell">
+        <span class="indent" style="--depth: 2"></span>interval
+      </td>
+      <td>unsigned int</td>
+      <td>
+        Number of timesteps between field outputs (overrides `output.interval`):
+      </td>
+      <td><pre>0 (use `output.interval`)</pre></td>
+    </tr>
+    <tr data-row-id="row-68" data-parent-id="row-63" class="collapsed-row">
+      <td class="key-cell">
+        <span class="indent" style="--depth: 2"></span>interval_time
+      </td>
+      <td>float</td>
+      <td>
+        Physical (code) time interval between field outputs (overrides
+        `output.interval_time`):
+      </td>
+      <td><pre>-1.0 (use `output.interval_time`)</pre></td>
+    </tr>
+    <tr data-row-id="row-69" data-parent-id="row-63" class="collapsed-row">
+      <td class="key-cell">
+        <span class="indent" style="--depth: 2"></span>mom_smooth
+      </td>
+      <td>unsigned short</td>
+      <td>
+        Smoothing window for the output of moments (e.g., &quot;Rho&quot;,
+        &quot;Charge&quot;, &quot;T&quot;, etc.):
+      </td>
+      <td><pre>0</pre></td>
+    </tr>
+    <tr data-row-id="row-70" data-parent-id="row-63" class="collapsed-row">
+      <td class="key-cell">
+        <span class="indent" style="--depth: 2"></span>quantities
+      </td>
+      <td>array of strings</td>
+      <td>Field quantities to output:</td>
+      <td><pre>[]</pre></td>
+    </tr>
+    <tr data-row-id="row-71" data-parent-id="row-59" class="collapsed-row">
+      <td class="key-cell">
+        <span class="indent" style="--depth: 1"></span>format
+      </td>
+      <td>string</td>
+      <td>Output format:</td>
+      <td><pre>&quot;hdf5&quot;</pre></td>
+    </tr>
+    <tr data-row-id="row-72" data-parent-id="row-59" class="collapsed-row">
+      <td class="key-cell">
+        <span class="indent" style="--depth: 1"></span>interval
+      </td>
+      <td>unsigned int: &gt; 0</td>
+      <td>
+        Number of timesteps between all outputs (overriden by specific output
+        interval below):
+      </td>
+      <td><pre>1</pre></td>
+    </tr>
+    <tr data-row-id="row-73" data-parent-id="row-59" class="collapsed-row">
+      <td class="key-cell">
+        <span class="indent" style="--depth: 1"></span>interval_time
+      </td>
+      <td>float</td>
+      <td>
+        Physical (code) time interval between all outputs (overriden by specific
+        output intervals below):
+      </td>
+      <td><pre>-1.0 (disabled)</pre></td>
+    </tr>
+    <tr data-row-id="row-74" data-parent-id="row-59" class="collapsed-row">
+      <td class="key-cell">
+        <span class="indent" style="--depth: 1"></span
+        ><strong>▸ particles</strong>
+      </td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr data-row-id="row-75" data-parent-id="row-74" class="collapsed-row">
+      <td class="key-cell">
+        <span class="indent" style="--depth: 2"></span>enable
+      </td>
+      <td>bool</td>
+      <td>Toggle for the particles output:</td>
+      <td><pre>true</pre></td>
+    </tr>
+    <tr data-row-id="row-76" data-parent-id="row-74" class="collapsed-row">
+      <td class="key-cell">
+        <span class="indent" style="--depth: 2"></span>interval
+      </td>
+      <td>unsigned int: &gt; 0</td>
+      <td>
+        Number of timesteps between particle outputs (overrides
+        `output.interval`):
+      </td>
+      <td><pre>0 (use `output.interval`)</pre></td>
+    </tr>
+    <tr data-row-id="row-77" data-parent-id="row-74" class="collapsed-row">
+      <td class="key-cell">
+        <span class="indent" style="--depth: 2"></span>interval_time
+      </td>
+      <td>float</td>
+      <td>
+        Physical (code) time interval between field outputs (overrides
+        `output.interval_time`):
+      </td>
+      <td><pre>-1.0 (use `output.interval_time`)</pre></td>
+    </tr>
+    <tr data-row-id="row-78" data-parent-id="row-74" class="collapsed-row">
+      <td class="key-cell">
+        <span class="indent" style="--depth: 2"></span>species
+      </td>
+      <td>array of ints</td>
+      <td>Particle species indices to output:</td>
+      <td><pre>[] = all species</pre></td>
+    </tr>
+    <tr data-row-id="row-79" data-parent-id="row-74" class="collapsed-row">
+      <td class="key-cell">
+        <span class="indent" style="--depth: 2"></span>stride
+      </td>
+      <td>unsigned int: &gt; 1</td>
+      <td>Stride for the output of particles:</td>
+      <td><pre>100</pre></td>
+    </tr>
+    <tr data-row-id="row-80" data-parent-id="row-59" class="collapsed-row">
+      <td class="key-cell">
+        <span class="indent" style="--depth: 1"></span>separate_files
+      </td>
+      <td>bool</td>
+      <td>Whether to output each timestep into separate files:</td>
+      <td><pre>true</pre></td>
+    </tr>
+    <tr data-row-id="row-81" data-parent-id="row-59" class="collapsed-row">
+      <td class="key-cell">
+        <span class="indent" style="--depth: 1"></span
+        ><strong>▸ spectra</strong>
+      </td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr data-row-id="row-82" data-parent-id="row-81" class="collapsed-row">
+      <td class="key-cell">
+        <span class="indent" style="--depth: 2"></span>e_max
+      </td>
+      <td>float</td>
+      <td>Maximum energy for the spectra output:</td>
+      <td><pre>1e3</pre></td>
+    </tr>
+    <tr data-row-id="row-83" data-parent-id="row-81" class="collapsed-row">
+      <td class="key-cell">
+        <span class="indent" style="--depth: 2"></span>e_min
+      </td>
+      <td>float</td>
+      <td>Minimum energy for the spectra output:</td>
+      <td><pre>1e-3</pre></td>
+    </tr>
+    <tr data-row-id="row-84" data-parent-id="row-81" class="collapsed-row">
+      <td class="key-cell">
+        <span class="indent" style="--depth: 2"></span>enable
+      </td>
+      <td>bool</td>
+      <td>Toggle for the spectra output:</td>
+      <td><pre>true</pre></td>
+    </tr>
+    <tr data-row-id="row-85" data-parent-id="row-81" class="collapsed-row">
+      <td class="key-cell">
+        <span class="indent" style="--depth: 2"></span>interval
+      </td>
+      <td>unsigned int: &gt; 0</td>
+      <td>
+        Number of timesteps between spectra outputs (overrides
+        `output.interval`):
+      </td>
+      <td><pre>0 (use `output.interval`)</pre></td>
+    </tr>
+    <tr data-row-id="row-86" data-parent-id="row-81" class="collapsed-row">
+      <td class="key-cell">
+        <span class="indent" style="--depth: 2"></span>interval_time
+      </td>
+      <td>float</td>
+      <td>
+        Physical (code) time interval between spectra outputs (overrides
+        `output.interval_time`):
+      </td>
+      <td><pre>-1.0 (use `output.interval_time`)</pre></td>
+    </tr>
+    <tr data-row-id="row-87" data-parent-id="row-81" class="collapsed-row">
+      <td class="key-cell">
+        <span class="indent" style="--depth: 2"></span>log_bins
+      </td>
+      <td>bool</td>
+      <td>Whether to use logarithmic bins</td>
+      <td><pre>true</pre></td>
+    </tr>
+    <tr data-row-id="row-88" data-parent-id="row-81" class="collapsed-row">
+      <td class="key-cell">
+        <span class="indent" style="--depth: 2"></span>n_bins
+      </td>
+      <td>unsigned int: &gt; 0</td>
+      <td>Number of bins for the spectra output:</td>
+      <td><pre>200</pre></td>
+    </tr>
+    <tr data-row-id="row-89" data-parent-id="row-59" class="collapsed-row">
+      <td class="key-cell">
+        <span class="indent" style="--depth: 1"></span><strong>▸ stats</strong>
+      </td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr data-row-id="row-90" data-parent-id="row-89" class="collapsed-row">
+      <td class="key-cell">
+        <span class="indent" style="--depth: 2"></span>custom
+      </td>
+      <td>array of strings</td>
+      <td>Custom (user-defined) stats:</td>
+      <td><pre>[]</pre></td>
+    </tr>
+    <tr data-row-id="row-91" data-parent-id="row-89" class="collapsed-row">
+      <td class="key-cell">
+        <span class="indent" style="--depth: 2"></span>enable
+      </td>
+      <td>bool</td>
+      <td>Toggle for the stats output:</td>
+      <td><pre>true</pre></td>
+    </tr>
+    <tr data-row-id="row-92" data-parent-id="row-89" class="collapsed-row">
+      <td class="key-cell">
+        <span class="indent" style="--depth: 2"></span>interval
+      </td>
+      <td>unsigned int: &gt; 0</td>
+      <td>
+        Number of timesteps between stat outputs (overriden if
+        `output.stats.interval_time != -1`):
+      </td>
+      <td><pre>100</pre></td>
+    </tr>
+    <tr data-row-id="row-93" data-parent-id="row-89" class="collapsed-row">
+      <td class="key-cell">
+        <span class="indent" style="--depth: 2"></span>interval_time
+      </td>
+      <td>float</td>
+      <td>Physical (code) time interval between stat outputs:</td>
+      <td><pre>-1.0 (use `output.stats.interval_time`)</pre></td>
+    </tr>
+    <tr data-row-id="row-94" data-parent-id="row-89" class="collapsed-row">
+      <td class="key-cell">
+        <span class="indent" style="--depth: 2"></span>quantities
+      </td>
+      <td>array of strings</td>
+      <td>Field quantities to output:</td>
+      <td>
+        <pre>
+[&quot;B^2&quot;, &quot;E^2&quot;, &quot;ExB&quot;, &quot;Rho&quot;, &quot;T00&quot;]</pre
+        >
+      </td>
+    </tr>
+    <tr data-row-id="row-95">
+      <td class="key-cell">
+        <span class="indent" style="--depth: 0"></span
+        ><strong>▸ particles</strong>
+      </td>
+      <td></td>
+      <td>Section with automatically inferred parameters.</td>
+      <td></td>
+    </tr>
+    <tr data-row-id="row-96" data-parent-id="row-95" class="collapsed-row">
+      <td class="key-cell">
+        <span class="indent" style="--depth: 1"></span>clear_interval
+      </td>
+      <td>unsigned int</td>
+      <td>Timesteps between particle re-sorting (removing dead particles):</td>
+      <td><pre>100</pre></td>
+    </tr>
+    <tr data-row-id="row-97" data-parent-id="row-95" class="collapsed-row">
+      <td class="key-cell">
+        <span class="indent" style="--depth: 1"></span>ppc0
+      </td>
+      <td>float: &gt; 0</td>
+      <td>Fiducial number of particles per cell:</td>
+      <td><pre></pre></td>
+    </tr>
+    <tr data-row-id="row-98" data-parent-id="row-95" class="collapsed-row">
+      <td class="key-cell">
+        <span class="indent" style="--depth: 1"></span>use_weights
+      </td>
+      <td>bool</td>
+      <td>Toggle for using particle weights:</td>
+      <td><pre>false</pre></td>
+    </tr>
+    <tr data-parent-id="row-95" class="collapsed-row">
+      <td class="key-cell">
+        <span class="indent" style="--depth: 1"></span>nspec
+      </td>
+      <td>unsigned int</td>
+      <td>Number of particle species <em>from `particles.species`</em></td>
+      <td><em>(inferred)</em></td>
+    </tr>
+    <tr data-parent-id="row-95" class="collapsed-row">
+      <td class="key-cell">
+        <span class="indent" style="--depth: 1"></span>species
+      </td>
+      <td>vector of ParticleSpecies</td>
+      <td>
+        An object containing information about all the species
+        <em>from `particles.species`</em>
+      </td>
+      <td><em>(inferred)</em></td>
+    </tr>
+    <tr data-row-id="row-99">
+      <td class="key-cell">
+        <span class="indent" style="--depth: 0"></span><strong>▸ scales</strong>
+      </td>
+      <td></td>
+      <td>Section with automatically inferred parameters.</td>
+      <td></td>
+    </tr>
+    <tr data-row-id="row-100" data-parent-id="row-99" class="collapsed-row">
+      <td class="key-cell">
+        <span class="indent" style="--depth: 1"></span>larmor0
+      </td>
+      <td>float: &gt; 0.0</td>
+      <td>Fiducial larmor radius:</td>
+      <td><pre></pre></td>
+    </tr>
+    <tr data-row-id="row-101" data-parent-id="row-99" class="collapsed-row">
+      <td class="key-cell">
+        <span class="indent" style="--depth: 1"></span>skindepth0
+      </td>
+      <td>float: &gt; 0.0</td>
+      <td>Fiducial plasma skin depth:</td>
+      <td><pre></pre></td>
+    </tr>
+    <tr data-parent-id="row-99" class="collapsed-row">
+      <td class="key-cell">
+        <span class="indent" style="--depth: 1"></span>B0 [= 1 / larmor0]
+      </td>
+      <td>float</td>
+      <td>Fiducial magnetic field <em>from `scales.larmor0`</em></td>
+      <td><em>(inferred)</em></td>
+    </tr>
+    <tr data-parent-id="row-99" class="collapsed-row">
+      <td class="key-cell">
+        <span class="indent" style="--depth: 1"></span>V0
+      </td>
+      <td>float</td>
+      <td>fiducial elementary volume <em>from `grid`</em></td>
+      <td><em>(inferred)</em></td>
+    </tr>
+    <tr data-parent-id="row-99" class="collapsed-row">
+      <td class="key-cell">
+        <span class="indent" style="--depth: 1"></span>dx0
+      </td>
+      <td>float</td>
+      <td>fiducial minimum size of the cell <em>from `grid`</em></td>
+      <td><em>(inferred)</em></td>
+    </tr>
+    <tr data-parent-id="row-99" class="collapsed-row">
+      <td class="key-cell">
+        <span class="indent" style="--depth: 1"></span>n0 [= ppc0 / V0]
+      </td>
+      <td>float</td>
+      <td>Fiducial number density <em>from `particles.ppc0`, `grid`</em></td>
+      <td><em>(inferred)</em></td>
+    </tr>
+    <tr data-parent-id="row-99" class="collapsed-row">
+      <td class="key-cell">
+        <span class="indent" style="--depth: 1"></span>omegaB0 [= 1 / larmor0]
+      </td>
+      <td>float</td>
+      <td>Fiducial cyclotron frequency <em>from `scales.larmor0`</em></td>
+      <td><em>(inferred)</em></td>
+    </tr>
+    <tr data-parent-id="row-99" class="collapsed-row">
+      <td class="key-cell">
+        <span class="indent" style="--depth: 1"></span>q0 [= 1 / (n0 *
+        skindepth0^2)]
+      </td>
+      <td>float</td>
+      <td>
+        Fiducial elementary charge
+        <em>from `scales.skindepth0`, `scales.n0`</em>
+      </td>
+      <td><em>(inferred)</em></td>
+    </tr>
+    <tr data-parent-id="row-99" class="collapsed-row">
+      <td class="key-cell">
+        <span class="indent" style="--depth: 1"></span>sigma0 [= (skindepth0 /
+        larmor0)^2]
+      </td>
+      <td>float</td>
+      <td>
+        Fiducial magnetization parameter
+        <em>from `scales.larmor0`, `scales.skindepth0`</em>
+      </td>
+      <td><em>(inferred)</em></td>
+    </tr>
+    <tr data-row-id="row-102">
+      <td class="key-cell">
+        <span class="indent" style="--depth: 0"></span
+        ><strong>▸ simulation</strong>
+      </td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr data-row-id="row-103" data-parent-id="row-102" class="collapsed-row">
+      <td class="key-cell">
+        <span class="indent" style="--depth: 1"></span><strong>▸ domain</strong>
+      </td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr data-row-id="row-104" data-parent-id="row-103" class="collapsed-row">
+      <td class="key-cell">
+        <span class="indent" style="--depth: 2"></span>decomposition
+      </td>
+      <td>array of int of size 1, 2 or 3</td>
+      <td>
+        Decomposition of the domain (e.g., for MPI) in each of the directions
+      </td>
+      <td><pre>[-1, -1, -1]</pre></td>
+    </tr>
+    <tr data-row-id="row-105" data-parent-id="row-103" class="collapsed-row">
+      <td class="key-cell">
+        <span class="indent" style="--depth: 2"></span>number
+      </td>
+      <td>int</td>
+      <td>Number of domains</td>
+      <td>
+        <pre>
+1 (no MPI)
+MPI_SIZE (MPI)</pre
+        >
+      </td>
+    </tr>
+    <tr data-row-id="row-106" data-parent-id="row-102" class="collapsed-row">
+      <td class="key-cell">
+        <span class="indent" style="--depth: 1"></span>engine
+      </td>
+      <td>string</td>
+      <td>Simulation engine to use</td>
+      <td><pre></pre></td>
+    </tr>
+    <tr data-row-id="row-107" data-parent-id="row-102" class="collapsed-row">
+      <td class="key-cell">
+        <span class="indent" style="--depth: 1"></span>name
+      </td>
+      <td>string</td>
+      <td>Name of the simulation:</td>
+      <td><pre></pre></td>
+    </tr>
+    <tr data-row-id="row-108" data-parent-id="row-102" class="collapsed-row">
+      <td class="key-cell">
+        <span class="indent" style="--depth: 1"></span>runtime
+      </td>
+      <td>float: &gt; 0</td>
+      <td>Max runtime in physical (code) units:</td>
+      <td><pre></pre></td>
+    </tr>
+  </tbody>
+</table>
