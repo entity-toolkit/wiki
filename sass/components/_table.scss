@@ -1,4 +1,14 @@
 @use "../colors" as colors;
+@use "../fonts" as fonts;
+@use "sass:color";
+
+@function repeat($character, $n) {
+  $c: "";
+  @for $i from 1 through $n {
+    $c: $c + $character;
+  }
+  @return $c;
+}
 
 $groups: (
   "tr-gr1": colors.$col-light-1,
@@ -32,59 +42,212 @@ $groups: (
   }
 }
 
-.input-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 0.9em;
+.md-typeset #input-table:not([class]) {
+  display: table;
+}
 
-  th,
-  td {
-    text-align: left;
-    padding: 8px 12px;
-    vertical-align: top;
+.table-container {
+  & .md-typeset__table {
+    min-width: 100%;
   }
 
-  thead th {
-    font-weight: 600;
-    position: sticky;
-    top: 0;
+  #input-table {
+    pre {
+      display: inline;
+    }
+
+    tr td {
+      border: none;
+      padding: 0.4em 0.4em;
+    }
+    td > span {
+      display: block ruby;
+    }
+
+    @include colors.light-theme {
+      tr.inferred * {
+        color: color.adjust(black, $alpha: -0.5);
+      }
+    }
+
+    @include colors.dark-theme {
+      tr.inferred * {
+        color: color.adjust(white, $alpha: -0.75);
+      }
+    }
+
+    @include colors.light-theme {
+      tr.required td:first-child * {
+        color: color.adjust(red, $saturation: -50%);
+      }
+    }
+
+    @include colors.dark-theme {
+      tr.required td:first-child * {
+        color: color.adjust(red, $saturation: -50%, $lightness: +20%);
+      }
+    }
+
+    $max-depth: 10;
+
+    tr[data-depth] {
+      @for $i from 1 through $max-depth {
+        &[data-depth="#{$i}"] {
+          td:first-child {
+            & > pre {
+              margin-left: $i * 15px;
+            }
+          }
+        }
+      }
+    }
+
+    tr.category {
+      margin-top: 20px !important;
+      @for $i from 0 through $max-depth {
+        $border-alpha-adjust: 0.2 * ($i + 1);
+        $alpha-adjust: 0.1 * ($i + 1);
+        &[data-depth="#{$i}"] {
+          td {
+            border-bottom: 1px
+              dashed
+              color.adjust(#80808000, $alpha: $border-alpha-adjust);
+            border-top: 2px
+              solid
+              color.adjust(#80808000, $alpha: $border-alpha-adjust);
+            background: color.adjust(#80808000, $alpha: $alpha-adjust);
+          }
+        }
+      }
+      & td:first-child {
+        span:before {
+          content: "{";
+          margin-right: 0.5em;
+          font-size: 1.2em;
+        }
+        span:after {
+          content: "}";
+          margin-left: 0.5em;
+          font-size: 1.2em;
+        }
+      }
+    }
+
+    pre.type {
+      padding: 0.1em 0.4em;
+      border-radius: 5px;
+    }
+
+    @include colors.light-theme {
+      pre.type {
+        background-color: color.adjust(black, $alpha: -0.9);
+      }
+    }
+
+    @include colors.dark-theme {
+      pre.type {
+        background-color: color.adjust(white, $alpha: -0.75);
+      }
+    }
   }
 
-  .key-cell {
-    white-space: nowrap;
+  .type-tooltip {
+    .type {
+      cursor: pointer;
+      border-bottom-left-radius: 0 !important;
+      border-bottom-right-radius: 0 !important;
+    }
+    @include colors.light-theme {
+      .type {
+        border-bottom: 1.5px dotted gray;
+      }
+    }
+
+    @include colors.dark-theme {
+      .type {
+        border-bottom: 1.5px dotted white;
+      }
+    }
+
+    .tooltiptext {
+      visibility: hidden;
+      background-color: #000000af;
+      color: #fff !important;
+      text-align: left;
+      border-radius: 5px;
+      padding: 0.25em 0.5em;
+      position: absolute;
+      z-index: 1;
+      backdrop-filter: blur(10px);
+
+      font-family: fonts.$mono-font;
+
+      &::before {
+        content: "{";
+      }
+      &::after {
+        content: "}";
+      }
+    }
+    & .type:hover ~ .tooltiptext {
+      visibility: visible;
+    }
   }
 
-  .indent {
-    display: inline-block;
-    width: calc(var(--depth) * 1.75em);
-    /* Increased indent for clarity */
+  .note-tooltip {
+    .description {
+      cursor: pointer;
+      border-bottom-left-radius: 0 !important;
+      border-bottom-right-radius: 0 !important;
+
+      @include colors.light-theme {
+        border-bottom: 1.5px dotted gray;
+      }
+
+      @include colors.dark-theme {
+        border-bottom: 1.5px dotted white;
+      }
+    }
+
+    .tooltiptext {
+      max-width: 500px;
+      visibility: hidden;
+      background-color: #000000af;
+      color: #fff !important;
+      text-align: left;
+      border-radius: 5px;
+      padding: 0.25em 0.5em;
+      position: absolute;
+      z-index: 1;
+      backdrop-filter: blur(10px);
+      pre {
+        color: white !important;
+      }
+
+      // font-family: fonts.$mono-font;
+    }
+    & .description:hover ~ .tooltiptext {
+      visibility: visible;
+    }
+  }
+}
+
+.table-legend table {
+  @include colors.light-theme {
+    tr.required td:first-child * {
+      color: color.adjust(red, $saturation: -50%);
+    }
+    tr.inferred td:first-child * {
+      color: color.adjust(black, $alpha: -0.5);
+    }
   }
 
-  .key-cell strong {
-    cursor: pointer;
-    user-select: none;
-    /* Prevents text selection on double click */
-  }
-
-  .collapsed-row {
-    display: none;
-  }
-
-  td:nth-child(3) {
-    /* Description column */
-    max-width: 450px;
-    white-space: normal;
-  }
-
-  pre {
-    margin: 0;
-    font-family: inherit;
-    white-space: pre-wrap;
-    /* Wrap long default values */
-    word-break: break-all;
-  }
-
-  em {
-    font-style: italic;
+  @include colors.dark-theme {
+    tr.required td:first-child * {
+      color: color.adjust(red, $saturation: -50%, $lightness: +20%);
+    }
+    tr.inferred td:first-child * {
+      color: color.adjust(white, $alpha: -0.75);
+    }
   }
 }

@@ -1,5 +1,5 @@
 document$.subscribe(() => {
-  const lightTheme = document.getElementById('highlight2-light');
+  const lightTheme = document.getElementById('highlight-light');
   const darkTheme = document.getElementById('highlight-dark');
 
   if (lightTheme !== null && darkTheme !== null) {

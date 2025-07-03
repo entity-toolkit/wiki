@@ -31,5 +31,6 @@ jobs:
       - run: npm ci
         if: hashFiles('package-lock.json') != ''
       - run: npm run diagrams:generate
+      - run: npm run inputtable:generate
       - run: npm run build
       - run: mkdocs gh-deploy --force
