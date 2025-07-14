@@ -135,7 +135,6 @@ void main() {
   vec2 aspect_inv = resolution.x / aspect;
 
   uv.y = 1.0 - uv.y;
-  uv = floor(uv * aspect_inv + 0.5) / aspect_inv;
 
   vec2 amplitude = aspect * 0.1 * 2.0 * (randomV2(uv) - 0.5);
   // 

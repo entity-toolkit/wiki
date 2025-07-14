@@ -5,8 +5,8 @@
 pkgs.mkShell rec {
   name = "entity-wiki";
   nativeBuildInputs = with pkgs; [
-    pkgs."python312"
-    pkgs."python312Packages".pip
+    pkgs.python312
+    pkgs.python312Packages.pip
     nodePackages.nodejs
     black
     pyright
