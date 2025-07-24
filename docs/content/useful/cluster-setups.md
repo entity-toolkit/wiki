@@ -561,6 +561,67 @@ This section goes over some instructions on how to compile & run the `Entity` on
 
     _WIP_
 
+=== "`Aurora` (ANL)"
+
+    [`Aurora`](https://docs.alcf.anl.gov/aurora/) uses Intel PVC nodes with 6 GPUs/node. Development of entity for Aurora is currently ongoing. Use the following docs with caution and check in with @LudwigBoess on potential changes.
+
+    **Modules to load**
+
+    You can load the installed dependencies with
+
+    ```sh
+    module load adios2
+    module load autoconf cmake
+    ```
+
+    The `adios2` module automatically loads the related `kokkos` module.
+
+    I would recommend saving the module configuration for easy loading within the PBS job:
+    ```sh
+    module save entity
+    ```
+
+    You can compile `entity` with:
+
+    ```sh
+    cmake -B build -D pgen=streaming -D precision=single -D mpi=ON -D output=ON -DCMAKE_C_COMPILER=mpicc -DCMAKE_CXX_COMPILER=mpicxx
+    ```
+
+    **Running entity**
+
+    Aurora uses [PBS](https://docs.alcf.anl.gov/running-jobs/?h=pbs) for workload management.
+    The Intel PVC GPUs are split into two tiles each and it is recommended to launch one MPI rank per tile.
+
+    ```sh
+    #!/bin/bash -l
+    #PBS -A <project_name>
+    #PBS -N weibel_test
+    #PBS -l select=1                # number of nodes to use
+    #PBS -l walltime=00:05:00
+    #PBS -l filesystems=flare       # replace with the filesystem of your project
+    #PBS -k doe
+    #PBS -l place=scatter
+    #PBS -q debug
+
+    NTOTRANKS=12        # 2*6*N_nodes
+    NRANKS_PER_NODE=12  # 2*6
+    NDEPTH=1            # this is only relevant for the CPU pinning
+
+    # change to directory from which job was submitted
+    cd $PBS_O_WORKDIR
+
+    # load all modules defined above
+    module restore entity
+
+    # only relevant for CPU pinning and to avoid Kokkos complaints
+    export OMP_PROC_BIND=spread
+    export OMP_PLACES=threads
+
+    mpiexec -n ${NTOTRANKS} --ppn ${NRANKS_PER_NODE} --depth=${NDEPTH} --cpu-bind=depth gpu_tile_compact.sh ./entity.xc -input weibel.toml
+    ```
+
+    _Last updated: 7/24/2025_
+
 === "`LUMI` (CSC)"
 
     [`LUMI`](https://www.lumi-supercomputer.eu/) cluster is located in Finland. It is equipped with 2978 nodes with 4 AMD MI250x GPUs and a single 64 cores AMD EPYC "Trento" CPU. The required modules to be loaded are:
