@@ -187,7 +187,7 @@ document.addEventListener(
           .style("width", "66.67%");
 
         order_label = ctx
-          .createElement("h4", "Shape order: 1")
+          .createElement("h4", `Shape order: ${shape_function_order}`)
           .parent(panel_toggles)
           .style("text-align", "center");
 
@@ -254,8 +254,8 @@ document.addEventListener(
         show_init = show_init_toggle.checked();
         show_fin = show_fin_toggle.checked();
         if (shape_function_order != order_slider.value()) {
-          order_label.html(`Shape order: ${order_slider.value()}`);
           shape_function_order = order_slider.value();
+          order_label.html(`Shape order: ${shape_function_order}`);
           init_shape.size = 0.5 * (1 + shape_function_order);
           fin_shape.size = 0.5 * (1 + shape_function_order);
         }
