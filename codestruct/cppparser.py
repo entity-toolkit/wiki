@@ -1,6 +1,7 @@
 import tree_sitter_cpp as tscpp
 from tree_sitter import Language, Parser
 from enum import Enum
+from typing import override
 
 
 class CPPAccessType(Enum):
@@ -32,10 +33,10 @@ class CPPVariable:
         self, name: str, type_: str, is_const: bool = False, is_static: bool = False
     ):
         assert name != "" or type_ != "", "Variable name and type cannot be empty"
-        self._name = name
-        self._type = type_
-        self._is_static = is_static
-        self._is_const = is_const
+        self._name: str = name
+        self._type: str = type_
+        self._is_static: bool = is_static
+        self._is_const: bool = is_const
 
     @property
     def name(self) -> str:
@@ -53,6 +54,7 @@ class CPPVariable:
     def is_static(self) -> bool:
         return self._is_static
 
+    @override
     def __repr__(self) -> str:
         prefix = ""
         if self.is_static:
@@ -106,6 +108,7 @@ class CPPFunction:
     def is_template(self) -> bool:
         return self._template_args is not None and len(self._template_args) > 0
 
+    @override
     def __repr__(self) -> str:
         tmpl = (
             f"template<{', '.join(map(str, self.template_args))}> "
@@ -158,6 +161,7 @@ class CPPClass:
     def is_template(self) -> bool:
         return self._template_args is not None and len(self._template_args) > 0
 
+    @override
     def __repr__(self) -> str:
         tmpl = (
             f"template<{', '.join(map(str, self.template_args))}> "

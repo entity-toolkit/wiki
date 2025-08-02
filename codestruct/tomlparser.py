@@ -5,7 +5,7 @@ import re
 def convert_value(value: str) -> str:
     def is_float(element: str) -> bool:
         try:
-            float(element)
+            _ = float(element)
             return True
         except ValueError:
             return False
@@ -39,11 +39,11 @@ def convert_value(value: str) -> str:
 
 class Node:
     def __init__(self, name: str, attrs: dict[str, str | bool] | None):
-        self._id = id(self)
-        self._name = name
-        self._attrs = attrs
-        self._children = []
-        self._parent = None
+        self._id: int = id(self)
+        self._name: str = name
+        self._attrs: dict[str, str | bool] | None = attrs
+        self._children: list[Node] = []
+        self._parent: Node | None = None
 
     @property
     def id(self) -> int:
@@ -62,7 +62,7 @@ class Node:
         return self._children
 
     @property
-    def parent(self) -> "Node | None":
+    def parent(self):
         return self._parent
 
     @parent.setter
@@ -197,21 +197,22 @@ class Node:
                 else:
                     dflt = convert_value(dflt)
 
-        classes = []
+        classes: list[str] = []
         if not self.is_final:
             classes.append("category")
         if inferred:
             classes.append("inferred")
         elif required:
             classes.append("required")
+        classes_str: str = ""
         if classes != []:
-            classes = ' class="' + " ".join(classes) + '"'
+            classes_str = ' class="' + " ".join(classes) + '"'
         else:
-            classes = ""
+            classes_str = ""
         return (
             textwrap.dedent(
                 f"""
-            {ind(0)}<tr data-depth="{depth}" data-id="{self.id}"{classes}>
+            {ind(0)}<tr data-depth="{depth}" data-id="{self.id}"{classes_str}>
             {ind(2)}<td><pre>{self.name}</pre></td>
             {ind(2)}<td>{typ}</td>
             {ind(2)}<td>{desc}</td>
@@ -227,7 +228,7 @@ class Node:
 
 class Tree:
     def __init__(self):
-        self._roots = []
+        self._roots: list[Node] = []
 
     @property
     def roots(self):
@@ -301,10 +302,12 @@ class Tree:
                         assert isinstance(
                             val, str
                         ), f"Value for 'note' should be a string, but found: {val}"
+                        active_attrs_attr = active_attrs[attr]
                         assert isinstance(
-                            active_attrs[attr], str
+                            active_attrs_attr, str
                         ), f"Attribute '{attr}' should be a string, but found: {active_attrs[attr]}"
-                        active_attrs[attr] += f"\n{val}"  # type: ignore
+                        active_attrs_attr += f"\n{val}"
+                        active_attrs[attr] = active_attrs_attr
                     else:
                         active_attrs[attr] = val
                 elif line != "":

@@ -1,8 +1,8 @@
 site_name: "Entity: wiki"
 repo_url: https://github.com/entity-toolkit/entity
 repo_name: entity
-# site_url: https://entity-toolkit.github.io/wiki/
-site_url: https://haykh.github.io/entity-wiki-test/
+site_url: https://entity-toolkit.github.io/wiki/
+# site_url: https://haykh.github.io/entity-wiki-test/
 
 nav:
   - Home: index.md
@@ -32,6 +32,7 @@ nav:
   - Fun:
       - content/fun/coords.md
       - content/fun/cubed_sphere.md
+      - content/fun/particle-shapes.md
   - Events:
       - content/events/sceecs2024/instructions.md
 
