@@ -49,6 +49,207 @@ document.addEventListener(
         ctx.pop();
       };
 
+      const plotShapeFunction = () => {
+        const height = 200;
+        const svg_parent = d3.select("#shapefunc");
+        const svg = svg_parent
+          .append("svg")
+          .attr("width", "100%")
+          .attr("height", height)
+          .style("user-select", "none");
+
+        const width = svg.node().getBoundingClientRect().width;
+
+        const setKatex = (text) => {
+          const element = document.getElementById("shapefunc_katex");
+          element.innerHTML = katex.renderToString(text);
+        };
+
+        const margin = { top: 20, right: 20, bottom: 30, left: 40 };
+        const plotWidth = width - margin.left - margin.right;
+        const plotHeight = height - margin.top - margin.bottom;
+
+        const g = svg
+          .append("g")
+          .attr("transform", `translate(${margin.left},${margin.top})`);
+
+        const xtick_format = (x) => {
+          let xt = "";
+          if (x === 0) {
+            return "0";
+          } else if (x < 0) {
+            xt += "-";
+          }
+          if (Math.abs(x) > 1) {
+            xt += `${Math.abs(x)}`;
+          }
+          return xt + "Δx";
+        };
+
+        const xScale = d3.scaleLinear().domain([-3, 3]).range([0, plotWidth]);
+        const xAxis = d3
+          .axisBottom(xScale)
+          .tickValues([-3, -2, -1, 0, 1, 2, 3])
+          .tickFormat(xtick_format);
+        g.append("g")
+          .attr("transform", `translate(0,${plotHeight})`)
+          .call(xAxis);
+
+        const yScale = d3.scaleLinear().domain([0, 1]).range([plotHeight, 0]);
+        const yAxis = d3.axisLeft(yScale).tickValues([0, 0.5, 1]);
+        g.append("g").call(yAxis);
+
+        const line = d3
+          .line()
+          .x((d) => xScale(d.x))
+          .y((d) => yScale(d.y));
+
+        const order_0 = (x) => {
+          if (Math.abs(x) > 0.5) {
+            return 0;
+          } else {
+            return 1;
+          }
+        };
+        const order_1 = (x) => {
+          if (Math.abs(x) > 1) {
+            return 0;
+          } else {
+            return 1 - Math.abs(x);
+          }
+        };
+        const order_2 = (x) => {
+          if (Math.abs(x) > 1.5) {
+            return 0;
+          } else if (Math.abs(x) < 0.5) {
+            return 0.75 - x ** 2;
+          } else {
+            return 0.5 * (1.5 - Math.abs(x)) ** 2;
+          }
+        };
+        const order_3 = (x) => {
+          if (Math.abs(x) > 2) {
+            return 0;
+          } else if (Math.abs(x) < 1) {
+            return (4 - 6 * x ** 2 + 3 * Math.abs(x) ** 3) / 6;
+          } else {
+            return (2 - Math.abs(x)) ** 3 / 6;
+          }
+        };
+        const order_4 = (x) => {
+          if (Math.abs(x) > 2.5) {
+            return 0;
+          } else if (Math.abs(x) < 1.5) {
+            return (
+              0.625 -
+              x ** 2 +
+              (32 * Math.abs(x) ** 3) / 45 -
+              (98 * x ** 4) / 675
+            );
+          } else {
+            return (2.5 - Math.abs(x)) ** 4 / 26;
+          }
+        };
+        const order_5 = (x) => {
+          if (Math.abs(x) > 3) {
+            return 0;
+          } else if (Math.abs(x) < 2) {
+            return (
+              0.6 -
+              x ** 2 +
+              (Math.abs(x) ** 3 *
+                (360 + Math.abs(x) * (-114 + 13 * Math.abs(x)))) /
+                432
+            );
+          } else {
+            return (3 - Math.abs(x)) ** 5 / 135;
+          }
+        };
+
+        const funcs = {
+          0: {
+            func: order_0,
+            text:
+              "S(x) = \\begin{cases}" +
+              "1,&~|x|<1/2\\\\\n" +
+              "0, &~|x|\\geq1/2" +
+              "\\end{cases}",
+          },
+          1: {
+            func: order_1,
+            text:
+              "S(x) = \\begin{cases}" +
+              "1-|x|,&~|x|<1\\\\\n" +
+              "0, &~|x|\\geq 1" +
+              "\\end{cases}",
+          },
+          2: {
+            func: order_2,
+            text:
+              "S(x) = \\begin{cases}" +
+              "\\frac{3}{4}-x^2,&~|x|<1/2\\\\\n" +
+              "\\frac{1}{2}\\left(\\frac{3}{2}-|x|\\right)^2,&~1/2\\leq |x|<3/2\\\\\n" +
+              "0, &~|x|\\geq 3/2" +
+              "\\end{cases}",
+          },
+          3: {
+            func: order_3,
+            text:
+              "S(x) = \\begin{cases}" +
+              "\\frac{1}{6}\\left(4-6x^2+3|x|^3\\right),&~|x|<1\\\\\n" +
+              "\\frac{1}{6}\\left(2-|x|\\right)^3,&~1\\leq |x|<2\\\\\n" +
+              "0, &~|x|\\geq 2" +
+              "\\end{cases}",
+          },
+          4: {
+            func: order_4,
+            text:
+              "S(x) = \\begin{cases}" +
+              "\\frac{5}{8}-x^2+\\frac{32}{45}|x|^3-\\frac{98}{675}x^4,&~|x|<3/2\\\\\n" +
+              "\\frac{1}{25}\\left(\\frac{5}{2}-|x|\\right)^4,&~3/2\\leq|x|<5/2\\\\\n" +
+              "0, &~|x|\\geq 5/2" +
+              "\\end{cases}",
+          },
+          5: {
+            func: order_5,
+            text:
+              "S(x) = \\begin{cases}" +
+              "\\frac{3}{5}-x^2+\\frac{5}{6}|x|^3-\\frac{19}{72}x^4+\\frac{13}{432}x^5,&~|x|<2\\\\\n" +
+              "\\frac{1}{135}\\left(3-|x|\\right)^5,&~2\\leq|x|<3\\\\\n" +
+              "0, &~|x|\\geq 3" +
+              "\\end{cases}",
+          },
+        };
+
+        const path = g
+          .append("path")
+          .attr("fill", "none")
+          .attr("stroke", "steelblue")
+          .attr("stroke-width", 2);
+
+        const plot = (order) => {
+          const data = d3
+            .range(-3, 3, 0.01)
+            .map((x) => ({ x, y: funcs[order].func(x) }));
+          path
+            .datum(data)
+            .transition()
+            .duration(200)
+            .ease(d3.easeCubicOut)
+            .attr("d", line);
+          setKatex(funcs[order].text);
+        };
+
+        const rangeInput = document.querySelector(
+          '#plot_ax input[type="range"]',
+        );
+        rangeInput.addEventListener("input", (e) => {
+          plot(e.target.value);
+        });
+
+        plot(2);
+      };
+
       class Draggable {
         constructor(pos, size) {
           this.dragging = false;
@@ -167,42 +368,17 @@ document.addEventListener(
       let shape_function_order = 2;
 
       ctx.setup = () => {
-        const panels = ctx
-          .createDiv()
-          .style("display", "inline-block")
-          .parent("plot_ax");
+        const panel_toggles = ctx.select("#panels #toggles");
+        const panel_radios = ctx.select("#panels #radios");
 
-        const panel_toggles = ctx
-          .createDiv()
-          .style("display", "inline-block")
-          .parent(panels)
-          .style("vertical-align", "top")
-          .style("width", "33.33%");
-
-        const panel_radios = ctx
-          .createDiv()
-          .style("display", "inline-block")
-          .parent(panels)
-          .style("vertical-align", "top")
-          .style("width", "66.67%");
-
-        order_label = ctx
-          .createElement("h4", `Shape order: ${shape_function_order}`)
-          .parent(panel_toggles)
-          .style("text-align", "center");
+        order_label = ctx.select("#toggles h4");
+        order_label.html(`Shape order: ${shape_function_order}`);
 
         order_slider = ctx
-          .createSlider(1, 5, shape_function_order, 1)
+          .createSlider(0, 5, shape_function_order, 1)
           .parent(panel_toggles)
           .style("width", "calc(100% - 25px)")
           .style("margin-left", "25px");
-
-        show_init_toggle = ctx
-          .createCheckbox("show initial shape", show_init)
-          .parent(panel_toggles);
-        show_fin_toggle = ctx
-          .createCheckbox("show final shape", show_fin)
-          .parent(panel_toggles);
 
         ctx
           .createElement("h4", "Components")
@@ -214,6 +390,7 @@ document.addEventListener(
           .style("font-family", "monospace")
           .style("display", "flex")
           .style("flex-wrap", "wrap")
+          .style("margin-bottom", "25px")
           .parent(panel_radios);
         component_radio.option("Wx", "Ex1/Jx1");
         component_radio.option("Wy", "Ex2/Jx2");
@@ -226,6 +403,19 @@ document.addEventListener(
           label.style.width = "33.33%";
           label.style.boxSizing = "border-box";
         });
+
+        show_init_toggle = ctx
+          .createCheckbox("show initial shape", show_init)
+          .parent(panel_radios);
+        show_fin_toggle = ctx
+          .createCheckbox("show final shape", show_fin)
+          .parent(panel_radios);
+
+        const shape_function_katex = ctx
+          .createElement("p", "")
+          .parent(panel_radios)
+          .style("margin-left", "25px");
+        shape_function_katex.id("shapefunc_katex");
 
         const width = document.getElementsByTagName("article")[0].offsetWidth;
         const height = width;
@@ -248,6 +438,8 @@ document.addEventListener(
           0.5 * (1 + shape_function_order),
           "#ff00ff",
         );
+
+        plotShapeFunction(order_slider);
       };
 
       ctx.draw = () => {

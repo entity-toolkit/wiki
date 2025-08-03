@@ -3,6 +3,7 @@
 @use "../layout.scss" as layout;
 
 .d3-diagram {
+
   text,
   .label {
     font-family: fonts.$mono-font;
@@ -42,6 +43,7 @@
   .label,
   .tick text {
     font-size: 16px;
+
     @media (max-width: layout.$layout-breakpoint-small) {
       font-size: 10px;
     }
@@ -53,5 +55,9 @@
 
   .d3-katex {
     font-size: 1.1em;
+
+    &.small {
+      font-size: 0.8em;
+    }
   }
 }
