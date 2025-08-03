@@ -214,7 +214,7 @@ document.addEventListener(
             func: order_5,
             text:
               "S(x) = \\begin{cases}" +
-              "\\frac{3}{5}-x^2+\\frac{5}{6}|x|^3-\\frac{19}{72}x^4+\\frac{13}{432}x^5,&~|x|<2\\\\\n" +
+              "\\frac{3}{5}-x^2+\\frac{5}{6}|x|^3-\\frac{19}{72}x^4+\\frac{13}{432}|x|^5,&~|x|<2\\\\\n" +
               "\\frac{1}{135}\\left(3-|x|\\right)^5,&~2\\leq|x|<3\\\\\n" +
               "0, &~|x|\\geq 3" +
               "\\end{cases}",
