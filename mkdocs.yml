@@ -25,6 +25,7 @@ nav:
       - content/2-code/6-problem_generators.md
       - content/2-code/7-guidelines.md
   - Useful things:
+      - content/useful/costtool.md
       - content/useful/cluster-setups.md
       - content/useful/float-comparison.md
       - content/useful/theory_pic.md

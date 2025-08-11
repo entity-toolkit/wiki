@@ -1,0 +1,221 @@
+<section class="card">
+  <div class="header">
+    <h3>Basic parameters</h3>
+  </div>
+
+  <form
+    aria-label="Basic options"
+    id="group-one"
+    class="group-row"
+    onsubmit="return false;"
+  >
+    <!-- SR/GR -->
+    <div class="control">
+      <label>Mode:</label>
+      <input
+        type="range"
+        id="mode"
+        min="0"
+        max="1"
+        step="1"
+        value="0"
+        list="mode-ticks"
+      />
+      <datalist id="mode-ticks">
+        <option value="0" label="SR"></option>
+        <option value="1" label="GR"></option>
+      </datalist>
+    </div>
+
+    <!-- 1D/2D/3D -->
+    <div class="control">
+      <label>Dimension:</label>
+      <input
+        type="range"
+        id="dim"
+        min="1"
+        max="3"
+        step="1"
+        value="3"
+        list="dim-ticks"
+      />
+      <datalist id="dim-ticks">
+        <option value="1" label="1D"></option>
+        <option value="2" label="2D"></option>
+        <option value="3" label="3D"></option>
+      </datalist>
+    </div>
+
+    <!-- Coordinates -->
+    <div class="control">
+      <label>Coordinates:</label>
+      <input
+        type="range"
+        id="coord"
+        min="1"
+        max="3"
+        step="1"
+        value="1"
+        list="coord-ticks"
+      />
+      <datalist id="coord-ticks">
+        <option value="1" label="Cart"></option>
+        <option value="2" label="Sph"></option>
+        <option value="3" label="QSph"></option>
+      </datalist>
+    </div>
+  </form>
+</section>
+
+<section class="card">
+  <div class="header">
+    <h3 id="group-two">Grid &amp; particles</h3>
+  </div>
+
+  <form
+    aria-label="Resolution and particles"
+    id="group-two"
+    class="group-row"
+    onsubmit="return false;"
+  >
+    <div class="control">
+      <label>Resolution:</label>
+      <div class="resolution-row" role="group" aria-label="resolution">
+        <input
+          class="res-num"
+          type="number"
+          inputmode="numeric"
+          step="1"
+          min="1"
+          value="128"
+          aria-label="res 1"
+        />
+        <span class="times" aria-hidden="true">×</span>
+        <input
+          class="res-num"
+          type="number"
+          inputmode="numeric"
+          step="1"
+          min="1"
+          value="128"
+          aria-label="res 2"
+        />
+        <span class="times" aria-hidden="true">×</span>
+        <input
+          class="res-num"
+          type="number"
+          inputmode="numeric"
+          step="1"
+          min="1"
+          value="128"
+          aria-label="res 3"
+        />
+      </div>
+    </div>
+
+    <div class="control">
+      <label>Number of particles per cell:</label>
+      <br />
+      <input
+        id="avg-ppc"
+        type="number"
+        inputmode="decimal"
+        step="0.01"
+        min="0"
+        value="16"
+      />
+      <br />
+      <label>Number of payloads:</label>
+      <br />
+      <input
+        id="nplds"
+        type="number"
+        inputmode="decimal"
+        step="1"
+        min="0"
+        max="100"
+        value="0"
+      />
+    </div>
+
+    <div class="control">
+      <label>Precision:</label>
+      <div class="precision" id="real-t">
+        <label class="precision">single</label>
+        <input type="checkbox" id="switch-real-t" class="input" />
+        <label for="switch-real-t" class="switch"></label>
+        <label class="variable"><code>real_t</code></label>
+      </div>
+      <div class="precision" id="prtldx-t">
+        <label class="precision">single</label>
+        <input type="checkbox" id="switch-prtldx-t" class="input" />
+        <label for="switch-prtldx-t" class="switch"></label>
+        <label class="variable"><code>prtldx_t</code></label>
+      </div>
+    </div>
+  </form>
+</section>
+
+<!-- <!-- THIRD GROUP (Architecture + number of devices) -->
+<!-- <section class="card col-12 col-6" aria-labelledby="group-three"> -->
+<!--   <div class="header"> -->
+<!--     <h2 id="group-three">Hardware</h2> -->
+<!--   </div> -->
+<!---->
+<!--   <form -->
+<!--     aria-label="Hardware selection" -->
+<!--     class="group-row" -->
+<!--     onsubmit="return false;" -->
+<!--   > -->
+<!--     <div class="control" style="min-width: 260px"> -->
+<!--       <label class="muted" for="arch">Architecture</label> -->
+<!--       <select id="arch" name="arch" aria-describedby="arch-desc"> -->
+<!--         <option value="A100-40">A100 [40GB]</option> -->
+<!--         <option value="A100-80">A100 [80GB]</option> -->
+<!--         <option value="H100-80">H100 [80GB]</option> -->
+<!--         <option value="H100-160">H100 [160GB]</option> -->
+<!--       </select> -->
+<!--       <div -->
+<!--         id="arch-desc" -->
+<!--         class="muted" -->
+<!--         style="margin-top: 0.35rem; font-size: 0.8rem" -->
+<!--       > -->
+<!--         Select the accelerator type -->
+<!--       </div> -->
+<!--     </div> -->
+<!---->
+<!--     <div class="control"> -->
+<!--       <label class="muted" for="ndev">Number of devices</label> -->
+<!--       <input -->
+<!--         id="ndev" -->
+<!--         class="small" -->
+<!--         type="number" -->
+<!--         inputmode="numeric" -->
+<!--         step="1" -->
+<!--         min="1" -->
+<!--         value="1" -->
+<!--       /> -->
+<!--     </div> -->
+<!--   </form> -->
+<!-- </section> -->
+
+<section class="card output">
+  <h3 id="group-output">Memory usage</h3>
+  <div id="memory">
+    <div class="output-group" id="memory-usage-unit">
+      <label>Per cell/particle</label>
+      <p id="fields-per-cell">Fields: <span>...</span></p>
+      <p id="particles-each">Particles: <span>...</span></p>
+    </div>
+    <div class="output-group" id="memory-usage-total">
+      <label>Total</label>
+      <p id="fields-total">
+        Fields: <span>...</span>&nbsp;<span class="number">...</span>
+      </p>
+      <p id="particles-total">
+        Particles: <span>...</span>&nbsp;<span class="number">...</span>
+      </p>
+      <p id="total">Total: <span>...</span></p>
+    </div>
+  </div>
+</section>
