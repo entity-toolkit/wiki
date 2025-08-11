@@ -174,10 +174,9 @@ This section goes over some instructions on how to compile & run the `Entity` on
 
     **Installing the dependencies**
 
-    The most straightforward way to set things up on the `Rusty` cluster, is to use `spack` [as described here](../1-getting-started/2-dependencies.md#spack-recommended). After downloading and initializing the shell-env, the easiest way to install the right modules for any type of nodes is to start an interactive session and log in to the nodes:
+    The most straightforward way to set things up on the `Rusty` cluster, is to use `spack` [as described here](../1-getting-started/2-dependencies.md#spack-recommended). After downloading and initializing the `spack` shell-env, start an interactive session to make compilation faster:
     ```sh
-    salloc -C a100 -p gpu -N1 -n1 -c 4 --gpus-per-task=1
-    ssh workergpu[xxx]
+    srun -C a100 -p gpu -N1 -n1 -c32 --gpus-per-task=1 --pty bash -i
     ```
     
     Next, you can create a virtual environment and activate it:
