@@ -66,7 +66,9 @@ First, make sure you have all [the necessary dependencies](2-dependencies.md) in
   ```
   where `<NCORES>` is the number of cores you want to use for the compilation (if you skip the `<NCORES>` and just put `-j`, `cmake` will attempt to take as many threads as possible). Note, that the `-j` flag is optional, and if not specified, the code will compile using a single core.
 
-1. After the compilation is done, you will find the executable called `entity.xc` in the `build/src/` directory. That's it! You can now finally _run_ the code.
+1. After the compilation is done, you will find the executable called `entity.xc` in the `./build/src/` directory. That's it! You can now finally _run_ the code.
+
+1. You may also "install" the executable in a specific direction (by default, it would be `./bin`, which can be overriden using the `-D CMAKE_INSTALL_PREFIX` flag) by running `cmake --install build` after the compilation is done.
 
 ## Running
 
