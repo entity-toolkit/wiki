@@ -188,7 +188,7 @@ This section goes over some instructions on how to compile & run the `Entity` on
     Then load the proper modules to-be-used during compilation, add compiler to spack, and find external libraries:
     ```sh
     module purge
-    ml cmake/3.27.9 gcc/11.4.0 openblas/threaded-0.3.26 cuda/12.3.2 openmpi/cuda-4.0.7 hdf5/mpi-1.12.3
+    ml cmake/3.27.9 gcc/11.4.0 cuda/12.3.2 openmpi/cuda-4.0.7 hdf5/mpi-1.12.3
     spack compiler add
     spack external find
     ```
@@ -248,7 +248,7 @@ This section goes over some instructions on how to compile & run the `Entity` on
 
     (*) total number of nodes
 
-    _Last updated: 6/26/2025_
+    _Last updated: 8/12/2025_
 
 === "`Vista` (TACC)"
 

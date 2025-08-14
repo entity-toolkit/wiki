@@ -199,8 +199,8 @@ struct CounterstreamEnergyDist : public arch::EnergyDistribution<S, M> {
   // v: the velocity of the particle to-be-set in the tetrad basis
   // sp: species index
   Inline void operator()(const coord_t<M::Dim>& x_Ph,
-                          vec_t<Dim::_3D>&      v,
-                          unsigned short        sp) const override {
+                         vec_t<Dim::_3D>&       v,
+                         unsigned short         sp) const {
     if (sp == 1) {
       v[0] = v_max * math::sin(kx2 * x_Ph[1]);
     } else {
@@ -225,7 +225,7 @@ struct GaussianDist : public arch::SpatialDistribution<S, M> {
     , dr { dr } {}
 
   // to properly scale the number density, the probability should be normalized to 1
-  Inline auto operator()(const coord_t<M::Dim>& x_Ph) const -> real_t override {
+  Inline auto operator()(const coord_t<M::Dim>& x_Ph) const -> real_t {
     return math::exp(-(SQR(x_Ph[0] - x1c) + SQR(x_Ph[1] - x2c)) / SQR(dr));
   }
 
