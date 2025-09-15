@@ -92,8 +92,8 @@ and particle quantities
 
 | Box-reduced quantity   | Description                                               | Units              |
 | ---------------------- | --------------------------------------------------------- | ------------------ |
-| `E2`                   | Total $E^2$                                               | $B_0^2$            |
-| `B2`                   | Total $B^2$                                               | $B_0^2$            |
+| `E^2`                  | Total $E^2$                                               | $B_0^2$            |
+| `B^2`                  | Total $B^2$                                               | $B_0^2$            |
 | `ExB`                  | Total $\bm{E}\times \bm{B}$                               | $B_0^2$            |
 | `J.E`                  | Total $\bm{J}\cdot \bm{E}$                                | $4\pi q_0 n_0 B_0$ |
 | `N`                    | Total $n$                                                 | $n_0$              |
