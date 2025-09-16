@@ -92,15 +92,17 @@ and particle quantities
 
 | Box-reduced quantity   | Description                                               | Units              |
 | ---------------------- | --------------------------------------------------------- | ------------------ |
-| `E^2`                  | Total $E^2$                                               | $B_0^2$            |
-| `B^2`                  | Total $B^2$                                               | $B_0^2$            |
-| `ExB`                  | Total $\bm{E}\times \bm{B}$                               | $B_0^2$            |
-| `J.E`                  | Total $\bm{J}\cdot \bm{E}$                                | $4\pi q_0 n_0 B_0$ |
-| `N`                    | Total $n$                                                 | $n_0$              |
+| `E^2`                  | Mean $E^2$                                                | $B_0^2$            |
+| `B^2`                  | Mean $B^2$                                                | $B_0^2$            |
+| `ExB`                  | Mean $\bm{E}\times \bm{B}$                                | $B_0^2$            |
+| `J.E`                  | Mean $\bm{J}\cdot \bm{E}$                                 | $4\pi q_0 n_0 B_0$ |
+| `N`                    | Mean $n$                                                  | $n_0$              |
 | `Npart`                | Total # of particles                                      | dimensionless      |
-| `Rho`                  | Total mass density                                        | $m_0 n_0$          |
-| `Charge`               | Total charge density                                      | $q_0 n_0$          |
-| `Tij`                  | Energy-momentum tensor (all components)                   | $m_0 n_0$          |
+| `Rho`                  | Mean mass density                                         | $m_0 n_0$          |
+| `Charge`               | Mean charge density                                       | $q_0 n_0$          |
+| `Tij`                  | Mean energy-momentum tensor (all components)              | $m_0 n_0$          |
+
+"Mean" in this context refers to volume-averaging: i.e., $\langle E_x^2 \rangle = V^{-1}\int \sqrt{h} d^3 \bm{x}~ E_x^2 $, or $\langle T^{ij}\rangle \equiv V^{-1} \int d^3\bm{u} \sqrt{h} d^3 \bm{x} ~(u^i u^j / u^0) f(\bm{u}) $, where $V\equiv \int \sqrt{h} d^3\bm{x}$. As such, these values (except for `Npart`) are insensitive to the resolution of the grid or the number of particles per cell.
 
 !!! note "Refining moments for the output"
 
