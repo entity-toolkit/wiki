@@ -252,7 +252,7 @@ This section goes over some instructions on how to compile & run the `Entity` on
 
 === "`Vista` (TACC)"
 
-    [`Vista`](https://tacc.utexas.edu/systems/vista/) cluster is a part of TACC research center. It consists of 600 Grace Hopper nodes, each hosting H200 GPU and 72 Grace CPUs. 
+    [`Vista`](https://tacc.utexas.edu/systems/vista/) cluster is a part of TACC research center. It consists of 600 Grace Hopper nodes, each hosting H100 GPU and 72 Grace CPUs. 
 
     **Installing the dependencies**
 

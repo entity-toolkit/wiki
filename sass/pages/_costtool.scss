@@ -2,6 +2,21 @@
 @use "../fonts" as fonts;
 
 #cost-tool {
+
+  .input {
+    border-bottom: 1px solid var(--md-default-bg-color--lightest);
+    padding-bottom: 1rem;
+
+    &:first-child {
+      border-top: 1px solid var(--md-default-bg-color--lightest);
+    }
+  }
+
+  input[type="number"] {
+    font-family: fonts.$mono-font;
+    padding: 0.25rem;
+  }
+
   .group-row {
     width: 100%;
     gap: 1rem;
@@ -15,9 +30,28 @@
 
       @media (max-width: layout.$layout-breakpoint-small) {
         padding: 0 0.5rem;
+        margin-top: 0.75rem;
         width: 100%;
       }
     }
+
+    .box-control {
+      div {
+        float: right;
+      }
+
+      & label,
+      & div {
+        display: inline-block;
+      }
+
+      input {
+        width: 100px;
+      }
+
+      margin-top: 0.5rem;
+    }
+
 
     &#group-one {
 
@@ -52,16 +86,35 @@
         }
 
       }
+
+      .coord-details {
+
+        & * {
+          display: inline-block;
+        }
+
+        input {
+          float: right;
+        }
+
+        & p {
+          margin: 0.25rem 0;
+        }
+
+        & input {
+          width: 60px;
+        }
+      }
     }
 
     &#group-two {
       @media (min-width: layout.$layout-breakpoint-small) {
         .control:first-child {
-          width: 40%;
+          width: 50%;
         }
 
         .control:not(first-child) {
-          width: 30%;
+          width: 40%;
         }
       }
 
@@ -71,8 +124,7 @@
         }
 
         // group two
-        .res-num,
-        #avg-ppc {
+        .res-num {
           max-width: 80px;
         }
 
@@ -145,10 +197,50 @@
         }
       }
     }
+
+    &#group-three {
+      @media (min-width: layout.$layout-breakpoint-small) {
+        .control:first-child {
+          width: 50%;
+        }
+
+        .control:not(first-child) {
+          width: 40%;
+        }
+      }
+
+
+      input {
+        width: 50px;
+      }
+
+      #arch {
+
+        select {
+          font-family: fonts.$mono-font;
+        }
+
+        optgroup {
+          color: var(--md-default-fg-color--lighter);
+        }
+
+        option {
+          color: var(--md-default-fg-color);
+        }
+      }
+    }
+  }
+
+  .coord-details,
+  .total-memory,
+  .perf-per-part {
+    display: none;
   }
 
   .output {
-    #memory {
+
+    #memory,
+    #runtime {
       gap: 1rem;
 
       @media (min-width: layout.$layout-breakpoint-small) {

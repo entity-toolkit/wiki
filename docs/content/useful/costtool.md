@@ -17,3 +17,6 @@ This interactive tool allows to quickly estimate the cost of a simulation (both 
 
     Because of architecture-dependent memory alignment, the numbers cited here are only approximations. The actual memory used by the run may vary, so please make sure to leave at least 20%...30% of headroom for safety.
 
+!!! warning "Accuracy"
+
+    Current performance estimates for specific architectures are very crude, and we will most likely refine them in the future. Additionaly, keep in mind that the efficiency is proportional to the number of particles you can fit on a given GPU, so make sure to maximize the usage as much as possible for the best performance.

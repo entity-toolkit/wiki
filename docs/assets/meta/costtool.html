@@ -1,4 +1,4 @@
-<section class="card">
+<section class="card input">
   <div class="header">
     <h3>Basic parameters</h3>
   </div>
@@ -21,10 +21,10 @@
         value="0"
         list="mode-ticks"
       />
-      <datalist id="mode-ticks">
+      <div class="datalist" id="mode-ticks">
         <option value="0" label="SR"></option>
         <option value="1" label="GR"></option>
-      </datalist>
+      </div>
     </div>
 
     <!-- 1D/2D/3D -->
@@ -58,16 +58,38 @@
         value="1"
         list="coord-ticks"
       />
-      <datalist id="coord-ticks">
+      <div class="datalist" id="coord-ticks">
         <option value="1" label="Cart"></option>
         <option value="2" label="Sph"></option>
         <option value="3" label="QSph"></option>
-      </datalist>
+      </div>
+      <div class="coord-details">
+        <p>$r_0$:&nbsp;</p>
+        <input
+          type="number"
+          id="qsph-r"
+          value="0"
+          min="-100.0"
+          max="1"
+          step="0.01"
+        />
+      </div>
+      <div class="coord-details">
+        <p>$h$:&nbsp;</p>
+        <input
+          type="number"
+          id="qsph-h"
+          value="0"
+          min="-0.5"
+          max="1.0"
+          step="0.01"
+        />
+      </div>
     </div>
   </form>
 </section>
 
-<section class="card">
+<section class="card input">
   <div class="header">
     <h3 id="group-two">Grid &amp; particles</h3>
   </div>
@@ -79,67 +101,118 @@
     onsubmit="return false;"
   >
     <div class="control">
-      <label>Resolution:</label>
-      <div class="resolution-row" role="group" aria-label="resolution">
-        <input
-          class="res-num"
-          type="number"
-          inputmode="numeric"
-          step="1"
-          min="1"
-          value="128"
-          aria-label="res 1"
-        />
-        <span class="times" aria-hidden="true">×</span>
-        <input
-          class="res-num"
-          type="number"
-          inputmode="numeric"
-          step="1"
-          min="1"
-          value="128"
-          aria-label="res 2"
-        />
-        <span class="times" aria-hidden="true">×</span>
-        <input
-          class="res-num"
-          type="number"
-          inputmode="numeric"
-          step="1"
-          min="1"
-          value="128"
-          aria-label="res 3"
-        />
+      <div class="multiline-control">
+        <label>Resolution:</label>
+        <div class="resolution-row" role="group" aria-label="resolution">
+          <input
+            class="res-num"
+            type="number"
+            inputmode="numeric"
+            step="1"
+            min="1"
+            value="128"
+            aria-label="res 1"
+          />
+          <span class="times" aria-hidden="true">×</span>
+          <input
+            class="res-num"
+            type="number"
+            inputmode="numeric"
+            step="1"
+            min="1"
+            value="128"
+            aria-label="res 2"
+          />
+          <span class="times" aria-hidden="true">×</span>
+          <input
+            class="res-num"
+            type="number"
+            inputmode="numeric"
+            step="1"
+            min="1"
+            value="128"
+            aria-label="res 3"
+          />
+        </div>
+      </div>
+      <div class="box-control">
+        <label>CFL:</label>
+        <div class="cfl-row" role="group" aria-label="cfl">
+          <input
+            id="cfl"
+            class="cfl-num"
+            type="number"
+            inputmode="numeric"
+            step="0.01"
+            min="0"
+            max="1"
+            value="0.5"
+            aria-label="cfl"
+          />
+        </div>
+      </div>
+      <div class="box-control">
+        <label>Extent in $x^1$:</label>
+        <div class="extent-row" role="group" aria-label="extent">
+          <input
+            id="extent"
+            class="extent-num"
+            type="number"
+            inputmode="numeric"
+            step="0.001"
+            min="0"
+            value="10.0"
+            aria-label="extent"
+          />
+        </div>
+      </div>
+      <div class="box-control">
+        <label>Total runtime:</label>
+        <div class="runtime-row" role="group" aria-label="runtime">
+          <input
+            id="runtime"
+            class="runtime-num"
+            type="number"
+            inputmode="numeric"
+            step="0.001"
+            min="0"
+            value="1.0"
+            aria-label="runtime"
+          />
+        </div>
       </div>
     </div>
 
     <div class="control">
-      <label>Number of particles per cell:</label>
+      <div class="box-control">
+        <label># of particles per cell:</label>
+        <div class="nppc-row" role="group" aria-label="extent">
+          <input
+            id="avg-ppc"
+            type="number"
+            inputmode="decimal"
+            step="0.01"
+            min="0"
+            value="16"
+          />
+        </div>
+      </div>
+      <div class="box-control">
+        <label># of payloads:</label>
+        <div class="nplds-row" role="group" aria-label="extent">
+          <input
+            id="nplds"
+            type="number"
+            inputmode="decimal"
+            step="1"
+            min="0"
+            max="100"
+            value="0"
+          />
+        </div>
+      </div>
       <br />
-      <input
-        id="avg-ppc"
-        type="number"
-        inputmode="decimal"
-        step="0.01"
-        min="0"
-        value="16"
-      />
-      <br />
-      <label>Number of payloads:</label>
-      <br />
-      <input
-        id="nplds"
-        type="number"
-        inputmode="decimal"
-        step="1"
-        min="0"
-        max="100"
-        value="0"
-      />
-    </div>
-
-    <div class="control">
-      <label>Precision:</label>
+      <h4>Precision:</h4>
       <div class="precision" id="real-t">
         <label class="precision">single</label>
         <input type="checkbox" id="switch-real-t" class="input" />
@@ -156,51 +229,107 @@
   </form>
 </section>
 
-<!-- <!-- THIRD GROUP (Architecture + number of devices) -->
-<!-- <section class="card col-12 col-6" aria-labelledby="group-three"> -->
-<!--   <div class="header"> -->
-<!--     <h2 id="group-three">Hardware</h2> -->
-<!--   </div> -->
-<!---->
-<!--   <form -->
-<!--     aria-label="Hardware selection" -->
-<!--     class="group-row" -->
-<!--     onsubmit="return false;" -->
-<!--   > -->
-<!--     <div class="control" style="min-width: 260px"> -->
-<!--       <label class="muted" for="arch">Architecture</label> -->
-<!--       <select id="arch" name="arch" aria-describedby="arch-desc"> -->
-<!--         <option value="A100-40">A100 [40GB]</option> -->
-<!--         <option value="A100-80">A100 [80GB]</option> -->
-<!--         <option value="H100-80">H100 [80GB]</option> -->
-<!--         <option value="H100-160">H100 [160GB]</option> -->
-<!--       </select> -->
-<!--       <div -->
-<!--         id="arch-desc" -->
-<!--         class="muted" -->
-<!--         style="margin-top: 0.35rem; font-size: 0.8rem" -->
-<!--       > -->
-<!--         Select the accelerator type -->
-<!--       </div> -->
-<!--     </div> -->
-<!---->
-<!--     <div class="control"> -->
-<!--       <label class="muted" for="ndev">Number of devices</label> -->
-<!--       <input -->
-<!--         id="ndev" -->
-<!--         class="small" -->
-<!--         type="number" -->
-<!--         inputmode="numeric" -->
-<!--         step="1" -->
-<!--         min="1" -->
-<!--         value="1" -->
-<!--       /> -->
-<!--     </div> -->
-<!--   </form> -->
-<!-- </section> -->
+<section class="card input">
+  <div class="header">
+    <h3 id="group-three">Architecture</h3>
+  </div>
+
+  <form
+    aria-label="Architecture"
+    id="group-three"
+    class="group-row"
+    onsubmit="return false;"
+  >
+    <div class="control">
+      <div class="box-control">
+        <label>GPU arch:</label>
+        <div class="architecture-row" role="group" aria-label="architecture">
+          <select id="arch" name="arch" aria-describedby="arch-desc">
+            <optgroup label="NVIDIA">
+              <option value="V100-32">V100 [32GB]</option>
+              <option value="A100-40">A100 [40GB]</option>
+              <option value="A100-80">A100 [80GB]</option>
+              <option value="H100-80">H100 [80GB]</option>
+              <option value="H100-96">H100 [96GB]</option>
+              <option value="H100-160">H100 [160GB]</option>
+            </optgroup>
+            <optgroup label="AMD">
+              <option value="MI250X-128">MI250X [128GB]</option>
+            </optgroup>
+            <optgroup label="Intel">
+              <option value="PVC-128">Ponte-Vechio [128GB]</option>
+            </optgroup>
+            <option value="custom">custom</option>
+          </select>
+        </div>
+      </div>
+      <div class="box-control">
+        <label>GPUs per node:</label>
+        <div class="gpuspernode-row" role="group" aria-label="gpuspernode">
+          <input
+            type="number"
+            id="gpuspernode"
+            class="small"
+            value="2"
+            min="1"
+            step="1"
+          />
+        </div>
+      </div>
+      <div class="box-control">
+        <label>Number of GPUs:</label>
+        <div class="ngpus-row" role="group" aria-label="ngpus">
+          <input type="number" id="ngpus" value="1" min="1" step="1" />
+        </div>
+      </div>
+    </div>
+
+    <div class="control">
+      <h4>Custom parameters:</h4>
+      <div class="box-control total-memory">
+        <label>per GPU memory:</label>
+        <div class="memory-row" role="group" aria-label="memory">
+          <input type="number" id="pergpumemory" value="40" min="0" step="1" />
+          GB
+        </div>
+      </div>
+      <div class="box-control perf-per-part">
+        <label>timestep per particle:</label>
+        <div class="perfperpart-row" role="group" aria-label="perfperpart">
+          <input type="number" id="perfperpart" value="5" min="0" step="0.1" />
+          ns
+        </div>
+      </div>
+      <div class="box-control">
+        <label>memory overhead:</label>
+        <div
+          class="memoryoverhead-row"
+          role="group"
+          aria-label="memoryoverhead"
+        >
+          <input
+            type="number"
+            id="memoryoverhead"
+            value="20"
+            min="0"
+            step="1"
+          />
+          %
+        </div>
+      </div>
+      <div class="box-control">
+        <label>performance overhead:</label>
+        <div class="perfoverhead-row" role="group" aria-label="perfoverhead">
+          <input type="number" id="perfoverhead" value="1" min="0" step="0.1" />
+          $\times$
+        </div>
+      </div>
+    </div>
+  </form>
+</section>
 
 <section class="card output">
-  <h3 id="group-output">Memory usage</h3>
+  <h3 id="group-output-memory">Memory usage</h3>
   <div id="memory">
     <div class="output-group" id="memory-usage-unit">
       <label>Per cell/particle</label>
@@ -216,6 +345,33 @@
         Particles: <span>...</span>&nbsp;<span class="number">...</span>
       </p>
       <p id="total">Total: <span>...</span></p>
+      <p id="pergpu-memory">
+        Per GPU: <span>...</span>&nbsp;<span class="number">...</span>
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="card output">
+  <h3 id="group-output-runtime">Runtime</h3>
+  <div id="runtime">
+    <div class="output-group" id="runtime-unit">
+      <label>Timestep duration</label>
+      <p id="delta_t">$\Delta t$: <span>...</span></p>
+      <p id="timestep-duration">Duration: <span>...</span></p>
+    </div>
+    <div class="output-group" id="runtime-total">
+      <label>Total</label>
+      <p id="recommended-ngpus">
+        Recommended number of GPUs:
+        <span>...</span>&nbsp;<span class="number">...</span>
+      </p>
+      <p id="timestep-total">
+        Number of timesteps:
+        <span>...</span>
+      </p>
+      <p id="time-total">Runtime: <span>...</span></p>
+      <p id="cost-total">Cost: <span>...</span></p>
     </div>
   </div>
 </section>
