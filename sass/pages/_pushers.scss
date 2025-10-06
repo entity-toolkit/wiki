@@ -1,0 +1,96 @@
+@use "../colors" as colors;
+@use "../layout.scss" as layout;
+@use "../fonts" as fonts;
+
+#pushers {
+  button {
+    padding: 0;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  #configs {
+    margin-bottom: 1rem;
+  }
+
+
+  #simulation {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 1rem;
+
+    .control-element {
+
+      .md-typeset__scrollwrap,
+      .md-typeset__table {
+        margin: 0;
+        padding: 0;
+      }
+    }
+
+    table#input-fields {
+      td {
+        padding: 0.5rem 0.25rem;
+      }
+
+      tr {
+        td:not(last-child) {
+          border-bottom: 0px;
+        }
+
+        &:first-child th {
+          padding: 0.2rem 0;
+          text-align: center;
+        }
+      }
+
+      td,
+      th {
+        &:first-child {
+          width: 30px;
+          min-width: 30px;
+          text-align: right;
+        }
+      }
+
+      input[type="text"] {
+        font-family: fonts.$mono-font;
+        border: 1px solid var(--md-default-bg-color--lightest);
+        max-width: 5rem;
+      }
+
+      input[type="checkbox"] {
+        margin-right: 0;
+      }
+    }
+
+    table#input-inject {
+      td {
+        padding: 0.5rem 0.25rem;
+        text-align: center;
+      }
+
+      input[type="number"] {
+        font-family: fonts.$mono-font;
+        text-align: right;
+        max-width: 3rem;
+      }
+
+      input[type="button"] {
+        padding: 0.1rem 0.5rem;
+
+        &:hover {
+          cursor: pointer;
+        }
+      }
+
+      tr:last-child td {
+        padding: 0.25rem;
+      }
+    }
+  }
+}

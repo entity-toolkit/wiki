@@ -31,6 +31,7 @@ nav:
       - content/useful/theory_pic.md
       - content/useful/ks.md
   - Fun:
+      - content/fun/pushers.md
       - content/fun/coords.md
       - content/fun/cubed_sphere.md
       - content/fun/particle-shapes.md
@@ -50,6 +51,7 @@ markdown_extensions:
       emoji_generator: !!python/name:material.extensions.emoji.to_svg
   - pymdownx.tasklist:
       custom_checkbox: true
+      clickable_checkbox: true
   - pymdownx.details
   - pymdownx.superfences:
       custom_fences:
