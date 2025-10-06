@@ -33,7 +33,7 @@ document.addEventListener(
         betatron: {
           plot: "bz",
           bz: "tanh(y / 0.5)",
-          ey: " 0.1",
+          ex: " 0.1",
         },
         gradb: {
           plot: "bz",
@@ -858,7 +858,7 @@ document.addEventListener(
         if (ghost_particle) return;
         ghost_particle = new GhostParticle(
           px2xy(new p5.Vector(ctx.mouseX, ctx.mouseY, 0)),
-          ctx.mouseButton === ctx.LEFT ? 1 : -1,
+          ctx.mouseButton === ctx.LEFT ? (ctx.keyIsDown(16) ? -1 : 1) : -1,
         );
       };
 
