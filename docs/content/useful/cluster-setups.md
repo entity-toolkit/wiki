@@ -188,9 +188,12 @@ This section goes over some instructions on how to compile & run the `Entity` on
     Then load the proper modules to-be-used during compilation, add compiler to spack, and find external libraries:
     ```sh
     module purge
-    ml cmake/3.27.9 gcc/11.4.0 cuda/12.3.2 openmpi/cuda-4.0.7 hdf5/mpi-1.12.3
+    ml modules/2.4-20250724 gcc/13.3.0 cuda/12.5.1 openmpi/cuda-4.1.8 hdf5/mpi-1.12.3
     spack compiler add
     spack external find
+    spack external find cuda
+    spack external find openmpi
+    spack external find hdf5
     ```
     You can check that the corrrect external libraries were found by `spack spec [library]`.
 
@@ -213,10 +216,10 @@ This section goes over some instructions on how to compile & run the `Entity` on
 
     **Compiling & running the code**
 
-    To compile the code on login nodes, load the modules and activate the spack enviroment: 
+    To compile the code, load the modules and activate the spack enviroment: 
     ```sh
     module purge
-    ml cmake/3.27.9 gcc/11.4.0 openblas/threaded-0.3.26 cuda/12.3.2 openmpi/cuda-4.0.7 hdf5/mpi-1.12.3
+    ml modules/2.4-20250724 gcc/13.3.0 cuda/12.5.1 openmpi/cuda-4.1.8 hdf5/mpi-1.12.3
     spack env activate entity-env
     ```
     
@@ -237,7 +240,7 @@ This section goes over some instructions on how to compile & run the `Entity` on
     # .. other sbatch directives
 
     module purge
-    ml cmake/3.27.9 gcc/11.4.0 openblas/threaded-0.3.26 cuda/12.3.2 openmpi/cuda-4.0.7 hdf5/mpi-1.12.3
+    ml modules/2.4-20250724 gcc/13.3.0 cuda/12.5.1 openmpi/cuda-4.1.8 hdf5/mpi-1.12.3
     . <HOME>/spack/share/spack/setup-env.sh
     spack env activate entity-env
     export LD_PRELOAD=/mnt/sw/fi/cephtweaks/lib/libcephtweaks.so
@@ -248,7 +251,7 @@ This section goes over some instructions on how to compile & run the `Entity` on
 
     (*) total number of nodes
 
-    _Last updated: 8/12/2025_
+    _Last updated: 10/21/2025_
 
 === "`Vista` (TACC)"
 
