@@ -154,7 +154,7 @@ Fields must be returned in the local tetrad (orthonormal) basis, while the passe
 
 Similar to initializing the fields, one can also initialize particles with a given energy or spatial distribution. This is done by providing a custom method of the `PGen` class called `InitPrtls(Domain<S, M>&)` which takes a reference to the local subdomain as a parameter. In principle, one can manually initialize the particles in any way they want, but it is recommended to use the built-in routines from the `arch::` (archetypes) namespace.
 
-For instance, to initialize a uniform Maxwellian of a given temperature, one can use the `arch::Maxwellian` and `arch::UniformInjector` classes together with the `InjectUniform` method:
+For instance, to initialize a uniform Maxwellian of a given temperature, one can use the `arch::Maxwellian` class together with the `InjectUniform` method:
 
 ```c++
 // don't forget to include the proper headers
@@ -171,14 +171,15 @@ struct PGen : public arch::ProblemGenerator<S, M> {
                                   local_domain.mesh.metric, 
                                   local_domain.random_pool, 
                                   temperature);
-    const auto injector = arch::UniformInjector<S, M, arch::Maxwellian>(
-                                  energy_dist, { 1, 2 });
-                                         //      ^^^^^
-                                         //  species to inject    
-    arch::InjectUniform<S, M, arch::UniformInjector<S, M, arch::Maxwellian>>(
+    arch::InjectUniform<S, M, decltype(energy_dist), decltype(energy_dist)>(
                           params,
                           local_domain,
-                          injector,
+                          { 1, 2 },
+    //                      ^^^^^
+    //                      species to inject    
+                          { energy_dist, energy_dist },
+    //                      ^^^^^        ^^^^^
+    //                      energy distributions for each species
                           1.0); // <-- this is the number density in units of `n0`
   }
 };
@@ -266,17 +267,15 @@ struct PGen : public arch::ProblemGenerator<S, M> {
                                                  x1c,
                                                  x2c,
                                                  dr);
-    const auto injector = 
-      arch::NonUniformInjector<S, M, CounterstreamEnergyDist, GaussianDist>(
-        energy_dist,
-        spatial_dist,
-        { 1, 2 });
 
-    arch::InjectNonUniform<S, M, arch::NonUniformInjector<S, M, CounterstreamEnergyDist, GaussianDist>>(
+    arch::InjectNonUniform<S, M, decltype(energy_dist), decltype(energy_dist), decltype(spatial_dist)>(
             params,
             domain,
-            injector,
-            1.0); // <-- injected density in units of `n0` (2)!
+            { 1, 2 },
+            { energy_dist, energy_dist },
+            spatial_dist,
+            1.0); // <-- injected density in units of `n0` 
+            // (2)!
   }
 
 };
@@ -558,7 +557,7 @@ struct PGen : public arch::ProblemGenerator<S, M> {
 };
 ```
 
-Or you may also manually access the fields and particles through the `domain.fields` and `domain.species[...]` objects, respectively, and perform any operations you need. Be mindful, however, that all the raw quantities stored within the `domain` object are in the code units (for more details, see the [fields and particles](./4-fields_particles.md) section; for ways to convert from one system/basis to another, see the [metric](./5-metrics.md) section).
+Or you may also manually access the fields and particles through the `domain.fields` and `domain.species[...]` objects, respectively, and perform any operations you need. Be mindful, however, that all the raw quantities stored within the `domain` object are in the code units (for more details, see the [fields and particles](../3-code/4-fields_particles.md) section; for ways to convert from one system/basis to another, see the [metric](../3-code/5-metrics.md) section).
 
 ## Particle purging
 

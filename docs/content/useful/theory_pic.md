@@ -398,4 +398,4 @@ Using this definition, the integral in $(12)$ is simply a linear interpolation o
 
 Current deposition is slightly trickier, and we will not go through the entire derivation of the algorithm (for the reference, see [Esirkepov 2001](https://ui.adsabs.harvard.edu/abs/2001CoPhC.135..144E/abstract) or [Umeda+ 2003](https://ui.adsabs.harvard.edu/abs/2003CoPhC.156...73U/abstract)). However, it can be shown mathematically, that asserting specific properties for the shape function (e.g., symmetry in all directions, etc.), there exists a unique set of coefficients to translate the shape function of each particle at timesteps $(n)$ and $(n+1)$ to the deposited current components. 
 
-Finally, the full timestepping algorithm with everything discussed above is shown on the page of this wiki about the [PIC algorithm](../2-code/1-pic.md#special-relativistic-pic).
+Finally, the full timestepping algorithm with everything discussed above is shown on the page of this wiki about the [PIC algorithm](../3-code/1-pic.md#special-relativistic-pic).

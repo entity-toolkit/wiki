@@ -14,8 +14,12 @@ The output is configured using the following configurations in the `input` file:
   name   = "MySimulation" # (5)!
 
   # ...
+[[particles.species]]
+  tracking = true # (16)!
+
+  # ...
 [output]
-  format = "hdf5" # (2)!
+  format = "BPFile" # (2)!
   interval = 100 # (3)!
   interval_time = 0.1 # (8)!
   separate_files = true # (15)!
@@ -43,7 +47,7 @@ The output is configured using the following configurations in the `input` file:
 ```
 
 1. fields to write
-2. output format (current supported: "HDF5", or "disabled" for no output)
+2. output format (current supported: "BPFile"/"HDF5", or "disabled" for no output)
 3. output interval (in the number of time steps)
 4. smoothing stencil size for moments (in the number of cells) [defaults to 1]
 5. title is used for the output filename
@@ -57,8 +61,7 @@ The output is configured using the following configurations in the `input` file:
 13. whether to use logarithmic energy bins or linear
 14. box reduced quantities to output as stats
 15. whether to write in a single file or into separate files
-
-Output is written in the run directory either in a single `hdf5` file, `MySimulation.h5`, or in the directory with the same name `MySimulation`. 
+16. enable tracking for a given particle species
 
 Following is the list of all supported fields
 
@@ -87,6 +90,10 @@ and particle quantities
 | `X`               | Coordinates (all components)                              | physical      |
 | `U`               | Four-velocities (all components)                          | dimensionless |
 | `W`               | Weights                                                   | dimensionless |
+| `PLDR` &nbsp;<a href="https://github.com/entity-toolkit/entity/pull/144"> <span class="since-version">1.3.0</span> </a>           | Real-valued payloads                                      | arbitrary     |
+| `PLDI` &nbsp;<a href="https://github.com/entity-toolkit/entity/pull/144"> <span class="since-version">1.3.0</span> </a>           | Integer-valued payloads                                   | arbitrary     |
+| `RNK` &nbsp;<a href="https://github.com/entity-toolkit/entity/pull/144"> <span class="since-version">1.3.0</span> </a>            | Meshblock rank the particle was created (if MPI is ON)    | --            |
+| `IDX` &nbsp;<a href="https://github.com/entity-toolkit/entity/pull/144"> <span class="since-version">1.3.0</span> </a>            | Index of the particle on the given rank                   | --            |
 
 <a href="https://github.com/entity-toolkit/entity/pull/69"> <span class="since-version">1.2.0</span> </a> The code also has an output of box-averaged stats into a `.csv` file, which are simply scalars per each output timestep. The following quantities can be computed
 
@@ -110,11 +117,11 @@ and particle quantities
 
 All of the vector fields are interpolated to cell centers before the output, and converted to orthonormal basis. The particle-based moments are smoothed with a stencil (specified in the input file; `mom_smooth`) for each particle.
 
-In addition, one can write custom user-defined field quantities to the output with the fields or stats. Refer to [the following section](../2-code/6-problem_generators.md#custom-field-output) for more details.
+In addition, one can write custom user-defined field quantities to the output with the fields or stats. Refer to [the following section](../2-howto/1-problem_generators.md#custom-field-output) for more details.
 
-!!! warning "Can one track particles at different times?"
+!!! success "Can one track particles at different times?"
 
-    Particle tracking (outputting the same batch of particles at every timestep) is unfortunately not yet implemented, and will unlikely be available due to limitations imposed by the nature of GPU computations.
+    Yes! Simply enable particle tracking for a particular species. Then each particle is uniquely identified by a combination of `IDX` and `RNK` (if no MPI is used, then only `IDX` is sufficient). `nt2py` already automatically combines the variables producing a unique `id` for each particle (for the species where tracking is enabled). However, keep in mind, that the simulations are not reproducible and will unfortunately never be due to limitations imposed by the nature of GPU computations.
 
 ## [`nt2py`](https://pypi.org/project/nt2py/)
 
@@ -220,31 +227,32 @@ Particles and spectra can, in turn, be accessed via `data.particles[s]`, where `
 
 ### Accessing particles
 
-Particles are stored in the same `data` object and are lazily preloaded when one calls `nt2.Data(...)`, as we did above. To access the particle data, use `data.particles`, which returns a python dictionary where the key is particles species index, and the value is an `xarray` Dataset with the particle data. For example, to access the `x` and `y` coordinates of the first species, one can do:
+Particles are stored in the same `data` object and are lazily preloaded when one calls `nt2.Data(...)`, as we did above. To access the particle data, use `data.particles`, which returns a custom object which can then be converted into an explicitly populated dataframe using the `load()` method. Selection of particles can be done in a similar way to the fields:
 
 ```python
-data.particles[1].x
-data.particles[1].y
+data.particles.sel(t=slice(None, 10)).sel(sp=[1, 3], id=[123, 456, 789]).load()
 ```
 
-The shape of the returned dataset is number of particles times the number of time steps. To select the data at a specific time step, one can use the same `sel` or `isel` methods mentioned above. For example, to access the 10-th output timestep of the 3-rd species, one can do:
+which selects all times before $t<10$, selects species 1 and 3, and picks specific particle id-s (traced along all preselected times). There are two built-in plotting methods: `.spectrum_plot`, and `.phase_plot`, for plotting a 1D energy distribution function of each species, and a 2D phase-space plot (or any 2D binned plot). 
 
 ```python
-data.particles[3].isel(t=10).x
+data.particles.sel(t=10, method="nearest").spectrum_plot(
+    bins=np.logspace(0, 3), 
+    quantity=lambda df: np.sqrt(1 + df.ux**2 + df.uy**2 + df.uz**2),
+)
+
+data.particles.sel(t=10, method="nearest").phase_plot(
+    x_quantity=lambda df: df.x,
+    y_quantity=lambda df: df.ux,
+    xy_bins=(np.linspace(-1, 1), np.linspace(0, 2)),
+)
 ```
 
-Scatter plotting the particles on a 2D plane is quite easy, since `xarray` has a built-in `plot.scatter` method:
+You may, however, simply use the data from the dataframe to make the plots directly:
 
 ```python
-species_3 = data.particles[3]
-species_4 = data.particles[4]
-
-species_3.isel(t=-1)\
-  .plot.scatter(x="x", y="y", 
-                label=species_3.attrs["label"])
-species_4.isel(t=-1)\
-  .plot.scatter(x="x", y="y", 
-                label=species_4.attrs["label"])
+df = data.particles.sel(t=10, method="nearest").load()
+plt.scatter(df.x, df.y, colors=df.sp) # color by species
 ```
 
 ??? showplot "scatter plot $\{x,~y\}$"
@@ -254,22 +262,6 @@ species_4.isel(t=-1)\
 !!! code "`isel` indexing"
 
     `isel(t=-1)` selects the last time step.
-
-Or one can plot the same in phase space:
-
-```python
-species_3.isel(t=-1)\
-  .plot.scatter(x="ux", y="uy", 
-                label=species_3.attrs["label"])
-species_4.isel(t=-1)\
-  .plot.scatter(x="ux", y="uy", 
-                label=species_4.attrs["label"])
-```
-
-??? showplot "scatter plot $\{u_x,~u_y\}$"
-
-    ![nt2demo4](../../assets/images/howto/nt2-demo-4.png)
-
 
 ### Accessing runtime spectra
 
@@ -307,9 +299,9 @@ def plot_frame(ti, data):
     # e.g.
     fig = plt.figure()
     ax = fig.add_subplot(111)
-    (data.N_1 + data.N_2).isel(t=ti).plot(ax=ax, cmap="viridis")
-    #                      ^
-    #                 selecting timestep by index
+    (data.fields.N_1 + data.fields.N_2).isel(t=ti).plot(ax=ax, cmap="viridis")
+    #                                        ^
+    #                           selecting timestep by index
 
 # then simply pass this function to the routine:
 data.makeMovie(plot_frame, num_cpus=8, framerate="10", ...)

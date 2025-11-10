@@ -13,7 +13,7 @@ Oftentimes, large simulations cannot be run on a single go. For these cases, Ent
 
 ## Writing checkpoints
 
-Since the checkpoint writing relies on the `ADIOS2` library, to be able to use checkpointing, the code has to be compiled with the `-D output=ON` flag (enabled by default). Configurations for the checkpoint writing are done via the `.toml` input file under the block named `[checkpoint]` (also see the [input file documentation](3-inputfile.md)). The following parameters control how often the checkpoint is written, as well as how many snapshots are preserved as the simulation runs.
+Since the checkpoint writing relies on the `ADIOS2` library, to be able to use checkpointing, the code has to be compiled with the `-D output=ON` flag (enabled by default). Configurations for the checkpoint writing are done via the `.toml` input file under the block named `[checkpoint]` (also see the [input file documentation](../1-getting-started/3-inputfile.md)). The following parameters control how often the checkpoint is written, as well as how many snapshots are preserved as the simulation runs.
 
 | parameter | description | default |
 | ---- | ---- | ---- |

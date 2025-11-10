@@ -6,27 +6,29 @@ site_url: https://entity-toolkit.github.io/wiki/
 
 nav:
   - Home: index.md
-  - Getting started:
+  - Getting Started:
       - content/1-getting-started/1-compile-run.md
       - content/1-getting-started/2-dependencies.md
       - content/1-getting-started/3-inputfile.md
-      - content/1-getting-started/4-units.md
-      - content/1-getting-started/5-vis.md
-      - content/1-getting-started/6-checkpoints.md
-      - content/1-getting-started/7-docs.md
       - content/1-getting-started/8-docker.md
-      - content/1-getting-started/9-faq.md
-  - Understanding the code:
-      - content/2-code/1-pic.md
-      - content/2-code/2-hierarchy.md
-      - content/2-code/3-domains.md
-      - content/2-code/4-fields_particles.md
-      - content/2-code/5-metrics.md
-      - content/2-code/6-problem_generators.md
-      - content/2-code/7-guidelines.md
-  - Useful things:
+  - How-To:
+      - content/2-howto/1-problem_generators.md
+      - content/2-howto/2-vis.md
+      - content/2-howto/3-units.md
+      - content/2-howto/4-checkpoints.md
+      - content/2-howto/5-docs.md
+      - content/2-howto/6-guidelines.md
+      - content/2-howto/7-faq.md
+  - Understanding the Code:
+      - content/3-code/1-pic.md
+      - content/3-code/2-hierarchy.md
+      - content/3-code/3-domains.md
+      - content/3-code/4-fields_particles.md
+      - content/3-code/5-metrics.md
+  - Useful Things:
       - content/useful/costtool.md
       - content/useful/cluster-setups.md
+  - Theory:
       - content/useful/float-comparison.md
       - content/useful/theory_pic.md
       - content/useful/ks.md
@@ -105,7 +107,6 @@ theme:
     - navigation.tracking
     - navigation.indexes
     - navigation.expand
-    - toc.integrate
     - content.code.annotate
     - content.code.copy
     - content.tooltips

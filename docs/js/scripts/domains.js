@@ -15,9 +15,9 @@ document.addEventListener(
     const renderer = new THREE.WebGLRenderer({
       alpha: true,
       antialias: true,
-      precision: "highp",
     });
     renderer.setSize(width, h);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     document
       .getElementById("three-metadomain")
       .appendChild(renderer.domElement);
@@ -33,7 +33,7 @@ document.addEventListener(
       opacity = 1,
     ) => {
       const geometry = new THREE.PlaneGeometry(1, 1);
-      const material = new THREE.MeshPhysicalMaterial({
+      const material = new THREE.MeshMatcapMaterial({
         color: color,
         side: THREE.DoubleSide,
         transparent: true,
@@ -51,7 +51,7 @@ document.addEventListener(
       const direction = new THREE.Vector3().subVectors(end, start);
       const length = direction.length();
       const geometry = new THREE.CylinderGeometry(r1, r2, length, 8, 1, false);
-      const material = new THREE.MeshPhysicalMaterial({ color: color });
+      const material = new THREE.MeshMatcapMaterial({ color: color });
       const cylinder = new THREE.Mesh(geometry, material);
       cylinder.position.set(
         start.x + direction.x / 2,
@@ -111,7 +111,7 @@ document.addEventListener(
 
           geometry.computeBoundingBox();
           const size = geometry.boundingBox.getSize(new THREE.Vector3());
-          const material = new THREE.MeshPhysicalMaterial({ color: color });
+          const material = new THREE.MeshMatcapMaterial({ color: color });
           const text = new THREE.Mesh(geometry, material);
           text.rotateZ(Math.PI);
           text.position.set(x + size.x / 2, y + size.y / 2, z);
@@ -311,7 +311,7 @@ document.addEventListener(
       ];
       let indicesArray = new Uint16Array(indices);
       geometry.setIndex(new THREE.BufferAttribute(indicesArray, 1));
-      const material = new THREE.MeshPhysicalMaterial({
+      const material = new THREE.MeshMatcapMaterial({
         color: 0x1b78d7,
         transparent: true,
         opacity: 0.85,
@@ -321,7 +321,7 @@ document.addEventListener(
       scene.add(trapezoid);
     }
 
-    const spheres = [];
+    // const spheres = [];
     const velx = [];
     const vely = [];
     const xmin = xc - dom_sx1 / 2,
@@ -329,40 +329,46 @@ document.addEventListener(
     const ymin = yc - dom_sy1 / 2,
       ymax = yc + dom_sy1 / 2;
 
-    {
-      const geometry = new THREE.SphereGeometry(0.01, 8, 8);
-      const material1 = new THREE.MeshPhysicalMaterial({ color: 0xdd49a0 });
-      const material2 = new THREE.MeshPhysicalMaterial({ color: 0x2bdfef });
+    const nprtls = 100;
+    const prtl_positions = new Float32Array(nprtls * 3);
+    const prtl_colors = new Float32Array(nprtls * 3);
+    const prtl_geometry = new THREE.BufferGeometry();
 
-      for (let i = 0; i < 200; i++) {
-        const x = Math.random() * dom_sx1 - dom_sx1 / 2 + xc;
-        const y = Math.random() * dom_sy1 - dom_sy1 / 2 + yc;
-        const z =
+    {
+      for (let i = 0; i < nprtls; i++) {
+        prtl_positions[i * 3 + 0] = Math.random() * dom_sx1 - dom_sx1 / 2 + xc;
+        prtl_positions[i * 3 + 1] = Math.random() * dom_sy1 - dom_sy1 / 2 + yc;
+        prtl_positions[i * 3 + 2] =
           domain_offset_z +
           flds_offset_z +
           prtl_offset_z +
           0.05 * Math.random();
-        let mat;
-        if (Math.random() < 0.5) {
-          mat = material1;
-        } else {
-          mat = material2;
+        let color = new THREE.Color(0x2bdfef);
+        if (i % 2 === 0) {
+          color = new THREE.Color(0xdd49a0);
         }
+        prtl_colors[i * 3 + 0] = color.r;
+        prtl_colors[i * 3 + 1] = color.g;
+        prtl_colors[i * 3 + 2] = color.b;
         velx.push(0.01 * Math.random() - 0.005);
         vely.push(0.01 * Math.random() - 0.005);
-        const sphere = new THREE.Mesh(geometry, mat);
-        sphere.position.set(x, y, z);
-        scene.add(sphere);
-        spheres.push(sphere);
       }
+      prtl_geometry.setAttribute(
+        "position",
+        new THREE.BufferAttribute(prtl_positions, 3),
+      );
+      prtl_geometry.setAttribute(
+        "color",
+        new THREE.BufferAttribute(prtl_colors, 3),
+      );
+      const material = new THREE.PointsMaterial({
+        sizeAttenuation: true,
+        size: 0.2,
+        vertexColors: true,
+      });
+      const mesh = new THREE.Points(prtl_geometry, material);
+      scene.add(mesh);
     }
-
-    const ambientLight = new THREE.AmbientLight(0x404040);
-    scene.add(ambientLight);
-
-    const pointLight = new THREE.PointLight(0xffffff, 100);
-    pointLight.position.set(0, 0, 5);
-    scene.add(pointLight);
 
     camera.position.x = -2;
     camera.position.y = 10;
@@ -373,21 +379,35 @@ document.addEventListener(
     const controls = new OrbitControls(camera, renderer.domElement);
     controls.enableDamping = true;
 
-    function animate() {
-      for (let i = 0; i < spheres.length; i++) {
-        spheres[i].position.x += velx[i];
-        spheres[i].position.y += vely[i];
-        if (spheres[i].position.x < xmin || spheres[i].position.x > xmax) {
-          velx[i] *= -1;
+    let time = Date.now();
+
+    const animate = () => {
+      const now = Date.now();
+      const dt = Math.min((now - time) * 0.1, 6);
+      time = now;
+      for (let i = 0; i < nprtls; i++) {
+        prtl_positions[i * 3 + 0] += dt * velx[i];
+        prtl_positions[i * 3 + 1] += dt * vely[i];
+        if (prtl_positions[i * 3 + 0] < xmin) {
+          prtl_positions[i * 3 + 0] += xmax - xmin;
+        } else if (prtl_positions[i * 3 + 0] >= xmax) {
+          prtl_positions[i * 3 + 0] -= xmax - xmin;
         }
-        if (spheres[i].position.y < ymin || spheres[i].position.y > ymax) {
-          vely[i] *= -1;
+        if (prtl_positions[i * 3 + 1] < ymin) {
+          prtl_positions[i * 3 + 1] += ymax - ymin;
+        } else if (prtl_positions[i * 3 + 1] >= ymax) {
+          prtl_positions[i * 3 + 1] -= ymax - ymin;
         }
       }
+      prtl_geometry.setAttribute(
+        "position",
+        new THREE.BufferAttribute(prtl_positions, 3),
+      );
+
       controls.update();
       renderer.render(scene, camera);
       requestAnimationFrame(animate);
-    }
+    };
     animate();
   },
   false,
