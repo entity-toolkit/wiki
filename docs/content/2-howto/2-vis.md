@@ -77,7 +77,6 @@ Following is the list of all supported fields
 | `N`        | Number density                           | $n_0$          |
 | `V`        &nbsp;<a href="https://github.com/entity-toolkit/entity/pull/69"> <span class="since-version">1.2.0</span> </a> | Mean 3-velocity                          | dimensionless |
 | `Nppc`     | Raw number of particles per cell         | dimensionless  |
-| `Nppc`     | Raw number of particles per cell         | dimensionless  |
 | `Tij`      | Energy-momentum tensor (all components)  | $m_0 n_0$      |
 | `divE`    &nbsp;<a href="https://github.com/entity-toolkit/entity/pull/69"> <span class="since-version">1.2.0</span> </a> | Divergence of $E$                        | arb. units     |
 | `divD`   &nbsp;<a href="https://github.com/entity-toolkit/entity/pull/69"> <span class="since-version">1.2.0</span> </a>  | GR: divergence of $D$                    | arb. units     |
