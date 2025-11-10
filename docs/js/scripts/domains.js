@@ -361,10 +361,26 @@ document.addEventListener(
         "color",
         new THREE.BufferAttribute(prtl_colors, 3),
       );
-      const material = new THREE.PointsMaterial({
-        sizeAttenuation: true,
-        size: 0.2,
-        vertexColors: true,
+      const material = new THREE.ShaderMaterial({
+        depthWrite: false,
+        transparent: true,
+        vertexShader: `
+          attribute vec3 color;
+          varying vec3 vColor;
+          void main() {
+            vColor = color;
+            vec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );
+            gl_PointSize = 100.0 / -mvPosition.z;
+            gl_Position = projectionMatrix * mvPosition;
+          }
+        `,
+        fragmentShader: `
+          varying vec3 vColor;
+          void main() {
+            float dist = distance(gl_PointCoord, vec2(0.5, 0.5));
+            gl_FragColor = vec4(vColor, step(dist, 0.5));
+          }
+        `,
       });
       const mesh = new THREE.Points(prtl_geometry, material);
       scene.add(mesh);
