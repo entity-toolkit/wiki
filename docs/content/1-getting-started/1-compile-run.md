@@ -36,6 +36,8 @@ First, make sure you have all [the necessary dependencies](2-dependencies.md) in
     | --- | --- | --- | --- |
     | `pgen` | problem generator | e.g., see `pgens/` directory |  |
     | `precision` | floating point precision | `single`, `double` | `single` |
+    | `deposit` <a href="https://github.com/entity-toolkit/entity/pull/109"> <span class="since-version">1.3.0</span>  </a>  | choose current deposit scheme | `zigzag`, `esirkepov` | `zigzag` |
+    | `shape_order` <a href="https://github.com/entity-toolkit/entity/pull/109"> <span class="since-version">1.3.0</span>  </a>  | interpolation order for deposit and pusher | `1-11` | `1` |
     | `output` | enable output | `ON`, `OFF` | `ON` |
     | `mpi` | enable multi-node support | `ON`, `OFF` | `OFF` |
     | `gpu_aware_mpi` <a href="https://github.com/entity-toolkit/entity/pull/105"> <span class="since-version">1.2.0</span>  </a>  | enable GPU-aware MPI communications | `ON`, `OFF` | `ON` |
