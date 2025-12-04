@@ -4,9 +4,11 @@
 
 @function repeat($character, $n) {
   $c: "";
+
   @for $i from 1 through $n {
     $c: $c + $character;
   }
+
   @return $c;
 }
 
@@ -60,7 +62,8 @@ $groups: (
       border: none;
       padding: 0.4em 0.4em;
     }
-    td > span {
+
+    td>span {
       display: block ruby;
     }
 
@@ -94,7 +97,7 @@ $groups: (
       @for $i from 1 through $max-depth {
         &[data-depth="#{$i}"] {
           td:first-child {
-            & > pre {
+            &>pre {
               margin-left: $i * 15px;
             }
           }
@@ -104,27 +107,27 @@ $groups: (
 
     tr.category {
       margin-top: 20px !important;
+
       @for $i from 0 through $max-depth {
         $border-alpha-adjust: 0.2 * ($i + 1);
         $alpha-adjust: 0.1 * ($i + 1);
+
         &[data-depth="#{$i}"] {
           td {
-            border-bottom: 1px
-              dashed
-              color.adjust(#80808000, $alpha: $border-alpha-adjust);
-            border-top: 2px
-              solid
-              color.adjust(#80808000, $alpha: $border-alpha-adjust);
+            border-bottom: 1px dashed color.adjust(#80808000, $alpha: $border-alpha-adjust);
+            border-top: 2px solid color.adjust(#80808000, $alpha: $border-alpha-adjust);
             background: color.adjust(#80808000, $alpha: $alpha-adjust);
           }
         }
       }
+
       & td:first-child {
         span:before {
           content: "{";
           margin-right: 0.5em;
           font-size: 1.2em;
         }
+
         span:after {
           content: "}";
           margin-left: 0.5em;
@@ -157,6 +160,7 @@ $groups: (
       border-bottom-left-radius: 0 !important;
       border-bottom-right-radius: 0 !important;
     }
+
     @include colors.light-theme {
       .type {
         border-bottom: 1.5px dotted gray;
@@ -185,11 +189,13 @@ $groups: (
       &::before {
         content: "{";
       }
+
       &::after {
         content: "}";
       }
     }
-    & .type:hover ~ .tooltiptext {
+
+    & .type:hover~.tooltiptext {
       visibility: visible;
     }
   }
@@ -220,13 +226,15 @@ $groups: (
       position: absolute;
       z-index: 1;
       backdrop-filter: blur(10px);
+
       pre {
         color: white !important;
       }
 
       // font-family: fonts.$mono-font;
     }
-    & .description:hover ~ .tooltiptext {
+
+    & .description:hover~.tooltiptext {
       visibility: visible;
     }
   }
@@ -237,6 +245,7 @@ $groups: (
     tr.required td:first-child * {
       color: color.adjust(red, $saturation: -50%);
     }
+
     tr.inferred td:first-child * {
       color: color.adjust(black, $alpha: -0.5);
     }
@@ -246,8 +255,43 @@ $groups: (
     tr.required td:first-child * {
       color: color.adjust(red, $saturation: -50%, $lightness: +20%);
     }
+
     tr.inferred td:first-child * {
       color: color.adjust(white, $alpha: -0.75);
+    }
+  }
+}
+
+table#blinne {
+  th.solvers-3d {
+    background: var(--md-default-bg-color--lighter);
+  }
+
+  tr:nth-child(even) {
+    th:first-child {
+      background: var(--md-default-bg-color--light);
+    }
+
+    th:nth-child(odd) {
+      background: var(--md-default-bg-color--light);
+    }
+
+    td:nth-child(odd) {
+      background: var(--md-default-bg-color--light);
+    }
+  }
+
+  tr:nth-child(odd) {
+    th:first-child {
+      background: var(--md-default-bg-color--lighter);
+    }
+
+    td:nth-child(even) {
+      background: var(--md-default-bg-color--light);
+    }
+
+    td:nth-child(odd) {
+      background: var(--md-default-bg-color--lighter);
     }
   }
 }

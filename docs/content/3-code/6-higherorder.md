@@ -34,28 +34,208 @@ The stencils are optimized for a given `CFL`, so it is important to use the one 
 
 Note that the `CFL` is given in the standard convention! In order to use it with entity you need to multiply it by $\sqrt{N_\mathrm{dim}}$.
 
-| Solver | `CFL` | `delta_x` | `delta_y` | `delta_z` | `beta_xy` | `beta_yx` | `beta_xz` | `beta_zx` | `beta_yz` | `beta_zy` |
-| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| **2D** | | | | | | | | | | |
-| Yee | $1/\sqrt{2}$ | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
-| Cowan | 0.999 | 0 | 0 | 0 | 0.125 | 0.125 | 0 | 0 | 0 | 0 |
-| Lehe | 0.96 | -0.021 | 0 | 0 | 0.125 | 0.125 | 0 | 0 | 0 | 0 |
-| min1 | $0.97/\sqrt{2}$ | -0.125 | -0.125 | 0 | 0.11 | 0.11 | 0 | 0 | 0 | 0 |
-| min2 | $0.95/\sqrt{2}$ | -0.013 | -0.013 | 0 | -0.013 | -0.013 | 0 | 0 | 0 | 0 |
-| min3 | 0.5 | -0.065 | -0.065 | 0 | -0.065 | -0.065 | 0 | 0 | 0 | 0 |
-| min4 | 0.1 | -0.125 | -0.125 | 0 | -0.125 | -0.125 | 0 | 0 | 0 | 0 |
-| min5 | 0.96 | -0.017 | -0.017 | 0 | 0.133 | 0.133 | 0 | 0 | 0 | 0 |
-| min6 | 0.999 | -0.0005 | 0 | 0 | 0.128 | 0.128 | 0 | 0 | 0 | 0 |
-| **3D** | | | | | | | | | | |
-| Yee | $1/\sqrt{3}$ | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
-| min3 | 0.5 | -0.00867 | -0.00867 | -0.00867 | -0.00867 | -0.00867 | -0.00867 | -0.00867 | -0.00867 | -0.00867 |
-| min4 | 0.1 | -0.048434 | -0.048434 | -0.048434 | -0.048434 | -0.048434 | -0.048434 | -0.048434 | -0.048434 | -0.048434 |
+<table id="blinne">
+  <tr>
+    <th>
+      Dimension:
+    </th>
+    <th class="solvers-2d" colspan="9" style="text-align:center">
+      2D
+    </th>
+    <th class="solvers-3d" colspan="3" style="text-align:center">
+      3D
+    </th>
+  </tr>
+  <tr>
+    <th> Solver: </th>
+    <th> Yee </th>
+    <th> Cowan </th>
+    <th> Lehe </th>
+    <th> min1 </th>
+    <th> min2 </th>
+    <th> min3 </th>
+    <th> min4 </th>
+    <th> min5 </th>
+    <th> min6 </th>
+    <th> Yee </th>
+    <th> min3 </th>
+    <th> min4 </th>
+  </tr>
+  <tr>
+    <th> <code>CFL</code> </th>
+    <td> $1/\sqrt{2}$ </td>
+    <td> $0.999$ </td>
+    <td> $0.96$ </td>
+    <td> $0.97/\sqrt{2}$ </td>
+    <td> $0.95/\sqrt{2}$ </td>
+    <td> $0.5$ </td>
+    <td> $0.1$ </td>
+    <td> $0.96$ </td>
+    <td> $0.999$ </td>
+    <td> $1/\sqrt{3}$ </td>
+    <td> $0.5$ </td>
+    <td> $0.1$ </td>
+  </tr>
+  <tr>
+    <th> <code>delta_x</code> </th>
+    <td> $0$ </td>
+    <td> $0$ </td>
+    <td> $-0.021$ </td>
+    <td> $-0.125$ </td>
+    <td> $-0.013$ </td>
+    <td> $-0.065$ </td>
+    <td> $-0.125$ </td>
+    <td> $-0.017$ </td>
+    <td> $-0.005$ </td>
+    <td> $0$ </td>
+    <td> $-0.00867$ </td>
+    <td> $-0.048434$ </td>
+  </tr>
+  <tr>
+    <th> <code>delta_y</code> </th>
+    <td> $0$ </td>
+    <td> $0$ </td>
+    <td> $0$ </td>
+    <td> $-0.125$ </td>
+    <td> $-0.013$ </td>
+    <td> $-0.065$ </td>
+    <td> $-0.125$ </td>
+    <td> $-0.017$ </td>
+    <td> $0$ </td>
+    <td> $0$ </td>
+    <td> $-0.00867$ </td>
+    <td> $-0.048434$ </td>
+  </tr>
+  <tr>
+    <th> <code>delta_z</code> </th>
+    <td> $0$ </td>
+    <td> $0$ </td>
+    <td> $0$ </td>
+    <td> $0$ </td>
+    <td> $0$ </td>
+    <td> $0$ </td>
+    <td> $0$ </td>
+    <td> $0$ </td>
+    <td> $0$ </td>
+    <td> $0$ </td>
+    <td> $-0.00867$ </td>
+    <td> $-0.048434$ </td>
+  </tr>
+  <tr>
+    <th> <code>beta_xy</code> </th>
+    <td> $0$ </td>
+    <td> $0.125$ </td>
+    <td> $0.125$ </td>
+    <td> $0.11$ </td>
+    <td> $-0.013$ </td>
+    <td> $-0.065$ </td>
+    <td> $-0.125$ </td>
+    <td> $0.133$ </td>
+    <td> $0.128$ </td>
+    <td> $0$ </td>
+    <td> $-0.00867$ </td>
+    <td> $-0.048434$ </td>
+  </tr>
+  <tr>
+    <th> <code>beta_yx</code> </th>
+    <td> $0$ </td>
+    <td> $0.125$ </td>
+    <td> $0.125$ </td>
+    <td> $0.11$ </td>
+    <td> $-0.013$ </td>
+    <td> $-0.065$ </td>
+    <td> $-0.125$ </td>
+    <td> $0.133$ </td>
+    <td> $0.128$ </td>
+    <td> $0$ </td>
+    <td> $-0.00867$ </td>
+    <td> $-0.048434$ </td>
+  </tr>
+  <tr>
+    <th> <code>beta_xz</code> </th>
+    <td> $0$ </td>
+    <td> $0$ </td>
+    <td> $0$ </td>
+    <td> $0$ </td>
+    <td> $0$ </td>
+    <td> $0$ </td>
+    <td> $0$ </td>
+    <td> $0$ </td>
+    <td> $0$ </td>
+    <td> $0$ </td>
+    <td> $-0.00867$ </td>
+    <td> $-0.048434$ </td>
+  </tr>
+  <tr>
+    <th> <code>beta_zx</code> </th>
+    <td> $0$ </td>
+    <td> $0$ </td>
+    <td> $0$ </td>
+    <td> $0$ </td>
+    <td> $0$ </td>
+    <td> $0$ </td>
+    <td> $0$ </td>
+    <td> $0$ </td>
+    <td> $0$ </td>
+    <td> $0$ </td>
+    <td> $-0.00867$ </td>
+    <td> $-0.048434$ </td>
+  </tr>
+  <tr>
+    <th> <code>beta_yz</code> </th>
+    <td> $0$ </td>
+    <td> $0$ </td>
+    <td> $0$ </td>
+    <td> $0$ </td>
+    <td> $0$ </td>
+    <td> $0$ </td>
+    <td> $0$ </td>
+    <td> $0$ </td>
+    <td> $0$ </td>
+    <td> $0$ </td>
+    <td> $-0.00867$ </td>
+    <td> $-0.048434$ </td>
+  </tr>
+  <tr>
+    <th> <code>beta_zy</code> </th>
+    <td> $0$ </td>
+    <td> $0$ </td>
+    <td> $0$ </td>
+    <td> $0$ </td>
+    <td> $0$ </td>
+    <td> $0$ </td>
+    <td> $0$ </td>
+    <td> $0$ </td>
+    <td> $0$ </td>
+    <td> $0$ </td>
+    <td> $-0.00867$ </td>
+    <td> $-0.048434$ </td>
+  </tr>
+</table>
+
+<!-- | Solver | `CFL` | `delta_x` | `delta_y` | `delta_z` | `beta_xy` | `beta_yx` | `beta_xz` | `beta_zx` | `beta_yz` | `beta_zy` | -->
+<!-- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | -->
+<!-- | **2D** | | | | | | | | | | | -->
+<!-- | Yee | $1/\sqrt{2}$ | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | -->
+<!-- | Cowan | 0.999 | 0 | 0 | 0 | 0.125 | 0.125 | 0 | 0 | 0 | 0 | -->
+<!-- | Lehe | 0.96 | -0.021 | 0 | 0 | 0.125 | 0.125 | 0 | 0 | 0 | 0 | -->
+<!-- | min1 | $0.97/\sqrt{2}$ | -0.125 | -0.125 | 0 | 0.11 | 0.11 | 0 | 0 | 0 | 0 | -->
+<!-- | min2 | $0.95/\sqrt{2}$ | -0.013 | -0.013 | 0 | -0.013 | -0.013 | 0 | 0 | 0 | 0 | -->
+<!-- | min3 | 0.5 | -0.065 | -0.065 | 0 | -0.065 | -0.065 | 0 | 0 | 0 | 0 | -->
+<!-- | min4 | 0.1 | -0.125 | -0.125 | 0 | -0.125 | -0.125 | 0 | 0 | 0 | 0 | -->
+<!-- | min5 | 0.96 | -0.017 | -0.017 | 0 | 0.133 | 0.133 | 0 | 0 | 0 | 0 | -->
+<!-- | min6 | 0.999 | -0.0005 | 0 | 0 | 0.128 | 0.128 | 0 | 0 | 0 | 0 | -->
+<!-- | **3D** | | | | | | | | | | | -->
+<!-- | Yee | $1/\sqrt{3}$ | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | -->
+<!-- | min3 | 0.5 | -0.00867 | -0.00867 | -0.00867 | -0.00867 | -0.00867 | -0.00867 | -0.00867 | -0.00867 | -0.00867 | -->
+<!-- | min4 | 0.1 | -0.048434 | -0.048434 | -0.048434 | -0.048434 | -0.048434 | -0.048434 | -0.048434 | -0.048434 | -0.048434 | -->
 
 To visualize the impact of the field stencil you can see the field of a single particle traveling in vacuum at `gamma = 10.0` in the following plot.
 The rows show the particle traveling at $\theta = 0^\circ$, $\theta = 45^\circ$, $\theta = 90^\circ$ with respect to the x-axis.
 Each column corresponds to a different field stencil from the table above.
 
-![higherorder_stencil](../../assets/images/higherorder/fieldstencil_dark.png){width=100%, align=center} 
+![higherorder_stencil](../../assets/images/higherorder/fieldstencil_dark.png#only-dark){width=100% align=center} 
+![higherorder_stencil](../../assets/images/higherorder/fieldstencil_light.png#only-light){width=100% align=center} 
 
 
 ## Higher order shape functions
@@ -63,7 +243,7 @@ Each column corresponds to a different field stencil from the table above.
 To interpolate the current of a particle to the grid and the fields back to the particle, Entity uses a shape function. Before v1.3.0 this shape function was only of first order.
 Since v1.3.0 you can use shape functions with up-to 11th order and deposit charges with the scheme introduced by [Esirkepov (2001)](https://ui.adsabs.harvard.edu/abs/2001CoPhC.135..144E/abstract).
 
-![higherorder_shape](../../assets/images/higherorder/shape_functions_dark.png){width=50%, align=right} 
+![higherorder_shape](../../assets/images/higherorder/shape_functions_dark.png){width=50% align=right class="invertdark"} 
 
 You can switch to higher order shape functions by adding the follwoing compile flags to you `cmake` command: `-D deposit=esirkepov -D shape_order=<N>`, where `<N>` can be any number between `1` and `11`.
 
@@ -73,7 +253,7 @@ We choose the temperature to be very low, in order to purposefully under-resolve
 From the top to bottom we uncrease the resolution of the grid to improve resolving the Debye-length.
 You can see that with higher order shape functions the numerical heating stops at considerably lower resolution.
 
-![higherorder_shape](../../assets/images/higherorder/heating_dark.png){width=100%, align=center}
+![higherorder_shape](../../assets/images/higherorder/heating_dark.png){width=100% align=center class="invertdark"}
 
 This allows you to reduce the numerical resolution when moving to higher order shape functions.
 We strongly advise to perform careful convergence tests before reducing numerical resolution in favor of higher order shape functions.
@@ -81,4 +261,5 @@ We strongly advise to perform careful convergence tests before reducing numerica
 The computational cost increase is negligible for 1D, but can become substantial for 3D.
 You can find scaling tests performed on a single Intel PVC GPU in the following plot.
 
-![higherorder_shape](../../assets/images/higherorder/scaling_dark.png){width=100%, align=center}
+![higherorder_shape](../../assets/images/higherorder/scaling_dark.png#only-dark){width=100% align=center}
+![higherorder_shape](../../assets/images/higherorder/scaling_light.png#only-light){width=100% align=center}

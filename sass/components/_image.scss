@@ -1,0 +1,7 @@
+@use "../colors" as colors;
+
+img.invertdark {
+  @include colors.light-theme {
+    filter: invert(1) hue-rotate(180deg);
+  }
+}
