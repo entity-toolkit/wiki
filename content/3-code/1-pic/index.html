@@ -1,0 +1,2033 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://entity-toolkit.github.io/wiki/content/3-code/1-pic/">
+      
+      
+        <link rel="prev" href="../../2-howto/7-faq/">
+      
+      
+        <link rel="next" href="../2-hierarchy/">
+      
+      
+      <link rel="icon" href="../../../assets/logo.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.14">
+    
+    
+      
+        <title>PIC Algorithm - Entity: wiki</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.342714a4.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+  
+  
+  
+  
+  <style>:root{--md-annotation-icon:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M12%2020c-4.41%200-8-3.59-8-8s3.59-8%208-8%208%203.59%208%208-3.59%208-8%208m0-18A10%2010%200%200%200%202%2012a10%2010%200%200%200%2010%2010%2010%2010%200%200%200%2010-10A10%2010%200%200%200%2012%202m1%205h-2v4H7v2h4v4h2v-4h4v-2h-4z%22/%3E%3C/svg%3E');}</style>
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=DM+Sans:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"DM Sans";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../css/style.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  
+  
+  <link rel="stylesheet" href="../../../js/vendor/katex/katex.min.css">
+  <script src="../../../js/vendor/katex/katex.min.js"></script>
+  <script src="../../../js/vendor/katex/contrib/auto-render.min.js"></script>
+  <script src="../../../js/hooks/katex.js" defer></script>
+  
+  
+    
+      
+        <script src="../../../js/vendor/d3.min.js"></script>
+        <script src="../../../js/hooks/d3.js" defer></script>
+      
+    
+  
+  
+  
+    
+      <script type="module" src="../../../js/scripts/numerics-srpic.js"></script>
+    
+      <script type="module" src="../../../js/scripts/numerics-grpic.js"></script>
+    
+  
+
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="ntt-light" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#pic-algorithm" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Entity: wiki" class="md-header__button md-logo" aria-label="Entity: wiki" data-md-component="logo">
+      
+  <img src="../../../assets/logo.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Entity: wiki
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              PIC Algorithm
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="ntt-light" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7M9 21a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-1H9z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="ntt-dark" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7M9 21v-1h6v1a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1m3-17a5 5 0 0 0-5 5c0 2.05 1.23 3.81 3 4.58V16h4v-2.42c1.77-.77 3-2.53 3-4.58a5 5 0 0 0-5-5"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/entity-toolkit/entity" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M23.546 10.93 13.067.452a1.55 1.55 0 0 0-2.188 0L8.708 2.627l2.76 2.76a1.838 1.838 0 0 1 2.327 2.341l2.658 2.66a1.838 1.838 0 0 1 1.9 3.039 1.837 1.837 0 0 1-2.6 0 1.85 1.85 0 0 1-.404-1.996L12.86 8.955v6.525c.176.086.342.203.488.348a1.85 1.85 0 0 1 0 2.6 1.844 1.844 0 0 1-2.609 0 1.834 1.834 0 0 1 0-2.598c.182-.18.387-.316.605-.406V8.835a1.834 1.834 0 0 1-.996-2.41L7.636 3.7.45 10.881c-.6.605-.6 1.584 0 2.189l10.48 10.477a1.545 1.545 0 0 0 2.186 0l10.43-10.43a1.544 1.544 0 0 0 0-2.187"/></svg>
+  </div>
+  <div class="md-source__repository">
+    entity
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Entity: wiki" class="md-nav__button md-logo" aria-label="Entity: wiki" data-md-component="logo">
+      
+  <img src="../../../assets/logo.svg" alt="logo">
+
+    </a>
+    Entity: wiki
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/entity-toolkit/entity" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M23.546 10.93 13.067.452a1.55 1.55 0 0 0-2.188 0L8.708 2.627l2.76 2.76a1.838 1.838 0 0 1 2.327 2.341l2.658 2.66a1.838 1.838 0 0 1 1.9 3.039 1.837 1.837 0 0 1-2.6 0 1.85 1.85 0 0 1-.404-1.996L12.86 8.955v6.525c.176.086.342.203.488.348a1.85 1.85 0 0 1 0 2.6 1.844 1.844 0 0 1-2.609 0 1.834 1.834 0 0 1 0-2.598c.182-.18.387-.316.605-.406V8.835a1.834 1.834 0 0 1-.996-2.41L7.636 3.7.45 10.881c-.6.605-.6 1.584 0 2.189l10.48 10.477a1.545 1.545 0 0 0 2.186 0l10.43-10.43a1.544 1.544 0 0 0 0-2.187"/></svg>
+  </div>
+  <div class="md-source__repository">
+    entity
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Getting Started
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Getting Started
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-getting-started/1-compile-run/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Compiling/running
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-getting-started/2-dependencies/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Dependencies
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-getting-started/3-inputfile/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Input parameters
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-getting-started/8-docker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Docker containers
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    How-To
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            How-To
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-howto/1-problem_generators/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Problem generators
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-howto/2-vis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Output &amp; visualization
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-howto/3-units/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Understanding the units
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-howto/4-checkpoints/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Writing checkpoints &amp; restarting
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-howto/5-docs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Editing the documentation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-howto/6-guidelines/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Code guidelines
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-howto/7-faq/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    F.A.Q.
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Understanding the Code
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Understanding the Code
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    PIC Algorithm
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    PIC Algorithm
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#31-formalism" class="md-nav__link">
+    <span class="md-ellipsis">
+      3+1 Formalism
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3+1 Formalism">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#maxwells-equations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Maxwell's equations
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#equations-of-motion-for-particles" class="md-nav__link">
+    <span class="md-ellipsis">
+      Equations of motion for particles
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#covariant-current-deposition" class="md-nav__link">
+    <span class="md-ellipsis">
+      Covariant current deposition
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#special-relativistic-pic" class="md-nav__link">
+    <span class="md-ellipsis">
+      Special-relativistic PIC
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Special-relativistic PIC">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#particle-pusher-in-sr" class="md-nav__link">
+    <span class="md-ellipsis">
+      Particle pusher in SR
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#general-relativistic-pic" class="md-nav__link">
+    <span class="md-ellipsis">
+      General-relativistic PIC
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="General-relativistic PIC">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#particle-pusher-in-gr" class="md-nav__link">
+    <span class="md-ellipsis">
+      Particle pusher in GR
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2-hierarchy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Hierarchy of structures
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3-domains/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Metadomain, subdomains and meshes
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../4-fields_particles/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Fields and particles
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../5-metrics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Metrics
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../6-higherorder/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Higher order methods
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Useful Things
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Useful Things
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../useful/costtool/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Simulation cost estimator
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../useful/cluster-setups/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Cluster setups
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Theory
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../useful/float-comparison/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Floating point comparison
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../useful/theory_pic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory behind PIC
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../useful/ks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Kerr metric
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Fun
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Fun
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../fun/pushers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Particle pushers
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../fun/coords/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Axisymmetric coordinates
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../fun/cubed_sphere/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Cubed-sphere geometry
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../fun/particle-shapes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    2D particle shapes
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Events
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            Events
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../events/sceecs2024/instructions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    SCEECS Summer School 2024
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#31-formalism" class="md-nav__link">
+    <span class="md-ellipsis">
+      3+1 Formalism
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3+1 Formalism">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#maxwells-equations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Maxwell's equations
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#equations-of-motion-for-particles" class="md-nav__link">
+    <span class="md-ellipsis">
+      Equations of motion for particles
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#covariant-current-deposition" class="md-nav__link">
+    <span class="md-ellipsis">
+      Covariant current deposition
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#special-relativistic-pic" class="md-nav__link">
+    <span class="md-ellipsis">
+      Special-relativistic PIC
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Special-relativistic PIC">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#particle-pusher-in-sr" class="md-nav__link">
+    <span class="md-ellipsis">
+      Particle pusher in SR
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#general-relativistic-pic" class="md-nav__link">
+    <span class="md-ellipsis">
+      General-relativistic PIC
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="General-relativistic PIC">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#particle-pusher-in-gr" class="md-nav__link">
+    <span class="md-ellipsis">
+      Particle pusher in GR
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+  
+
+
+
+  
+  
+
+
+<h1 id="pic-algorithm">PIC Algorithm<a class="headerlink" href="#pic-algorithm" title="Permanent link">&para;</a></h1>
+<h2 id="31-formalism">3+1 Formalism<a class="headerlink" href="#31-formalism" title="Permanent link">&para;</a></h2>
+<p>To facilitate both GR and non-GR equations in a single framework while still retaining the maximum level of generality, we employ the 3+1 formalism for projecting the space-time (see, e.g., <a href="https://link.springer.com/book/10.1007/978-3-642-24525-1">Gourgoulhon, 2012</a>).</p>
+<p>In the most general 3+1 formulation, the metric and its inverse in arbitrary coordinate system can be represented in the following form:</p>
+<div class="arithmatex">\[\begin{align*}
+g_{\mu\nu}&amp;=\begin{bmatrix}
+-\alpha^2+\beta_k\beta^k &amp; \beta_i \\
+\beta_j &amp; h_{ij}
+\end{bmatrix}\\\\
+g^{\mu\nu}&amp;=\begin{bmatrix}
+-1/\alpha^2 &amp; \beta^i/\alpha^2 \\
+\beta^j/\alpha^2 &amp; h^{ij}-\beta^i\beta^j/\alpha^2
+\end{bmatrix}
+\end{align*}\]</div>
+<p>where <span class="arithmatex">\(\alpha\)</span> is the metric <em>lapse function</em>, and <span class="arithmatex">\(\beta_i\)</span> is the metric <em>shift vector</em>. We will also denote <span class="arithmatex">\(h \equiv \mathrm{det}{(h_{ij})}\)</span>. Notice also, that <span class="arithmatex">\(g\equiv \mathrm{det}{(g_{\mu\nu})} = -\alpha^2 h\)</span>, and <span class="arithmatex">\(\sqrt{-g}=\alpha\sqrt{h}\)</span>.</p>
+<p>In this system, we can now express the curl of an arbitrary contravariant vector:</p>
+<div class="arithmatex">\[
+(\nabla\times A)^i \equiv \frac{1}{\sqrt{h}}\varepsilon^{ijk}\partial_j A_k = \frac{1}{\sqrt{h}}\varepsilon^{ijk}\partial_j h_{kp}A^p
+\]</div>
+<p>where <span class="arithmatex">\(A_k = h_{kp} A^p\)</span>, and <span class="arithmatex">\(\varepsilon^{ijk}\)</span> is the Levi-Civita symbol.</p>
+<h3 id="maxwells-equations">Maxwell's equations<a class="headerlink" href="#maxwells-equations" title="Permanent link">&para;</a></h3>
+<p>In the general 3+1 formulation (special and general relativistic) there are two "physical" fields (the ones measured by fiducial observers, FIDOs), <span class="arithmatex">\(B^i\)</span>, and <span class="arithmatex">\(D^i\)</span>. Evolution equations on these two fields can be written as:</p>
+<div class="arithmatex">\[
+\begin{aligned}
+\frac{\partial D^i}{c\partial t} &amp;= \frac{1}{\sqrt{h}} \varepsilon^{ijk}\partial_j H_k - \frac{4\pi}{c} J^i \\
+\frac{\partial B^i}{c\partial t} &amp;= -\frac{1}{\sqrt{h}} \varepsilon^{ijk}\partial_j E_k
+\end{aligned}
+\]</div>
+<p>where <span class="arithmatex">\(H_i\)</span>, and <span class="arithmatex">\(E_i\)</span> are the covariant auxiliary fields, defined as follows:</p>
+<div class="arithmatex">\[
+\begin{aligned}
+H_i &amp;= \alpha h_{ij} B^j - \frac{1}{\sqrt{h}}\varepsilon_{ijk}\beta^j D^k \\
+E_i &amp;= \alpha h_{ij} D^j + \frac{1}{\sqrt{h}}\varepsilon_{ijk}\beta^j B^k
+\end{aligned}
+\]</div>
+<div class="admonition example">
+<p class="admonition-title">Flat space-time with diagonal metric</p>
+<p>In flat space-time with diagonal metric, <span class="arithmatex">\(\alpha=1\)</span>, and <span class="arithmatex">\(\beta^i=0\)</span>, we have <span class="arithmatex">\(D_i = E_i = h_{ij} E^j\)</span>, and <span class="arithmatex">\(B_i = H_i = h_{ij} B^j\)</span>. Maxwell's equations then reduce to a closed form:</p>
+<div class="arithmatex">\[
+\begin{aligned}
+\frac{\partial E^i}{c\partial t} &amp;= \frac{1}{\sqrt{h}} \varepsilon^{ijk}\partial_j B_k - \frac{4\pi}{c} J^i \\
+\frac{\partial B^i}{c\partial t} &amp;= -\frac{1}{\sqrt{h}} \varepsilon^{ijk}\partial_j E_k
+\end{aligned}
+\]</div>
+<p>If we further assume that the coordinate system is also flat, <span class="arithmatex">\(h_{ij}=\delta_{ij}\)</span>, we get the more familiar form:</p>
+<div class="arithmatex">\[
+\begin{aligned}
+\frac{\partial E^i}{c\partial t} &amp;= (\nabla\times \bm{B})^i - \frac{4\pi}{c} J^i \\
+\frac{\partial B^i}{c\partial t} &amp;= -(\nabla\times\bm{E})^i
+\end{aligned}
+\]</div>
+</div>
+<!-- ### Axisymmetric
+
+In 2D spherical coordinate system (axisymmetric, $\partial_\phi = 0$) discretized version of Maxwell's equation on $E^1$ ("radial") is singular at the polar axis: $h^{(i+1/2,~0)} = h^{(i+1/2,~n_2-1)} = 0$. -->
+
+<h3 id="equations-of-motion-for-particles">Equations of motion for particles<a class="headerlink" href="#equations-of-motion-for-particles" title="Permanent link">&para;</a></h3>
+<p>The equation of motion for relativistic particles in such a 3+1 formulation have the following form:</p>
+<div class="arithmatex">\[
+\begin{aligned}
+\frac{d x^i}{cd t} &amp;= \alpha \frac{1}{\gamma}h^{ij} u_j - \beta^i \\
+\frac{d u_i}{cd t} &amp;=
+\underbrace{
+  -\gamma \partial_i \alpha + u_j\partial_i \beta^j - \frac{\alpha}{2\gamma} u_j u_k\partial_i h^{jk}
+}_{\text{``curvature'' force}} +
+\underbrace{
+  \frac{q}{m c^2}\alpha\left(h_{ij}D^j + \frac{1}{\sqrt{h}\gamma}\varepsilon_{ijk}h^{jl} u_l B^k\right)
+}_{\text{Lorentz force}}
+\end{aligned}
+\]</div>
+<p>Here <span class="arithmatex">\(u_i\)</span> are the three components of the particle's covariant four-velocity, <span class="arithmatex">\(x^i\)</span> is its position, <span class="arithmatex">\(\gamma = \sqrt{\varepsilon+h^{ij}u_{i}u_j}\)</span> is the energy of the particle (<span class="arithmatex">\(\varepsilon\equiv 1\)</span> for massive particles, and <span class="arithmatex">\(\varepsilon\equiv 0\)</span> for photons), <span class="arithmatex">\(h_{ij}\)</span>, <span class="arithmatex">\(h^{ij}\)</span>, <span class="arithmatex">\(\sqrt{h}\)</span> as well as <span class="arithmatex">\(\alpha\)</span>, and <span class="arithmatex">\(\beta^i\)</span> are the metric coefficients at particle's position. <span class="arithmatex">\(D^i\)</span> and <span class="arithmatex">\(B^i\)</span> are the contravariant field components also measured at particle's position.</p>
+<h3 id="covariant-current-deposition">Covariant current deposition<a class="headerlink" href="#covariant-current-deposition" title="Permanent link">&para;</a></h3>
+<p>Charged particles deposit currents, <span class="arithmatex">\(\bm{J}^i\)</span>, that go into Maxwell's equations as source terms. In general <span class="arithmatex">\(\bm{J}^i = \rho \bm{\beta}^i c\)</span>, where <span class="arithmatex">\(\rho\)</span> is the charge density measured in the lab frame. Coupled with the equations of motion and Maxwell's equations, this relation ensures exact charge conservation, i.e., <span class="arithmatex">\(\nabla\cdot \bm{J}^\mu\equiv \bm{J}^\mu_{;\mu} = 0\)</span>, where <span class="arithmatex">\(\bm{J}^\mu\)</span> is the contravariant four-current with <span class="arithmatex">\(J^0 = \rho c\)</span>. Substituting <span class="arithmatex">\(\tilde{\rho}\equiv \sqrt{h}\rho\)</span>, and <span class="arithmatex">\(\bm{\mathcal{J}}^i\equiv \sqrt{h}\bm{J}^i\)</span>, we can rewrite the charge conservation in a more concise form:</p>
+<div class="arithmatex">\[
+\frac{\partial \tilde{\rho}}{\partial t} + \partial_i \bm{\mathcal{J}}^i = 0
+\]</div>
+<p>Thus, depositing currents as <span class="arithmatex">\(\bm{\mathcal{J}}^i\)</span> and then converting to <span class="arithmatex">\(\bm{J}^i=\bm{\mathcal{J}}^i/\sqrt{h}\)</span> one can ensure that the exact charge conservation is maintained.</p>
+<h2 id="special-relativistic-pic">Special-relativistic PIC<a class="headerlink" href="#special-relativistic-pic" title="Permanent link">&para;</a></h2>
+<p>For the non-GR case we use an explicit leapfrog integrator for both fields and the particles. All the fields, as well as particle coordinates/velocities are defined in the general curvilinear (orthonormal) coordinate system.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:8"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><input id="__tabbed_1_4" name="__tabbed_1" type="radio" /><input id="__tabbed_1_5" name="__tabbed_1" type="radio" /><input id="__tabbed_1_6" name="__tabbed_1" type="radio" /><input id="__tabbed_1_7" name="__tabbed_1" type="radio" /><input id="__tabbed_1_8" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">0. initial configuration</label><label for="__tabbed_1_2">1. first Faraday half-step</label><label for="__tabbed_1_3">2.1. particle velocity update</label><label for="__tabbed_1_4">2.2. particle coordinate update</label><label for="__tabbed_1_5">3. Current deposition</label><label for="__tabbed_1_6">4.1. second Faraday half-step</label><label for="__tabbed_1_7">4.2. Ampere substep</label><label for="__tabbed_1_8">5. final configuration</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p><div class="d3-diagram" id="plot0"></div></p>
+<div class="arithmatex">\[
+t=t^{(n)}
+\]</div>
+</div>
+<div class="tabbed-block">
+<p><div class="d3-diagram" id="plot1"></div></p>
+<div class="arithmatex">\[
+\frac{1}{c}\frac{\partial B^i}{\partial t} = -\frac{1}{\sqrt{h}}\varepsilon^{ijk}\partial_j\left(h_{kp} E^p\right)
+\]</div>
+<div class="arithmatex">\[
+B^{(n-1/2)}\xrightarrow[\qquad E^{(n)}\qquad]{\Delta t/2} B^{(n)}
+\]</div>
+</div>
+<div class="tabbed-block">
+<p><div class="d3-diagram" id="plot2_1"></div></p>
+<div class="arithmatex">\[
+u^{(n-1/2)}\xrightarrow[\qquad E(x^n),~B(x^n)\qquad]{\Delta t} u^{(n+1/2)}
+\]</div>
+</div>
+<div class="tabbed-block">
+<p><div class="d3-diagram" id="plot2_2"></div></p>
+<div class="arithmatex">\[
+\frac{\mathrm{d} x_i}{\mathrm{d} t} = \frac{u_i}{\gamma}
+\]</div>
+<div class="arithmatex">\[
+x^{(n)}\xrightarrow[\qquad u^{(n+1/2)}\qquad]{\Delta t} x^{(n+1)}
+\]</div>
+</div>
+<div class="tabbed-block">
+<p><div class="d3-diagram" id="plot3_2"></div></p>
+</div>
+<div class="tabbed-block">
+<p><div class="d3-diagram" id="plot4"></div></p>
+<div class="arithmatex">\[
+\frac{1}{c}\frac{\partial B_i}{\partial t} = -\frac{1}{\sqrt{h}}\varepsilon^{ijk}\partial_j\left(h_{kp} E^p\right)
+\]</div>
+<div class="arithmatex">\[
+B^{(n)}\xrightarrow[\qquad E^{(n)}\qquad]{\Delta t/2} B^{(n+1/2)}
+\]</div>
+</div>
+<div class="tabbed-block">
+<p><div class="d3-diagram" id="plot5"></div></p>
+<div class="arithmatex">\[
+\frac{1}{c}\frac{\partial E_i}{\partial t} = \frac{1}{\sqrt{h}}\varepsilon^{ijk}\partial_j\left(h_{kp} B^p\right) - \frac{4\pi}{c} J^i
+\]</div>
+<div class="arithmatex">\[
+E^{(n)}\xrightarrow[\qquad B^{(n+1/2)},~J^{(n+1/2)}\qquad]{\Delta t} E^{(n+1)}
+\]</div>
+</div>
+<div class="tabbed-block">
+<p><div class="d3-diagram" id="plot6"></div></p>
+<div class="arithmatex">\[
+t=t^{(n+1)}
+\]</div>
+</div>
+</div>
+</div>
+<h3 id="particle-pusher-in-sr">Particle pusher in SR<a class="headerlink" href="#particle-pusher-in-sr" title="Permanent link">&para;</a></h3>
+<p>The pseudocode below roughly illustrates the particle pusher algorithm in SR.</p>
+<div class="language-go highlight"><pre><span></span><code><span class="c1">// em &lt;-- 4D array of e/b-fields (encode 3 dimensions and the component of the field)</span>
+<span class="c1">// species &lt;-- 1D array of species</span>
+<span class="c1">// metric &lt;-- metric object</span>
+<span class="c1">// dt &lt;-- timestep</span>
+
+<span class="c1">// prtl.x: coordinates in code units @ t^n (1)</span>
+<span class="c1">// prtl.u: 4-velocities in the global Cartesian basis @ t^(n-1/2)</span>
+
+<span class="k">for</span><span class="w"> </span><span class="nx">spec</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">range</span><span class="w"> </span><span class="nx">species</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">q_ovr_m</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">spec</span><span class="p">.</span><span class="nx">charge</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="nx">spec</span><span class="p">.</span><span class="nx">mass</span>
+<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="nx">prtl</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">range</span><span class="w"> </span><span class="nx">spec</span><span class="p">.</span><span class="nx">prtls</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="c1">//(2)!</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">!</span><span class="nx">prtl</span><span class="p">.</span><span class="nx">is_alive</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="k">continue</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">spec</span><span class="p">.</span><span class="nx">is_massive</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="c1">//(3)!</span>
+<span class="w">      </span><span class="c1">// 1. interpolate contravariant fields to particle position</span>
+<span class="w">      </span><span class="nx">eU</span><span class="p">,</span><span class="w"> </span><span class="nx">bU</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">interpolate</span><span class="p">(</span><span class="nx">em</span><span class="p">,</span><span class="w"> </span><span class="nx">prtl</span><span class="p">.</span><span class="nx">x</span><span class="p">)</span>
+
+<span class="w">      </span><span class="c1">// 2. convert to global XYZ coordinates </span>
+<span class="w">      </span><span class="nx">e</span><span class="p">,</span><span class="w"> </span><span class="nx">b</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">metric</span><span class="p">.</span><span class="nx">transform_xyz</span><span class="p">[</span><span class="nx">Idx</span><span class="p">::</span><span class="nx">U</span><span class="p">,</span><span class="w"> </span><span class="nx">Idx</span><span class="p">::</span><span class="nx">XYZ</span><span class="p">](</span><span class="nx">eU</span><span class="p">,</span><span class="w"> </span><span class="nx">bU</span><span class="p">)</span><span class="w"> </span><span class="c1">// (4)!</span>
+
+<span class="w">      </span><span class="c1">// 3. update particle momentum (e.g., using Boris algorithm)</span>
+<span class="w">      </span><span class="nx">prtl</span><span class="p">.</span><span class="nx">u</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">updateMomentum</span><span class="p">(</span><span class="nx">prtl</span><span class="p">.</span><span class="nx">u</span><span class="p">,</span><span class="w"> </span><span class="nx">e</span><span class="p">,</span><span class="w"> </span><span class="nx">b</span><span class="p">,</span><span class="w"> </span><span class="nx">q_ovr_m</span><span class="p">,</span><span class="w"> </span><span class="nx">dt</span><span class="p">)</span>
+
+<span class="w">      </span><span class="c1">// 4. get 3-velocity</span>
+<span class="w">      </span><span class="nx">v</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">prtl</span><span class="p">.</span><span class="nx">u</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="nx">sqrt</span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">prtl</span><span class="p">.</span><span class="nx">u</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="c1">// 4. get 3-velocity</span>
+<span class="w">      </span><span class="nx">v</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">prtl</span><span class="p">.</span><span class="nx">u</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="nx">sqrt</span><span class="p">(</span><span class="nx">prtl</span><span class="p">.</span><span class="nx">u</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="c1">// 5. record the old position</span>
+<span class="w">    </span><span class="nx">prtl</span><span class="p">.</span><span class="nx">x_old</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">prtl</span><span class="p">.</span><span class="nx">x</span>
+
+<span class="w">    </span><span class="c1">// 6. convert the coordinates to Cartesian basis</span>
+<span class="w">    </span><span class="nx">x</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">metric</span><span class="p">.</span><span class="nx">convert_xyz</span><span class="p">[</span><span class="nx">Crd</span><span class="p">::</span><span class="nx">Cd</span><span class="p">,</span><span class="w"> </span><span class="nx">Crd</span><span class="p">::</span><span class="nx">XYZ</span><span class="p">](</span><span class="nx">prtl</span><span class="p">.</span><span class="nx">x</span><span class="p">)</span>
+
+<span class="w">    </span><span class="c1">// 7. update the position</span>
+<span class="w">    </span><span class="nx">x</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="nx">v</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nx">dt</span>
+
+<span class="w">    </span><span class="c1">// 8. convert back to code basis</span>
+<span class="w">    </span><span class="nx">prtl</span><span class="p">.</span><span class="nx">x</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">metric</span><span class="p">.</span><span class="nx">convert_xyz</span><span class="p">[</span><span class="nx">Crd</span><span class="p">::</span><span class="nx">XYZ</span><span class="p">,</span><span class="w"> </span><span class="nx">Crd</span><span class="p">::</span><span class="nx">Cd</span><span class="p">](</span><span class="nx">x</span><span class="p">)</span>
+
+<span class="w">    </span><span class="c1">// 9. apply boundary conditions</span>
+<span class="w">    </span><span class="nx">prtl</span><span class="p">.</span><span class="nx">x</span><span class="p">,</span><span class="w"> </span><span class="nx">prtl</span><span class="p">.</span><span class="nx">u</span><span class="p">,</span><span class="w"> </span><span class="nx">prtl</span><span class="p">.</span><span class="nx">x_old</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">boundary_conditions</span><span class="p">(</span><span class="nx">prtl</span><span class="p">.</span><span class="nx">x</span><span class="p">,</span><span class="w"> </span><span class="nx">prtl</span><span class="p">.</span><span class="nx">u</span><span class="p">,</span><span class="w"> </span><span class="nx">prtl</span><span class="p">.</span><span class="nx">x_old</span><span class="p">)</span><span class="w"> </span><span class="c1">// (5)!</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// at the end of the loop we have</span>
+<span class="c1">// prtl.x_old: coordinates @ t^n</span>
+<span class="c1">// prtl.x: coordinates @ t^(n+1)</span>
+<span class="c1">// prtl.u: 4-velocities @ t^(n+1/2)</span>
+</code></pre></div>
+<ol>
+<li><img alt="❕" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/2755.svg" title=":grey_exclamation:" /> In the actual code, we store particle coordinates as an index of the cell the particle is in plus a displacement.</li>
+<li><img alt="❕" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/2755.svg" title=":grey_exclamation:" /> In reality, we use a structure of arrays, instead of an array of structures. Here we use a simplified notation for clarity.</li>
+<li><img alt="❕" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/2755.svg" title=":grey_exclamation:" /> In the code, of course, we minimize the amount of runtime <code>if</code> statements by using compile-time <code>constexpr if</code>-s and template arguments.</li>
+<li><img alt="❕" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/2755.svg" title=":grey_exclamation:" /> If there are external forces acting on the particle, or a drag force, we include them in the next step.</li>
+<li><img alt="❕" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/2755.svg" title=":grey_exclamation:" /> Here we include absorption, reflection from the axis, periodic boundaries, etc. Communication with other domains is happeing at a different place.</li>
+</ol>
+<hr />
+<h2 id="general-relativistic-pic">General-relativistic PIC<a class="headerlink" href="#general-relativistic-pic" title="Permanent link">&para;</a></h2>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:13"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><input id="__tabbed_2_3" name="__tabbed_2" type="radio" /><input id="__tabbed_2_4" name="__tabbed_2" type="radio" /><input id="__tabbed_2_5" name="__tabbed_2" type="radio" /><input id="__tabbed_2_6" name="__tabbed_2" type="radio" /><input id="__tabbed_2_7" name="__tabbed_2" type="radio" /><input id="__tabbed_2_8" name="__tabbed_2" type="radio" /><input id="__tabbed_2_9" name="__tabbed_2" type="radio" /><input id="__tabbed_2_10" name="__tabbed_2" type="radio" /><input id="__tabbed_2_11" name="__tabbed_2" type="radio" /><input id="__tabbed_2_12" name="__tabbed_2" type="radio" /><input id="__tabbed_2_13" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">0. initial configuration</label><label for="__tabbed_2_2">1.1. intermediate interpolation</label><label for="__tabbed_2_3">1.2. auxiliary field recovery</label><label for="__tabbed_2_4">1.3. auxiliary Faraday substep</label><label for="__tabbed_2_5">2. particle push</label><label for="__tabbed_2_6">3. current deposition</label><label for="__tabbed_2_7">4.1. auxiliary field recovery</label><label for="__tabbed_2_8">4.2. Faraday substep</label><label for="__tabbed_2_9">4.3. intermediate current interpolation</label><label for="__tabbed_2_10">4.4. auxiliary Ampere substep</label><label for="__tabbed_2_11">4.5. auxiliary field recovery</label><label for="__tabbed_2_12">4.6. Ampere substep</label><label for="__tabbed_2_13">5. final configuration</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p><div class="d3-diagram" id="grplot0"></div></p>
+<div class="arithmatex">\[
+t=t^{(n)}
+\]</div>
+</div>
+<div class="tabbed-block">
+<p><div class="d3-diagram" id="grplot1_1"></div></p>
+<div class="arithmatex">\[
+\begin{aligned}
+D^{(n-1/2)} &amp;= \frac{1}{2}\left(D^{(n-1)}+D^{(n)}\right)\\\\
+B^{(n-1)} &amp;= \frac{1}{2}\left(B^{(n-3/2)}+B^{(n-1/2)}\right)
+\end{aligned}
+\]</div>
+</div>
+<div class="tabbed-block">
+<p><div class="d3-diagram" id="grplot1_2"></div></p>
+<div class="arithmatex">\[
+E^{(n-1/2)} = \alpha D^{(n-1/2)} + \beta\times B^{(n-1/2)}
+\]</div>
+</div>
+<div class="tabbed-block">
+<p><div class="d3-diagram" id="grplot1_3"></div></p>
+<div class="arithmatex">\[
+B^{(n-1)}\xrightarrow[\qquad E^{(n-1/2)}\qquad]{\Delta t} B^{(n)}
+\]</div>
+</div>
+<div class="tabbed-block">
+<p><div class="d3-diagram" id="grplot2_1"></div></p>
+</div>
+<div class="tabbed-block">
+<p><div class="d3-diagram" id="grplot3"></div></p>
+</div>
+<div class="tabbed-block">
+<p><div class="d3-diagram" id="grplot4_1"></div></p>
+<div class="arithmatex">\[
+E^{(n)} = \alpha D^{(n)} + \beta\times B^{(n)}
+\]</div>
+<div class="arithmatex">\[
+H^{(n)} = \alpha B^{(n)} - \beta\times D^{(n)}
+\]</div>
+</div>
+<div class="tabbed-block">
+<p><div class="d3-diagram" id="grplot4_2"></div></p>
+<div class="arithmatex">\[
+B^{(n-1/2)}\xrightarrow[\qquad E^{(n)}\qquad]{\Delta t} B^{(n+1/2)}
+\]</div>
+</div>
+<div class="tabbed-block">
+<p><div class="d3-diagram" id="grplot4_3"></div></p>
+<div class="arithmatex">\[
+J^{(n)} = \frac{1}{2}\left(J^{(n-1/2)}+J^{(n+1/2)}\right)
+\]</div>
+</div>
+<div class="tabbed-block">
+<p><div class="d3-diagram" id="grplot4_4"></div></p>
+<div class="arithmatex">\[
+D^{(n-1/2)}\xrightarrow[\qquad H^{(n)},~J^{(n)}\qquad]{\Delta t} D^{(n+1/2)}
+\]</div>
+</div>
+<div class="tabbed-block">
+<p><div class="d3-diagram" id="grplot4_5"></div></p>
+<div class="arithmatex">\[
+H^{(n+1/2)} = \alpha B^{(n+1/2)} - \beta\times D^{(n+1/2)}
+\]</div>
+</div>
+<div class="tabbed-block">
+<p><div class="d3-diagram" id="grplot4_6"></div></p>
+<div class="arithmatex">\[
+D^{(n)}\xrightarrow[\qquad H^{(n+1/2)},~J^{(n+1/2)}\qquad]{\Delta t} D^{(n+1)}
+\]</div>
+</div>
+<div class="tabbed-block">
+<p><div class="d3-diagram" id="grplot5"></div></p>
+<div class="arithmatex">\[
+t=t^{(n+1)}
+\]</div>
+</div>
+</div>
+</div>
+<h3 id="particle-pusher-in-gr">Particle pusher in GR<a class="headerlink" href="#particle-pusher-in-gr" title="Permanent link">&para;</a></h3>
+<p>Particle pusher in GR is slightly more complicated, as we can no longer transform into a global Cartesian frame, and thus unavoidably have to deal with the <a href="#equations-of-motion-for-particles">"geodesic" term</a> in the equation of motion.</p>
+<div class="language-go highlight"><pre><span></span><code><span class="c1">// em &lt;-- 4D array of d/b-fields, with d defined @ t^n (1)</span>
+<span class="c1">// em0 &lt;-- 4D array of d/b-fields, with b defined @ t^n</span>
+<span class="c1">// species &lt;-- 1D array of species</span>
+<span class="c1">// metric &lt;-- metric object</span>
+<span class="c1">// dt &lt;-- timestep</span>
+
+<span class="c1">// prtl.x: coordinates in code units @ t^n</span>
+<span class="c1">// prtl.u: 4-velocities in code-covariant basis @ t^(n-1/2)</span>
+
+<span class="k">for</span><span class="w"> </span><span class="nx">spec</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">range</span><span class="w"> </span><span class="nx">species</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">q_ovr_m</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">spec</span><span class="p">.</span><span class="nx">charge</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="nx">spec</span><span class="p">.</span><span class="nx">mass</span>
+<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="nx">prtl</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">range</span><span class="w"> </span><span class="nx">spec</span><span class="p">.</span><span class="nx">prtls</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">!</span><span class="nx">prtl</span><span class="p">.</span><span class="nx">is_alive</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="k">continue</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">spec</span><span class="p">.</span><span class="nx">is_massive</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="c1">// 1. interpolate contravariant fields to particle position</span>
+<span class="w">      </span><span class="nx">eU</span><span class="p">,</span><span class="w"> </span><span class="nx">bU</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">interpolate</span><span class="p">(</span><span class="nx">em</span><span class="p">,</span><span class="w"> </span><span class="nx">em0</span><span class="p">,</span><span class="w"> </span><span class="nx">prtl</span><span class="p">.</span><span class="nx">x</span><span class="p">)</span>
+
+<span class="w">      </span><span class="c1">// 2. convert to local tetrad basis</span>
+<span class="w">      </span><span class="nx">eT</span><span class="p">,</span><span class="w"> </span><span class="nx">bT</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">metric</span><span class="p">.</span><span class="nx">transform</span><span class="p">[</span><span class="nx">Idx</span><span class="p">::</span><span class="nx">U</span><span class="p">,</span><span class="w"> </span><span class="nx">Idx</span><span class="p">::</span><span class="nx">T</span><span class="p">](</span><span class="nx">eU</span><span class="p">,</span><span class="w"> </span><span class="nx">bU</span><span class="p">)</span>
+
+<span class="w">      </span><span class="c1">// 3. get the velocity in tetrad basis</span>
+<span class="w">      </span><span class="nx">uT</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">metric</span><span class="p">.</span><span class="nx">transform</span><span class="p">[</span><span class="nx">Idx</span><span class="p">::</span><span class="nx">D</span><span class="p">,</span><span class="w"> </span><span class="nx">Idx</span><span class="p">::</span><span class="nx">T</span><span class="p">](</span><span class="nx">prtl</span><span class="p">.</span><span class="nx">u</span><span class="p">)</span>
+
+<span class="w">      </span><span class="c1">// 4. update particle momentum with electromagnetic-push (half step)</span>
+<span class="w">      </span><span class="nx">uT</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">updateMomentum</span><span class="p">(</span><span class="nx">uT</span><span class="p">,</span><span class="w"> </span><span class="nx">eT</span><span class="p">,</span><span class="w"> </span><span class="nx">bT</span><span class="p">,</span><span class="w"> </span><span class="nx">q_ovr_m</span><span class="p">,</span><span class="w"> </span><span class="nx">dt</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span>
+
+<span class="w">      </span><span class="c1">// 5. transform the velocity back to code-covariant basis</span>
+<span class="w">      </span><span class="nx">uD</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">metric</span><span class="p">.</span><span class="nx">transform</span><span class="p">[</span><span class="nx">Idx</span><span class="p">::</span><span class="nx">T</span><span class="p">,</span><span class="w"> </span><span class="nx">Idx</span><span class="p">::</span><span class="nx">D</span><span class="p">](</span><span class="nx">uT</span><span class="p">)</span>
+
+<span class="w">      </span><span class="c1">// 6. update the momentum using a full geodesic push</span>
+<span class="w">      </span><span class="nx">uD</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">geodesicMomentumUpdate</span><span class="p">(</span><span class="nx">prtl</span><span class="p">.</span><span class="nx">x</span><span class="p">,</span><span class="w"> </span><span class="nx">uD</span><span class="p">,</span><span class="w"> </span><span class="nx">dt</span><span class="p">)</span>
+
+<span class="w">      </span><span class="c1">// 7. transform again to tetrad basis</span>
+<span class="w">      </span><span class="nx">uT</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">metric</span><span class="p">.</span><span class="nx">transform</span><span class="p">[</span><span class="nx">Idx</span><span class="p">::</span><span class="nx">D</span><span class="p">,</span><span class="w"> </span><span class="nx">Idx</span><span class="p">::</span><span class="nx">T</span><span class="p">](</span><span class="nx">uD</span><span class="p">)</span>
+
+<span class="w">      </span><span class="c1">// 8. update with another half-step electromagnetic push</span>
+<span class="w">      </span><span class="nx">uT</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">updateMomentum</span><span class="p">(</span><span class="nx">uT</span><span class="p">,</span><span class="w"> </span><span class="nx">eT</span><span class="p">,</span><span class="w"> </span><span class="nx">bT</span><span class="p">,</span><span class="w"> </span><span class="nx">q_ovr_m</span><span class="p">,</span><span class="w"> </span><span class="nx">dt</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span>
+
+<span class="w">      </span><span class="c1">// 9. transform back to code-covariant basis</span>
+<span class="w">      </span><span class="nx">prtl</span><span class="p">.</span><span class="nx">u</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">metric</span><span class="p">.</span><span class="nx">transform</span><span class="p">[</span><span class="nx">Idx</span><span class="p">::</span><span class="nx">T</span><span class="p">,</span><span class="w"> </span><span class="nx">Idx</span><span class="p">::</span><span class="nx">D</span><span class="p">](</span><span class="nx">uT</span><span class="p">)</span>
+
+<span class="w">      </span><span class="c1">// 10. record the old position</span>
+<span class="w">      </span><span class="nx">prtl</span><span class="p">.</span><span class="nx">x_old</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">prtl</span><span class="p">.</span><span class="nx">x</span>
+
+<span class="w">      </span><span class="c1">// 11. update the coordinate using the geodesic equation</span>
+<span class="w">      </span><span class="nx">prtl</span><span class="p">.</span><span class="nx">x</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">geodesicPositionUpdate</span><span class="p">(</span><span class="nx">prtl</span><span class="p">.</span><span class="nx">x</span><span class="p">,</span><span class="w"> </span><span class="nx">prtl</span><span class="p">.</span><span class="nx">u</span><span class="p">,</span><span class="w"> </span><span class="nx">dt</span><span class="p">)</span>
+
+<span class="w">      </span><span class="c1">// 12. apply boundary conditions</span>
+<span class="w">      </span><span class="nx">prtl</span><span class="p">.</span><span class="nx">x</span><span class="p">,</span><span class="w"> </span><span class="nx">prtl</span><span class="p">.</span><span class="nx">u</span><span class="p">,</span><span class="w"> </span><span class="nx">prtl</span><span class="p">.</span><span class="nx">x_old</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">boundary_conditions</span><span class="p">(</span><span class="nx">prtl</span><span class="p">.</span><span class="nx">x</span><span class="p">,</span><span class="w"> </span><span class="nx">prtl</span><span class="p">.</span><span class="nx">u</span><span class="p">,</span><span class="w"> </span><span class="nx">prtl</span><span class="p">.</span><span class="nx">x_old</span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="c1">// 1. update the momentum using geodesic push</span>
+<span class="w">      </span><span class="nx">prtl</span><span class="p">.</span><span class="nx">u</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">geodesicMomentumUpdate</span><span class="p">(</span><span class="nx">prtl</span><span class="p">.</span><span class="nx">x</span><span class="p">,</span><span class="w"> </span><span class="nx">prtl</span><span class="p">.</span><span class="nx">u</span><span class="p">,</span><span class="w"> </span><span class="nx">dt</span><span class="p">)</span>
+
+<span class="w">      </span><span class="c1">// 2. update the coordinate using geodesic push</span>
+<span class="w">      </span><span class="nx">prtl</span><span class="p">.</span><span class="nx">x</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">geodesicPositionUpdate</span><span class="p">(</span><span class="nx">prtl</span><span class="p">.</span><span class="nx">x</span><span class="p">,</span><span class="w"> </span><span class="nx">prtl</span><span class="p">.</span><span class="nx">u</span><span class="p">,</span><span class="w"> </span><span class="nx">dt</span><span class="p">)</span>
+
+<span class="w">      </span><span class="c1">// 3. apply boundary conditions</span>
+<span class="w">      </span><span class="nx">prtl</span><span class="p">.</span><span class="nx">x</span><span class="p">,</span><span class="w"> </span><span class="nx">prtl</span><span class="p">.</span><span class="nx">u</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">boundary_conditions</span><span class="p">(</span><span class="nx">prtl</span><span class="p">.</span><span class="nx">x</span><span class="p">,</span><span class="w"> </span><span class="nx">prtl</span><span class="p">.</span><span class="nx">u</span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// at the end of the loop we have</span>
+<span class="c1">// prtl.x_old: coordinates @ t^n</span>
+<span class="c1">// prtl.x: coordinates @ t^(n+1)</span>
+<span class="c1">// prtl.u: 4-velocities @ t^(n+1/2)</span>
+</code></pre></div>
+<ol>
+<li><img alt="❕" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/2755.svg" title=":grey_exclamation:" /> To save memory, we store the fields at two time levels, and two different 4D arrays. Here we want to ensure we are passing the fields at time <code>t^n</code>. See step #2 in the diagram above.</li>
+</ol>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+  
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2021++, Entity dev team
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/entity-toolkit/entity/" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M216.29 158.39H137C97 147.9 6.51 150.63 6.51 233.18c0 30.09 15 51.23 35 61-25.1 23-37 33.85-37 49.21 0 11 4.47 21.14 17.89 26.81C8.13 383.61 0 393.35 0 411.65c0 32.11 28.05 50.82 101.63 50.82 70.75 0 111.79-26.42 111.79-73.18 0-58.66-45.16-56.5-151.63-63l13.43-21.55c27.27 7.58 118.7 10 118.7-67.89 0-18.7-7.73-31.71-15-41.07l37.41-2.84zm-63.42 241.9c0 32.06-104.89 32.1-104.89 2.43 0-8.14 5.27-15 10.57-21.54 77.71 5.3 94.32 3.37 94.32 19.11m-50.81-134.58c-52.8 0-50.46-71.16 1.2-71.16 49.54 0 50.82 71.16-1.2 71.16m133.3 100.51v-32.1c26.75-3.66 27.24-2 27.24-11V203.61c0-8.5-2.05-7.38-27.24-16.26l4.47-32.92H324v168.71c0 6.51.4 7.32 6.51 8.14l20.73 2.84v32.1zm52.45-244.31c-23.17 0-36.59-13.43-36.59-36.61s13.42-35.77 36.59-35.77c23.58 0 37 12.62 37 35.77s-13.42 36.61-37 36.61M512 350.46c-17.49 8.53-43.1 16.26-66.28 16.26-48.38 0-66.67-19.5-66.67-65.46V194.75c0-5.42 1.05-4.06-31.71-4.06V154.5c35.78-4.07 50-22 54.47-66.27h38.63c0 65.83-1.34 61.81 3.26 61.81H501v40.65h-60.56v97.15c0 6.92-4.92 51.41 60.57 26.84z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tracking", "navigation.indexes", "navigation.expand", "content.code.annotate", "content.code.copy", "content.tooltips", "header.autohide", "search.highlight"], "search": "../../../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.13a4f30d.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,1863 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://entity-toolkit.github.io/wiki/content/useful/theory_pic/">
+      
+      
+        <link rel="prev" href="../float-comparison/">
+      
+      
+        <link rel="next" href="../ks/">
+      
+      
+      <link rel="icon" href="../../../assets/logo.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.14">
+    
+    
+      
+        <title>Theory behind PIC - Entity: wiki</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.342714a4.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+  
+  
+  
+  
+  <style>:root{--md-annotation-icon:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M12%2020c-4.41%200-8-3.59-8-8s3.59-8%208-8%208%203.59%208%208-3.59%208-8%208m0-18A10%2010%200%200%200%202%2012a10%2010%200%200%200%2010%2010%2010%2010%200%200%200%2010-10A10%2010%200%200%200%2012%202m1%205h-2v4H7v2h4v4h2v-4h4v-2h-4z%22/%3E%3C/svg%3E');}</style>
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=DM+Sans:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"DM Sans";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../css/style.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  
+  
+  <link rel="stylesheet" href="../../../js/vendor/katex/katex.min.css">
+  <script src="../../../js/vendor/katex/katex.min.js"></script>
+  <script src="../../../js/vendor/katex/contrib/auto-render.min.js"></script>
+  <script src="../../../js/hooks/katex.js" defer></script>
+  
+  
+  
+  
+
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="ntt-light" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#theory-behind-pic" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Entity: wiki" class="md-header__button md-logo" aria-label="Entity: wiki" data-md-component="logo">
+      
+  <img src="../../../assets/logo.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Entity: wiki
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Theory behind PIC
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="ntt-light" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7M9 21a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-1H9z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="ntt-dark" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7M9 21v-1h6v1a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1m3-17a5 5 0 0 0-5 5c0 2.05 1.23 3.81 3 4.58V16h4v-2.42c1.77-.77 3-2.53 3-4.58a5 5 0 0 0-5-5"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/entity-toolkit/entity" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M23.546 10.93 13.067.452a1.55 1.55 0 0 0-2.188 0L8.708 2.627l2.76 2.76a1.838 1.838 0 0 1 2.327 2.341l2.658 2.66a1.838 1.838 0 0 1 1.9 3.039 1.837 1.837 0 0 1-2.6 0 1.85 1.85 0 0 1-.404-1.996L12.86 8.955v6.525c.176.086.342.203.488.348a1.85 1.85 0 0 1 0 2.6 1.844 1.844 0 0 1-2.609 0 1.834 1.834 0 0 1 0-2.598c.182-.18.387-.316.605-.406V8.835a1.834 1.834 0 0 1-.996-2.41L7.636 3.7.45 10.881c-.6.605-.6 1.584 0 2.189l10.48 10.477a1.545 1.545 0 0 0 2.186 0l10.43-10.43a1.544 1.544 0 0 0 0-2.187"/></svg>
+  </div>
+  <div class="md-source__repository">
+    entity
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Entity: wiki" class="md-nav__button md-logo" aria-label="Entity: wiki" data-md-component="logo">
+      
+  <img src="../../../assets/logo.svg" alt="logo">
+
+    </a>
+    Entity: wiki
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/entity-toolkit/entity" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M23.546 10.93 13.067.452a1.55 1.55 0 0 0-2.188 0L8.708 2.627l2.76 2.76a1.838 1.838 0 0 1 2.327 2.341l2.658 2.66a1.838 1.838 0 0 1 1.9 3.039 1.837 1.837 0 0 1-2.6 0 1.85 1.85 0 0 1-.404-1.996L12.86 8.955v6.525c.176.086.342.203.488.348a1.85 1.85 0 0 1 0 2.6 1.844 1.844 0 0 1-2.609 0 1.834 1.834 0 0 1 0-2.598c.182-.18.387-.316.605-.406V8.835a1.834 1.834 0 0 1-.996-2.41L7.636 3.7.45 10.881c-.6.605-.6 1.584 0 2.189l10.48 10.477a1.545 1.545 0 0 0 2.186 0l10.43-10.43a1.544 1.544 0 0 0 0-2.187"/></svg>
+  </div>
+  <div class="md-source__repository">
+    entity
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Getting Started
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Getting Started
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-getting-started/1-compile-run/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Compiling/running
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-getting-started/2-dependencies/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Dependencies
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-getting-started/3-inputfile/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Input parameters
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-getting-started/8-docker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Docker containers
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    How-To
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            How-To
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-howto/1-problem_generators/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Problem generators
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-howto/2-vis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Output &amp; visualization
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-howto/3-units/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Understanding the units
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-howto/4-checkpoints/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Writing checkpoints &amp; restarting
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-howto/5-docs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Editing the documentation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-howto/6-guidelines/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Code guidelines
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-howto/7-faq/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    F.A.Q.
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Understanding the Code
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Understanding the Code
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../3-code/1-pic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    PIC Algorithm
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../3-code/2-hierarchy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Hierarchy of structures
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../3-code/3-domains/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Metadomain, subdomains and meshes
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../3-code/4-fields_particles/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Fields and particles
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../3-code/5-metrics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Metrics
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../3-code/6-higherorder/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Higher order methods
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Useful Things
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Useful Things
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../costtool/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Simulation cost estimator
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cluster-setups/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Cluster setups
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Theory
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../float-comparison/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Floating point comparison
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Theory behind PIC
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory behind PIC
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#klimontovich-equation-ensemble-average" class="md-nav__link">
+    <span class="md-ellipsis">
+      Klimontovich equation &amp; ensemble average
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#liouville-equation-bbgky-hierarchy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Liouville equation &amp; BBGKY hierarchy
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deriving-equations-for-pic" class="md-nav__link">
+    <span class="md-ellipsis">
+      Deriving equations for PIC
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#discretization" class="md-nav__link">
+    <span class="md-ellipsis">
+      Discretization
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Kerr metric
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Fun
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Fun
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../fun/pushers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Particle pushers
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../fun/coords/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Axisymmetric coordinates
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../fun/cubed_sphere/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Cubed-sphere geometry
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../fun/particle-shapes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    2D particle shapes
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Events
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            Events
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../events/sceecs2024/instructions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    SCEECS Summer School 2024
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#klimontovich-equation-ensemble-average" class="md-nav__link">
+    <span class="md-ellipsis">
+      Klimontovich equation &amp; ensemble average
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#liouville-equation-bbgky-hierarchy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Liouville equation &amp; BBGKY hierarchy
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deriving-equations-for-pic" class="md-nav__link">
+    <span class="md-ellipsis">
+      Deriving equations for PIC
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#discretization" class="md-nav__link">
+    <span class="md-ellipsis">
+      Discretization
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+  
+
+
+
+  
+  
+
+
+<h1 id="theory-behind-pic">Theory behind PIC<a class="headerlink" href="#theory-behind-pic" title="Permanent link">&para;</a></h1>
+<div class="admonition abstract">
+<p class="admonition-title">tl;dr</p>
+<p>Our goal in this section be to derive an equation which could describe an evolution of a collection of charged particles in self-induced eletric and magnetic fields. Ultimately, since we will want to solve this partial differential equation on the computer, we will construct an algorithm relying on the method of characteristics which approximates the exact solution, when the number of integrated characteristics (macroparticles) tends to infinity.</p>
+</div>
+<p>At the beginning, we make no simplifying assumptions, but, as we will see further, given the long-range nature of the interaction, we will have to sacrifice generality to make the equations tractable.</p>
+<p>Clasically, there are two equivalent approaches to this problem. Below, we consider both of them, which hopefully will help highlight different aspects of the resulting equation as well as the assumptions made.</p>
+<h2 id="klimontovich-equation-ensemble-average">Klimontovich equation &amp; ensemble average<a class="headerlink" href="#klimontovich-equation-ensemble-average" title="Permanent link">&para;</a></h2>
+<p>We start with a distribution function for a collection of charged particles of species <span class="arithmatex">\(s\)</span> with charge <span class="arithmatex">\(q_s\)</span> and mass <span class="arithmatex">\(m_s\)</span> in the phase space <span class="arithmatex">\((\bm{x},\bm{u})\)</span>, with <span class="arithmatex">\(\bm{u}\)</span> being the relativistic four-velocity:</p>
+<div class="arithmatex">\[\begin{equation}
+N_s(\bm{x},\bm{u},t) = \sum\limits_i \delta(\bm{x}-\bm{x}_i^s(t))\delta(\bm{u}-\bm{u}_i^s(t)),
+\end{equation}\]</div>
+<p>where <span class="arithmatex">\(\bm{x}_i^s(t)\)</span> and <span class="arithmatex">\(\bm{u}_i^s(t)\)</span> are the positions and four-velocities of all the particles of species <span class="arithmatex">\(s\)</span>. We can then take the derivative of this equation in time to get an equation for the evolution of <span class="arithmatex">\(N_s\)</span>:</p>
+<div class="arithmatex">\[\begin{align*}
+\frac{\partial }{\partial t}N_s(\bm{x},\bm{u},t) &amp;= \sum\limits_i \frac{\partial}{\partial t}
+\left[
+  \delta(\bm{x}-\bm{x}_i^s)\delta(\bm{u}-\bm{u}_i^s)
+\right]=\\
+&amp;=\sum\limits_i 
+\left[
+  \delta(\bm{x}-\bm{x}_i^s) \frac{\partial}{\partial t} \delta(\bm{u}-\bm{u}_i^s) + 
+  \delta(\bm{u}-\bm{u}_i^s) \frac{\partial}{\partial t} \delta(\bm{x}-\bm{x}_i^s)
+\right]=\\
+&amp; \left|~\frac{\partial}{\partial t} \delta (\bm{a}-\bm{a}_i^s)\equiv -\frac{d\bm{a}_i^s}{dt}\frac{\partial}{\partial\bm{a}}\delta(\bm{a}-\bm{a}_i^s) ~\right| \\
+&amp;= -\sum\limits_i \left[
+  \delta(\bm{x}-\bm{x}_i^s)\frac{d \bm{u}_i^s}{dt}\cdot\frac{\partial}{\partial \bm{u}}\delta(\bm{u}-\bm{u}_i^s)+
+  \delta(\bm{u}-\bm{u}_i^s)\frac{d \bm{x}_i^s}{dt}\cdot\frac{\partial}{\partial \bm{x}}\delta(\bm{x}-\bm{x}_i^s)
+\right]=\\
+&amp;\left|~
+\frac{d\bm{u}_i^s}{dt} = \frac{1}{m_s}\bm{F}_s^N(\bm{x}_i^s,~\bm{u}_i^s),~~
+\frac{d\bm{x}_i^s}{dt} = \frac{\bm{u}_i^s}{\gamma_i^s}
+~\right|\\
+&amp;\left|~
+f(\bm{a}_i^s,~\bm{b}_i^s)\delta(\bm{a}-\bm{a}_i^s)\frac{\partial}{\partial \bm{b}}\delta(\bm{b}-\bm{b}_i^s) = f(\bm{a},~\bm{b})\frac{\partial}{\partial \bm{b}}
+\left[
+  \delta(\bm{a}-\bm{a}_i^s)\delta(\bm{b}-\bm{b}_i^s)
+\right],~\textrm{if}~
+\frac{\partial}{\partial \bm{b}}f(\bm{a},~\bm{b})=0
+~\right|\\
+&amp;= -\sum\limits_i \left[
+  \frac{\bm{u}}{\gamma}\cdot\frac{\partial}{\partial \bm{x}}\left[\delta(\bm{x}-\bm{x}_i^s)\delta(\bm{u}-\bm{u}_i^s)\right]+
+  \frac{\bm{F}_s^N(\bm{x},~\bm{u})}{m_s}\cdot\frac{\partial}{\partial \bm{u}}\left[\delta(\bm{x}-\bm{x}_i^s)\delta(\bm{u}-\bm{u}_i^s)\right]
+\right].
+\end{align*}\]</div>
+<p>We can now use the definition <span class="arithmatex">\((1)\)</span> to finally write:</p>
+<div class="arithmatex">\[\begin{equation}
+\frac{\partial N_s}{\partial t}+\frac{\bm{u}}{\gamma}\cdot\frac{\partial N_s}{\partial \bm{x}} + \frac{\bm{F}_s^N}{m_s}\cdot \frac{\partial N_s}{\partial \bm{u}} = 0,
+\end{equation}\]</div>
+<p>(the non-relativistic version of) which was first obtained by <a href="http://jetp.ras.ru/cgi-bin/dn/e_007_01_0119.pdf">Yu. L. Klimontovich in 1958</a>. Here <span class="arithmatex">\(\gamma \equiv \sqrt{1+|\bm{u}|^2}\)</span>. For a typical plasma with no additional interactions from outside, <span class="arithmatex">\(\bm{F}_s\)</span> is the Lorentz force from self-induced electromagnetic fields:</p>
+<div class="arithmatex">\[
+\bm{F}_s^N = q_s\left(\bm{E}^N + \frac{\bm{u}}{\gamma}\times \bm{B}^N\right),
+\]</div>
+<p>where the hyperbolic Maxwell's equations are implied:</p>
+<div class="arithmatex">\[\begin{align*}
+&amp; \frac{\partial \bm{E}^N}{c\partial t} = \nabla\times \bm{B}^N - \frac{4\pi}{c}\sum\limits_s \frac{q_s}{V}\int \frac{\bm{u}'}{\gamma'} N_s\left(\bm{x}',~\bm{u}'\right) d^3\bm{x}'d^3\bm{u}',\\
+&amp; \frac{\partial \bm{B}^N}{c\partial t} = -\nabla\times\bm{E}^N,
+\end{align*}\]</div>
+<p>with <span class="arithmatex">\(V=\int d^3\bm{x}'d^3\bm{u}'\)</span>, and the other two equations serving as "boundary conditions"</p>
+<div class="arithmatex">\[\begin{align*}
+&amp; \nabla\cdot\bm{E}^N = 4\pi \sum\limits_s \frac{q_s}{V}\int N_s d^3\bm{x}'d^3\bm{u}',\\
+&amp; \nabla\cdot\bm{B}^N=0.
+\end{align*}\]</div>
+<p>The superscript "<span class="arithmatex">\(N\)</span>" here implies that the fields are generated from the full distribution function <span class="arithmatex">\(N_s\)</span>.</p>
+<p>Notice, that in deriving eq. <span class="arithmatex">\((2)\)</span>, we made no assumptions about the strengths of interactions of plasma particles with each other, or the scales of gradients of the fields. In other words, Klimontovich's equation (coupled with Maxwell's equations above) is the most general way of describing the plasmas without the loss of generality.</p>
+<p>The function <span class="arithmatex">\(N_s\)</span> still has <span class="arithmatex">\(6N\)</span> unknowns (where <span class="arithmatex">\(N\)</span> is the number of plasma particles), and is, in general, not very useful for studying the behavior of plasmas. To advance further, we consider an ensemble of microstates defined by <span class="arithmatex">\(N\)</span> positions and velocities of particles, <span class="arithmatex">\(\bm{x}_i^s\)</span> and <span class="arithmatex">\(\bm{u}_i^s\)</span>. We further define a special function, <span class="arithmatex">\(f_s(\bm{x},~\bm{u})\equiv \langle N_s(\bm{x},~\bm{u}) \rangle\)</span>, where from now on we will assume <span class="arithmatex">\(\langle\cdot\rangle\)</span> to be an ensemble average. Notice, that by doing so, the function <span class="arithmatex">\(f_s\)</span> loses any information about each individual particle, becoming essentially a continuous function of two phase-space variables.</p>
+<p>In each microscopic realization, the function <span class="arithmatex">\(N_s\)</span> can deviate from the ensemble average, which we conveniently denote as <span class="arithmatex">\(\delta N_s \equiv N_s - f_s\)</span>. Similarly, we may also define <span class="arithmatex">\(\bm{E}\equiv\langle\bm{E}^N\rangle\)</span>, <span class="arithmatex">\(\bm{B} \equiv \langle\bm{B}^N\rangle\)</span>, and <span class="arithmatex">\(\delta \bm{E}^N\equiv\bm{E}^N-\bm{E}\)</span>, <span class="arithmatex">\(\delta \bm{B}^N \equiv \bm{B}^N - \bm{B}\)</span>. </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Note that by definition, <span class="arithmatex">\(\langle\delta N_s\rangle = 0\)</span>, <span class="arithmatex">\(\langle\delta \bm{E}^N\rangle = 0\)</span>, <span class="arithmatex">\(\langle\delta \bm{B}^N\rangle = 0\)</span>.</p>
+</div>
+<p>Plugging <span class="arithmatex">\(N_s=f_s+\delta N_s\)</span>, <span class="arithmatex">\(\bm{F}^N_s=\bm{F}_s+\delta\bm{F}_s^N\)</span> into equation <span class="arithmatex">\((2)\)</span>, and ensemble averaging the result, we find:</p>
+<div class="arithmatex">\[\begin{equation}
+\frac{\partial f_s}{\partial t} + \frac{\bm{u}}{\gamma}\cdot \frac{\partial f_s}{\partial\bm{x}} + \frac{\bm{F}_s}{m_s}\cdot\frac{\partial f_s}{\partial \bm{u}} = -\left\langle\frac{\delta \bm{F}_s^N}{m_s}\cdot\frac{\partial\delta N_s}{\partial \bm{u}}\right\rangle
+\end{equation}\]</div>
+<p>The left-hand-side of this equation is the advective derivative of <span class="arithmatex">\(f_s\)</span> in phase-space. The non-conservation of the phase-space volume is thus governed solely by the right-hand-side. Ultimately, the right-hand-side contains terms proportional to <span class="arithmatex">\(\left\langle\delta N_s(\bm{x}',~\bm{u}')\delta N_s(\bm{x}'',~\bm{u}'') \right\rangle\)</span>, which is also referred to as the correlation function. This term describes non-linear correlations of the fluctuations of <span class="arithmatex">\(N_s\)</span> in two different locations of the phase-space. When the fluctuations from the ensemble average are completely decorelated (independent), this term becomes zero, and we obtain the famous <a href="https://iopscience.iop.org/article/10.1070/PU1968v010n06ABEH003709">Vlasov equation</a>:</p>
+<div class="arithmatex">\[\begin{equation}
+  \frac{\partial f_s}{\partial t} + \frac{\bm{u}}{\gamma}\cdot \frac{\partial f_s}{\partial\bm{x}} + \frac{\bm{F}_s}{m_s}\cdot\frac{\partial f_s}{\partial \bm{u}} = 0.
+\end{equation}\]</div>
+<p>In which case can one assume that fluctuations are decorelated? If the evolution of each particle is solely governed by the ensemble averaged quantities (i.e., smooth electromagnetic fields), and (on average) does not depend on the particular realizations of the thermodynamic microstate, then all the non-linear terms must vanish, when ensemble averaged. This may not hold if, for instance, particles actively experience dynamically important close encounters with each other (Coulomb collisions), in which case their evolutions are no longer solely governed by the smooth average forces. For this reason, the right-hand-side of the eq. <span class="arithmatex">\((3)\)</span> is often referred to as the collisional (Landau) integral.</p>
+<h2 id="liouville-equation-bbgky-hierarchy">Liouville equation &amp; BBGKY hierarchy<a class="headerlink" href="#liouville-equation-bbgky-hierarchy" title="Permanent link">&para;</a></h2>
+<p>Instead of thinking of a collection of particles with predefined coordinates in phase-space in the microstate, one can also think of the whole system as a random realization one such microstate. Then we can write down a probability distribution function of the system of <span class="arithmatex">\(6N\)</span> variables in the following form:</p>
+<div class="arithmatex">\[\begin{equation}
+f_N(\bm{x}_1,...,\bm{x}_N,~\bm{u}_1,...,\bm{u}_N,~t) = \prod\limits_k^N \delta(\bm{x}-\bm{X}_k(t))\delta(\bm{u}_k-\bm{U}_k(t)),
+\end{equation}\]</div>
+<p>where <span class="arithmatex">\(\bm{X}_k(t)\)</span> and <span class="arithmatex">\(\bm{U}_k(t)\)</span> are the actual coordinates of the particles in phase-space implicitly depending on time (we drop the species index for brevity). To derive the time evolution of such a system, we differentiate <span class="arithmatex">\(f_N\)</span> w.r.t. time:</p>
+<div class="arithmatex">\[
+\frac{\partial f_N}{\partial t} = \prod\limits_k^N
+\left[
+  \sum\limits_i^N\left(
+    -\frac{d\bm{X}_i}{dt}\frac{\partial}{\partial\bm{x}_i}-\frac{d\bm{U}_i}{dt}\frac{\partial}{\partial\bm{u}_i}
+  \right)
+\right]
+\delta(\bm{x}_i-\bm{X}_k(t))\delta(\bm{u}_k-\bm{U}_k(t)).
+\]</div>
+<p>Using the properties of a delta function, and assuming that <span class="arithmatex">\(\dot{\bm{X}}_k = \bm{U}_k/\Gamma_k\)</span> (with <span class="arithmatex">\(\Gamma_k\equiv \sqrt{1+|\bm{U}_k|^2}\)</span>), and <span class="arithmatex">\(\dot{\bm{U}}_k = (1/m_k)\sum\limits_l \bm{F}_{l\to k}\)</span>, with the latter expression defining the force from particle with index <span class="arithmatex">\(l\)</span> to particle with index <span class="arithmatex">\(k\)</span>. Plugging the expression <span class="arithmatex">\((5)\)</span> back into this equation, we get:</p>
+<div class="arithmatex">\[\begin{equation}
+\frac{\partial f_N}{\partial t} + 
+\sum\limits_k^N
+\left(
+  \frac{\bm{u}_k}{\gamma_k}\cdot\frac{\partial f_N}{\partial \bm{x}_k}
+\right) + 
+\sum\limits_k^N
+\left(
+  \sum\limits_l^N
+  \frac{\bm{F}_{l\to k}}{m_k}\cdot 
+  \frac{\partial f_N}{\partial \bm{u}_k}
+\right)=0
+\end{equation}\]</div>
+<p>As with the Klimontovich equation before, here we have not yet made any simplifying assumptions, and eq. <span class="arithmatex">\((6)\)</span> describes the evolution of the combined probability density function, <span class="arithmatex">\(f_N\)</span>, of <span class="arithmatex">\(N\)</span> particles in the <span class="arithmatex">\(6N\)</span>-dimensional phase-space in its most general form. </p>
+<p>In practice, most of the time we are not interested in the exact behavior of each individual particle, as for all practicle purposes they are indistinguishable. It is thus helpful to introduce the reduced probability distribution of <span class="arithmatex">\(M&lt;N\)</span> particles as follows:</p>
+<div class="arithmatex">\[\begin{equation}
+f_M(\bm{x}_1,...,\bm{x}_M,~\bm{u}_1,...,\bm{u}_M,~t) \equiv \mathcal{V}^{-1}
+\int 
+f_N(\bm{x}_1,...,\bm{x}_N',~\bm{u}_1,...,\bm{u}_N',~t)
+d\bm{x}_{M+1}' d\bm{u}_{M+1}'...d\bm{x}_{N}' d\bm{u}_{N}' ,
+\end{equation}\]</div>
+<p>In other words, in transiting from <span class="arithmatex">\(N\)</span>-particle distribution to an <span class="arithmatex">\(M\)</span>-particle one we "integrate away" the explicit dependency (or correlation) of the evolution of the first <span class="arithmatex">\(M\)</span> particles on the last <span class="arithmatex">\(N-M\)</span> particles. This becomes obvious, when we interate the equation <span class="arithmatex">\((6)\)</span> w.r.t. <span class="arithmatex">\(\bm{x}_N\)</span> and <span class="arithmatex">\(\bm{u}_N\)</span> to get the evolution equation for the <span class="arithmatex">\(N-1\)</span>-particle distribution:</p>
+<div class="arithmatex">\[
+\frac{\partial f_{N-1}}{\partial t} + 
+\sum\limits_k^{N-1}
+\left(
+  \frac{\bm{u}_k}{\gamma_k}\cdot\frac{\partial f_{N-1}}{\partial \bm{x}_k}
+\right) + 
+\sum\limits_k^{N-1}
+\left(
+  \sum\limits_l^{N-1}
+  \frac{\bm{F}_{l\to k}}{m_k}\cdot 
+  \frac{\partial f_{N-1}}{\partial \bm{u}_k}
+  +\mathcal{V}^{-1}\int d\bm{x}_{N}'d\bm{u}_{N}'
+  \frac{\bm{F}_{N\to k}}{m_k}\cdot 
+  \frac{\partial f_{N}}{\partial \bm{u}_k}
+\right)=0.
+\]</div>
+<p>The dependency of the evolution of the first <span class="arithmatex">\(N-1\)</span> particles on that of the last particle is now encoded in the last term of the equation; thus in general, the <span class="arithmatex">\(M&lt;N\)</span> dimensional probability distribution function still depends on the full <span class="arithmatex">\(N\)</span>-dimensional one:</p>
+<div class="arithmatex">\[
+\frac{\partial f_{M}}{\partial t} + 
+\sum\limits_k^{M}
+\left(
+  \frac{\bm{u}_k}{\gamma_k}\cdot\frac{\partial f_{M}}{\partial \bm{x}_k}
+\right) + 
+\sum\limits_k^{M}
+\left(
+  \sum\limits_l^{M}
+  \frac{\bm{F}_{l\to k}}{m_k}\cdot 
+  \frac{\partial f_{M}}{\partial \bm{u}_k}
+  +\frac{N-M}{\mathcal{V}}\int d\bm{x}_{M+1}'d\bm{u}_{M+1}'
+  \frac{\bm{F}_{M+1\to k}}{m_k}\cdot 
+  \frac{\partial f_{M+1}}{\partial \bm{u}_k}
+\right)=0,
+\]</div>
+<p>where it is obvious, that the evolution of <span class="arithmatex">\(f_{M}\)</span> also depends on the evolution of <span class="arithmatex">\(f_{M+1}\)</span>. This is often called in the literature the BBGKY hierarchy, after Bogoliubov (1946), Born, &amp; Green (<a href="https://royalsocietypublishing.org/doi/10.1098/rspa.1946.0093">1946</a>), Kirkwood (<a href="https://pubs.aip.org/aip/jcp/article/14/3/180/191894/The-Statistical-Mechanical-Theory-of-Transport">1946</a>, <a href="https://pubs.aip.org/aip/jcp/article/15/1/72/360133/The-Statistical-Mechanical-Theory-of-Transport">1947</a>), and Yvon (1935).</p>
+<p>For <span class="arithmatex">\(M=1\)</span> we find:</p>
+<div class="arithmatex">\[
+\frac{\partial f_1}{\partial t} + 
+  \frac{\bm{u}_1}{\gamma_1}\cdot\frac{\partial f_1}{\partial \bm{x}_1} + 
+  \frac{N-1}{\mathcal{V}}\int d\bm{x}_{2}'d\bm{u}_{2}'
+  \frac{\bm{F}_{2\to 1}}{m_1}\cdot 
+  \frac{\partial f_{2}}{\partial \bm{u}_1} = 0,
+\]</div>
+<p>where to derive the equation for a single-particle distribution we need to know the two-particle one, <span class="arithmatex">\(f_2\)</span>. It is useful to decompose the latter into two single-particle distributions and a term describing their correlation:</p>
+<div class="arithmatex">\[
+f_2(\bm{x}_1,\bm{x}_2,\bm{u}_1,\bm{u}_2,t) = f_1(\bm{x}_1,\bm{u}_1,t)f_1(\bm{x}_2,\bm{u}_2,t) + \delta f_{2}(\bm{x}_1,\bm{x}_2,\bm{u}_1,\bm{u}_2,t),
+\]</div>
+<p>where, just like before, the last term, <span class="arithmatex">\(\delta f_2\)</span> describes two-particle interactions. Likewise, we could have written the evolution equation for <span class="arithmatex">\(f_2\)</span>, and decomposed it further into many-body interactions. For our purposes, we will limit ourselves to the evolution of one-particle distribution ignoring the two-particle correlations. Adopting <span class="arithmatex">\(f\equiv f_1\)</span>, and plugging the <span class="arithmatex">\(f_2\)</span> decomposition ino the equation above (ignoring <span class="arithmatex">\(\delta f_2\)</span>), we reproduce the previously found Vlasov equation:</p>
+<div class="arithmatex">\[
+\frac{\partial f}{\partial t} + 
+  \frac{\bm{u}}{\gamma}\cdot\frac{\partial f}{\partial \bm{x}} +
+  \frac{\bm{F}}{m}\cdot 
+  \frac{\partial f}{\partial \bm{u}} = 0,
+\]</div>
+<p>where <span class="arithmatex">\(\bm{F} \equiv (N/\mathcal{V})\int d\bm{x}'d\bm{u}' \bm{F}_{2\to 1} f(\bm{x}',\bm{v}',t)\)</span></p>
+<h2 id="deriving-equations-for-pic">Deriving equations for PIC<a class="headerlink" href="#deriving-equations-for-pic" title="Permanent link">&para;</a></h2>
+<p>We now derived the evolution equation for the continuous distribution describing a system of particles that do not undergo binary interactions, and only interact via collective large-scale self-induced fields:</p>
+<div class="arithmatex">\[\begin{equation}
+\frac{\partial f_s}{\partial t} + 
+  \frac{\bm{u}}{\gamma}\cdot\frac{\partial f_s}{\partial \bm{x}} +
+  \underbrace{\frac{q_s}{m_s}\left(\bm{E}+\frac{\bm{u}}{\gamma}\times\bm{B}\right)}_{\bm{F}_s/m_s}\cdot 
+  \frac{\partial f_s}{\partial \bm{u}} = 0,
+\end{equation}\]</div>
+<p>which, coupled to the two Maxwell's equations,</p>
+<div class="arithmatex">\[\begin{equation}
+\begin{aligned}
+&amp; \frac{\partial \bm{E}}{c\partial t} = 
+\nabla\times \bm{B} - 
+\frac{4\pi}{c}
+\underbrace{\sum\limits_s q_s\int \frac{\bm{u}'}{\gamma'} f_s\left(\bm{x},~\bm{u}'\right) d^3\bm{u}'}_{\bm{J}},\\
+&amp; \frac{\partial \bm{B}}{c\partial t} = -\nabla\times\bm{E},
+\end{aligned}
+\end{equation}\]</div>
+<p>forms a closed system of equations, otherwise known as the Vlasov-Maxwell system. The two boundary conditions</p>
+<div class="arithmatex">\[\begin{align*}
+\nabla\cdot\bm{B} &amp;= 0,\\
+\nabla\cdot\bm{E} &amp;= 4\pi \underbrace{\sum\limits_s q_s\int f_s(\bm{x},\bm{u}',t)d^3\bm{u}'}_{\rho},
+\end{align*}\]</div>
+<p>are satisfied automatically, if one follows the evolution using the system of equations in <span class="arithmatex">\((8)\)</span> and <span class="arithmatex">\((9)\)</span>. In the most general case, this system is 6-dimensional and non-linear, so solving it numerically is not only challenging, but also costly. </p>
+<p>Particle-in-cell (PIC) algorithm is a widely used technique which significantly simplifies the solution of this system. To introduce the technique, we first need to decompose the 6D distribution function <span class="arithmatex">\(f_s\)</span> into special basis functions in phase-space by introducing a finite number of the so-called <em>macroparticles</em>:</p>
+<div class="arithmatex">\[\begin{equation}
+f_s(\bm{x},\bm{u},t) \approx \sum\limits_i w_i^s S (\bm{x}-\bm{x}_i^s(t))\delta(\bm{u}-\bm{u}_i^s(t)),
+\end{equation}\]</div>
+<p>where <span class="arithmatex">\(w_i^s\)</span> are called <em>macroparticle weights</em>, and <span class="arithmatex">\(S\)</span> is often referred to as a <em>shape function</em>. Since <span class="arithmatex">\(f_s\)</span> in general is an arbitrary continuous function, and we only introduce a finite set of particles with phase-space coordinates <span class="arithmatex">\((\bm{x}_i^s,~\bm{u}_i^s)\)</span>, the equality above is only approximate, and it approaches the exact solution as the number of macroparticles increases. From the shape function we will require the following properties:</p>
+<div class="arithmatex">\[
+\iiint\limits_V S(\bm{x}) d^3\bm{x} = 1,~\textrm{and}~S(\bm{x})\xrightarrow[\bm{x}\not\in V]{} 0,
+\]</div>
+<p>where <span class="arithmatex">\(V\)</span> is a finite volume in the real space which includes the origin. Here and further we will use the terms <em>particle</em> and <em>macroparticle</em> interchangeable, but one should really think of these entities (ha-ha), as discrete sampling of the original continuous distribution function.</p>
+<p>Plugging <span class="arithmatex">\((10)\)</span> into <span class="arithmatex">\((8)\)</span>, we get the following equation (for brevity, we use <span class="arithmatex">\(\delta_{\bm{u}} = \delta(\bm{u}-\bm{u}_i^s)\)</span>, and <span class="arithmatex">\(S_{\bm{x}}=S(\bm{x}-\bm{x}_i^s)\)</span>):</p>
+<div class="arithmatex">\[\begin{equation}
+\begin{aligned}
+&amp;\sum\limits_i w_i^s\left[
+-\delta_{\bm{u}}
+  \frac{d\bm{x}_i^s}{dt}
+    \cdot
+  \frac{\partial S_{\bm{x}}}{\partial \bm{x}}
+- S_{\bm{x}} \frac{d\bm{u}_i^s}{dt} \cdot
+\frac{\partial \delta_{\bm{u}}}{\partial \bm{u}}
++  \delta_{\bm{u}}\frac{\bm{u}}{\gamma}\cdot \frac{\partial S_{\bm{x}}}{\partial \bm{x}}
++  S_{\bm{x}} \frac{\bm{F}_s}{m_s}\cdot\frac{\partial \delta_{\bm{u}}}{\partial \bm{u}}
+\right] = \\ 
+&amp;= -\sum\limits_i w_i^s\left[
+  \delta_{\bm{u}}
+    \left(
+      \frac{d\bm{x}_i^s}{dt} - \frac{\bm{u}}{\gamma}
+    \right)
+    \frac{\partial S_{\bm{x}}}{\partial \bm{x}}
+  +S_{\bm{x}}
+  \left(
+    \frac{d\bm{u}_i^s}{dt} - \frac{\bm{F}_s(\bm{x},\bm{u},t)}{m_s}
+  \right)
+  \frac{\partial \delta_{\bm{u}}}{\partial \bm{u}}
+\right] = 0,
+\end{aligned}
+\end{equation}\]</div>
+<p>where again, we used the fact that <span class="arithmatex">\(\partial \bm{F}_s/\partial \bm{u} = 0\)</span>. We are now ready to derive the evolution equations for macroparticles which will exactly reproduce (given large-enough number of them) the original solution of the Vlasov-Maxwell system. We integrate equation <span class="arithmatex">\((11)\)</span> separately over <span class="arithmatex">\(d^3\bm{x}\)</span> and <span class="arithmatex">\(d^3\bm{u}\)</span>:</p>
+<div class="arithmatex">\[\begin{align*}
+\int (11)~d^3\bm{x}'d^3\bm{u}' =&amp;
+  \sum \limits_i w_i^s
+\left[(11.1)+(11.2)\right] = 0, \\
+(11.1)=&amp; \int  d^3\bm{x}'
+  \frac{\partial S_{\bm{x}'}}{\partial \bm{x}'}
+  \int d^3\bm{u}'
+  \left(
+    \frac{d\bm{x}_i^s}{dt} - \frac{\bm{u}'}{\gamma'}
+  \right)\delta_{\bm{u}'}=\\
+  =&amp;\int  d^3\bm{x}'
+  \frac{\partial S_{\bm{x}'}}{\partial \bm{x}'}\cdot
+  \left(
+    \frac{d\bm{x}_i^s}{dt} - \frac{\bm{u}_i^s}{\gamma_i^s}
+  \right)=\\
+  =&amp;\oint  
+  S_{\bm{x}'}
+  \left(
+    \frac{d\bm{x}_i^s}{dt} - \frac{\bm{u}_i^s}{\gamma_i}
+  \right)\cdot d\bm{\xi}',\\
+(11.2)=&amp;\int d^3\bm{u}'
+  \frac{\partial \delta_{\bm{u}'}}{\partial \bm{u}'}\cdot
+  \left(
+    \frac{d\bm{u}_i^s}{dt} - 
+    \frac{1}{m_s}\int\bm{F}_s(\bm{x}',\bm{u}',t)S_{\bm{x}'} d^3\bm{x}'
+  \right)=\\
+  =&amp; \frac{d\bm{u}_i^s}{dt} - 
+    \frac{1}{m_s}\int\bm{F}_s(\bm{x}',\bm{u}_i^s,t)S_{\bm{x}'} d^3\bm{x}',
+\end{align*}\]</div>
+<p>where we used the Gauss-Ostrogradsky theorem to transform the integral in phase-space volume to an integral over the boundaries. The equality is satisfied for an arbitrarily chosen volume if and only if the following two equations hold:</p>
+<div class="arithmatex">\[\begin{equation}
+\begin{aligned}
+\frac{d\bm{x}_i^s}{dt} &amp;= \frac{\bm{u}_i^s}{\gamma_i^s},\\
+\frac{d\bm{u}_i^s}{dt} &amp;=
+    \frac{1}{m_s}\int\bm{F}_s(\bm{x}',\bm{u}_i^s,t)S(\bm{x}'-\bm{x}_i^s) d^3\bm{x}'.
+\end{aligned}
+\end{equation}\]</div>
+<p>Naively, one could recognize the equations of motion for particles with coordinates <span class="arithmatex">\(\bm{x}_i^s\)</span>, and four-velocities <span class="arithmatex">\(\bm{u}_i^s\)</span>. But the striking and crucial difference from regular equations of motion is in the fact that the force in this case is effectively "interpolated" for each macroparticle using the shape function <span class="arithmatex">\(S\)</span>. The absence of this in the first equation is due to our choice of the <span class="arithmatex">\(\delta\)</span>-function for the "shape" in velocity space. </p>
+<p>One should really think of the system <span class="arithmatex">\((12)\)</span> as <span class="arithmatex">\(6N\)</span>-dimensional system of characteristic equations along which the convective derivative of <span class="arithmatex">\(f_s\)</span> (given by eq. <span class="arithmatex">\(8\)</span>) is exactly zero. </p>
+<p>To see how these macroparticles should induce current densities in our algorithm to exactly satisfy the charge conservation, i.e., <span class="arithmatex">\(\nabla\cdot\bm{E} = 4\pi \rho\)</span>, we differentiate the latter equation in time, substituting <span class="arithmatex">\(f_s\)</span> from <span class="arithmatex">\((10)\)</span>, to get the following:</p>
+<div class="arithmatex">\[
+\nabla\cdot\left(
+  \frac{\partial\bm{E}}{\partial t}
+\right)= -4\pi\nabla\cdot\bm{J}= 4\pi \sum\limits_s q_s\sum\limits_i w_i^s \frac{\partial S(\bm{x}-\bm{x}_i^s(t))}{\partial t},
+\]</div>
+<p>meaning that the divergence of the deposited current density has to satisfy</p>
+<div class="arithmatex">\[\begin{equation}
+\nabla\cdot\bm{J}= -\sum\limits_s q_s\sum\limits_i w_i^s \frac{\partial S(\bm{x}-\bm{x}_i^s(t))}{\partial t}.
+\end{equation}\]</div>
+<h2 id="discretization">Discretization<a class="headerlink" href="#discretization" title="Permanent link">&para;</a></h2>
+<p>Having the system of equations on macroparticles defined in <span class="arithmatex">\((12)\)</span>, and with the equations for the electromagnetic fields <span class="arithmatex">\((9)\)</span> and the current density constrained by <span class="arithmatex">\((13)\)</span>, we can proceed to formulate the particle-in-cell numerical scheme. </p>
+<p>First, we discretize the electromagnetic fields and the current densities following the <a href="https://en.wikipedia.org/wiki/Finite-difference_time-domain_method#FDTD_models_and_methods">Yee staggering convention</a>. According to that, the <span class="arithmatex">\((i,j,k)\)</span> element of each of the field components is defined in slightly different spatial locations:</p>
+<div class="arithmatex">\[\begin{align*}
+&amp; E_x^{i+1/2,j,k}~~~&amp;~~~&amp; E_y^{i,j+1/2,k}~~~&amp;~~~&amp; E_z^{i,j,k+1/2}\\
+&amp; B_x^{i,j+1/2,k+1/2}~~~&amp;~~~&amp; B_y^{i+1/2,j,k+1/2}~~~&amp;~~~&amp; B_z^{i+1/2,j+1/2,k}\\
+&amp; J_x^{i+1/2,j,k}~~~&amp;~~~&amp; J_y^{i,j+1/2,k}~~~&amp;~~~&amp; J_z^{i,j,k+1/2}
+\end{align*}\]</div>
+<p>Here we use Cartesian coordinates, but this convention naturally translates to any other coordinate system.</p>
+<div class="admonition hint">
+<p class="admonition-title">Why Yee?</p>
+<p>The reason behind adopting this counter-intuitive convention has to do with the finite-differencing in Maxwell's equations. In particular, if we look at the <span class="arithmatex">\(x\)</span> component of the Ampere's law, the term <span class="arithmatex">\(\partial E_x/\partial t\)</span> is coaligned with the position of <span class="arithmatex">\(E_x\)</span> (in our case, <span class="arithmatex">\(i+1/2,j,k\)</span>). Terms in the curl, on the other hand, have a form: <span class="arithmatex">\(\partial B_z/\partial y - \partial B_y/\partial z\)</span>. If we attempt to discretize the first term, assuming that <span class="arithmatex">\(B_z\)</span> is defined at some location <span class="arithmatex">\((*,j',*)\)</span>, we will get:</p>
+<div class="arithmatex">\[
+\frac{B_z^{*,j',*}-B_z^{*,j'-1,*}}{\Delta y} = \left(\frac{\partial B_z}{\partial y}\right)^{*,j'-1/2,*}
+\]</div>
+<p>We must thus adopt <span class="arithmatex">\(j'-1/2 = j\)</span>, or <span class="arithmatex">\(j' = j+1/2\)</span>. Likewise, all the other components can also be inferred. In other words, the choice is dictated by the requirement that the left-hand-side of Faraday's and Ampere's laws be co-aligned with the right-hand-side written in the finite difference form.</p>
+</div>
+<p>Time in PIC is also discretized (we typically use the index <span class="arithmatex">\(n\)</span> to indicate the timestep). In our particular case, for the forward-integration we employ the so-called <a href="https://en.wikipedia.org/wiki/Leapfrog_integration">leapfrog algorithm</a>, where the electric and magnetic fields are defined to be staggered with respect to each other by half a timestep (defined to be <span class="arithmatex">\(\Delta t\)</span>). In other words, we have <span class="arithmatex">\(\bm{E}^{(n)}\)</span>, and <span class="arithmatex">\(\bm{B}^{(n-1/2)}\)</span>. </p>
+<p>Coordinates and velocities of macroparticles are tracked separately and have continuous values at each discrete timestep. We use the same leapfrog algorithm for integrating particle equations of motion defined in <span class="arithmatex">\((12)\)</span>, and thus the velocities and coordinates are staggered with respect to each other in time: <span class="arithmatex">\(\bm{x}_i^{(n)}\)</span>, and <span class="arithmatex">\(\bm{u}_i^{(n-1/2)}\)</span>.</p>
+<p>There are two ingredients which were left out in this picture: interpolation of the electromagnetic force from the grid to the position of the particle (required by the second equation in eq. <span class="arithmatex">\((12)\)</span>), and the deposition of currents on the discretized grid, which have to satisfy the requirement in <span class="arithmatex">\((13)\)</span> to conserve charge. For both of these issues, we first need to make a choice of the shape function, <span class="arithmatex">\(S(\bm{x})\)</span>. By far the most common choice is the first-order (linear) shape, defined as:</p>
+<div class="arithmatex">\[\begin{align*}
+S(\bm{x}) = \begin{cases}
+1 - \frac{|x|\cdot|y|\cdot|z|}{\Delta x\Delta y\Delta z},~~~&amp;|x|&lt;\Delta x,~|y|&lt;\Delta y,~|z|&lt;\Delta z \\
+0,~&amp;\textrm{otherwise}
+\end{cases}
+\end{align*}\]</div>
+<p>Using this definition, the integral in <span class="arithmatex">\((12)\)</span> is simply a linear interpolation of each field component from each corresponding location to the position of the particle.</p>
+<p>Current deposition is slightly trickier, and we will not go through the entire derivation of the algorithm (for the reference, see <a href="https://ui.adsabs.harvard.edu/abs/2001CoPhC.135..144E/abstract">Esirkepov 2001</a> or <a href="https://ui.adsabs.harvard.edu/abs/2003CoPhC.156...73U/abstract">Umeda+ 2003</a>). However, it can be shown mathematically, that asserting specific properties for the shape function (e.g., symmetry in all directions, etc.), there exists a unique set of coefficients to translate the shape function of each particle at timesteps <span class="arithmatex">\((n)\)</span> and <span class="arithmatex">\((n+1)\)</span> to the deposited current components. </p>
+<p>Finally, the full timestepping algorithm with everything discussed above is shown on the page of this wiki about the <a href="../../3-code/1-pic/#special-relativistic-pic">PIC algorithm</a>.</p>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+  
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2021++, Entity dev team
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/entity-toolkit/entity/" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M216.29 158.39H137C97 147.9 6.51 150.63 6.51 233.18c0 30.09 15 51.23 35 61-25.1 23-37 33.85-37 49.21 0 11 4.47 21.14 17.89 26.81C8.13 383.61 0 393.35 0 411.65c0 32.11 28.05 50.82 101.63 50.82 70.75 0 111.79-26.42 111.79-73.18 0-58.66-45.16-56.5-151.63-63l13.43-21.55c27.27 7.58 118.7 10 118.7-67.89 0-18.7-7.73-31.71-15-41.07l37.41-2.84zm-63.42 241.9c0 32.06-104.89 32.1-104.89 2.43 0-8.14 5.27-15 10.57-21.54 77.71 5.3 94.32 3.37 94.32 19.11m-50.81-134.58c-52.8 0-50.46-71.16 1.2-71.16 49.54 0 50.82 71.16-1.2 71.16m133.3 100.51v-32.1c26.75-3.66 27.24-2 27.24-11V203.61c0-8.5-2.05-7.38-27.24-16.26l4.47-32.92H324v168.71c0 6.51.4 7.32 6.51 8.14l20.73 2.84v32.1zm52.45-244.31c-23.17 0-36.59-13.43-36.59-36.61s13.42-35.77 36.59-35.77c23.58 0 37 12.62 37 35.77s-13.42 36.61-37 36.61M512 350.46c-17.49 8.53-43.1 16.26-66.28 16.26-48.38 0-66.67-19.5-66.67-65.46V194.75c0-5.42 1.05-4.06-31.71-4.06V154.5c35.78-4.07 50-22 54.47-66.27h38.63c0 65.83-1.34 61.81 3.26 61.81H501v40.65h-60.56v97.15c0 6.92-4.92 51.41 60.57 26.84z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tracking", "navigation.indexes", "navigation.expand", "content.code.annotate", "content.code.copy", "content.tooltips", "header.autohide", "search.highlight"], "search": "../../../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.13a4f30d.min.js"></script>
+      
+    
+  </body>
+</html>
