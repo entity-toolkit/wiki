@@ -25,6 +25,7 @@ nav:
       - content/3-code/3-domains.md
       - content/3-code/4-fields_particles.md
       - content/3-code/5-metrics.md
+      - content/3-code/6-higherorder.md
   - Useful Things:
       - content/useful/costtool.md
       - content/useful/cluster-setups.md
