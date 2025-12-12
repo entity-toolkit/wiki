@@ -243,7 +243,8 @@ Each column corresponds to a different field stencil from the table above.
 To interpolate the current of a particle to the grid and the fields back to the particle, Entity uses a shape function. Before v1.3.0 this shape function was only of first order.
 Since v1.3.0 you can use shape functions with up-to 11th order and deposit charges with the scheme introduced by [Esirkepov (2001)](https://ui.adsabs.harvard.edu/abs/2001CoPhC.135..144E/abstract).
 
-![higherorder_shape](../../assets/images/higherorder/shape_functions_dark.png){width=50% align=right class="invertdark"} 
+![higherorder_shape](../../assets/images/higherorder/shape_functions_dark.png#only-dark){width=50% align=right} 
+![higherorder_shape](../../assets/images/higherorder/shape_functions_light.png#only-light){width=50% align=right} 
 
 You can switch to higher order shape functions by adding the follwoing compile flags to you `cmake` command: `-D deposit=esirkepov -D shape_order=<N>`, where `<N>` can be any number between `1` and `11`.
 
@@ -253,7 +254,8 @@ We choose the temperature to be very low, in order to purposefully under-resolve
 From the top to bottom we uncrease the resolution of the grid to improve resolving the Debye-length.
 You can see that with higher order shape functions the numerical heating stops at considerably lower resolution.
 
-![higherorder_shape](../../assets/images/higherorder/heating_dark.png){width=100% align=center class="invertdark"}
+![higherorder_shape](../../assets/images/higherorder/heating_dark.png#only-dark){width=100% align=center}
+![higherorder_shape](../../assets/images/higherorder/heating_light.png#only-light){width=100% align=center}
 
 This allows you to reduce the numerical resolution when moving to higher order shape functions.
 We strongly advise to perform careful convergence tests before reducing numerical resolution in favor of higher order shape functions.
