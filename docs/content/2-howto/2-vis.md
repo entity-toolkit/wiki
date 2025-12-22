@@ -158,7 +158,7 @@ data.fields.Rho.sel(t=98, method="nearest") # (1)!
 
 1. The `method="nearest"` is used to select the closest time step to the requested time.
 
-![nt2demo1](../../assets/images/howto/nt2-demo-1.png){width=50%, align=right} 
+![nt2demo1](../../assets/images/howto/nt2-demo-1.png){width=50% align=right class="invertlight"} 
 
 We can then plot the selected data using the `plot` method of the `xarray` Dataset:
 
@@ -197,7 +197,7 @@ data.fields.Rho\
 
 1. The difference between `isel` and `sel` is that `isel` uses the integer indices along the given dimension, while `sel` uses the physical coordinates.
 
-![nt2demo2](../../assets/images/howto/nt2-demo-2.png){width=50%, align=right} 
+![nt2demo2](../../assets/images/howto/nt2-demo-2.png){width=50% align=right class="invertlight"} 
 
 One can also do more complicated things, such as building a 1D plot of the evolution of the mean $B^2$ in the box:
 
@@ -254,7 +254,7 @@ plt.scatter(df.x, df.y, colors=df.sp) # color by species
 
 ??? showplot "scatter plot $\{x,~y\}$"
 
-    ![nt2demo3](../../assets/images/howto/nt2-demo-3.png)
+    ![nt2demo3](../../assets/images/howto/nt2-demo-3.png){class="invertlight"}
 
 !!! code "`isel` indexing"
 
@@ -262,7 +262,7 @@ plt.scatter(df.x, df.y, colors=df.sp) # color by species
 
 ### Accessing runtime spectra
 
-Distribution functions for all particle species in the box are also written with the data at specified timesteps. These can be accessed via `data.spectra`, which has several different fields. As in particles & fields, you can access the data at different times using `data.spectra.isel(t=...)` or `data.spectra.sel(t=...)`. The energy bins are written into `data.spectra.e`; by default, the binning is done logarithmically in $\gamma - 1$ for massive particles and energy, $E$, for the photons. Below is an example script to build a distribution function of electron-positron pairs at output step `t=450`:
+Distribution functions for all particle species in the box are also written with the data at specified timesteps. These can be accessed via `data.spectra`, which has several different fields. As in particles & fields, you can access the data at different times using `data.spectra.isel(t=...)` or `data.spectra.sel(t=...)`. The energy bins are written into `data.spectra.E`; by default, the binning is done logarithmically in $\gamma - 1$ for massive particles and energy, $E$, for the photons. Below is an example script to build a distribution function of electron-positron pairs at output step `t=450`:
 
 ```python
 sp = data.spectra.isel(t=450)
@@ -270,15 +270,15 @@ sp = data.spectra.isel(t=450)
 plt.figure(figsize=(6, 3))
 plt.xscale("log")
 plt.yscale("log")
-plt.plot(sp.e, sp.n_1 + sp.n_2, c="r")
+plt.plot(sp.E, sp.N_1 + sp.N_2, c="r")
 plt.ylim(10, 3e5)
 plt.xlabel(r"$\gamma - 1$")
-plt.xlim(sp.e.min(), 1)
+plt.xlim(sp.E.min(), sp.E.max())
 ```
 
 ???+ showplot "particle spectra"
 
-    ![nt2demo5](../../assets/images/howto/nt2-demo-5.png)
+    ![nt2demo5](../../assets/images/howto/nt2-demo-5.png){ class="invertlight" }
 
 ---
 

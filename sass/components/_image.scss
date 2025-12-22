@@ -5,3 +5,9 @@ img.invertdark {
     filter: invert(1) hue-rotate(180deg);
   }
 }
+
+img.invertlight {
+  @include colors.dark-theme {
+    filter: invert(1) hue-rotate(180deg);
+  }
+}

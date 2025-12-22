@@ -77,9 +77,10 @@ All of the field arrays have a type `real_t` which compilers to `float` when usi
 | `dx1_prev` | `prtldx_t` | same as `dx1` but for the previous step | always |
 | `dx2_prev` | `prtldx_t` | same as `dx2` but for the previous step | 2D or 3D |
 | `dx3_prev` | `prtldx_t` | same as `dx3` but for the previous step | 3D |
-| `pld` | `real_t` | custom particle payloads (2D array) |  as needed (defined in the input) |
+| `pldr` | `real_t` | custom real-valued particle payloads (2D array) |  as needed (defined in the input) |
+| `pldi` | `npart_t` | custom integer-valued particle payloads (2D array) |  as needed (defined in the input); when tracking is enabled, it uses 1 or 2 slots (depending on whether MPI is used) to store particle identifiers |
 
-`prtldx_t` is a type alias for `real_t` which is used for the displacement of the particle w.r.t. the corner of the cell (this can be changed to be half-precision). Notice, that we additionally store the `phi` coordinate for the particles in non-Cartesian 2D simulations. While in GR this is totally optional, in SR it is required to keep track of the full particle coordinate, to be able to convert to and from the global Cartesian metric.
+`prtldx_t` is a type alias for `real_t` which is used for the displacement of the particle w.r.t. the corner of the cell (this can be changed to be half-precision). `npart_t` is an alias to a fixed size unsigned integer. Notice, that we additionally store the `phi` coordinate for the particles in non-Cartesian 2D simulations. While in GR this is totally optional, in SR it is required to keep track of the full particle coordinate, to be able to convert to and from the global Cartesian metric.
 
 !!! note "Particle velocities"
 

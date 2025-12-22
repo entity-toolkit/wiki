@@ -769,8 +769,7 @@ This section goes over some instructions on how to compile & run the `Entity` on
     cmake --build build -j $(nproc)
     cmake --install build
     ```
-    `Kokkos` can be quickly compiled in-tree, so no need to build it separately. Add the installed `ADIOS2` as a modulefile (e.g., as `adios/mpi`). 
-    For the compilation of the code itself, load the following modules:
+    Add the installed `ADIOS2` as a modulefile as [described here](../../1-getting-started/2-dependencies/#__tabbed_2_3) (e.g., as `adios/mpi`). `Kokkos` can be quickly compiled in-tree, so no need to build it separately. For the compilation of the code itself, load the following modules:
     ```sh
     module load gcc/12.4.0 cuda/12.6.0 openmpi/5.0.5
     ```
@@ -781,7 +780,11 @@ This section goes over some instructions on how to compile & run the `Entity` on
     ```
     This particular configuration is for the H100 (Hopper) nodes.
     ```slurm
-    #SBATCH ....
+    #SBATCH -C GPU_CC:9.0
+    #SBATCH -p gpu
+    #SBATCH -G 1
+    #SBATCH -c 2
+    #SBATCH --mem=32GB
     module purge
     module use --append /home/users/<USERNAME>/modules/.modfiles/
     module load gcc/12.4.0
@@ -793,6 +796,28 @@ This section goes over some instructions on how to compile & run the `Entity` on
     # or
     srun ./entity.xc -input <INPUTFILE>
     ```
+
+    `nt2py` has some known issues on this cluster, and might not work out of the box. However, you can make it work using the following steps.
+    
+    First, load a proper `conda` module (preferably with `python3 >= 3.10`) and make a virtual environment: 
+
+    ```sh
+    python3 -m venv .venv
+    source .venv/bin/activate
+    ```
+
+    Manually install `pyarrow` version 20:
+
+    ```sh
+    pip install pyarrow=20
+    ```
+
+    Now install `nt2py` (without the `hdf5` support, since for some reason the compute node on which jupyter kernels are run cannot find the `HDF5` library):
+    ```sh
+    pip install nt2py
+    ```
+
+    When launching the jupyter kernels from the on-demand service, specify the following modules to load: `gcc/12.4.0` and `ucc`.
 
     _Last updated: 22/12/2025_
 
