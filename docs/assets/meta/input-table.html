@@ -8,751 +8,823 @@
     </tr>
   </thead>
   <tbody>
-    <tr data-depth="0" data-id="137304640369872" class="category">
+    <tr data-depth="0" data-id="139899891364640" class="category">
       <td><pre>simulation</pre></td>
       <td></td>
       <td></td>
       <td></td>
     </tr>
-    <tr data-depth="1" data-id="137304640155280" class="required">
+    <tr data-depth="1" data-id="139899891352496" class="required">
       <td><pre>name</pre></td>
       <td><pre class="type">string</pre></td>
       <td><div class="note-tooltip"><span class="description">Name of the simulation</span><span class="tooltiptext">The name is used for the output files.</span></div></td>
       <td></td>
     </tr>
-    <tr data-depth="1" data-id="137304640155920" class="required">
+    <tr data-depth="1" data-id="139899891013856" class="required">
       <td><pre>engine</pre></td>
       <td><div class="type-tooltip"><pre class="type">string</pre><span class="tooltiptext">"SRPIC", "GRPIC"</span></div></td>
       <td>Simulation engine to use</td>
       <td></td>
     </tr>
-    <tr data-depth="1" data-id="137304640192016" class="required">
+    <tr data-depth="1" data-id="139899891466896" class="required">
       <td><pre>runtime</pre></td>
       <td><div class="type-tooltip"><pre class="type">float </pre><span class="tooltiptext">&gt; 0</span></div></td>
       <td>Max runtime in physical (code) units</td>
       <td></td>
     </tr>
-    <tr data-depth="1" data-id="137304639308464" class="category">
+    <tr data-depth="1" data-id="139899891467280" class="category">
       <td><pre>domain</pre></td>
       <td></td>
       <td></td>
       <td></td>
     </tr>
-    <tr data-depth="2" data-id="137304640665168">
+    <tr data-depth="2" data-id="139899891467328">
       <td><pre>number</pre></td>
       <td><pre class="type">int</pre></td>
       <td>Number of domains</td>
       <td>1 [no MPI]; MPI_SIZE [MPI]</td>
     </tr>
-    <tr data-depth="2" data-id="137304640771744">
+    <tr data-depth="2" data-id="139899891467520">
       <td><pre>decomposition</pre></td>
       <td><div class="type-tooltip"><pre class="type">array&lt;int&gt; </pre><span class="tooltiptext">size 1 :-&gt;: 3</span></div></td>
       <td><div class="note-tooltip"><span class="description">Decomposition of the domain (for MPI) in each of the directions</span><span class="tooltiptext">* -1 means the code will determine the decomposition in the specific direction automatically.<br>* Automatic detection is either done by inference from # of MPI tasks, or by balancing the grid size on each domain.</span></div></td>
       <td>$[-1, -1, -1]$</td>
     </tr>
-    <tr data-depth="0" data-id="137304640772016" class="category">
+    <tr data-depth="0" data-id="139899891467712" class="category">
       <td><pre>grid</pre></td>
       <td></td>
       <td></td>
       <td></td>
     </tr>
-    <tr data-depth="1" data-id="137304639196496" class="required">
+    <tr data-depth="1" data-id="139899891467760" class="required">
       <td><pre>resolution</pre></td>
       <td><div class="type-tooltip"><pre class="type">array&lt;uint&gt; </pre><span class="tooltiptext">size 1 :-&gt;: 3</span></div></td>
       <td><div class="note-tooltip"><span class="description">Spatial resolution of the grid</span><span class="tooltiptext">Dimensionality is inferred from the size of this array.</span></div></td>
       <td></td>
     </tr>
-    <tr data-depth="1" data-id="137304639198800" class="required">
+    <tr data-depth="1" data-id="139899891468096" class="required">
       <td><pre>extent</pre></td>
       <td><div class="type-tooltip"><pre class="type">array&lt;tuple&lt;float&gt;&gt; </pre><span class="tooltiptext">size 1 :-&gt;: 3</span></div></td>
       <td><div class="note-tooltip"><span class="description">Physical extent of the grid</span><span class="tooltiptext">* For spherical geometry, only specify <pre>[[rmin, rmax]]</pre>, other values are set automatically.<br>* For cartesian geometry, cell aspect ratio has to be 1: <pre>dx=dy=dz</pre>.</span></div></td>
       <td></td>
     </tr>
-    <tr data-depth="1" data-id="137304639209552" class="inferred">
+    <tr data-depth="1" data-id="139899891468528" class="inferred">
       <td><pre>dim</pre></td>
       <td><div class="type-tooltip"><pre class="type">short</pre><span class="tooltiptext">1, 2, 3</span></div></td>
       <td>Dimensionality of the grid</td>
       <td></td>
     </tr>
-    <tr data-depth="1" data-id="137304639210032" class="category">
+    <tr data-depth="1" data-id="139899891468816" class="category">
       <td><pre>metric</pre></td>
       <td></td>
       <td></td>
       <td></td>
     </tr>
-    <tr data-depth="2" data-id="137304640137136" class="required">
+    <tr data-depth="2" data-id="139899891468864" class="required">
       <td><pre>metric</pre></td>
       <td><div class="type-tooltip"><pre class="type">string</pre><span class="tooltiptext">"Minkowski", "Spherical", "QSpherical", "Kerr_Schild", "QKerr_Schild", "Kerr_Schild_0"</span></div></td>
       <td>Metric on the grid</td>
       <td></td>
     </tr>
-    <tr data-depth="2" data-id="137304640137360">
+    <tr data-depth="2" data-id="139899891469200">
       <td><pre>qsph_r0</pre></td>
       <td><div class="type-tooltip"><pre class="type">float </pre><span class="tooltiptext">-∞ -&gt; rmin</span></div></td>
       <td><div class="note-tooltip"><span class="description"><code>r0</code> paramter for the QSpherical metric <code>x1 = log(r-r0)</code></span><span class="tooltiptext">Negative values produce almost uniform grid in r.</span></div></td>
       <td>$0.0$</td>
     </tr>
-    <tr data-depth="2" data-id="137304638809728">
+    <tr data-depth="2" data-id="139899891469440">
       <td><pre>qsph_h</pre></td>
       <td><div class="type-tooltip"><pre class="type">float </pre><span class="tooltiptext">-1 :-&gt;: 1</span></div></td>
       <td><code>h</code> paramter for the QSpherical metric <code>th = x2 + 2*h x2 (pi-2*x2)*(pi-x2)/pi^2</code></td>
       <td>$0.0$</td>
     </tr>
-    <tr data-depth="2" data-id="137304639886480">
+    <tr data-depth="2" data-id="139899891469728">
       <td><pre>ks_a</pre></td>
       <td><div class="type-tooltip"><pre class="type">float </pre><span class="tooltiptext">0 :-&gt; 1</span></div></td>
       <td>Spin parameter for the Kerr Schild metric</td>
       <td>$0.0$</td>
     </tr>
-    <tr data-depth="2" data-id="137304639888976" class="inferred">
+    <tr data-depth="2" data-id="139899891470112" class="inferred">
       <td><pre>coord</pre></td>
       <td><div class="type-tooltip"><pre class="type">string</pre><span class="tooltiptext">"cartesian", "spherical", "qspherical"</span></div></td>
       <td>Coordinate system on the grid</td>
       <td></td>
     </tr>
-    <tr data-depth="2" data-id="137304642910560" class="inferred">
+    <tr data-depth="2" data-id="139899891470352" class="inferred">
       <td><pre>ks_rh</pre></td>
       <td><pre class="type">float</pre></td>
       <td>Size of the horizon for GR Kerr Schild</td>
       <td></td>
     </tr>
-    <tr data-depth="2" data-id="137304642910208" class="inferred">
+    <tr data-depth="2" data-id="139899891470592" class="inferred">
       <td><pre>params</pre></td>
       <td><pre class="type">map&lt;string, float&gt;</pre></td>
       <td>A map of all metric-specific parameters together (for easy access)</td>
       <td></td>
     </tr>
-    <tr data-depth="1" data-id="137304639061072" class="category">
+    <tr data-depth="1" data-id="139899891470784" class="category">
       <td><pre>boundaries</pre></td>
       <td></td>
       <td></td>
       <td></td>
     </tr>
-    <tr data-depth="2" data-id="137304639060752" class="required">
+    <tr data-depth="2" data-id="139899891470832" class="required">
       <td><pre>fields</pre></td>
       <td><div class="type-tooltip"><pre class="type">array&lt;tuple&lt;string&gt;&gt; </pre><span class="tooltiptext">"PERIODIC", "MATCH", "FIXED", "ATMOSPHERE", "CUSTOM", "HORIZON", "CONDUCTOR"</span></div></td>
       <td><div class="note-tooltip"><span class="description">Boundary conditions for fields</span><span class="tooltiptext">* When periodic in any of the directions, you should only set one value: [..., ["PERIODIC"], ...].<br>* In spherical, bondaries in theta/phi are set automatically (only specify bc @ <pre>[rmin, rmax]</pre>): [["ATMOSPHERE", "MATCH"]].<br>* In GR, the horizon boundary is set automatically (only specify bc @ rmax): [["MATCH"]].</span></div></td>
       <td></td>
     </tr>
-    <tr data-depth="2" data-id="137304638915216" class="required">
+    <tr data-depth="2" data-id="139899891470976" class="required">
       <td><pre>particles</pre></td>
       <td><div class="type-tooltip"><pre class="type">array&lt;tuple&lt;string&gt;&gt; </pre><span class="tooltiptext">"PERIODIC", "ABSORB", "ATMOSPHERE", "CUSTOM", "REFLECT", "HORIZON"</span></div></td>
       <td><div class="note-tooltip"><span class="description">Boundary conditions for fields</span><span class="tooltiptext">* When periodic in any of the directions, you should only set one value [..., ["PERIODIC"], ...].<br>* In spherical, bondaries in theta/phi are set automatically (only specify bc @ <pre>[rmin, rmax]</pre>) [["ATMOSPHERE", "ABSORB"]].<br>* In GR, the horizon boundary is set automatically (only specify bc @ <pre>rmax</pre>): [["ABSORB"]].</span></div></td>
       <td></td>
     </tr>
-    <tr data-depth="2" data-id="137304639083600" class="category">
+    <tr data-depth="2" data-id="139899891471648" class="category">
       <td><pre>match</pre></td>
       <td></td>
       <td></td>
       <td></td>
     </tr>
-    <tr data-depth="3" data-id="137304639083984">
+    <tr data-depth="3" data-id="139899891471696">
       <td><pre>ds</pre></td>
       <td><pre class="type">float </pre> or <pre class="type"> array&lt;tuple&lt;float&gt;&gt;</pre></td>
       <td><div class="note-tooltip"><span class="description">Size of the matching layer in each direction for fields in physical (code) units</span><span class="tooltiptext">In spherical, this is the size of the layer in <pre>r</pre> from the outer wall.</span></div></td>
       <td>1% of the domain size (in shortest dimension)</td>
     </tr>
-    <tr data-depth="2" data-id="137304638832352" class="category">
+    <tr data-depth="2" data-id="139899891472032" class="category">
       <td><pre>absorb</pre></td>
       <td></td>
       <td></td>
       <td></td>
     </tr>
-    <tr data-depth="3" data-id="137304638831792">
+    <tr data-depth="3" data-id="139899891472080">
       <td><pre>ds</pre></td>
       <td><pre class="type">float</pre></td>
       <td><div class="note-tooltip"><span class="description">Size of the absorption layer for particles in physical (code) units</span><span class="tooltiptext">* In spherical, this is the size of the layer in <pre>r</pre> from the outer wall.<br>* In cartesian, this is the same for all dimensions where applicable.</span></div></td>
       <td>1% of the domain size (in shortest dimension)</td>
     </tr>
-    <tr data-depth="2" data-id="137304639340624" class="category">
+    <tr data-depth="2" data-id="139899891471792" class="category">
       <td><pre>atmosphere</pre></td>
       <td></td>
       <td></td>
       <td></td>
     </tr>
-    <tr data-depth="3" data-id="137304639340848">
+    <tr data-depth="3" data-id="139899891471840">
       <td><pre>temperature</pre></td>
       <td><pre class="type">float</pre></td>
       <td><div class="note-tooltip"><span class="description">Temperature of the atmosphere in units of <code>m0 c^2</code></span><span class="tooltiptext">[required] if <pre>ATMOSPHERE</pre> is one of the boundaries.</span></div></td>
       <td></td>
     </tr>
-    <tr data-depth="3" data-id="137304639340736">
+    <tr data-depth="3" data-id="139899891472368">
       <td><pre>density</pre></td>
       <td><pre class="type">float</pre></td>
       <td>Peak number density of the atmosphere at base in units of <code>n0</code></td>
       <td></td>
     </tr>
-    <tr data-depth="3" data-id="137304639341072">
+    <tr data-depth="3" data-id="139899891472560">
       <td><pre>height</pre></td>
       <td><pre class="type">float</pre></td>
       <td>Pressure scale-height in physical units</td>
       <td></td>
     </tr>
-    <tr data-depth="3" data-id="137304639341184">
+    <tr data-depth="3" data-id="139899891472704">
       <td><pre>species</pre></td>
       <td><div class="type-tooltip"><pre class="type">array&lt;int&gt; </pre><span class="tooltiptext">size 2</span></div></td>
       <td>Species indices of particles that populate the atmosphere</td>
       <td></td>
     </tr>
-    <tr data-depth="3" data-id="137304639341408">
+    <tr data-depth="3" data-id="139899891473040">
       <td><pre>ds</pre></td>
       <td><pre class="type">float</pre></td>
       <td><div class="note-tooltip"><span class="description">Distance from the edge to which the gravity is imposed in physical units</span><span class="tooltiptext">0.0 means no limit.</span></div></td>
       <td>$0.0$</td>
     </tr>
-    <tr data-depth="3" data-id="137304639341520" class="inferred">
+    <tr data-depth="3" data-id="139899891473232" class="inferred">
       <td><pre>g</pre></td>
       <td><pre class="type">float</pre></td>
       <td>Acceleration due to imposed gravity</td>
       <td></td>
     </tr>
-    <tr data-depth="0" data-id="137304639341632" class="category">
+    <tr data-depth="0" data-id="139899891473568" class="category">
       <td><pre>scales</pre></td>
       <td></td>
       <td></td>
       <td></td>
     </tr>
-    <tr data-depth="1" data-id="137304639341744" class="required">
+    <tr data-depth="1" data-id="139899891473616" class="required">
       <td><pre>larmor0</pre></td>
       <td><div class="type-tooltip"><pre class="type">float </pre><span class="tooltiptext">&gt; 0.0</span></div></td>
       <td>Fiducial larmor radius</td>
       <td></td>
     </tr>
-    <tr data-depth="1" data-id="137304639341856" class="required">
+    <tr data-depth="1" data-id="139899891473712" class="required">
       <td><pre>skindepth0</pre></td>
       <td><div class="type-tooltip"><pre class="type">float </pre><span class="tooltiptext">&gt; 0.0</span></div></td>
       <td>Fiducial plasma skin depth</td>
       <td></td>
     </tr>
-    <tr data-depth="1" data-id="137304639341968" class="inferred">
+    <tr data-depth="1" data-id="139899891474192" class="inferred">
       <td><pre>dx0</pre></td>
       <td><pre class="type">float</pre></td>
       <td>fiducial minimum size of the cell</td>
       <td></td>
     </tr>
-    <tr data-depth="1" data-id="137304639342080" class="inferred">
+    <tr data-depth="1" data-id="139899891474528" class="inferred">
       <td><pre>V0</pre></td>
       <td><pre class="type">float</pre></td>
       <td>fiducial elementary volume</td>
       <td></td>
     </tr>
-    <tr data-depth="1" data-id="137304639342192" class="inferred">
+    <tr data-depth="1" data-id="139899891474864" class="inferred">
       <td><pre>n0</pre></td>
       <td><pre class="type">float</pre></td>
       <td>Fiducial number density</td>
       <td></td>
     </tr>
-    <tr data-depth="1" data-id="137304639342304" class="inferred">
+    <tr data-depth="1" data-id="139899891475152" class="inferred">
       <td><pre>q0</pre></td>
       <td><pre class="type">float</pre></td>
       <td>Fiducial elementary charge</td>
       <td></td>
     </tr>
-    <tr data-depth="1" data-id="137304639342416" class="inferred">
+    <tr data-depth="1" data-id="139899891475536" class="inferred">
       <td><pre>sigma0</pre></td>
       <td><pre class="type">float</pre></td>
       <td>Fiducial magnetization parameter</td>
       <td></td>
     </tr>
-    <tr data-depth="1" data-id="137304639342528" class="inferred">
+    <tr data-depth="1" data-id="139899891475824" class="inferred">
       <td><pre>B0</pre></td>
       <td><pre class="type">float</pre></td>
       <td>Fiducial magnetic field</td>
       <td></td>
     </tr>
-    <tr data-depth="1" data-id="137304639342640" class="inferred">
+    <tr data-depth="1" data-id="139899891476160" class="inferred">
       <td><pre>omegaB0</pre></td>
       <td><pre class="type">float</pre></td>
       <td>Fiducial cyclotron frequency</td>
       <td></td>
     </tr>
-    <tr data-depth="0" data-id="137304639342752" class="category">
+    <tr data-depth="0" data-id="139899891476208" class="category">
       <td><pre>algorithms</pre></td>
       <td></td>
       <td></td>
       <td></td>
     </tr>
-    <tr data-depth="1" data-id="137304639342864">
+    <tr data-depth="1" data-id="139899891476064">
       <td><pre>current_filters</pre></td>
       <td><div class="type-tooltip"><pre class="type">ushort </pre><span class="tooltiptext">&gt;= 0</span></div></td>
       <td>Number of current smoothing passes</td>
       <td>$0$</td>
     </tr>
-    <tr data-depth="1" data-id="137304639342976" class="category">
-      <td><pre>toggles</pre></td>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
-    <tr data-depth="2" data-id="137304639343088">
-      <td><pre>fieldsolver</pre></td>
-      <td><pre class="type">bool</pre></td>
-      <td>Toggle for the field solver</td>
-      <td><pre>true</pre></td>
-    </tr>
-    <tr data-depth="2" data-id="137304639343200">
-      <td><pre>deposit</pre></td>
-      <td><pre class="type">bool</pre></td>
-      <td>Toggle for the current deposition</td>
-      <td><pre>true</pre></td>
-    </tr>
-    <tr data-depth="1" data-id="137304639343312" class="category">
+    <tr data-depth="1" data-id="139899891476592" class="category">
       <td><pre>timestep</pre></td>
       <td></td>
       <td></td>
       <td></td>
     </tr>
-    <tr data-depth="2" data-id="137304639343424">
+    <tr data-depth="2" data-id="139899891476688">
       <td><pre>CFL</pre></td>
       <td><div class="type-tooltip"><pre class="type">float </pre><span class="tooltiptext">0.0 -&gt; 1.0</span></div></td>
       <td><div class="note-tooltip"><span class="description">Courant-Friedrichs-Lewy number</span><span class="tooltiptext">CFL number determines the timestep duration.</span></div></td>
       <td>$0.95$</td>
     </tr>
-    <tr data-depth="2" data-id="137304639343536">
+    <tr data-depth="2" data-id="139899891476784">
       <td><pre>correction</pre></td>
       <td><pre class="type">float</pre></td>
       <td>Correction factor for the speed of light used in field solver</td>
       <td>$1.0$</td>
     </tr>
-    <tr data-depth="2" data-id="137304639343760" class="inferred">
+    <tr data-depth="2" data-id="139899891477216" class="inferred">
       <td><pre>dt</pre></td>
       <td><pre class="type">float</pre></td>
       <td>timestep duration</td>
       <td></td>
     </tr>
-    <tr data-depth="1" data-id="137304639343872" class="category">
+    <tr data-depth="1" data-id="139899891477600" class="category">
+      <td><pre>deposit</pre></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr data-depth="2" data-id="139899891477648">
+      <td><pre>enable</pre></td>
+      <td><pre class="type">bool</pre></td>
+      <td>Enable the current deposition</td>
+      <td><pre>true</pre></td>
+    </tr>
+    <tr data-depth="2" data-id="139899891477984">
+      <td><pre>order</pre></td>
+      <td><pre class="type">int</pre></td>
+      <td>Order of the particle shape function</td>
+      <td>$1$</td>
+    </tr>
+    <tr data-depth="1" data-id="139899891478080" class="category">
       <td><pre>gr</pre></td>
       <td></td>
       <td></td>
       <td></td>
     </tr>
-    <tr data-depth="2" data-id="137304639343984">
+    <tr data-depth="2" data-id="139899891478128">
       <td><pre>pusher_eps</pre></td>
       <td><div class="type-tooltip"><pre class="type">float </pre><span class="tooltiptext">&gt; 0.0</span></div></td>
       <td>Stepsize for numerical differentiation in GR pusher</td>
       <td>$10^{-6}$</td>
     </tr>
-    <tr data-depth="2" data-id="137304639344096">
+    <tr data-depth="2" data-id="139899891478368">
       <td><pre>pusher_niter</pre></td>
       <td><div class="type-tooltip"><pre class="type">ushort </pre><span class="tooltiptext">&gt; 0</span></div></td>
       <td>Number of iterations for the Newton-Raphson method in GR pusher</td>
       <td>$10$</td>
     </tr>
-    <tr data-depth="1" data-id="137304639344320" class="category">
+    <tr data-depth="1" data-id="139899891478608" class="category">
       <td><pre>gca</pre></td>
       <td></td>
       <td></td>
       <td></td>
     </tr>
-    <tr data-depth="2" data-id="137304639344432">
+    <tr data-depth="2" data-id="139899891478656">
       <td><pre>e_ovr_b_max</pre></td>
       <td><div class="type-tooltip"><pre class="type">float </pre><span class="tooltiptext">0.0 -&gt; 1.0</span></div></td>
       <td>Maximum value for E/B allowed for GCA particles</td>
       <td>$0.9$</td>
     </tr>
-    <tr data-depth="2" data-id="137304639344544">
+    <tr data-depth="2" data-id="139899891479040">
       <td><pre>larmor_max</pre></td>
       <td><pre class="type">float</pre></td>
       <td><div class="note-tooltip"><span class="description">Maximum Larmor radius allowed for GCA particles (in physical units)</span><span class="tooltiptext">When <pre>larmor_max</pre> == 0, the limit is disabled.</span></div></td>
       <td>$0.0$</td>
     </tr>
-    <tr data-depth="1" data-id="137304639344768" class="category">
+    <tr data-depth="1" data-id="139899891479184" class="category">
       <td><pre>synchrotron</pre></td>
       <td></td>
       <td></td>
       <td></td>
     </tr>
-    <tr data-depth="2" data-id="137304639344880">
+    <tr data-depth="2" data-id="139899891479232">
       <td><pre>gamma_rad</pre></td>
       <td><div class="type-tooltip"><pre class="type">float </pre><span class="tooltiptext">&gt; 0.0</span></div></td>
       <td><div class="note-tooltip"><span class="description">Radiation reaction limit gamma-factor for synchrotron</span><span class="tooltiptext">[required] if one of the species has <pre>cooling = "synchrotron"</pre>.</span></div></td>
       <td>$1.0$</td>
     </tr>
-    <tr data-depth="0" data-id="137304639345104" class="category">
+    <tr data-depth="1" data-id="139899891479664" class="category">
+      <td><pre>fieldsolver</pre></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr data-depth="2" data-id="139899891479712">
+      <td><pre>delta_x</pre></td>
+      <td><pre class="type">float</pre></td>
+      <td><div class="note-tooltip"><span class="description">delta_x coefficient (for <code>F_{i +/- 3/2, j, k}</code>)</span><span class="tooltiptext">Standard Yee solver: <pre>delta_i = beta_ij = 0.0</pre>.</span></div></td>
+      <td>$0.0$</td>
+    </tr>
+    <tr data-depth="2" data-id="139899891480048">
+      <td><pre>delta_y</pre></td>
+      <td><pre class="type">float</pre></td>
+      <td><div class="note-tooltip"><span class="description">delta_y coefficient (for <code>F_{i, j +/- 3/2, k}</code>)</span><span class="tooltiptext">Used only for 2D and 3D.</span></div></td>
+      <td>$0.0$</td>
+    </tr>
+    <tr data-depth="2" data-id="139899891480384">
+      <td><pre>delta_z</pre></td>
+      <td><pre class="type">float</pre></td>
+      <td><div class="note-tooltip"><span class="description">delta_z coefficient (for <code>F_{i, j, k +/- 3/2}</code>)</span><span class="tooltiptext">Used only for 3D.</span></div></td>
+      <td>$0.0$</td>
+    </tr>
+    <tr data-depth="2" data-id="139899891480720">
+      <td><pre>beta_xy</pre></td>
+      <td><pre class="type">float</pre></td>
+      <td><div class="note-tooltip"><span class="description">beta_xy coefficient (for <code>F_{i +/- 1/2, j +/- 1, k}</code>)</span><span class="tooltiptext">Used only for 2D and 3D.</span></div></td>
+      <td>$0.0$</td>
+    </tr>
+    <tr data-depth="2" data-id="139899891481056">
+      <td><pre>beta_yx</pre></td>
+      <td><pre class="type">float</pre></td>
+      <td><div class="note-tooltip"><span class="description">beta_yx coefficient (for <code>F_{i +/- 1, j +/- 1/2, k}</code>)</span><span class="tooltiptext">Used only for 2D and 3D.</span></div></td>
+      <td>$0.0$</td>
+    </tr>
+    <tr data-depth="2" data-id="139899891481392">
+      <td><pre>beta_xz</pre></td>
+      <td><pre class="type">float</pre></td>
+      <td><div class="note-tooltip"><span class="description">beta_xz coefficient (for <code>F_{i +/- 1/2, j, k +/- 1}</code>)</span><span class="tooltiptext">Used only for 3D.</span></div></td>
+      <td>$0.0$</td>
+    </tr>
+    <tr data-depth="2" data-id="139899891481728">
+      <td><pre>beta_zx</pre></td>
+      <td><pre class="type">float</pre></td>
+      <td><div class="note-tooltip"><span class="description">beta_zx coefficient (for <code>F_{i +/- 1, j, k +/- 1/2}</code>)</span><span class="tooltiptext">Used only for 3D.</span></div></td>
+      <td>$0.0$</td>
+    </tr>
+    <tr data-depth="2" data-id="139899891482064">
+      <td><pre>beta_yz</pre></td>
+      <td><pre class="type">float</pre></td>
+      <td><div class="note-tooltip"><span class="description">beta_yz coefficient (for <code>F_{i, j +/- 1/2, k +/- 1}</code>)</span><span class="tooltiptext">Used only for 3D.</span></div></td>
+      <td>$0.0$</td>
+    </tr>
+    <tr data-depth="2" data-id="139899891482448">
+      <td><pre>beta_zy</pre></td>
+      <td><pre class="type">float</pre></td>
+      <td><div class="note-tooltip"><span class="description">beta_zy coefficient (for <code>F_{i, j +/- 1, k +/- 1/2}</code>)</span><span class="tooltiptext">Used only for 3D.</span></div></td>
+      <td>$0.0$</td>
+    </tr>
+    <tr data-depth="0" data-id="139899891482544" class="category">
       <td><pre>particles</pre></td>
       <td></td>
       <td></td>
       <td></td>
     </tr>
-    <tr data-depth="1" data-id="137304639345216" class="required">
+    <tr data-depth="1" data-id="139899891499088" class="required">
       <td><pre>ppc0</pre></td>
       <td><div class="type-tooltip"><pre class="type">float </pre><span class="tooltiptext">&gt; 0.0</span></div></td>
       <td>Fiducial number of particles per cell</td>
       <td></td>
     </tr>
-    <tr data-depth="1" data-id="137304639345328">
+    <tr data-depth="1" data-id="139899891499232">
       <td><pre>use_weights</pre></td>
       <td><pre class="type">bool</pre></td>
       <td>Toggle for using particle weights</td>
       <td><pre>false</pre></td>
     </tr>
-    <tr data-depth="1" data-id="137304639345440">
+    <tr data-depth="1" data-id="139899891499520">
       <td><pre>clear_interval</pre></td>
       <td><pre class="type">uint</pre></td>
       <td><div class="note-tooltip"><span class="description">Timesteps between particle re-sorting (removing dead particles)</span><span class="tooltiptext">Set to 0 to disable re-sorting.</span></div></td>
       <td>$100$</td>
     </tr>
-    <tr data-depth="1" data-id="137304639345664" class="inferred">
+    <tr data-depth="1" data-id="139899891499904" class="inferred">
       <td><pre>nspec</pre></td>
       <td><pre class="type">uint</pre></td>
       <td>Number of particle species</td>
       <td></td>
     </tr>
-    <tr data-depth="1" data-id="137304639345776" class="category">
+    <tr data-depth="1" data-id="139899891500432" class="category">
       <td><pre>species</pre></td>
       <td></td>
       <td></td>
       <td></td>
     </tr>
-    <tr data-depth="2" data-id="137304639345888">
+    <tr data-depth="2" data-id="139899891500480">
       <td><pre>label</pre></td>
       <td><pre class="type">string</pre></td>
       <td><div class="note-tooltip"><span class="description">Label of the species</span><span class="tooltiptext"><pre>&lt;INDEX&gt;</pre> is the index of the species in the list starting from 1.</span></div></td>
       <td><pre>"s&lt;INDEX&gt;"</pre></td>
     </tr>
-    <tr data-depth="2" data-id="137304639346112" class="required">
+    <tr data-depth="2" data-id="139899891500720" class="required">
       <td><pre>mass</pre></td>
       <td><div class="type-tooltip"><pre class="type">float </pre><span class="tooltiptext">&gt;= 0.0</span></div></td>
       <td>Mass of the species (in units of fiducial mass)</td>
       <td></td>
     </tr>
-    <tr data-depth="2" data-id="137304639346224" class="required">
+    <tr data-depth="2" data-id="139899891500864" class="required">
       <td><pre>charge</pre></td>
       <td><pre class="type">float</pre></td>
       <td>Charge of the species (in units of fiducial charge)</td>
       <td></td>
     </tr>
-    <tr data-depth="2" data-id="137304639346336" class="required">
+    <tr data-depth="2" data-id="139899891500768" class="required">
       <td><pre>maxnpart</pre></td>
       <td><div class="type-tooltip"><pre class="type">uint </pre><span class="tooltiptext">&gt; 0</span></div></td>
       <td>Maximum number of particles per task</td>
       <td></td>
     </tr>
-    <tr data-depth="2" data-id="137304639346448">
+    <tr data-depth="2" data-id="139899891501248">
       <td><pre>pusher</pre></td>
       <td><div class="type-tooltip"><pre class="type">string</pre><span class="tooltiptext">"Boris", "Vay", "Boris,GCA", "Vay,GCA", "Photon", "None"</span></div></td>
       <td>Pusher algorithm for the species</td>
       <td>"Boris" [massive]; "Photon" [massless]</td>
     </tr>
-    <tr data-depth="2" data-id="137304639346672">
-      <td><pre>n_payloads</pre></td>
+    <tr data-depth="2" data-id="139899891501344">
+      <td><pre>n_payloads_real</pre></td>
       <td><pre class="type">ushort</pre></td>
-      <td>Number of additional (payload) variables for each particle of the given species</td>
+      <td>Number of additional real-valued variables (payloads) for each particle of the given species</td>
       <td>$0$</td>
     </tr>
-    <tr data-depth="2" data-id="137304639346784">
+    <tr data-depth="2" data-id="139899891501584">
+      <td><pre>n_payloads_int</pre></td>
+      <td><pre class="type">ushort</pre></td>
+      <td><div class="note-tooltip"><span class="description">Number of additional integer-valued variables (payloads) for each particle of the given species</span><span class="tooltiptext">If tracking is enabled, one or two extra integer payloads are reserved (depending on whether MPI is enabled).</span></div></td>
+      <td>$0$</td>
+    </tr>
+    <tr data-depth="2" data-id="139899891501824">
+      <td><pre>tracking</pre></td>
+      <td><pre class="type">bool</pre></td>
+      <td>Enable tracking of particles using indices for the given species</td>
+      <td><pre>false</pre></td>
+    </tr>
+    <tr data-depth="2" data-id="139899891502256">
       <td><pre>cooling</pre></td>
       <td><div class="type-tooltip"><pre class="type">string</pre><span class="tooltiptext">"None", "Synchrotron"</span></div></td>
       <td>Radiation reaction to use for the species</td>
       <td><pre>"None"</pre></td>
     </tr>
-    <tr data-depth="0" data-id="137304639346896" class="category">
+    <tr data-depth="0" data-id="139899891502064" class="category">
       <td><pre>setup</pre></td>
       <td></td>
       <td>Parameters for specific problem generators and setups</td>
       <td></td>
     </tr>
-    <tr data-depth="0" data-id="137304639347008" class="category">
+    <tr data-depth="0" data-id="139899891502592" class="category">
       <td><pre>output</pre></td>
       <td></td>
       <td></td>
       <td></td>
     </tr>
-    <tr data-depth="1" data-id="137304639347120">
+    <tr data-depth="1" data-id="139899891502640">
       <td><pre>format</pre></td>
       <td><div class="type-tooltip"><pre class="type">string</pre><span class="tooltiptext">"disabled", "hdf5", "BPFile"</span></div></td>
       <td>Output format</td>
       <td><pre>"hdf5"</pre></td>
     </tr>
-    <tr data-depth="1" data-id="137304639347232">
+    <tr data-depth="1" data-id="139899891502832">
       <td><pre>interval</pre></td>
       <td><div class="type-tooltip"><pre class="type">uint </pre><span class="tooltiptext">&gt; 0</span></div></td>
       <td><div class="note-tooltip"><span class="description">Number of timesteps between all outputs</span><span class="tooltiptext">Value is overriden by output intervals for specific outputs.</span></div></td>
       <td>$1$</td>
     </tr>
-    <tr data-depth="1" data-id="137304639347456">
+    <tr data-depth="1" data-id="139899891503168">
       <td><pre>interval_time</pre></td>
       <td><pre class="type">float</pre></td>
       <td><div class="note-tooltip"><span class="description">Physical (code) time interval between all outputs</span><span class="tooltiptext">* When <pre>interval_time</pre> &lt; 0, the output is controlled by <pre>interval</pre>, otherwise by <pre>interval_time</pre>.<br>* Value is overriden by output intervals for specific outputs.</span></div></td>
       <td>$-1.0$</td>
     </tr>
-    <tr data-depth="1" data-id="137304639347568">
+    <tr data-depth="1" data-id="139899891503360">
       <td><pre>separate_files</pre></td>
       <td><pre class="type">bool</pre></td>
       <td>Whether to output each timestep into separate files</td>
       <td><pre>true</pre></td>
     </tr>
-    <tr data-depth="1" data-id="137304639347680" class="category">
+    <tr data-depth="1" data-id="139899891503888" class="category">
       <td><pre>fields</pre></td>
       <td></td>
       <td></td>
       <td></td>
     </tr>
-    <tr data-depth="2" data-id="137304639347792">
+    <tr data-depth="2" data-id="139899891503936">
       <td><pre>enable</pre></td>
       <td><pre class="type">bool</pre></td>
       <td>Toggle for the field output</td>
       <td><pre>true</pre></td>
     </tr>
-    <tr data-depth="2" data-id="137304639348016">
+    <tr data-depth="2" data-id="139899891504224">
       <td><pre>quantities</pre></td>
       <td><div class="type-tooltip"><pre class="type">array&lt;string&gt;</pre><span class="tooltiptext">"E", "B", "J", "divE", "Rho", "Charge", "N", "Nppc", "T0i", "Tij", "Vi", "D", "H", "divD", "A"</span></div></td>
       <td><div class="note-tooltip"><span class="description">Field quantities to output</span><span class="tooltiptext">* For <pre>T</pre>, you can use unspecified indices: <pre>Tij</pre>, <pre>T0i</pre>, or specific ones: <pre>Ttt</pre>, <pre>T00</pre>, <pre>T02</pre>, <pre>T23</pre>.<br>* For <pre>T</pre>, in cartesian can also use "x" "y" "z" instead of "1" "2" "3".<br>* By default, we accumulate moments from all massive species, one can specify only specific species: <pre>Ttt_1_2</pre>, <pre>Rho_1</pre>, <pre>Rho_3_4</pre>.</span></div></td>
       <td>[]</td>
     </tr>
-    <tr data-depth="2" data-id="137304639347904">
+    <tr data-depth="2" data-id="139899891504512">
       <td><pre>custom</pre></td>
       <td><pre class="type">array&lt;string&gt;</pre></td>
       <td>Custom (user-defined) field quantities</td>
       <td>[]</td>
     </tr>
-    <tr data-depth="2" data-id="137304639348240">
+    <tr data-depth="2" data-id="139899891504608">
       <td><pre>mom_smooth</pre></td>
       <td><pre class="type">ushort</pre></td>
       <td>Smoothing window for the output of moments ("Rho", "Charge", "T", ...)</td>
       <td>$0$</td>
     </tr>
-    <tr data-depth="2" data-id="137304639348352">
+    <tr data-depth="2" data-id="139899891504896">
       <td><pre>interval</pre></td>
       <td><pre class="type">uint</pre></td>
       <td><div class="note-tooltip"><span class="description">Number of timesteps between field outputs</span><span class="tooltiptext">* When <pre>!= 0</pre>, overrides <pre>output.interval</pre>.<br>* When <pre>== 0</pre>, <pre>output.interval</pre> is used.</span></div></td>
       <td>$0$</td>
     </tr>
-    <tr data-depth="2" data-id="137304639348464">
+    <tr data-depth="2" data-id="139899891505184">
       <td><pre>interval_time</pre></td>
       <td><pre class="type">float</pre></td>
       <td><div class="note-tooltip"><span class="description">Physical (code) time interval between field outputs</span><span class="tooltiptext">* When <pre>&lt; 0</pre>, the output is controlled by <pre>interval</pre>.<br>* When specified, overrides <pre>output.interval_time</pre>.</span></div></td>
       <td>$-1.0$</td>
     </tr>
-    <tr data-depth="2" data-id="137304639348576">
+    <tr data-depth="2" data-id="139899891505376">
       <td><pre>downsampling</pre></td>
       <td><div class="type-tooltip"><pre class="type">uint </pre> or <pre class="type"> array&lt;uint&gt; </pre><span class="tooltiptext">&gt;= 1</span></div></td>
       <td><div class="note-tooltip"><span class="description">Downsample factor for the output of fields</span><span class="tooltiptext">* The output is downsampled by the given factors in each direction.<br>* If a scalar is given, it is applied to all directions.</span></div></td>
       <td>$[1, 1, 1]$</td>
     </tr>
-    <tr data-depth="1" data-id="137304639348800" class="category">
+    <tr data-depth="1" data-id="139899891505616" class="category">
       <td><pre>particles</pre></td>
       <td></td>
       <td></td>
       <td></td>
     </tr>
-    <tr data-depth="2" data-id="137304639348912">
+    <tr data-depth="2" data-id="139899891505664">
       <td><pre>enable</pre></td>
       <td><pre class="type">bool</pre></td>
       <td>Toggle for the particles output</td>
       <td><pre>true</pre></td>
     </tr>
-    <tr data-depth="2" data-id="137304639348688">
+    <tr data-depth="2" data-id="139899891505952">
       <td><pre>species</pre></td>
       <td><pre class="type">array&lt;int&gt;</pre></td>
       <td><div class="note-tooltip"><span class="description">Particle species indices to output</span><span class="tooltiptext">If empty, all species are output.</span></div></td>
       <td>[]</td>
     </tr>
-    <tr data-depth="2" data-id="137304639349024">
+    <tr data-depth="2" data-id="139899891506192">
       <td><pre>stride</pre></td>
       <td><div class="type-tooltip"><pre class="type">uint </pre><span class="tooltiptext">&gt; 1</span></div></td>
       <td>Stride for the output of particles</td>
       <td>$100$</td>
     </tr>
-    <tr data-depth="2" data-id="137304639349136">
+    <tr data-depth="2" data-id="139899891506432">
       <td><pre>interval</pre></td>
       <td><pre class="type">uint</pre></td>
       <td><div class="note-tooltip"><span class="description">Number of timesteps between particle outputs</span><span class="tooltiptext">* When <pre>!= 0</pre>, overrides <pre>output.interval</pre>.<br>* When <pre>== 0</pre>, <pre>output.interval</pre> is used.</span></div></td>
       <td>$0$</td>
     </tr>
-    <tr data-depth="2" data-id="137304639349248">
+    <tr data-depth="2" data-id="139899891506720">
       <td><pre>interval_time</pre></td>
       <td><pre class="type">float</pre></td>
       <td><div class="note-tooltip"><span class="description">Physical (code) time interval between particle outputs</span><span class="tooltiptext">* When <pre>&lt; 0</pre>, the output is controlled by <pre>interval</pre>.<br>* When specified, overrides <pre>output.interval_time</pre>.</span></div></td>
       <td>$-1.0$</td>
     </tr>
-    <tr data-depth="1" data-id="137304639349472" class="category">
+    <tr data-depth="1" data-id="139899891507200" class="category">
       <td><pre>spectra</pre></td>
       <td></td>
       <td></td>
       <td></td>
     </tr>
-    <tr data-depth="2" data-id="137304639349360">
+    <tr data-depth="2" data-id="139899891507248">
       <td><pre>enable</pre></td>
       <td><pre class="type">bool</pre></td>
       <td>Toggle for the spectra output</td>
       <td><pre>true</pre></td>
     </tr>
-    <tr data-depth="2" data-id="137304639349584">
+    <tr data-depth="2" data-id="139899891507584">
       <td><pre>e_min</pre></td>
       <td><pre class="type">float</pre></td>
       <td>Minimum energy for the spectra output</td>
       <td>$10^{-3}$</td>
     </tr>
-    <tr data-depth="2" data-id="137304639349696">
+    <tr data-depth="2" data-id="139899891507872">
       <td><pre>e_max</pre></td>
       <td><pre class="type">float</pre></td>
       <td>Maximum energy for the spectra output</td>
       <td>$10^{3}$</td>
     </tr>
-    <tr data-depth="2" data-id="137304639349808">
+    <tr data-depth="2" data-id="139899891508016">
       <td><pre>log_bins</pre></td>
       <td><pre class="type">bool</pre></td>
       <td>Whether to use logarithmic bins</td>
       <td><pre>true</pre></td>
     </tr>
-    <tr data-depth="2" data-id="137304639349920">
+    <tr data-depth="2" data-id="139899891508352">
       <td><pre>n_bins</pre></td>
       <td><div class="type-tooltip"><pre class="type">uint </pre><span class="tooltiptext">&gt; 0</span></div></td>
       <td>Number of bins for the spectra output</td>
       <td>$200$</td>
     </tr>
-    <tr data-depth="2" data-id="137304639350032">
+    <tr data-depth="2" data-id="139899891508544">
       <td><pre>interval</pre></td>
       <td><pre class="type">uint</pre></td>
       <td><div class="note-tooltip"><span class="description">Number of timesteps between spectra outputs</span><span class="tooltiptext">* When <pre>!= 0</pre>, overrides <pre>output.interval</pre>.<br>* When <pre>== 0</pre>, <pre>output.interval</pre> is used.</span></div></td>
       <td>$0$</td>
     </tr>
-    <tr data-depth="2" data-id="137304639350144">
+    <tr data-depth="2" data-id="139899891508832">
       <td><pre>interval_time</pre></td>
       <td><pre class="type">float</pre></td>
       <td><div class="note-tooltip"><span class="description">Physical (code) time interval between spectra outputs</span><span class="tooltiptext">* When <pre>&lt; 0</pre>, the output is controlled by <pre>interval</pre>.<br>* When specified, overrides <pre>output.interval_time</pre>.</span></div></td>
       <td>$-1.0$</td>
     </tr>
-    <tr data-depth="1" data-id="137304639350368" class="category">
+    <tr data-depth="1" data-id="139899891509168" class="category">
       <td><pre>debug</pre></td>
       <td></td>
       <td></td>
       <td></td>
     </tr>
-    <tr data-depth="2" data-id="137304639350256">
+    <tr data-depth="2" data-id="139899891509216">
       <td><pre>as_is</pre></td>
       <td><pre class="type">bool</pre></td>
       <td>Output fields "as is" without conversions</td>
       <td><pre>false</pre></td>
     </tr>
-    <tr data-depth="2" data-id="137304639350480">
+    <tr data-depth="2" data-id="139899891509552">
       <td><pre>ghosts</pre></td>
       <td><pre class="type">bool</pre></td>
       <td>Output fields with values in ghost cells</td>
       <td><pre>false</pre></td>
     </tr>
-    <tr data-depth="1" data-id="137304639350592" class="category">
+    <tr data-depth="1" data-id="139899891509888" class="category">
       <td><pre>stats</pre></td>
       <td></td>
       <td></td>
       <td></td>
     </tr>
-    <tr data-depth="2" data-id="137304639350704">
+    <tr data-depth="2" data-id="139899891509936">
       <td><pre>enable</pre></td>
       <td><pre class="type">bool</pre></td>
       <td>Toggle for the stats output</td>
       <td><pre>true</pre></td>
     </tr>
-    <tr data-depth="2" data-id="137304639350816">
+    <tr data-depth="2" data-id="139899891510128">
       <td><pre>interval</pre></td>
       <td><div class="type-tooltip"><pre class="type">uint </pre><span class="tooltiptext">&gt; 0</span></div></td>
       <td><div class="note-tooltip"><span class="description">Number of timesteps between stat outputs</span><span class="tooltiptext">Overriden if <pre>output.stats.interval_time != -1</pre>.</span></div></td>
       <td>$100$</td>
     </tr>
-    <tr data-depth="2" data-id="137304639350928">
+    <tr data-depth="2" data-id="139899891510416">
       <td><pre>interval_time</pre></td>
       <td><pre class="type">float</pre></td>
       <td><div class="note-tooltip"><span class="description">Physical (code) time interval between stat outputs</span><span class="tooltiptext">When <pre>&lt; 0</pre>, the output is controlled by <pre>interval</pre>.</span></div></td>
       <td>$-1.0$</td>
     </tr>
-    <tr data-depth="2" data-id="137304639351152">
+    <tr data-depth="2" data-id="139899891510704">
       <td><pre>quantities</pre></td>
-      <td><div class="type-tooltip"><pre class="type">array&lt;string&gt;</pre><span class="tooltiptext">"B^2", "E^2", "ExB", "N", "Charge", "Rho", "T00", "T0i", "Tij"</span></div></td>
-      <td><div class="note-tooltip"><span class="description">Field quantities to output</span><span class="tooltiptext">Same notation as for <pre>output.fields.quantities</pre>.</span></div></td>
+      <td><div class="type-tooltip"><pre class="type">array&lt;string&gt;</pre><span class="tooltiptext">"B^2", "E^2", "ExB", "N", "Npart", "Charge", "Rho", "T00", "T0i", "Tij"</span></div></td>
+      <td><div class="note-tooltip"><span class="description">Field quantities to output</span><span class="tooltiptext">* For particle moments, ...<br>* ... same notation is used as for <pre>output.fields.quantities</pre>.</span></div></td>
       <td>[<pre>"B^2"</pre>, <pre>"E^2"</pre>, <pre>"ExB"</pre>, <pre>"Rho"</pre>, <pre>"T00"</pre>]</td>
     </tr>
-    <tr data-depth="2" data-id="137304639351040">
+    <tr data-depth="2" data-id="139899891510992">
       <td><pre>custom</pre></td>
       <td><pre class="type">array&lt;string&gt;</pre></td>
       <td>Custom (user-defined) stats</td>
       <td>[]</td>
     </tr>
-    <tr data-depth="0" data-id="137304639351376" class="category">
+    <tr data-depth="0" data-id="139899891510848" class="category">
       <td><pre>checkpoint</pre></td>
       <td></td>
       <td></td>
       <td></td>
     </tr>
-    <tr data-depth="1" data-id="137304639351488">
+    <tr data-depth="1" data-id="139899891510896">
       <td><pre>interval</pre></td>
       <td><div class="type-tooltip"><pre class="type">uint </pre><span class="tooltiptext">&gt; 0</span></div></td>
       <td>Number of timesteps between checkpoints</td>
       <td>$1000$</td>
     </tr>
-    <tr data-depth="1" data-id="137304639351600">
+    <tr data-depth="1" data-id="139899891511232">
       <td><pre>interval_time</pre></td>
       <td><div class="type-tooltip"><pre class="type">float </pre><span class="tooltiptext">&gt; 0</span></div></td>
       <td><div class="note-tooltip"><span class="description">Physical (code) time interval between checkpoints</span><span class="tooltiptext">When <pre>&lt; 0</pre>, the output is controlled by <pre>interval</pre>.</span></div></td>
       <td>$-1.0$</td>
     </tr>
-    <tr data-depth="1" data-id="137304639351824">
+    <tr data-depth="1" data-id="139899891511664">
       <td><pre>keep</pre></td>
       <td><pre class="type">int</pre></td>
       <td><div class="note-tooltip"><span class="description">Number of checkpoints to keep</span><span class="tooltiptext">* 0 = disable checkpointing.<br>* -1 = keep all checkpoints.</span></div></td>
       <td>$2$</td>
     </tr>
-    <tr data-depth="1" data-id="137304639351712">
+    <tr data-depth="1" data-id="139899891511760">
       <td><pre>walltime</pre></td>
       <td><pre class="type">string</pre></td>
       <td><div class="note-tooltip"><span class="description">Write a checkpoint once after a fixed walltime</span><span class="tooltiptext">* The format is "HH:MM:SS".<br>* Empty string or "00:00:00" disables this functionality.<br>* Writing checkpoint at walltime does not stop the simulation.</span></div></td>
       <td><pre>"00:00:00"</pre></td>
     </tr>
-    <tr data-depth="1" data-id="137304639352048">
+    <tr data-depth="1" data-id="139899891512000">
       <td><pre>write_path</pre></td>
       <td><pre class="type">string</pre></td>
       <td><div class="note-tooltip"><span class="description">Parent directory to write checkpoints to</span><span class="tooltiptext">The directory is created if it does not exist.</span></div></td>
       <td><code>&lt;simname&gt;.ckpt</code></td>
     </tr>
-    <tr data-depth="1" data-id="137304639351936">
+    <tr data-depth="1" data-id="139899891512192">
       <td><pre>read_path</pre></td>
       <td><pre class="type">string</pre></td>
       <td>Parent directory to use when resuming from a checkpoint</td>
       <td>inherit <code>write_path</code></td>
     </tr>
-    <tr data-depth="1" data-id="137304639352160" class="inferred">
+    <tr data-depth="1" data-id="139899891512432" class="inferred">
       <td><pre>is_resuming</pre></td>
       <td><pre class="type">bool</pre></td>
       <td>Whether the simulation is resuming from a checkpoint</td>
       <td></td>
     </tr>
-    <tr data-depth="1" data-id="137304639352384" class="inferred">
+    <tr data-depth="1" data-id="139899891512672" class="inferred">
       <td><pre>start_step</pre></td>
       <td><pre class="type">uint</pre></td>
       <td>Timestep of the checkpoint used to resume</td>
       <td></td>
     </tr>
-    <tr data-depth="1" data-id="137304639352272" class="inferred">
+    <tr data-depth="1" data-id="139899891512912" class="inferred">
       <td><pre>start_time</pre></td>
       <td><pre class="type">float</pre></td>
       <td>Time of the checkpoint used to resume</td>
       <td></td>
     </tr>
-    <tr data-depth="0" data-id="137304639352496" class="category">
+    <tr data-depth="0" data-id="139899891513104" class="category">
       <td><pre>diagnostics</pre></td>
       <td></td>
       <td></td>
       <td></td>
     </tr>
-    <tr data-depth="1" data-id="137304639352608">
+    <tr data-depth="1" data-id="139899891513056">
       <td><pre>interval</pre></td>
       <td><div class="type-tooltip"><pre class="type">int </pre><span class="tooltiptext">&gt; 0</span></div></td>
       <td>Number of timesteps between diagnostic logs</td>
       <td>$1$</td>
     </tr>
-    <tr data-depth="1" data-id="137304639352720">
+    <tr data-depth="1" data-id="139899891513344">
       <td><pre>blocking_timers</pre></td>
       <td><pre class="type">bool</pre></td>
       <td>Blocking timers between successive algorithms</td>
       <td><pre>false</pre></td>
     </tr>
-    <tr data-depth="1" data-id="137304639352832">
+    <tr data-depth="1" data-id="139899891513584">
       <td><pre>colored_stdout</pre></td>
       <td><pre class="type">bool</pre></td>
       <td>Enable colored stdout</td>
       <td><pre>true</pre></td>
     </tr>
-    <tr data-depth="1" data-id="137304639352944">
+    <tr data-depth="1" data-id="139899891513872">
       <td><pre>log_level</pre></td>
       <td><div class="type-tooltip"><pre class="type">string</pre><span class="tooltiptext">"VERBOSE", "WARNING", "ERROR"</span></div></td>
       <td><div class="note-tooltip"><span class="description">Specify the log level</span><span class="tooltiptext">"VERBOSE" prints all messages, "WARNING" prints only warnings and errors, "ERROR" prints only errors.</span></div></td>

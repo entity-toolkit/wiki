@@ -9,21 +9,26 @@ classDiagram
     #const float m_charge
     #npart_t m_maxnpart
     #const PrtlPusher m_pusher
+    #const bool m_use_tracking
     #const bool m_use_gca
     #const Cooling m_cooling
-    #const ushort m_npld
+    #const ushort m_npld_r
+    #const ushort m_npld_i
     +index() spidx_t
     +label() string
     +mass() float
     +charge() float
     +maxnpart() npart_t
     +pusher() PrtlPusher
+    +use_tracking() bool
     +use_gca() bool
     +cooling() Cooling
-    +npld() ushort
+    +npld_r() ushort
+    +npld_i() ushort
   }
   class Particles~Dimension, Coord~ {
     -npart_t m_npart
+    -npart_t m_counter
     -bool m_is_sorted
     +array_t~int*~ i1
     +array_t~int*~ i2
@@ -42,16 +47,19 @@ classDiagram
     +array_t~prtldx_t*~ dx2_prev
     +array_t~prtldx_t*~ dx3_prev
     +array_t~short*~ tag
-    +array_t~real_t**~ pld
+    +array_t~real_t**~ pld_r
+    +array_t~npart_t**~ pld_i
     +array_t~real_t*~ phi
     +rangeActiveParticles() range_t~1D~
     +rangeAllParticles() range_t~1D~
     +npart() npart_t
+    +counter() npart_t
     +is_sorted() bool
     +ntags() size_t
     +memory_footprint() size_t
     +NpartsPerTagAndOffsets() vector~npart_t~,array_t~npart_t*~
     +set_npart(npart_t n) void
+    +set_counter(npart_t n) void
     +set_unsorted() void
     +RemoveDead() void
     +SyncHostDevice() void

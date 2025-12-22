@@ -5,7 +5,7 @@ hide:
 
 # Output & visualization
 
-To enable the runtime output of the simulation data, configure the code with the `-D output=ON` flag. As a backend `Entity` uses the open-source [ADIOS2](https://github.com/ornladios/ADIOS2) library compiled in-place. The output is written in the [HDF5](https://adios2.readthedocs.io/en/latest/engines/engines.html#hdf5) format, however, more formats will be added in the future. 
+To enable the runtime output of the simulation data, configure the code with the `-D output=ON` flag. As a backend `Entity` uses the open-source [ADIOS2](https://github.com/ornladios/ADIOS2) library compiled in-place. The output is written in the `ADIOS2` format called `BP5`, but [HDF5](https://adios2.readthedocs.io/en/latest/engines/engines.html#hdf5) is also available (but not recommended). 
 
 The output is configured using the following configurations in the `input` file:
 
@@ -120,11 +120,12 @@ In addition, one can write custom user-defined field quantities to the output wi
 
 !!! success "Can one track particles at different times?"
 
-    Yes! Simply enable particle tracking for a particular species. Then each particle is uniquely identified by a combination of `IDX` and `RNK` (if no MPI is used, then only `IDX` is sufficient). `nt2py` already automatically combines the variables producing a unique `id` for each particle (for the species where tracking is enabled). However, keep in mind, that the simulations are not reproducible and will unfortunately never be due to limitations imposed by the nature of GPU computations.
+    <span class="since-version">1.3.0</span> Yes! Simply enable particle tracking for a particular species. Then each particle is uniquely identified by a combination of `IDX` and `RNK` (if no MPI is used, then only `IDX` is sufficient). `nt2py` already automatically combines the variables producing a unique `id` for each particle (for the species where tracking is enabled). However, keep in mind, that the simulations are not reproducible and will unfortunately never be due to limitations imposed by the nature of GPU computations. 
+
 
 ## [`nt2py`](https://pypi.org/project/nt2py/)
 
-We provide the `nt2py` python package to help easily access and manipulate the simulation data. `nt2py` package uses the [`dask`](https://docs.dask.org/en/stable/) and [`xarray`](https://docs.xarray.dev/en/stable/) libraries together with [`h5py`](https://pypi.org/project/h5py/) and [`h5pickle`](https://github.com/DaanVanVugt/h5pickle) to [lazily load](https://en.wikipedia.org/wiki/Lazy_loading) the output data and provide a convenient interface for the data analysis and quick visualization. 
+We provide the `nt2py` python package to help easily access and manipulate the simulation data. `nt2py` package uses the [`dask`](https://docs.dask.org/en/stable/) and [`xarray`](https://docs.xarray.dev/en/stable/) libraries together with [`adios2`](https://pypi.org/project/adios2/) and/or [`h5py`](https://pypi.org/project/h5py/) to [lazily load](https://en.wikipedia.org/wiki/Lazy_loading) the output data and provide a convenient interface for the data analysis and quick visualization. 
 
 To start using `nt2py`, it is recommended to create a python virtual environment and install the required packages:
 
@@ -142,10 +143,7 @@ Now simply import the `nt2` module and load the output data:
 ```python
 import nt2
 
-data = nt2r.Data(path="MySimulation.h5", single_file=True) # (1)!
-
-# or if saving as multiple files
-data = nt2r.Data(path="MySimulation")
+data = nt2.Data("MySimulation")
 ```
 
 1. Note, that even though the `h5` file can be quite large, the data is loaded lazily, so the memory consumption is minimal; data chunks are only loaded when they are actually needed for the analysis or visualization.
@@ -222,7 +220,7 @@ Particles and spectra can, in turn, be accessed via `data.particles[s]`, where `
 
 !!! code "`nt2py` documentation"
 
-    You can access the documentation of the `nt2py` functions and methods of the `Data` object by calling `nt2r.<function>?` in the jupyter notebook or `help(nt2r.<function>)` in the python console.
+    You can access the documentation of the `nt2py` functions and methods of the `Data` object by calling `nt2.<function>?` in the jupyter notebook or `help(nt2.<function>)` in the python console.
 
 ### Accessing particles
 
@@ -235,12 +233,12 @@ data.particles.sel(t=slice(None, 10)).sel(sp=[1, 3], id=[123, 456, 789]).load()
 which selects all times before $t<10$, selects species 1 and 3, and picks specific particle id-s (traced along all preselected times). There are two built-in plotting methods: `.spectrum_plot`, and `.phase_plot`, for plotting a 1D energy distribution function of each species, and a 2D phase-space plot (or any 2D binned plot). 
 
 ```python
-data.particles.sel(t=10, method="nearest").spectrum_plot(
+data.particles.sel(t=10).spectrum_plot(
     bins=np.logspace(0, 3), 
     quantity=lambda df: np.sqrt(1 + df.ux**2 + df.uy**2 + df.uz**2),
 )
 
-data.particles.sel(t=10, method="nearest").phase_plot(
+data.particles.sel(t=10).phase_plot(
     x_quantity=lambda df: df.x,
     y_quantity=lambda df: df.ux,
     xy_bins=(np.linspace(-1, 1), np.linspace(0, 2)),

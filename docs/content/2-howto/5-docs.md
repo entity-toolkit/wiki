@@ -82,3 +82,8 @@ libraries:
   git push
   ```
   Shortly after that, `github-actions` will generate the website and push it to the `gh-pages` branch of the main repository, which will be accessible from the web.
+
+
+!!! hint "Updating code structure diagrams and inputfile metadata"
+
+    Some of the information on this website, such as the mermaid diagrams for the structure of classes in the code as well as the information about the latest input file are auto-generated using python scripts. To run the auto-generation to synchronize the wiki with the latest version of the code, simply run `npm run inputtable:generate` and/or `npm run diagrams:generate`. The script will automatically pull the latest version of the code from the master branch, generate the diagrams and the input metadata and put them in the `assets/diagrams` and `assets/meta` directory of the wiki repository.

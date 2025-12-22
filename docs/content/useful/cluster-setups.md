@@ -746,6 +746,57 @@ This section goes over some instructions on how to compile & run the `Entity` on
 
     _Last updated: 9/12/2025_
 
+
+=== "`Sherlock` (Stanford)"
+
+    [`Sherlock`](https://www.sherlock.stanford.edu/docs/tech/#resources) is a cluster at Stanford University with GPU compute nodes featuring GPUs with several different NVIDIA architectures. 
+    The easiest way to set things up on `Sherlock` is to build your own `ADIOS2`:
+    ```sh
+    module load gcc/12.4.0 openmpi/5.0.5 cmake/3.31.4
+    cmake -B build \
+        -D CMAKE_CXX_STANDARD=17 \
+        -D CMAKE_CXX_EXTENSIONS=OFF \
+        -D CMAKE_POSITION_INDEPENDENT_CODE=TRUE \
+        -D BUILD_SHARED_LIBS=ON \
+        -D ADIOS2_USE_Python=OFF \
+        -D ADIOS2_USE_Fortran=OFF \
+        -D ADIOS2_USE_ZeroMQ=OFF \
+        -D BUILD_TESTING=OFF \
+        -D ADIOS2_BUILD_EXAMPLES=OFF \
+        -D ADIOS2_USE_MPI=ON \
+        -D ADIOS2_USE_HDF5=OFF \
+        -D CMAKE_INSTALL_PREFIX=$HOME/modules/adios2_mpi
+    cmake --build build -j $(nproc)
+    cmake --install build
+    ```
+    `Kokkos` can be quickly compiled in-tree, so no need to build it separately. Add the installed `ADIOS2` as a modulefile (e.g., as `adios/mpi`). 
+    For the compilation of the code itself, load the following modules:
+    ```sh
+    module load gcc/12.4.0 cuda/12.6.0 openmpi/5.0.5
+    ```
+    Then, simply compile the code with the following command:
+    ```sh
+    cmake -B build -D mpi=ON -D Kokkos_ENABLE_CUDA=ON -D Kokkos_ARCH_HOPPER90=ON
+    cmake --build build -j $(nproc)
+    ```
+    This particular configuration is for the H100 (Hopper) nodes.
+    ```slurm
+    #SBATCH ....
+    module purge
+    module use --append /home/users/<USERNAME>/modules/.modfiles/
+    module load gcc/12.4.0
+    module load cuda/12.6.0
+    module load openmpi/5.0.5
+    module load adios/mpi
+    # either
+    mpiexec -np ... ./entity.xc -input <INPUTFILE>
+    # or
+    srun ./entity.xc -input <INPUTFILE>
+    ```
+
+    _Last updated: 22/12/2025_
+
+
 === "`SuperMUC-NG2` (LRZ)"
 
     [`SuperMUC-NG2`](https://docs.alcf.anl.gov/aurora/) uses [Intel PVC](https://www.intel.com/content/www/us/en/products/sku/232873/intel-data-center-gpu-max-1550/specifications.html) nodes with 4 GPUs/node. Each PVC has 128GB of memory and is split into 2 tiles. It is recommended to use 1 MPI rank per tile, so 2 per GPU and 8 per node.
