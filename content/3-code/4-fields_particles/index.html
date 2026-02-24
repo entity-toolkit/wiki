@@ -1,0 +1,1854 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://entity-toolkit.github.io/wiki/content/3-code/4-fields_particles/">
+      
+      
+        <link rel="prev" href="../3-domains/">
+      
+      
+        <link rel="next" href="../5-metrics/">
+      
+      
+      <link rel="icon" href="../../../assets/logo.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.14">
+    
+    
+      
+        <title>Fields and particles - Entity: wiki</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.342714a4.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+  
+  
+  
+  
+  <style>:root{--md-annotation-icon:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M12%2020c-4.41%200-8-3.59-8-8s3.59-8%208-8%208%203.59%208%208-3.59%208-8%208m0-18A10%2010%200%200%200%202%2012a10%2010%200%200%200%2010%2010%2010%2010%200%200%200%2010-10A10%2010%200%200%200%2012%202m1%205h-2v4H7v2h4v4h2v-4h4v-2h-4z%22/%3E%3C/svg%3E');}</style>
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=DM+Sans:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"DM Sans";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../css/style.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  
+  
+  <link rel="stylesheet" href="../../../js/vendor/katex/katex.min.css">
+  <script src="../../../js/vendor/katex/katex.min.js"></script>
+  <script src="../../../js/vendor/katex/contrib/auto-render.min.js"></script>
+  <script src="../../../js/hooks/katex.js" defer></script>
+  
+  
+    
+      
+        <script src="../../../js/vendor/mermaid.min.js"></script>
+        <script src="../../../js/hooks/mermaid.js" defer></script>
+      
+    
+  
+  
+  
+
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="ntt-light" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#fields-and-particles" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Entity: wiki" class="md-header__button md-logo" aria-label="Entity: wiki" data-md-component="logo">
+      
+  <img src="../../../assets/logo.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Entity: wiki
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Fields and particles
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="ntt-light" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7M9 21a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-1H9z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="ntt-dark" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7M9 21v-1h6v1a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1m3-17a5 5 0 0 0-5 5c0 2.05 1.23 3.81 3 4.58V16h4v-2.42c1.77-.77 3-2.53 3-4.58a5 5 0 0 0-5-5"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/entity-toolkit/entity" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M23.546 10.93 13.067.452a1.55 1.55 0 0 0-2.188 0L8.708 2.627l2.76 2.76a1.838 1.838 0 0 1 2.327 2.341l2.658 2.66a1.838 1.838 0 0 1 1.9 3.039 1.837 1.837 0 0 1-2.6 0 1.85 1.85 0 0 1-.404-1.996L12.86 8.955v6.525c.176.086.342.203.488.348a1.85 1.85 0 0 1 0 2.6 1.844 1.844 0 0 1-2.609 0 1.834 1.834 0 0 1 0-2.598c.182-.18.387-.316.605-.406V8.835a1.834 1.834 0 0 1-.996-2.41L7.636 3.7.45 10.881c-.6.605-.6 1.584 0 2.189l10.48 10.477a1.545 1.545 0 0 0 2.186 0l10.43-10.43a1.544 1.544 0 0 0 0-2.187"/></svg>
+  </div>
+  <div class="md-source__repository">
+    entity
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Entity: wiki" class="md-nav__button md-logo" aria-label="Entity: wiki" data-md-component="logo">
+      
+  <img src="../../../assets/logo.svg" alt="logo">
+
+    </a>
+    Entity: wiki
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/entity-toolkit/entity" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M23.546 10.93 13.067.452a1.55 1.55 0 0 0-2.188 0L8.708 2.627l2.76 2.76a1.838 1.838 0 0 1 2.327 2.341l2.658 2.66a1.838 1.838 0 0 1 1.9 3.039 1.837 1.837 0 0 1-2.6 0 1.85 1.85 0 0 1-.404-1.996L12.86 8.955v6.525c.176.086.342.203.488.348a1.85 1.85 0 0 1 0 2.6 1.844 1.844 0 0 1-2.609 0 1.834 1.834 0 0 1 0-2.598c.182-.18.387-.316.605-.406V8.835a1.834 1.834 0 0 1-.996-2.41L7.636 3.7.45 10.881c-.6.605-.6 1.584 0 2.189l10.48 10.477a1.545 1.545 0 0 0 2.186 0l10.43-10.43a1.544 1.544 0 0 0 0-2.187"/></svg>
+  </div>
+  <div class="md-source__repository">
+    entity
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Getting Started
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Getting Started
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-getting-started/1-compile-run/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Compiling/running
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-getting-started/2-dependencies/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Dependencies
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-getting-started/3-inputfile/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Input parameters
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-getting-started/8-docker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Docker containers
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    How-To
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            How-To
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-howto/1-problem_generators/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Problem generators
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-howto/2-vis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Output &amp; visualization
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-howto/3-units/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Understanding the units
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-howto/4-checkpoints/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Writing checkpoints &amp; restarting
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-howto/5-docs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Editing the documentation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-howto/6-guidelines/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Code guidelines
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-howto/7-faq/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    F.A.Q.
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Understanding the Code
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Understanding the Code
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1-pic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    PIC Algorithm
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2-hierarchy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Hierarchy of structures
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3-domains/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Metadomain, subdomains and meshes
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Fields and particles
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Fields and particles
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#fields" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fields
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#particles" class="md-nav__link">
+    <span class="md-ellipsis">
+      Particles
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../5-metrics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Metrics
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../6-higherorder/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Higher order methods
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Useful Things
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Useful Things
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../useful/costtool/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Simulation cost estimator
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../useful/cluster-setups/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Cluster setups
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Theory
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../useful/float-comparison/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Floating point comparison
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../useful/theory_pic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory behind PIC
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../useful/ks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Kerr metric
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Fun
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Fun
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../fun/pushers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Particle pushers
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../fun/coords/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Axisymmetric coordinates
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../fun/cubed_sphere/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Cubed-sphere geometry
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../fun/particle-shapes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    2D particle shapes
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Events
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            Events
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../events/sceecs2024/instructions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    SCEECS Summer School 2024
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#fields" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fields
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#particles" class="md-nav__link">
+    <span class="md-ellipsis">
+      Particles
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+  
+
+
+
+  
+  
+
+
+<h1 id="fields-and-particles">Fields and particles<a class="headerlink" href="#fields-and-particles" title="Permanent link">&para;</a></h1>
+<div class="admonition abstract">
+<p class="admonition-title">Relevant headers</p>
+<ul>
+<li><code>framework/containers/fields.h</code></li>
+<li><code>framework/containers/species.h</code></li>
+<li><code>framework/containers/particles.h</code></li>
+</ul>
+</div>
+<p>To store the main data of the simulation, the fields and the particles, Entity provides container classes <code>Fields&lt;D,S&gt;</code> and <code>Particles&lt;D,C&gt;</code>, where <code>D</code> is a template argument for the dimension, <code>S</code> for the simulation engine, and <code>C</code> for the coordinate type. Notice, that none of these objects know anything about the geometry of the space-time (i.e., the metric), and thus they should be used in conjunction with the <code>Mesh&lt;M&gt;</code> object <a href="../3-domains/">discussed here</a>.</p>
+<p>Depending on the simulation engine, and the coordinate system, these object allocate some of the built-in arrays, while ignoring the others. Below is a full breakdown for all the arrays for both of these classes. We assume that <span class="arithmatex">\(n_i\)</span> is the number of cells on the given subdomain in the <span class="arithmatex">\(i\)</span>-th direction.</p>
+<h4 id="fields">Fields<a class="headerlink" href="#fields" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Shape</th>
+<th>Description</th>
+<th>Allocated when...</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>em</code></td>
+<td><span class="arithmatex">\(n_1[\times n_2[\times n_3]]\times 6\)</span></td>
+<td>main container for the electric and magnetic fields <span class="arithmatex">\(E^i\)</span>, <span class="arithmatex">\(B^i\)</span> in SR and <span class="arithmatex">\(D^i\)</span>, <span class="arithmatex">\(B^i\)</span> in GR</td>
+<td>always</td>
+</tr>
+<tr>
+<td><code>bckp</code></td>
+<td><span class="arithmatex">\(n_1[\times n_2[\times n_3]]\times 6\)</span></td>
+<td>used for intermediate operations (e.g., output)</td>
+<td>always</td>
+</tr>
+<tr>
+<td><code>cur</code></td>
+<td><span class="arithmatex">\(n_1[\times n_2[\times n_3]]\times 3\)</span></td>
+<td>current densities <span class="arithmatex">\(J^i\)</span></td>
+<td>always</td>
+</tr>
+<tr>
+<td><code>buff</code></td>
+<td><span class="arithmatex">\(n_1[\times n_2[\times n_3]]\times 3\)</span></td>
+<td>primarily used for storing intermediate values for the currents (e.g., for filtering)</td>
+<td>always</td>
+</tr>
+<tr>
+<td><code>aux</code></td>
+<td><span class="arithmatex">\(n_1[\times n_2[\times n_3]]\times 6\)</span></td>
+<td>auxiliary GR fields <span class="arithmatex">\(E_i\)</span>, <span class="arithmatex">\(H_i\)</span></td>
+<td>GR</td>
+</tr>
+<tr>
+<td><code>em0</code></td>
+<td><span class="arithmatex">\(n_1[\times n_2[\times n_3]]\times 6\)</span></td>
+<td>second set of electromagnetic fields staggered in time w.r.t. the main ones</td>
+<td>GR</td>
+</tr>
+<tr>
+<td><code>cur0</code></td>
+<td><span class="arithmatex">\(n_1[\times n_2[\times n_3]]\times 3\)</span></td>
+<td>current densities at the previous timestep</td>
+<td>GR</td>
+</tr>
+</tbody>
+</table>
+<p>All of the field arrays have a type <code>real_t</code> which compilers to <code>float</code> when using single precision, and <code>double</code> when using double precision.</p>
+<div class="admonition note">
+<p class="admonition-title">Staggering</p>
+<p>Keep in mind that the field components stored in all these arrays are staggered not only in time, but also in space. Entity employs the <a href="https://en.wikipedia.org/wiki/Finite-difference_time-domain_method">Yee grid staggering</a>, and this the electric fields are stored at the corresponding cell edges, while the magnetic fields are stored at the cell faces. To see how those fields are staggered in time, refer to the <a href="../1-pic/">PIC algorithm section</a>.</p>
+</div>
+<div class="admonition code">
+<p class="admonition-title">Field loops</p>
+<p>Notice that fields have an additional dimension which stores the component. For convenience, Entity provides aliases to access those components: <code>em::ex1</code> (which maps to <code>0</code>), <code>em::bx3</code> (which maps to <code>5</code>), etc. A typical loop over all the fields on the local subdomain would look like this:
+<div class="language-cpp highlight"><pre><span></span><code><span class="c1">// assume a 2D simulation</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">fields</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">domain</span><span class="p">.</span><span class="n">fields</span><span class="p">;</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">metric</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">domain</span><span class="p">.</span><span class="n">mesh</span><span class="p">.</span><span class="n">metric</span><span class="p">;</span>
+<span class="n">Kokkos</span><span class="o">::</span><span class="n">parallel_for</span><span class="p">(</span><span class="s">&quot;field_loop&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="n">domain</span><span class="p">.</span><span class="n">mesh</span><span class="p">.</span><span class="n">rangeActiveCells</span><span class="p">(),</span>
+<span class="w">  </span><span class="n">Lambda</span><span class="p">(</span><span class="n">index_t</span><span class="w"> </span><span class="n">i1</span><span class="p">,</span><span class="w"> </span><span class="n">index_t</span><span class="w"> </span><span class="n">i2</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// get the code-unit coordinate of the cell corner</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">i1_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">COORD</span><span class="p">(</span><span class="n">i1</span><span class="p">);</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">i2_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">COORD</span><span class="p">(</span><span class="n">i2</span><span class="p">);</span>
+<span class="w">    </span><span class="c1">// get the sqrt_det_h at (i + 1/2, j)</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">sqrtdeth</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">metric</span><span class="p">.</span><span class="n">sqrt_det_h</span><span class="p">({</span><span class="n">i1_</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">HALF</span><span class="p">,</span><span class="w"> </span><span class="n">i2_</span><span class="p">});</span>
+<span class="w">    </span><span class="c1">// do something with the Ex1 field (just an example)</span>
+<span class="w">    </span><span class="n">fields</span><span class="p">.</span><span class="n">em</span><span class="p">(</span><span class="n">i1</span><span class="p">,</span><span class="w"> </span><span class="n">i2</span><span class="p">,</span><span class="w"> </span><span class="n">em</span><span class="o">::</span><span class="n">ex1</span><span class="p">)</span><span class="w"> </span><span class="o">*=</span><span class="w"> </span><span class="n">ONE</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">sqrtdeth</span><span class="p">;</span>
+<span class="w">  </span><span class="p">});</span>
+</code></pre></div></p>
+</div>
+<h4 id="particles">Particles<a class="headerlink" href="#particles" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Allocated when...</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>i1</code></td>
+<td><code>int</code></td>
+<td>cell index of the particle in <span class="arithmatex">\(x_1\)</span></td>
+<td>always</td>
+</tr>
+<tr>
+<td><code>i2</code></td>
+<td><code>int</code></td>
+<td>cell index of the particle in <span class="arithmatex">\(x_2\)</span></td>
+<td>2D or 3D</td>
+</tr>
+<tr>
+<td><code>i3</code></td>
+<td><code>int</code></td>
+<td>cell index of the particle in <span class="arithmatex">\(x_3\)</span></td>
+<td>3D</td>
+</tr>
+<tr>
+<td><code>dx1</code></td>
+<td><code>prtldx_t</code></td>
+<td>displacement of the particle in the cell in <span class="arithmatex">\(x_1\)</span></td>
+<td>always</td>
+</tr>
+<tr>
+<td><code>dx2</code></td>
+<td><code>prtldx_t</code></td>
+<td>displacement of the particle in the cell in <span class="arithmatex">\(x_2\)</span></td>
+<td>2D or 3D</td>
+</tr>
+<tr>
+<td><code>dx3</code></td>
+<td><code>prtldx_t</code></td>
+<td>displacement of the particle in the cell in <span class="arithmatex">\(x_3\)</span></td>
+<td>3D</td>
+</tr>
+<tr>
+<td><code>ux1</code></td>
+<td><code>real_t</code></td>
+<td>velocity of the particle (see comment below)</td>
+<td>always</td>
+</tr>
+<tr>
+<td><code>ux2</code></td>
+<td><code>real_t</code></td>
+<td>velocity of the particle (see comment below)</td>
+<td>always</td>
+</tr>
+<tr>
+<td><code>ux3</code></td>
+<td><code>real_t</code></td>
+<td>velocity of the particle (see comment below)</td>
+<td>always</td>
+</tr>
+<tr>
+<td><code>weight</code></td>
+<td><code>real_t</code></td>
+<td>particle weights</td>
+<td>always</td>
+</tr>
+<tr>
+<td><code>tag</code></td>
+<td><code>short</code></td>
+<td>particle tag</td>
+<td>always</td>
+</tr>
+<tr>
+<td><code>phi</code></td>
+<td><code>real_t</code></td>
+<td><span class="arithmatex">\(\phi\)</span> coordinate of the particle</td>
+<td>2D non-Cartesian</td>
+</tr>
+<tr>
+<td><code>i1_prev</code></td>
+<td><code>int</code></td>
+<td>same as <code>i1</code> but for the previous step</td>
+<td>always</td>
+</tr>
+<tr>
+<td><code>i2_prev</code></td>
+<td><code>int</code></td>
+<td>same as <code>i2</code> but for the previous step</td>
+<td>2D or 3D</td>
+</tr>
+<tr>
+<td><code>i3_prev</code></td>
+<td><code>int</code></td>
+<td>same as <code>i3</code> but for the previous step</td>
+<td>3D</td>
+</tr>
+<tr>
+<td><code>dx1_prev</code></td>
+<td><code>prtldx_t</code></td>
+<td>same as <code>dx1</code> but for the previous step</td>
+<td>always</td>
+</tr>
+<tr>
+<td><code>dx2_prev</code></td>
+<td><code>prtldx_t</code></td>
+<td>same as <code>dx2</code> but for the previous step</td>
+<td>2D or 3D</td>
+</tr>
+<tr>
+<td><code>dx3_prev</code></td>
+<td><code>prtldx_t</code></td>
+<td>same as <code>dx3</code> but for the previous step</td>
+<td>3D</td>
+</tr>
+<tr>
+<td><code>pldr</code></td>
+<td><code>real_t</code></td>
+<td>custom real-valued particle payloads (2D array)</td>
+<td>as needed (defined in the input)</td>
+</tr>
+<tr>
+<td><code>pldi</code></td>
+<td><code>npart_t</code></td>
+<td>custom integer-valued particle payloads (2D array)</td>
+<td>as needed (defined in the input); when tracking is enabled, it uses 1 or 2 slots (depending on whether MPI is used) to store particle identifiers</td>
+</tr>
+</tbody>
+</table>
+<p><code>prtldx_t</code> is a type alias for <code>real_t</code> which is used for the displacement of the particle w.r.t. the corner of the cell (this can be changed to be half-precision). <code>npart_t</code> is an alias to a fixed size unsigned integer. Notice, that we additionally store the <code>phi</code> coordinate for the particles in non-Cartesian 2D simulations. While in GR this is totally optional, in SR it is required to keep track of the full particle coordinate, to be able to convert to and from the global Cartesian metric.</p>
+<div class="admonition note">
+<p class="admonition-title">Particle velocities</p>
+<p>Velocities, stored in <code>ux1</code>, <code>ux2</code>, and <code>ux3</code> have different meanings in different configurations. For SR simulations, particle velocities are stored in the <strong>global Cartesian basis</strong>, while in GR, these velocities correspond to the covariant components <span class="arithmatex">\(u_i\)</span> in code units.</p>
+</div>
+<p>All of the particle arrays have shape of <code>maxnpart</code>, which is set at the beginning of the simulation from the input file. To indicate the number of <strong>active</strong> particles, one can use the <code>npart()</code> method of the <code>Particles</code> object. That being said, remember that particles can always leave the simulation domain, or be sent to another subdomain (while its index would still be less than <code>npart()</code>). For that, we use the <code>tag</code> field, which can be set to <code>ParticleTag::dead</code> to indicate that the particle is no longer active.</p>
+<div class="admonition code">
+<p class="admonition-title">Particle loops</p>
+<p>A typical loop over all the particles on the local subdomain would look like this:
+<div class="language-cpp highlight"><pre><span></span><code><span class="c1">// for example, taking the first species</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">particles</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">domain</span><span class="p">.</span><span class="n">species</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+<span class="n">Kokkos</span><span class="o">::</span><span class="n">parallel_for</span><span class="p">(</span><span class="s">&quot;prtl_loop&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="n">particles</span><span class="p">.</span><span class="n">rangeActiveParticles</span><span class="p">(),</span>
+<span class="w">  </span><span class="n">Lambda</span><span class="p">(</span><span class="n">index_t</span><span class="w"> </span><span class="n">p</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">particles</span><span class="p">.</span><span class="n">tag</span><span class="p">(</span><span class="n">p</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">ParticleTag</span><span class="o">::</span><span class="n">dead</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="k">return</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="c1">// do something with the particle</span>
+<span class="w">  </span><span class="p">});</span>
+</code></pre></div></p>
+</div>
+<p>Below is the diagram showing the structure of the fields and particles objects, and how they are stored in the <code>Domain</code> object.</p>
+<pre class="mermaid-diagram">
+classDiagram
+  class Domain~SimEngine, class~ {
+    see domain...*
+  }
+  class ParticleSpecies {
+    #const spidx_t m_index
+    #const string m_label
+    #const float m_mass
+    #const float m_charge
+    #npart_t m_maxnpart
+    #const PrtlPusher m_pusher
+    #const bool m_use_tracking
+    #const bool m_use_gca
+    #const Cooling m_cooling
+    #const ushort m_npld_r
+    #const ushort m_npld_i
+    +index() spidx_t
+    +label() string
+    +mass() float
+    +charge() float
+    +maxnpart() npart_t
+    +pusher() PrtlPusher
+    +use_tracking() bool
+    +use_gca() bool
+    +cooling() Cooling
+    +npld_r() ushort
+    +npld_i() ushort
+  }
+  class Particles~Dimension, Coord~ {
+    -npart_t m_npart
+    -npart_t m_counter
+    -bool m_is_sorted
+    +array_t~int*~ i1
+    +array_t~int*~ i2
+    +array_t~int*~ i3
+    +array_t~prtldx_t*~ dx1
+    +array_t~prtldx_t*~ dx2
+    +array_t~prtldx_t*~ dx3
+    +array_t~real_t*~ ux1
+    +array_t~real_t*~ ux2
+    +array_t~real_t*~ ux3
+    +array_t~real_t*~ weight
+    +array_t~int*~ i1_prev
+    +array_t~int*~ i2_prev
+    +array_t~int*~ i3_prev
+    +array_t~prtldx_t*~ dx1_prev
+    +array_t~prtldx_t*~ dx2_prev
+    +array_t~prtldx_t*~ dx3_prev
+    +array_t~short*~ tag
+    +array_t~real_t**~ pld_r
+    +array_t~npart_t**~ pld_i
+    +array_t~real_t*~ phi
+    +rangeActiveParticles() range_t~1D~
+    +rangeAllParticles() range_t~1D~
+    +npart() npart_t
+    +counter() npart_t
+    +is_sorted() bool
+    +ntags() size_t
+    +memory_footprint() size_t
+    +NpartsPerTagAndOffsets() vector~npart_t~,array_t~npart_t*~
+    +set_npart(npart_t n) void
+    +set_counter(npart_t n) void
+    +set_unsorted() void
+    +RemoveDead() void
+    +SyncHostDevice() void
+  }
+  class Fields~Dimension, SimEngine~ {
+    +ndfield_t~D, 6~ em
+    +ndfield_t~D, 6~ bckp
+    +ndfield_t~D, 3~ cur
+    +ndfield_t~D, 3~ buff
+    +ndfield_t~D, 6~ aux
+    +ndfield_t~D, 6~ em0
+    +ndfield_t~D, 3~ cur0
+    +memory_footprint() size_t
+  }
+
+  Domain --* Particles : contains many
+  Domain --* Fields : contains
+  ParticleSpecies <|-- Particles : inherits
+
+  note "+: public\n-: private\n#: protected\nunderline: static constexpr\nitalic: virtual"
+
+</pre>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+  
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2021++, Entity dev team
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/entity-toolkit/entity/" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M216.29 158.39H137C97 147.9 6.51 150.63 6.51 233.18c0 30.09 15 51.23 35 61-25.1 23-37 33.85-37 49.21 0 11 4.47 21.14 17.89 26.81C8.13 383.61 0 393.35 0 411.65c0 32.11 28.05 50.82 101.63 50.82 70.75 0 111.79-26.42 111.79-73.18 0-58.66-45.16-56.5-151.63-63l13.43-21.55c27.27 7.58 118.7 10 118.7-67.89 0-18.7-7.73-31.71-15-41.07l37.41-2.84zm-63.42 241.9c0 32.06-104.89 32.1-104.89 2.43 0-8.14 5.27-15 10.57-21.54 77.71 5.3 94.32 3.37 94.32 19.11m-50.81-134.58c-52.8 0-50.46-71.16 1.2-71.16 49.54 0 50.82 71.16-1.2 71.16m133.3 100.51v-32.1c26.75-3.66 27.24-2 27.24-11V203.61c0-8.5-2.05-7.38-27.24-16.26l4.47-32.92H324v168.71c0 6.51.4 7.32 6.51 8.14l20.73 2.84v32.1zm52.45-244.31c-23.17 0-36.59-13.43-36.59-36.61s13.42-35.77 36.59-35.77c23.58 0 37 12.62 37 35.77s-13.42 36.61-37 36.61M512 350.46c-17.49 8.53-43.1 16.26-66.28 16.26-48.38 0-66.67-19.5-66.67-65.46V194.75c0-5.42 1.05-4.06-31.71-4.06V154.5c35.78-4.07 50-22 54.47-66.27h38.63c0 65.83-1.34 61.81 3.26 61.81H501v40.65h-60.56v97.15c0 6.92-4.92 51.41 60.57 26.84z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tracking", "navigation.indexes", "navigation.expand", "content.code.annotate", "content.code.copy", "content.tooltips", "header.autohide", "search.highlight"], "search": "../../../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.13a4f30d.min.js"></script>
+      
+    
+  </body>
+</html>

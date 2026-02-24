@@ -1,0 +1,2315 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://entity-toolkit.github.io/wiki/content/1-getting-started/3-inputfile/">
+      
+      
+        <link rel="prev" href="../2-dependencies/">
+      
+      
+        <link rel="next" href="../8-docker/">
+      
+      
+      <link rel="icon" href="../../../assets/logo.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.14">
+    
+    
+      
+        <title>Input parameters - Entity: wiki</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.342714a4.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+  
+  
+  
+  
+  <style>:root{--md-annotation-icon:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M12%2020c-4.41%200-8-3.59-8-8s3.59-8%208-8%208%203.59%208%208-3.59%208-8%208m0-18A10%2010%200%200%200%202%2012a10%2010%200%200%200%2010%2010%2010%2010%200%200%200%2010-10A10%2010%200%200%200%2012%202m1%205h-2v4H7v2h4v4h2v-4h4v-2h-4z%22/%3E%3C/svg%3E');}</style>
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=DM+Sans:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"DM Sans";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../css/style.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  
+  
+  <link rel="stylesheet" href="../../../js/vendor/katex/katex.min.css">
+  <script src="../../../js/vendor/katex/katex.min.js"></script>
+  <script src="../../../js/vendor/katex/contrib/auto-render.min.js"></script>
+  <script src="../../../js/hooks/katex.js" defer></script>
+  
+  
+    
+      
+        <link rel="stylesheet"
+              href="../../../js/vendor/highlight.js/styles/github.min.css"
+              id="highlight-light"
+              media="screen">
+        <link rel="stylesheet"
+              href="../../../js/vendor/highlight.js/styles/github-dark.min.css"
+              id="highlight-dark"
+              media="screen">
+        <script src="../../../js/vendor/highlight.js/highlight.min.js"></script>
+        <script src="../../../js/hooks/highlight.js" defer></script>
+      
+    
+  
+  
+  
+
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="ntt-light" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#input-parameters" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Entity: wiki" class="md-header__button md-logo" aria-label="Entity: wiki" data-md-component="logo">
+      
+  <img src="../../../assets/logo.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Entity: wiki
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Input parameters
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="ntt-light" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7M9 21a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-1H9z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="ntt-dark" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7M9 21v-1h6v1a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1m3-17a5 5 0 0 0-5 5c0 2.05 1.23 3.81 3 4.58V16h4v-2.42c1.77-.77 3-2.53 3-4.58a5 5 0 0 0-5-5"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/entity-toolkit/entity" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M23.546 10.93 13.067.452a1.55 1.55 0 0 0-2.188 0L8.708 2.627l2.76 2.76a1.838 1.838 0 0 1 2.327 2.341l2.658 2.66a1.838 1.838 0 0 1 1.9 3.039 1.837 1.837 0 0 1-2.6 0 1.85 1.85 0 0 1-.404-1.996L12.86 8.955v6.525c.176.086.342.203.488.348a1.85 1.85 0 0 1 0 2.6 1.844 1.844 0 0 1-2.609 0 1.834 1.834 0 0 1 0-2.598c.182-.18.387-.316.605-.406V8.835a1.834 1.834 0 0 1-.996-2.41L7.636 3.7.45 10.881c-.6.605-.6 1.584 0 2.189l10.48 10.477a1.545 1.545 0 0 0 2.186 0l10.43-10.43a1.544 1.544 0 0 0 0-2.187"/></svg>
+  </div>
+  <div class="md-source__repository">
+    entity
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Entity: wiki" class="md-nav__button md-logo" aria-label="Entity: wiki" data-md-component="logo">
+      
+  <img src="../../../assets/logo.svg" alt="logo">
+
+    </a>
+    Entity: wiki
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/entity-toolkit/entity" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M23.546 10.93 13.067.452a1.55 1.55 0 0 0-2.188 0L8.708 2.627l2.76 2.76a1.838 1.838 0 0 1 2.327 2.341l2.658 2.66a1.838 1.838 0 0 1 1.9 3.039 1.837 1.837 0 0 1-2.6 0 1.85 1.85 0 0 1-.404-1.996L12.86 8.955v6.525c.176.086.342.203.488.348a1.85 1.85 0 0 1 0 2.6 1.844 1.844 0 0 1-2.609 0 1.834 1.834 0 0 1 0-2.598c.182-.18.387-.316.605-.406V8.835a1.834 1.834 0 0 1-.996-2.41L7.636 3.7.45 10.881c-.6.605-.6 1.584 0 2.189l10.48 10.477a1.545 1.545 0 0 0 2.186 0l10.43-10.43a1.544 1.544 0 0 0 0-2.187"/></svg>
+  </div>
+  <div class="md-source__repository">
+    entity
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Getting Started
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Getting Started
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1-compile-run/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Compiling/running
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2-dependencies/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Dependencies
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Input parameters
+    
+  </span>
+  
+
+      </a>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../8-docker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Docker containers
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    How-To
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            How-To
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-howto/1-problem_generators/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Problem generators
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-howto/2-vis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Output &amp; visualization
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-howto/3-units/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Understanding the units
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-howto/4-checkpoints/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Writing checkpoints &amp; restarting
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-howto/5-docs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Editing the documentation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-howto/6-guidelines/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Code guidelines
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-howto/7-faq/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    F.A.Q.
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Understanding the Code
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Understanding the Code
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../3-code/1-pic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    PIC Algorithm
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../3-code/2-hierarchy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Hierarchy of structures
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../3-code/3-domains/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Metadomain, subdomains and meshes
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../3-code/4-fields_particles/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Fields and particles
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../3-code/5-metrics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Metrics
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../3-code/6-higherorder/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Higher order methods
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Useful Things
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Useful Things
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../useful/costtool/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Simulation cost estimator
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../useful/cluster-setups/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Cluster setups
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Theory
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../useful/float-comparison/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Floating point comparison
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../useful/theory_pic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory behind PIC
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../useful/ks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Kerr metric
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Fun
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Fun
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../fun/pushers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Particle pushers
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../fun/coords/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Axisymmetric coordinates
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../fun/cubed_sphere/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Cubed-sphere geometry
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../fun/particle-shapes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    2D particle shapes
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Events
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            Events
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../events/sceecs2024/instructions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    SCEECS Summer School 2024
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+  
+
+
+
+  
+  
+
+
+<h1 id="input-parameters">Input parameters<a class="headerlink" href="#input-parameters" title="Permanent link">&para;</a></h1>
+<p>Entity reads almost all the information (except for the problem generator) about the simulation at runtime from an input file provided in the <code>.toml</code> format. The most up-to-date full version of the input file with all the possible input parameters with their descriptions can be found in the root directory of the main repository in the <code>input.example.toml</code>.</p>
+<div class="table-legend">
+  <table>
+    <tbody>
+      <tr class="required">
+        <td><pre>required</pre></td>
+        <td>These paremeters are required to be specified for any simulation</td>
+      </tr>
+      <tr class="inferred">
+        <td><pre>inferred</pre></td>
+        <td>These parameters are not directly specified by the user, but are inferred from other input parameters</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="table-container">
+<table id="input-table">
+  <thead>
+    <tr>
+      <th>parameter</th>
+      <th>type</th>
+      <th>description</th>
+      <th>default</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr data-depth="0" data-id="139925230369968" class="category">
+      <td><pre>simulation</pre></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr data-depth="1" data-id="139925228188240" class="required">
+      <td><pre>name</pre></td>
+      <td><pre class="type">string</pre></td>
+      <td><div class="note-tooltip"><span class="description">Name of the simulation</span><span class="tooltiptext">The name is used for the output files.</span></div></td>
+      <td></td>
+    </tr>
+    <tr data-depth="1" data-id="139925228188880" class="required">
+      <td><pre>engine</pre></td>
+      <td><div class="type-tooltip"><pre class="type">string</pre><span class="tooltiptext">"SRPIC", "GRPIC"</span></div></td>
+      <td>Simulation engine to use</td>
+      <td></td>
+    </tr>
+    <tr data-depth="1" data-id="139925228531968" class="required">
+      <td><pre>runtime</pre></td>
+      <td><div class="type-tooltip"><pre class="type">float </pre><span class="tooltiptext">&gt; 0</span></div></td>
+      <td>Max runtime in physical (code) units</td>
+      <td></td>
+    </tr>
+    <tr data-depth="1" data-id="139925228532880" class="category">
+      <td><pre>domain</pre></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr data-depth="2" data-id="139925228514640">
+      <td><pre>number</pre></td>
+      <td><pre class="type">int</pre></td>
+      <td>Number of domains</td>
+      <td>1 [no MPI]; MPI_SIZE [MPI]</td>
+    </tr>
+    <tr data-depth="2" data-id="139925228201344">
+      <td><pre>decomposition</pre></td>
+      <td><div class="type-tooltip"><pre class="type">array&lt;int&gt; </pre><span class="tooltiptext">size 1 :-&gt;: 3</span></div></td>
+      <td><div class="note-tooltip"><span class="description">Decomposition of the domain (for MPI) in each of the directions</span><span class="tooltiptext">* -1 means the code will determine the decomposition in the specific direction automatically.<br>* Automatic detection is either done by inference from # of MPI tasks, or by balancing the grid size on each domain.</span></div></td>
+      <td>$[-1, -1, -1]$</td>
+    </tr>
+    <tr data-depth="0" data-id="139925226736368" class="category">
+      <td><pre>grid</pre></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr data-depth="1" data-id="139925226884944" class="required">
+      <td><pre>resolution</pre></td>
+      <td><div class="type-tooltip"><pre class="type">array&lt;uint&gt; </pre><span class="tooltiptext">size 1 :-&gt;: 3</span></div></td>
+      <td><div class="note-tooltip"><span class="description">Spatial resolution of the grid</span><span class="tooltiptext">Dimensionality is inferred from the size of this array.</span></div></td>
+      <td></td>
+    </tr>
+    <tr data-depth="1" data-id="139925226885968" class="required">
+      <td><pre>extent</pre></td>
+      <td><div class="type-tooltip"><pre class="type">array&lt;tuple&lt;float&gt;&gt; </pre><span class="tooltiptext">size 1 :-&gt;: 3</span></div></td>
+      <td><div class="note-tooltip"><span class="description">Physical extent of the grid</span><span class="tooltiptext">* For spherical geometry, only specify <pre>[[rmin, rmax]]</pre>, other values are set automatically.<br>* For cartesian geometry, cell aspect ratio has to be 1: <pre>dx=dy=dz</pre>.</span></div></td>
+      <td></td>
+    </tr>
+    <tr data-depth="1" data-id="139925228562832" class="inferred">
+      <td><pre>dim</pre></td>
+      <td><div class="type-tooltip"><pre class="type">short</pre><span class="tooltiptext">1, 2, 3</span></div></td>
+      <td>Dimensionality of the grid</td>
+      <td></td>
+    </tr>
+    <tr data-depth="1" data-id="139925228563072" class="category">
+      <td><pre>metric</pre></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr data-depth="2" data-id="139925228239376" class="required">
+      <td><pre>metric</pre></td>
+      <td><div class="type-tooltip"><pre class="type">string</pre><span class="tooltiptext">"Minkowski", "Spherical", "QSpherical", "Kerr_Schild", "QKerr_Schild", "Kerr_Schild_0"</span></div></td>
+      <td>Metric on the grid</td>
+      <td></td>
+    </tr>
+    <tr data-depth="2" data-id="139925228240272">
+      <td><pre>qsph_r0</pre></td>
+      <td><div class="type-tooltip"><pre class="type">float </pre><span class="tooltiptext">-∞ -&gt; rmin</span></div></td>
+      <td><div class="note-tooltip"><span class="description"><code>r0</code> paramter for the QSpherical metric <code>x1 = log(r-r0)</code></span><span class="tooltiptext">Negative values produce almost uniform grid in r.</span></div></td>
+      <td>$0.0$</td>
+    </tr>
+    <tr data-depth="2" data-id="139925228358576">
+      <td><pre>qsph_h</pre></td>
+      <td><div class="type-tooltip"><pre class="type">float </pre><span class="tooltiptext">-1 :-&gt;: 1</span></div></td>
+      <td><code>h</code> paramter for the QSpherical metric <code>th = x2 + 2*h x2 (pi-2*x2)*(pi-x2)/pi^2</code></td>
+      <td>$0.0$</td>
+    </tr>
+    <tr data-depth="2" data-id="139925230186768">
+      <td><pre>ks_a</pre></td>
+      <td><div class="type-tooltip"><pre class="type">float </pre><span class="tooltiptext">0 :-&gt; 1</span></div></td>
+      <td>Spin parameter for the Kerr Schild metric</td>
+      <td>$0.0$</td>
+    </tr>
+    <tr data-depth="2" data-id="139925230186960" class="inferred">
+      <td><pre>coord</pre></td>
+      <td><div class="type-tooltip"><pre class="type">string</pre><span class="tooltiptext">"cartesian", "spherical", "qspherical"</span></div></td>
+      <td>Coordinate system on the grid</td>
+      <td></td>
+    </tr>
+    <tr data-depth="2" data-id="139925227017280" class="inferred">
+      <td><pre>ks_rh</pre></td>
+      <td><pre class="type">float</pre></td>
+      <td>Size of the horizon for GR Kerr Schild</td>
+      <td></td>
+    </tr>
+    <tr data-depth="2" data-id="139925227016928" class="inferred">
+      <td><pre>params</pre></td>
+      <td><pre class="type">map&lt;string, float&gt;</pre></td>
+      <td>A map of all metric-specific parameters together (for easy access)</td>
+      <td></td>
+    </tr>
+    <tr data-depth="1" data-id="139925228661136" class="category">
+      <td><pre>boundaries</pre></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr data-depth="2" data-id="139925228660816" class="required">
+      <td><pre>fields</pre></td>
+      <td><div class="type-tooltip"><pre class="type">array&lt;tuple&lt;string&gt;&gt; </pre><span class="tooltiptext">"PERIODIC", "MATCH", "FIXED", "ATMOSPHERE", "CUSTOM", "HORIZON", "CONDUCTOR"</span></div></td>
+      <td><div class="note-tooltip"><span class="description">Boundary conditions for fields</span><span class="tooltiptext">* When periodic in any of the directions, you should only set one value: [..., ["PERIODIC"], ...].<br>* In spherical, bondaries in theta/phi are set automatically (only specify bc @ <pre>[rmin, rmax]</pre>): [["ATMOSPHERE", "MATCH"]].<br>* In GR, the horizon boundary is set automatically (only specify bc @ rmax): [["MATCH"]].</span></div></td>
+      <td></td>
+    </tr>
+    <tr data-depth="2" data-id="139925228592096" class="required">
+      <td><pre>particles</pre></td>
+      <td><div class="type-tooltip"><pre class="type">array&lt;tuple&lt;string&gt;&gt; </pre><span class="tooltiptext">"PERIODIC", "ABSORB", "ATMOSPHERE", "CUSTOM", "REFLECT", "HORIZON"</span></div></td>
+      <td><div class="note-tooltip"><span class="description">Boundary conditions for fields</span><span class="tooltiptext">* When periodic in any of the directions, you should only set one value [..., ["PERIODIC"], ...].<br>* In spherical, bondaries in theta/phi are set automatically (only specify bc @ <pre>[rmin, rmax]</pre>) [["ATMOSPHERE", "ABSORB"]].<br>* In GR, the horizon boundary is set automatically (only specify bc @ <pre>rmax</pre>): [["ABSORB"]].</span></div></td>
+      <td></td>
+    </tr>
+    <tr data-depth="2" data-id="139925226759888" class="category">
+      <td><pre>match</pre></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr data-depth="3" data-id="139925226760272">
+      <td><pre>ds</pre></td>
+      <td><pre class="type">float </pre> or <pre class="type"> array&lt;tuple&lt;float&gt;&gt;</pre></td>
+      <td><div class="note-tooltip"><span class="description">Size of the matching layer in each direction for fields in physical (code) units</span><span class="tooltiptext">In spherical, this is the size of the layer in <pre>r</pre> from the outer wall.</span></div></td>
+      <td>1% of the domain size (in shortest dimension)</td>
+    </tr>
+    <tr data-depth="2" data-id="139925226678192" class="category">
+      <td><pre>absorb</pre></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr data-depth="3" data-id="139925226677632">
+      <td><pre>ds</pre></td>
+      <td><pre class="type">float</pre></td>
+      <td><div class="note-tooltip"><span class="description">Size of the absorption layer for particles in physical (code) units</span><span class="tooltiptext">* In spherical, this is the size of the layer in <pre>r</pre> from the outer wall.<br>* In cartesian, this is the same for all dimensions where applicable.</span></div></td>
+      <td>1% of the domain size (in shortest dimension)</td>
+    </tr>
+    <tr data-depth="2" data-id="139925226678416" class="category">
+      <td><pre>atmosphere</pre></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr data-depth="3" data-id="139925226678640">
+      <td><pre>temperature</pre></td>
+      <td><pre class="type">float</pre></td>
+      <td><div class="note-tooltip"><span class="description">Temperature of the atmosphere in units of <code>m0 c^2</code></span><span class="tooltiptext">[required] if <pre>ATMOSPHERE</pre> is one of the boundaries.</span></div></td>
+      <td></td>
+    </tr>
+    <tr data-depth="3" data-id="139925226678528">
+      <td><pre>density</pre></td>
+      <td><pre class="type">float</pre></td>
+      <td>Peak number density of the atmosphere at base in units of <code>n0</code></td>
+      <td></td>
+    </tr>
+    <tr data-depth="3" data-id="139925226678864">
+      <td><pre>height</pre></td>
+      <td><pre class="type">float</pre></td>
+      <td>Pressure scale-height in physical units</td>
+      <td></td>
+    </tr>
+    <tr data-depth="3" data-id="139925226678976">
+      <td><pre>species</pre></td>
+      <td><div class="type-tooltip"><pre class="type">array&lt;int&gt; </pre><span class="tooltiptext">size 2</span></div></td>
+      <td>Species indices of particles that populate the atmosphere</td>
+      <td></td>
+    </tr>
+    <tr data-depth="3" data-id="139925226679200">
+      <td><pre>ds</pre></td>
+      <td><pre class="type">float</pre></td>
+      <td><div class="note-tooltip"><span class="description">Distance from the edge to which the gravity is imposed in physical units</span><span class="tooltiptext">0.0 means no limit.</span></div></td>
+      <td>$0.0$</td>
+    </tr>
+    <tr data-depth="3" data-id="139925226679312" class="inferred">
+      <td><pre>g</pre></td>
+      <td><pre class="type">float</pre></td>
+      <td>Acceleration due to imposed gravity</td>
+      <td></td>
+    </tr>
+    <tr data-depth="0" data-id="139925226679424" class="category">
+      <td><pre>scales</pre></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr data-depth="1" data-id="139925226679536" class="required">
+      <td><pre>larmor0</pre></td>
+      <td><div class="type-tooltip"><pre class="type">float </pre><span class="tooltiptext">&gt; 0.0</span></div></td>
+      <td>Fiducial larmor radius</td>
+      <td></td>
+    </tr>
+    <tr data-depth="1" data-id="139925226679648" class="required">
+      <td><pre>skindepth0</pre></td>
+      <td><div class="type-tooltip"><pre class="type">float </pre><span class="tooltiptext">&gt; 0.0</span></div></td>
+      <td>Fiducial plasma skin depth</td>
+      <td></td>
+    </tr>
+    <tr data-depth="1" data-id="139925226679760" class="inferred">
+      <td><pre>dx0</pre></td>
+      <td><pre class="type">float</pre></td>
+      <td>fiducial minimum size of the cell</td>
+      <td></td>
+    </tr>
+    <tr data-depth="1" data-id="139925226679872" class="inferred">
+      <td><pre>V0</pre></td>
+      <td><pre class="type">float</pre></td>
+      <td>fiducial elementary volume</td>
+      <td></td>
+    </tr>
+    <tr data-depth="1" data-id="139925226679984" class="inferred">
+      <td><pre>n0</pre></td>
+      <td><pre class="type">float</pre></td>
+      <td>Fiducial number density</td>
+      <td></td>
+    </tr>
+    <tr data-depth="1" data-id="139925226680096" class="inferred">
+      <td><pre>q0</pre></td>
+      <td><pre class="type">float</pre></td>
+      <td>Fiducial elementary charge</td>
+      <td></td>
+    </tr>
+    <tr data-depth="1" data-id="139925226680208" class="inferred">
+      <td><pre>sigma0</pre></td>
+      <td><pre class="type">float</pre></td>
+      <td>Fiducial magnetization parameter</td>
+      <td></td>
+    </tr>
+    <tr data-depth="1" data-id="139925226680320" class="inferred">
+      <td><pre>B0</pre></td>
+      <td><pre class="type">float</pre></td>
+      <td>Fiducial magnetic field</td>
+      <td></td>
+    </tr>
+    <tr data-depth="1" data-id="139925226680432" class="inferred">
+      <td><pre>omegaB0</pre></td>
+      <td><pre class="type">float</pre></td>
+      <td>Fiducial cyclotron frequency</td>
+      <td></td>
+    </tr>
+    <tr data-depth="0" data-id="139925226680544" class="category">
+      <td><pre>algorithms</pre></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr data-depth="1" data-id="139925226680656">
+      <td><pre>current_filters</pre></td>
+      <td><div class="type-tooltip"><pre class="type">ushort </pre><span class="tooltiptext">&gt;= 0</span></div></td>
+      <td>Number of current smoothing passes</td>
+      <td>$0$</td>
+    </tr>
+    <tr data-depth="1" data-id="139925226680768" class="category">
+      <td><pre>timestep</pre></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr data-depth="2" data-id="139925226680880">
+      <td><pre>CFL</pre></td>
+      <td><div class="type-tooltip"><pre class="type">float </pre><span class="tooltiptext">0.0 -&gt; 1.0</span></div></td>
+      <td><div class="note-tooltip"><span class="description">Courant-Friedrichs-Lewy number</span><span class="tooltiptext">CFL number determines the timestep duration.</span></div></td>
+      <td>$0.95$</td>
+    </tr>
+    <tr data-depth="2" data-id="139925226680992">
+      <td><pre>correction</pre></td>
+      <td><pre class="type">float</pre></td>
+      <td>Correction factor for the speed of light used in field solver</td>
+      <td>$1.0$</td>
+    </tr>
+    <tr data-depth="2" data-id="139925226681216" class="inferred">
+      <td><pre>dt</pre></td>
+      <td><pre class="type">float</pre></td>
+      <td>timestep duration</td>
+      <td></td>
+    </tr>
+    <tr data-depth="1" data-id="139925226681328" class="category">
+      <td><pre>deposit</pre></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr data-depth="2" data-id="139925226681440">
+      <td><pre>enable</pre></td>
+      <td><pre class="type">bool</pre></td>
+      <td>Enable the current deposition</td>
+      <td><pre>true</pre></td>
+    </tr>
+    <tr data-depth="2" data-id="139925226681552">
+      <td><pre>order</pre></td>
+      <td><pre class="type">int</pre></td>
+      <td>Order of the particle shape function</td>
+      <td>$1$</td>
+    </tr>
+    <tr data-depth="1" data-id="139925226681664" class="category">
+      <td><pre>gr</pre></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr data-depth="2" data-id="139925226681776">
+      <td><pre>pusher_eps</pre></td>
+      <td><div class="type-tooltip"><pre class="type">float </pre><span class="tooltiptext">&gt; 0.0</span></div></td>
+      <td>Stepsize for numerical differentiation in GR pusher</td>
+      <td>$10^{-6}$</td>
+    </tr>
+    <tr data-depth="2" data-id="139925226681888">
+      <td><pre>pusher_niter</pre></td>
+      <td><div class="type-tooltip"><pre class="type">ushort </pre><span class="tooltiptext">&gt; 0</span></div></td>
+      <td>Number of iterations for the Newton-Raphson method in GR pusher</td>
+      <td>$10$</td>
+    </tr>
+    <tr data-depth="1" data-id="139925226682112" class="category">
+      <td><pre>gca</pre></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr data-depth="2" data-id="139925226682224">
+      <td><pre>e_ovr_b_max</pre></td>
+      <td><div class="type-tooltip"><pre class="type">float </pre><span class="tooltiptext">0.0 -&gt; 1.0</span></div></td>
+      <td>Maximum value for E/B allowed for GCA particles</td>
+      <td>$0.9$</td>
+    </tr>
+    <tr data-depth="2" data-id="139925226682336">
+      <td><pre>larmor_max</pre></td>
+      <td><pre class="type">float</pre></td>
+      <td><div class="note-tooltip"><span class="description">Maximum Larmor radius allowed for GCA particles (in physical units)</span><span class="tooltiptext">When <pre>larmor_max</pre> == 0, the limit is disabled.</span></div></td>
+      <td>$0.0$</td>
+    </tr>
+    <tr data-depth="1" data-id="139925226682560" class="category">
+      <td><pre>synchrotron</pre></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr data-depth="2" data-id="139925226682672">
+      <td><pre>gamma_rad</pre></td>
+      <td><div class="type-tooltip"><pre class="type">float </pre><span class="tooltiptext">&gt; 0.0</span></div></td>
+      <td><div class="note-tooltip"><span class="description">Radiation reaction limit gamma-factor for synchrotron</span><span class="tooltiptext">[required] if one of the species has <pre>cooling = "synchrotron"</pre>.</span></div></td>
+      <td>$1.0$</td>
+    </tr>
+    <tr data-depth="1" data-id="139925226682896" class="category">
+      <td><pre>fieldsolver</pre></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr data-depth="2" data-id="139925226683008">
+      <td><pre>enable</pre></td>
+      <td><pre class="type">bool</pre></td>
+      <td><div class="note-tooltip"><span class="description">Enable the fieldsolver</span><span class="tooltiptext">Standard Yee solver: <pre>delta_i = beta_ij = 0.0</pre>.</span></div></td>
+      <td><pre>true</pre></td>
+    </tr>
+    <tr data-depth="2" data-id="139925226683120">
+      <td><pre>delta_x</pre></td>
+      <td><pre class="type">float</pre></td>
+      <td>delta_x coefficient (for <code>F_{i +/- 3/2, j, k}</code>)</td>
+      <td>$0.0$</td>
+    </tr>
+    <tr data-depth="2" data-id="139925226683232">
+      <td><pre>delta_y</pre></td>
+      <td><pre class="type">float</pre></td>
+      <td><div class="note-tooltip"><span class="description">delta_y coefficient (for <code>F_{i, j +/- 3/2, k}</code>)</span><span class="tooltiptext">Used only for 2D and 3D.</span></div></td>
+      <td>$0.0$</td>
+    </tr>
+    <tr data-depth="2" data-id="139925226683344">
+      <td><pre>delta_z</pre></td>
+      <td><pre class="type">float</pre></td>
+      <td><div class="note-tooltip"><span class="description">delta_z coefficient (for <code>F_{i, j, k +/- 3/2}</code>)</span><span class="tooltiptext">Used only for 3D.</span></div></td>
+      <td>$0.0$</td>
+    </tr>
+    <tr data-depth="2" data-id="139925226683456">
+      <td><pre>beta_xy</pre></td>
+      <td><pre class="type">float</pre></td>
+      <td><div class="note-tooltip"><span class="description">beta_xy coefficient (for <code>F_{i +/- 1/2, j +/- 1, k}</code>)</span><span class="tooltiptext">Used only for 2D and 3D.</span></div></td>
+      <td>$0.0$</td>
+    </tr>
+    <tr data-depth="2" data-id="139925226683568">
+      <td><pre>beta_yx</pre></td>
+      <td><pre class="type">float</pre></td>
+      <td><div class="note-tooltip"><span class="description">beta_yx coefficient (for <code>F_{i +/- 1, j +/- 1/2, k}</code>)</span><span class="tooltiptext">Used only for 2D and 3D.</span></div></td>
+      <td>$0.0$</td>
+    </tr>
+    <tr data-depth="2" data-id="139925226683680">
+      <td><pre>beta_xz</pre></td>
+      <td><pre class="type">float</pre></td>
+      <td><div class="note-tooltip"><span class="description">beta_xz coefficient (for <code>F_{i +/- 1/2, j, k +/- 1}</code>)</span><span class="tooltiptext">Used only for 3D.</span></div></td>
+      <td>$0.0$</td>
+    </tr>
+    <tr data-depth="2" data-id="139925226683792">
+      <td><pre>beta_zx</pre></td>
+      <td><pre class="type">float</pre></td>
+      <td><div class="note-tooltip"><span class="description">beta_zx coefficient (for <code>F_{i +/- 1, j, k +/- 1/2}</code>)</span><span class="tooltiptext">Used only for 3D.</span></div></td>
+      <td>$0.0$</td>
+    </tr>
+    <tr data-depth="2" data-id="139925226683904">
+      <td><pre>beta_yz</pre></td>
+      <td><pre class="type">float</pre></td>
+      <td><div class="note-tooltip"><span class="description">beta_yz coefficient (for <code>F_{i, j +/- 1/2, k +/- 1}</code>)</span><span class="tooltiptext">Used only for 3D.</span></div></td>
+      <td>$0.0$</td>
+    </tr>
+    <tr data-depth="2" data-id="139925226684016">
+      <td><pre>beta_zy</pre></td>
+      <td><pre class="type">float</pre></td>
+      <td><div class="note-tooltip"><span class="description">beta_zy coefficient (for <code>F_{i, j +/- 1, k +/- 1/2}</code>)</span><span class="tooltiptext">Used only for 3D.</span></div></td>
+      <td>$0.0$</td>
+    </tr>
+    <tr data-depth="0" data-id="139925226684128" class="category">
+      <td><pre>particles</pre></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr data-depth="1" data-id="139925226684240" class="required">
+      <td><pre>ppc0</pre></td>
+      <td><div class="type-tooltip"><pre class="type">float </pre><span class="tooltiptext">&gt; 0.0</span></div></td>
+      <td>Fiducial number of particles per cell</td>
+      <td></td>
+    </tr>
+    <tr data-depth="1" data-id="139925227110480">
+      <td><pre>use_weights</pre></td>
+      <td><pre class="type">bool</pre></td>
+      <td>Toggle for using particle weights</td>
+      <td><pre>false</pre></td>
+    </tr>
+    <tr data-depth="1" data-id="139925227110592">
+      <td><pre>clear_interval</pre></td>
+      <td><pre class="type">uint</pre></td>
+      <td><div class="note-tooltip"><span class="description">Timesteps between particle re-sorting (removing dead particles)</span><span class="tooltiptext">Set to 0 to disable re-sorting.</span></div></td>
+      <td>$100$</td>
+    </tr>
+    <tr data-depth="1" data-id="139925227110816" class="inferred">
+      <td><pre>nspec</pre></td>
+      <td><pre class="type">uint</pre></td>
+      <td>Number of particle species</td>
+      <td></td>
+    </tr>
+    <tr data-depth="1" data-id="139925227110928" class="category">
+      <td><pre>species</pre></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr data-depth="2" data-id="139925227111040">
+      <td><pre>label</pre></td>
+      <td><pre class="type">string</pre></td>
+      <td><div class="note-tooltip"><span class="description">Label of the species</span><span class="tooltiptext"><pre>&lt;INDEX&gt;</pre> is the index of the species in the list starting from 1.</span></div></td>
+      <td><pre>"s&lt;INDEX&gt;"</pre></td>
+    </tr>
+    <tr data-depth="2" data-id="139925227111264" class="required">
+      <td><pre>mass</pre></td>
+      <td><div class="type-tooltip"><pre class="type">float </pre><span class="tooltiptext">&gt;= 0.0</span></div></td>
+      <td>Mass of the species (in units of fiducial mass)</td>
+      <td></td>
+    </tr>
+    <tr data-depth="2" data-id="139925227111376" class="required">
+      <td><pre>charge</pre></td>
+      <td><pre class="type">float</pre></td>
+      <td>Charge of the species (in units of fiducial charge)</td>
+      <td></td>
+    </tr>
+    <tr data-depth="2" data-id="139925227111488" class="required">
+      <td><pre>maxnpart</pre></td>
+      <td><div class="type-tooltip"><pre class="type">uint </pre><span class="tooltiptext">&gt; 0</span></div></td>
+      <td>Maximum number of particles per task</td>
+      <td></td>
+    </tr>
+    <tr data-depth="2" data-id="139925227111600">
+      <td><pre>pusher</pre></td>
+      <td><div class="type-tooltip"><pre class="type">string</pre><span class="tooltiptext">"Boris", "Vay", "Boris,GCA", "Vay,GCA", "Photon", "None"</span></div></td>
+      <td>Pusher algorithm for the species</td>
+      <td>"Boris" [massive]; "Photon" [massless]</td>
+    </tr>
+    <tr data-depth="2" data-id="139925227111824">
+      <td><pre>n_payloads_real</pre></td>
+      <td><pre class="type">ushort</pre></td>
+      <td>Number of additional real-valued variables (payloads) for each particle of the given species</td>
+      <td>$0$</td>
+    </tr>
+    <tr data-depth="2" data-id="139925227111936">
+      <td><pre>n_payloads_int</pre></td>
+      <td><pre class="type">ushort</pre></td>
+      <td><div class="note-tooltip"><span class="description">Number of additional integer-valued variables (payloads) for each particle of the given species</span><span class="tooltiptext">If tracking is enabled, one or two extra integer payloads are reserved (depending on whether MPI is enabled).</span></div></td>
+      <td>$0$</td>
+    </tr>
+    <tr data-depth="2" data-id="139925227112048">
+      <td><pre>tracking</pre></td>
+      <td><pre class="type">bool</pre></td>
+      <td>Enable tracking of particles using indices for the given species</td>
+      <td><pre>false</pre></td>
+    </tr>
+    <tr data-depth="2" data-id="139925227112272">
+      <td><pre>cooling</pre></td>
+      <td><div class="type-tooltip"><pre class="type">string</pre><span class="tooltiptext">"None", "Synchrotron"</span></div></td>
+      <td>Radiation reaction to use for the species</td>
+      <td><pre>"None"</pre></td>
+    </tr>
+    <tr data-depth="0" data-id="139925227112384" class="category">
+      <td><pre>setup</pre></td>
+      <td></td>
+      <td>Parameters for specific problem generators and setups</td>
+      <td></td>
+    </tr>
+    <tr data-depth="0" data-id="139925227112496" class="category">
+      <td><pre>output</pre></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr data-depth="1" data-id="139925227112608">
+      <td><pre>format</pre></td>
+      <td><div class="type-tooltip"><pre class="type">string</pre><span class="tooltiptext">"disabled", "hdf5", "BPFile"</span></div></td>
+      <td>Output format</td>
+      <td><pre>"hdf5"</pre></td>
+    </tr>
+    <tr data-depth="1" data-id="139925227112720">
+      <td><pre>interval</pre></td>
+      <td><div class="type-tooltip"><pre class="type">uint </pre><span class="tooltiptext">&gt; 0</span></div></td>
+      <td><div class="note-tooltip"><span class="description">Number of timesteps between all outputs</span><span class="tooltiptext">Value is overriden by output intervals for specific outputs.</span></div></td>
+      <td>$1$</td>
+    </tr>
+    <tr data-depth="1" data-id="139925227112944">
+      <td><pre>interval_time</pre></td>
+      <td><pre class="type">float</pre></td>
+      <td><div class="note-tooltip"><span class="description">Physical (code) time interval between all outputs</span><span class="tooltiptext">* When <pre>interval_time</pre> &lt; 0, the output is controlled by <pre>interval</pre>, otherwise by <pre>interval_time</pre>.<br>* Value is overriden by output intervals for specific outputs.</span></div></td>
+      <td>$-1.0$</td>
+    </tr>
+    <tr data-depth="1" data-id="139925227113056">
+      <td><pre>separate_files</pre></td>
+      <td><pre class="type">bool</pre></td>
+      <td>Whether to output each timestep into separate files</td>
+      <td><pre>true</pre></td>
+    </tr>
+    <tr data-depth="1" data-id="139925227113168" class="category">
+      <td><pre>fields</pre></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr data-depth="2" data-id="139925227113280">
+      <td><pre>enable</pre></td>
+      <td><pre class="type">bool</pre></td>
+      <td>Toggle for the field output</td>
+      <td><pre>true</pre></td>
+    </tr>
+    <tr data-depth="2" data-id="139925227113504">
+      <td><pre>quantities</pre></td>
+      <td><div class="type-tooltip"><pre class="type">array&lt;string&gt;</pre><span class="tooltiptext">"E", "B", "J", "divE", "Rho", "Charge", "N", "Nppc", "T0i", "Tij", "Vi", "D", "H", "divD", "A"</span></div></td>
+      <td><div class="note-tooltip"><span class="description">Field quantities to output</span><span class="tooltiptext">* For <pre>T</pre>, you can use unspecified indices: <pre>Tij</pre>, <pre>T0i</pre>, or specific ones: <pre>Ttt</pre>, <pre>T00</pre>, <pre>T02</pre>, <pre>T23</pre>.<br>* For <pre>T</pre>, in cartesian can also use "x" "y" "z" instead of "1" "2" "3".<br>* By default, we accumulate moments from all massive species, one can specify only specific species: <pre>Ttt_1_2</pre>, <pre>Rho_1</pre>, <pre>Rho_3_4</pre>.</span></div></td>
+      <td>[]</td>
+    </tr>
+    <tr data-depth="2" data-id="139925227113392">
+      <td><pre>custom</pre></td>
+      <td><pre class="type">array&lt;string&gt;</pre></td>
+      <td>Custom (user-defined) field quantities</td>
+      <td>[]</td>
+    </tr>
+    <tr data-depth="2" data-id="139925227113728">
+      <td><pre>mom_smooth</pre></td>
+      <td><pre class="type">ushort</pre></td>
+      <td>Smoothing window for the output of moments ("Rho", "Charge", "T", ...)</td>
+      <td>$0$</td>
+    </tr>
+    <tr data-depth="2" data-id="139925227113840">
+      <td><pre>interval</pre></td>
+      <td><pre class="type">uint</pre></td>
+      <td><div class="note-tooltip"><span class="description">Number of timesteps between field outputs</span><span class="tooltiptext">* When <pre>!= 0</pre>, overrides <pre>output.interval</pre>.<br>* When <pre>== 0</pre>, <pre>output.interval</pre> is used.</span></div></td>
+      <td>$0$</td>
+    </tr>
+    <tr data-depth="2" data-id="139925227113952">
+      <td><pre>interval_time</pre></td>
+      <td><pre class="type">float</pre></td>
+      <td><div class="note-tooltip"><span class="description">Physical (code) time interval between field outputs</span><span class="tooltiptext">* When <pre>&lt; 0</pre>, the output is controlled by <pre>interval</pre>.<br>* When specified, overrides <pre>output.interval_time</pre>.</span></div></td>
+      <td>$-1.0$</td>
+    </tr>
+    <tr data-depth="2" data-id="139925227114064">
+      <td><pre>downsampling</pre></td>
+      <td><div class="type-tooltip"><pre class="type">uint </pre> or <pre class="type"> array&lt;uint&gt; </pre><span class="tooltiptext">&gt;= 1</span></div></td>
+      <td><div class="note-tooltip"><span class="description">Downsample factor for the output of fields</span><span class="tooltiptext">* The output is downsampled by the given factors in each direction.<br>* If a scalar is given, it is applied to all directions.</span></div></td>
+      <td>$[1, 1, 1]$</td>
+    </tr>
+    <tr data-depth="1" data-id="139925227114288" class="category">
+      <td><pre>particles</pre></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr data-depth="2" data-id="139925227114400">
+      <td><pre>enable</pre></td>
+      <td><pre class="type">bool</pre></td>
+      <td>Toggle for the particles output</td>
+      <td><pre>true</pre></td>
+    </tr>
+    <tr data-depth="2" data-id="139925227114176">
+      <td><pre>species</pre></td>
+      <td><pre class="type">array&lt;int&gt;</pre></td>
+      <td><div class="note-tooltip"><span class="description">Particle species indices to output</span><span class="tooltiptext">If empty, all species are output.</span></div></td>
+      <td>[]</td>
+    </tr>
+    <tr data-depth="2" data-id="139925227114512">
+      <td><pre>stride</pre></td>
+      <td><div class="type-tooltip"><pre class="type">uint </pre><span class="tooltiptext">&gt; 1</span></div></td>
+      <td>Stride for the output of particles</td>
+      <td>$100$</td>
+    </tr>
+    <tr data-depth="2" data-id="139925227114624">
+      <td><pre>interval</pre></td>
+      <td><pre class="type">uint</pre></td>
+      <td><div class="note-tooltip"><span class="description">Number of timesteps between particle outputs</span><span class="tooltiptext">* When <pre>!= 0</pre>, overrides <pre>output.interval</pre>.<br>* When <pre>== 0</pre>, <pre>output.interval</pre> is used.</span></div></td>
+      <td>$0$</td>
+    </tr>
+    <tr data-depth="2" data-id="139925227114736">
+      <td><pre>interval_time</pre></td>
+      <td><pre class="type">float</pre></td>
+      <td><div class="note-tooltip"><span class="description">Physical (code) time interval between particle outputs</span><span class="tooltiptext">* When <pre>&lt; 0</pre>, the output is controlled by <pre>interval</pre>.<br>* When specified, overrides <pre>output.interval_time</pre>.</span></div></td>
+      <td>$-1.0$</td>
+    </tr>
+    <tr data-depth="1" data-id="139925227114960" class="category">
+      <td><pre>spectra</pre></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr data-depth="2" data-id="139925227114848">
+      <td><pre>enable</pre></td>
+      <td><pre class="type">bool</pre></td>
+      <td>Toggle for the spectra output</td>
+      <td><pre>true</pre></td>
+    </tr>
+    <tr data-depth="2" data-id="139925227115072">
+      <td><pre>e_min</pre></td>
+      <td><pre class="type">float</pre></td>
+      <td>Minimum energy for the spectra output</td>
+      <td>$10^{-3}$</td>
+    </tr>
+    <tr data-depth="2" data-id="139925227115184">
+      <td><pre>e_max</pre></td>
+      <td><pre class="type">float</pre></td>
+      <td>Maximum energy for the spectra output</td>
+      <td>$10^{3}$</td>
+    </tr>
+    <tr data-depth="2" data-id="139925227115296">
+      <td><pre>log_bins</pre></td>
+      <td><pre class="type">bool</pre></td>
+      <td>Whether to use logarithmic bins</td>
+      <td><pre>true</pre></td>
+    </tr>
+    <tr data-depth="2" data-id="139925227115408">
+      <td><pre>n_bins</pre></td>
+      <td><div class="type-tooltip"><pre class="type">uint </pre><span class="tooltiptext">&gt; 0</span></div></td>
+      <td>Number of bins for the spectra output</td>
+      <td>$200$</td>
+    </tr>
+    <tr data-depth="2" data-id="139925227115520">
+      <td><pre>interval</pre></td>
+      <td><pre class="type">uint</pre></td>
+      <td><div class="note-tooltip"><span class="description">Number of timesteps between spectra outputs</span><span class="tooltiptext">* When <pre>!= 0</pre>, overrides <pre>output.interval</pre>.<br>* When <pre>== 0</pre>, <pre>output.interval</pre> is used.</span></div></td>
+      <td>$0$</td>
+    </tr>
+    <tr data-depth="2" data-id="139925227115632">
+      <td><pre>interval_time</pre></td>
+      <td><pre class="type">float</pre></td>
+      <td><div class="note-tooltip"><span class="description">Physical (code) time interval between spectra outputs</span><span class="tooltiptext">* When <pre>&lt; 0</pre>, the output is controlled by <pre>interval</pre>.<br>* When specified, overrides <pre>output.interval_time</pre>.</span></div></td>
+      <td>$-1.0$</td>
+    </tr>
+    <tr data-depth="1" data-id="139925227115856" class="category">
+      <td><pre>debug</pre></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr data-depth="2" data-id="139925227115744">
+      <td><pre>as_is</pre></td>
+      <td><pre class="type">bool</pre></td>
+      <td>Output fields "as is" without conversions</td>
+      <td><pre>false</pre></td>
+    </tr>
+    <tr data-depth="2" data-id="139925227115968">
+      <td><pre>ghosts</pre></td>
+      <td><pre class="type">bool</pre></td>
+      <td>Output fields with values in ghost cells</td>
+      <td><pre>false</pre></td>
+    </tr>
+    <tr data-depth="1" data-id="139925227116080" class="category">
+      <td><pre>stats</pre></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr data-depth="2" data-id="139925227116192">
+      <td><pre>enable</pre></td>
+      <td><pre class="type">bool</pre></td>
+      <td>Toggle for the stats output</td>
+      <td><pre>true</pre></td>
+    </tr>
+    <tr data-depth="2" data-id="139925227116304">
+      <td><pre>interval</pre></td>
+      <td><div class="type-tooltip"><pre class="type">uint </pre><span class="tooltiptext">&gt; 0</span></div></td>
+      <td><div class="note-tooltip"><span class="description">Number of timesteps between stat outputs</span><span class="tooltiptext">Overriden if <pre>output.stats.interval_time != -1</pre>.</span></div></td>
+      <td>$100$</td>
+    </tr>
+    <tr data-depth="2" data-id="139925227116416">
+      <td><pre>interval_time</pre></td>
+      <td><pre class="type">float</pre></td>
+      <td><div class="note-tooltip"><span class="description">Physical (code) time interval between stat outputs</span><span class="tooltiptext">When <pre>&lt; 0</pre>, the output is controlled by <pre>interval</pre>.</span></div></td>
+      <td>$-1.0$</td>
+    </tr>
+    <tr data-depth="2" data-id="139925227116528">
+      <td><pre>quantities</pre></td>
+      <td><div class="type-tooltip"><pre class="type">array&lt;string&gt;</pre><span class="tooltiptext">"B^2", "E^2", "ExB", "N", "Npart", "Charge", "Rho", "T00", "T0i", "Tij"</span></div></td>
+      <td><div class="note-tooltip"><span class="description">Field quantities to output</span><span class="tooltiptext">* For particle moments, ...<br>* ... same notation is used as for <pre>output.fields.quantities</pre>.</span></div></td>
+      <td>[<pre>"B^2"</pre>, <pre>"E^2"</pre>, <pre>"ExB"</pre>, <pre>"Rho"</pre>, <pre>"T00"</pre>]</td>
+    </tr>
+    <tr data-depth="2" data-id="139925227116752">
+      <td><pre>custom</pre></td>
+      <td><pre class="type">array&lt;string&gt;</pre></td>
+      <td>Custom (user-defined) stats</td>
+      <td>[]</td>
+    </tr>
+    <tr data-depth="0" data-id="139925227116864" class="category">
+      <td><pre>checkpoint</pre></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr data-depth="1" data-id="139925227116976">
+      <td><pre>interval</pre></td>
+      <td><div class="type-tooltip"><pre class="type">uint </pre><span class="tooltiptext">&gt; 0</span></div></td>
+      <td>Number of timesteps between checkpoints</td>
+      <td>$1000$</td>
+    </tr>
+    <tr data-depth="1" data-id="139925227117088">
+      <td><pre>interval_time</pre></td>
+      <td><div class="type-tooltip"><pre class="type">float </pre><span class="tooltiptext">&gt; 0</span></div></td>
+      <td><div class="note-tooltip"><span class="description">Physical (code) time interval between checkpoints</span><span class="tooltiptext">When <pre>&lt; 0</pre>, the output is controlled by <pre>interval</pre>.</span></div></td>
+      <td>$-1.0$</td>
+    </tr>
+    <tr data-depth="1" data-id="139925227117312">
+      <td><pre>keep</pre></td>
+      <td><pre class="type">int</pre></td>
+      <td><div class="note-tooltip"><span class="description">Number of checkpoints to keep</span><span class="tooltiptext">* 0 = disable checkpointing.<br>* -1 = keep all checkpoints.</span></div></td>
+      <td>$2$</td>
+    </tr>
+    <tr data-depth="1" data-id="139925227117200">
+      <td><pre>walltime</pre></td>
+      <td><pre class="type">string</pre></td>
+      <td><div class="note-tooltip"><span class="description">Write a checkpoint once after a fixed walltime</span><span class="tooltiptext">* The format is "HH:MM:SS".<br>* Empty string or "00:00:00" disables this functionality.<br>* Writing checkpoint at walltime does not stop the simulation.</span></div></td>
+      <td><pre>"00:00:00"</pre></td>
+    </tr>
+    <tr data-depth="1" data-id="139925227117536">
+      <td><pre>write_path</pre></td>
+      <td><pre class="type">string</pre></td>
+      <td><div class="note-tooltip"><span class="description">Parent directory to write checkpoints to</span><span class="tooltiptext">The directory is created if it does not exist.</span></div></td>
+      <td><code>&lt;simname&gt;.ckpt</code></td>
+    </tr>
+    <tr data-depth="1" data-id="139925227117424">
+      <td><pre>read_path</pre></td>
+      <td><pre class="type">string</pre></td>
+      <td>Parent directory to use when resuming from a checkpoint</td>
+      <td>inherit <code>write_path</code></td>
+    </tr>
+    <tr data-depth="1" data-id="139925227117648" class="inferred">
+      <td><pre>is_resuming</pre></td>
+      <td><pre class="type">bool</pre></td>
+      <td>Whether the simulation is resuming from a checkpoint</td>
+      <td></td>
+    </tr>
+    <tr data-depth="1" data-id="139925227117872" class="inferred">
+      <td><pre>start_step</pre></td>
+      <td><pre class="type">uint</pre></td>
+      <td>Timestep of the checkpoint used to resume</td>
+      <td></td>
+    </tr>
+    <tr data-depth="1" data-id="139925227117760" class="inferred">
+      <td><pre>start_time</pre></td>
+      <td><pre class="type">float</pre></td>
+      <td>Time of the checkpoint used to resume</td>
+      <td></td>
+    </tr>
+    <tr data-depth="0" data-id="139925227117984" class="category">
+      <td><pre>diagnostics</pre></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr data-depth="1" data-id="139925227118096">
+      <td><pre>interval</pre></td>
+      <td><div class="type-tooltip"><pre class="type">int </pre><span class="tooltiptext">&gt; 0</span></div></td>
+      <td>Number of timesteps between diagnostic logs</td>
+      <td>$1$</td>
+    </tr>
+    <tr data-depth="1" data-id="139925227118208">
+      <td><pre>blocking_timers</pre></td>
+      <td><pre class="type">bool</pre></td>
+      <td>Blocking timers between successive algorithms</td>
+      <td><pre>false</pre></td>
+    </tr>
+    <tr data-depth="1" data-id="139925227118320">
+      <td><pre>colored_stdout</pre></td>
+      <td><pre class="type">bool</pre></td>
+      <td>Enable colored stdout</td>
+      <td><pre>true</pre></td>
+    </tr>
+    <tr data-depth="1" data-id="139925227118432">
+      <td><pre>log_level</pre></td>
+      <td><div class="type-tooltip"><pre class="type">string</pre><span class="tooltiptext">"VERBOSE", "WARNING", "ERROR"</span></div></td>
+      <td><div class="note-tooltip"><span class="description">Specify the log level</span><span class="tooltiptext">"VERBOSE" prints all messages, "WARNING" prints only warnings and errors, "ERROR" prints only errors.</span></div></td>
+      <td><pre>"VERBOSE"</pre></td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+  
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2021++, Entity dev team
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/entity-toolkit/entity/" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M216.29 158.39H137C97 147.9 6.51 150.63 6.51 233.18c0 30.09 15 51.23 35 61-25.1 23-37 33.85-37 49.21 0 11 4.47 21.14 17.89 26.81C8.13 383.61 0 393.35 0 411.65c0 32.11 28.05 50.82 101.63 50.82 70.75 0 111.79-26.42 111.79-73.18 0-58.66-45.16-56.5-151.63-63l13.43-21.55c27.27 7.58 118.7 10 118.7-67.89 0-18.7-7.73-31.71-15-41.07l37.41-2.84zm-63.42 241.9c0 32.06-104.89 32.1-104.89 2.43 0-8.14 5.27-15 10.57-21.54 77.71 5.3 94.32 3.37 94.32 19.11m-50.81-134.58c-52.8 0-50.46-71.16 1.2-71.16 49.54 0 50.82 71.16-1.2 71.16m133.3 100.51v-32.1c26.75-3.66 27.24-2 27.24-11V203.61c0-8.5-2.05-7.38-27.24-16.26l4.47-32.92H324v168.71c0 6.51.4 7.32 6.51 8.14l20.73 2.84v32.1zm52.45-244.31c-23.17 0-36.59-13.43-36.59-36.61s13.42-35.77 36.59-35.77c23.58 0 37 12.62 37 35.77s-13.42 36.61-37 36.61M512 350.46c-17.49 8.53-43.1 16.26-66.28 16.26-48.38 0-66.67-19.5-66.67-65.46V194.75c0-5.42 1.05-4.06-31.71-4.06V154.5c35.78-4.07 50-22 54.47-66.27h38.63c0 65.83-1.34 61.81 3.26 61.81H501v40.65h-60.56v97.15c0 6.92-4.92 51.41 60.57 26.84z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tracking", "navigation.indexes", "navigation.expand", "content.code.annotate", "content.code.copy", "content.tooltips", "header.autohide", "search.highlight"], "search": "../../../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.13a4f30d.min.js"></script>
+      
+    
+  </body>
+</html>

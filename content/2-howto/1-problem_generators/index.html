@@ -1,0 +1,2564 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://entity-toolkit.github.io/wiki/content/2-howto/1-problem_generators/">
+      
+      
+        <link rel="prev" href="../../1-getting-started/8-docker/">
+      
+      
+        <link rel="next" href="../2-vis/">
+      
+      
+      <link rel="icon" href="../../../assets/logo.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.14">
+    
+    
+      
+        <title>Problem generators - Entity: wiki</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.342714a4.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+  
+  
+  
+  
+  <style>:root{--md-annotation-icon:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M12%2020c-4.41%200-8-3.59-8-8s3.59-8%208-8%208%203.59%208%208-3.59%208-8%208m0-18A10%2010%200%200%200%202%2012a10%2010%200%200%200%2010%2010%2010%2010%200%200%200%2010-10A10%2010%200%200%200%2012%202m1%205h-2v4H7v2h4v4h2v-4h4v-2h-4z%22/%3E%3C/svg%3E');}</style>
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=DM+Sans:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"DM Sans";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../css/style.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  
+  
+  <link rel="stylesheet" href="../../../js/vendor/katex/katex.min.css">
+  <script src="../../../js/vendor/katex/katex.min.js"></script>
+  <script src="../../../js/vendor/katex/contrib/auto-render.min.js"></script>
+  <script src="../../../js/hooks/katex.js" defer></script>
+  
+  
+    
+      
+        <script src="../../../js/vendor/d3.min.js"></script>
+        <script src="../../../js/hooks/d3.js" defer></script>
+      
+    
+  
+  
+  
+    
+      <script type="module" src="../../../js/scripts/atm-boundaries.js"></script>
+    
+  
+
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="ntt-light" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#problem-generators" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Entity: wiki" class="md-header__button md-logo" aria-label="Entity: wiki" data-md-component="logo">
+      
+  <img src="../../../assets/logo.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Entity: wiki
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Problem generators
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="ntt-light" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7M9 21a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-1H9z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="ntt-dark" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7M9 21v-1h6v1a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1m3-17a5 5 0 0 0-5 5c0 2.05 1.23 3.81 3 4.58V16h4v-2.42c1.77-.77 3-2.53 3-4.58a5 5 0 0 0-5-5"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/entity-toolkit/entity" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M23.546 10.93 13.067.452a1.55 1.55 0 0 0-2.188 0L8.708 2.627l2.76 2.76a1.838 1.838 0 0 1 2.327 2.341l2.658 2.66a1.838 1.838 0 0 1 1.9 3.039 1.837 1.837 0 0 1-2.6 0 1.85 1.85 0 0 1-.404-1.996L12.86 8.955v6.525c.176.086.342.203.488.348a1.85 1.85 0 0 1 0 2.6 1.844 1.844 0 0 1-2.609 0 1.834 1.834 0 0 1 0-2.598c.182-.18.387-.316.605-.406V8.835a1.834 1.834 0 0 1-.996-2.41L7.636 3.7.45 10.881c-.6.605-.6 1.584 0 2.189l10.48 10.477a1.545 1.545 0 0 0 2.186 0l10.43-10.43a1.544 1.544 0 0 0 0-2.187"/></svg>
+  </div>
+  <div class="md-source__repository">
+    entity
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Entity: wiki" class="md-nav__button md-logo" aria-label="Entity: wiki" data-md-component="logo">
+      
+  <img src="../../../assets/logo.svg" alt="logo">
+
+    </a>
+    Entity: wiki
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/entity-toolkit/entity" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M23.546 10.93 13.067.452a1.55 1.55 0 0 0-2.188 0L8.708 2.627l2.76 2.76a1.838 1.838 0 0 1 2.327 2.341l2.658 2.66a1.838 1.838 0 0 1 1.9 3.039 1.837 1.837 0 0 1-2.6 0 1.85 1.85 0 0 1-.404-1.996L12.86 8.955v6.525c.176.086.342.203.488.348a1.85 1.85 0 0 1 0 2.6 1.844 1.844 0 0 1-2.609 0 1.834 1.834 0 0 1 0-2.598c.182-.18.387-.316.605-.406V8.835a1.834 1.834 0 0 1-.996-2.41L7.636 3.7.45 10.881c-.6.605-.6 1.584 0 2.189l10.48 10.477a1.545 1.545 0 0 0 2.186 0l10.43-10.43a1.544 1.544 0 0 0 0-2.187"/></svg>
+  </div>
+  <div class="md-source__repository">
+    entity
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Getting Started
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Getting Started
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-getting-started/1-compile-run/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Compiling/running
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-getting-started/2-dependencies/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Dependencies
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-getting-started/3-inputfile/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Input parameters
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-getting-started/8-docker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Docker containers
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    How-To
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            How-To
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Problem generators
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Problem generators
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#initializing-fields" class="md-nav__link">
+    <span class="md-ellipsis">
+      Initializing fields
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#initializing-particles" class="md-nav__link">
+    <span class="md-ellipsis">
+      Initializing particles
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#boundary-conditions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Boundary Conditions
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Boundary Conditions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#periodic-boundaries" class="md-nav__link">
+    <span class="md-ellipsis">
+      Periodic boundaries
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#atmospheric-boundaries" class="md-nav__link">
+    <span class="md-ellipsis">
+      Atmospheric boundaries
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#conductor-boundaries" class="md-nav__link">
+    <span class="md-ellipsis">
+      Conductor boundaries
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#match-boundaries" class="md-nav__link">
+    <span class="md-ellipsis">
+      Match boundaries
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fixed-field-boundaries" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fixed field boundaries
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#custom-post-timestep-routines" class="md-nav__link">
+    <span class="md-ellipsis">
+      Custom post-timestep routines
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#particle-purging" class="md-nav__link">
+    <span class="md-ellipsis">
+      Particle purging
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#custom-external-force" class="md-nav__link">
+    <span class="md-ellipsis">
+      Custom external force
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#custom-external-current" class="md-nav__link">
+    <span class="md-ellipsis">
+      Custom external current
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#custom-field-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      Custom field output
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#custom-stats" class="md-nav__link">
+    <span class="md-ellipsis">
+      Custom stats
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2-vis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Output &amp; visualization
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3-units/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Understanding the units
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../4-checkpoints/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Writing checkpoints &amp; restarting
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../5-docs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Editing the documentation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../6-guidelines/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Code guidelines
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../7-faq/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    F.A.Q.
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Understanding the Code
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Understanding the Code
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../3-code/1-pic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    PIC Algorithm
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../3-code/2-hierarchy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Hierarchy of structures
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../3-code/3-domains/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Metadomain, subdomains and meshes
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../3-code/4-fields_particles/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Fields and particles
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../3-code/5-metrics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Metrics
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../3-code/6-higherorder/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Higher order methods
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Useful Things
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Useful Things
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../useful/costtool/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Simulation cost estimator
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../useful/cluster-setups/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Cluster setups
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Theory
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../useful/float-comparison/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Floating point comparison
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../useful/theory_pic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory behind PIC
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../useful/ks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Kerr metric
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Fun
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Fun
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../fun/pushers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Particle pushers
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../fun/coords/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Axisymmetric coordinates
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../fun/cubed_sphere/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Cubed-sphere geometry
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../fun/particle-shapes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    2D particle shapes
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Events
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            Events
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../events/sceecs2024/instructions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    SCEECS Summer School 2024
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#initializing-fields" class="md-nav__link">
+    <span class="md-ellipsis">
+      Initializing fields
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#initializing-particles" class="md-nav__link">
+    <span class="md-ellipsis">
+      Initializing particles
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#boundary-conditions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Boundary Conditions
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Boundary Conditions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#periodic-boundaries" class="md-nav__link">
+    <span class="md-ellipsis">
+      Periodic boundaries
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#atmospheric-boundaries" class="md-nav__link">
+    <span class="md-ellipsis">
+      Atmospheric boundaries
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#conductor-boundaries" class="md-nav__link">
+    <span class="md-ellipsis">
+      Conductor boundaries
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#match-boundaries" class="md-nav__link">
+    <span class="md-ellipsis">
+      Match boundaries
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fixed-field-boundaries" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fixed field boundaries
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#custom-post-timestep-routines" class="md-nav__link">
+    <span class="md-ellipsis">
+      Custom post-timestep routines
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#particle-purging" class="md-nav__link">
+    <span class="md-ellipsis">
+      Particle purging
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#custom-external-force" class="md-nav__link">
+    <span class="md-ellipsis">
+      Custom external force
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#custom-external-current" class="md-nav__link">
+    <span class="md-ellipsis">
+      Custom external current
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#custom-field-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      Custom field output
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#custom-stats" class="md-nav__link">
+    <span class="md-ellipsis">
+      Custom stats
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+  
+
+
+
+  
+  
+
+
+<h1 id="problem-generators">Problem generators<a class="headerlink" href="#problem-generators" title="Permanent link">&para;</a></h1>
+<div class="admonition abstract">
+<p class="admonition-title">Relevant headers</p>
+<ul>
+<li><code>setups/**/pgen.hpp</code></li>
+<li><code>archetypes/problem_generator.h</code></li>
+<li><code>archetypes/field_setter.h</code></li>
+<li><code>archetypes/energy_dist.h</code></li>
+<li><code>archetypes/spatial_dist.h</code></li>
+<li><code>archetypes/particle_injector.h</code></li>
+</ul>
+</div>
+<p>Problem generators describe a specific simulation setup (e.g., initial conditions) for the Entity engines to use to run the simulation. All problem generators are stored in the <code>setups</code> diectory each in a separate parent directory and are all named <code>pgen.hpp</code>. It is a good practice to also store a sample <code>*.toml</code> input file and a <code>*.py</code> visualization file corresponding to that problem generator. Problem generators are chosen at compile time using the <code>-D pgen=...</code> flag, where <code>...</code> is the relative path where the problem generator is stored. For instance, to pick the <code>setups/srpic/langmuir/pgen.hpp</code> problem generator, one would use the following command:</p>
+<div class="language-bash highlight"><pre><span></span><code>cmake<span class="w"> </span>...<span class="w"> </span>-D<span class="w"> </span><span class="nv">pgen</span><span class="o">=</span>srpic/langmuir
+</code></pre></div>
+<p>All problem generators contain a namespace <code>user::</code> and a structure named <code>Pgen&lt;S, M&gt;</code> which must inherit from the <code>arch::ProblemGenerator&lt;S, M&gt;</code> class, where <code>S</code> is the simulation engine and <code>M</code> is the metric. A typical dummy problem generator will look like this:</p>
+<div class="language-cpp highlight"><pre><span></span><code><span class="cp">#ifndef PROBLEM_GENERATOR_H</span>
+<span class="cp">#define PROBLEM_GENERATOR_H</span>
+
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;enums.h&quot;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;global.h&quot;</span>
+
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;arch/traits.h&quot;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;archetypes/problem_generator.h&quot;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;framework/domain/metadomain.h&quot;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;framework/parameters.h&quot;</span>
+
+<span class="k">namespace</span><span class="w"> </span><span class="nn">user</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">ntt</span><span class="p">;</span><span class="w"> </span><span class="c1">// (2)!</span>
+
+<span class="w">  </span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="n">SimEngine</span><span class="o">::</span><span class="n">type</span><span class="w"> </span><span class="n">S</span><span class="p">,</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">M</span><span class="o">&gt;</span>
+<span class="w">  </span><span class="k">struct</span><span class="w"> </span><span class="nc">PGen</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">arch</span><span class="o">::</span><span class="n">ProblemGenerator</span><span class="o">&lt;</span><span class="n">S</span><span class="p">,</span><span class="w"> </span><span class="n">M</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// enumerate which engines/metrics/dimensions are compatible (1)</span>
+<span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="k">constexpr</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">engines</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="n">traits</span><span class="o">::</span><span class="n">compatible_with</span><span class="o">&lt;</span><span class="n">SimEngine</span><span class="o">::</span><span class="n">SRPIC</span><span class="p">,</span><span class="w"> </span><span class="n">SimEngine</span><span class="o">::</span><span class="n">GRPIC</span><span class="o">&gt;::</span><span class="n">value</span>
+<span class="w">    </span><span class="p">};</span>
+<span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="k">constexpr</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">metrics</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="n">traits</span><span class="o">::</span><span class="n">compatible_with</span><span class="o">&lt;</span><span class="n">Metric</span><span class="o">::</span><span class="n">Minkowski</span><span class="p">,</span>
+<span class="w">                              </span><span class="n">Metric</span><span class="o">::</span><span class="n">Spherical</span><span class="p">,</span>
+<span class="w">                              </span><span class="n">Metric</span><span class="o">::</span><span class="n">QSpherical</span><span class="p">,</span>
+<span class="w">                              </span><span class="n">Metric</span><span class="o">::</span><span class="n">Kerr_Schild</span><span class="p">,</span>
+<span class="w">                              </span><span class="n">Metric</span><span class="o">::</span><span class="n">QKerr_Schild</span><span class="p">,</span>
+<span class="w">                              </span><span class="n">Metric</span><span class="o">::</span><span class="n">Kerr_Schild_0</span><span class="o">&gt;::</span><span class="n">value</span>
+<span class="w">    </span><span class="p">};</span>
+<span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="k">constexpr</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">dimensions</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="n">traits</span><span class="o">::</span><span class="n">compatible_with</span><span class="o">&lt;</span><span class="n">Dim</span><span class="o">::</span><span class="n">_1D</span><span class="p">,</span><span class="w"> </span><span class="n">Dim</span><span class="o">::</span><span class="n">_2D</span><span class="p">,</span><span class="w"> </span><span class="n">Dim</span><span class="o">::</span><span class="n">_3D</span><span class="o">&gt;::</span><span class="n">value</span>
+<span class="w">    </span><span class="p">};</span>
+
+<span class="w">    </span><span class="c1">// ... additional definitions ..</span>
+
+<span class="w">    </span><span class="kr">inline</span><span class="w"> </span><span class="n">PGen</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">SimulationParams</span><span class="o">&amp;</span><span class="w"> </span><span class="n">p</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">Metadomain</span><span class="o">&lt;</span><span class="n">S</span><span class="p">,</span><span class="w"> </span><span class="n">M</span><span class="o">&gt;&amp;</span><span class="p">)</span>
+<span class="w">      </span><span class="o">:</span><span class="w"> </span><span class="n">arch</span><span class="o">::</span><span class="n">ProblemGenerator</span><span class="o">&lt;</span><span class="n">S</span><span class="p">,</span><span class="w"> </span><span class="n">M</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="p">}</span><span class="w"> </span>
+<span class="w">      </span><span class="c1">// ... any additional initialization ...</span>
+<span class="w">      </span><span class="p">{}</span>
+
+<span class="w">    </span><span class="c1">// ... additional methods ...</span>
+<span class="w">  </span><span class="p">};</span>
+
+<span class="p">}</span><span class="w"> </span><span class="c1">// namespace user</span>
+
+<span class="cp">#endif </span><span class="c1">// PROBLEM_GENERATOR_H</span>
+</code></pre></div>
+<ol>
+<li>This is done not only for the runtime sanity check, but also to shorten the compile time, as the compiler will not generate the code for the incompatible engines/metrics/dimensions.</li>
+<li>To avoid using <code>ntt::</code> everywhere</li>
+</ol>
+<p>There are three special definitions one may provide in the problem generator that will allow the simulation engine to call custom routines at the beginning of the simulation or at the end of each timestep.</p>
+<div class="admonition note">
+<p class="admonition-title">Units</p>
+<p>In all of the functions and classes described below, it is assumed that the end-user designing the problem generator has no knowledge of the inner workings of the code units. All the quantities provided by the user are thus in the natural physical units (i.e., global physical coordinates for the positions and local tetrad basis for the vectors). All the conversions, staggering etc. is done automatically under the hood.</p>
+</div>
+<h2 id="initializing-fields">Initializing fields<a class="headerlink" href="#initializing-fields" title="Permanent link">&para;</a></h2>
+<p>To initialize electromagnetic fields to specific values, one may provide a custom class called <code>init_flds</code>:</p>
+<div class="language-c++ highlight"><pre><span></span><code><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="n">SimEngine</span><span class="o">::</span><span class="n">type</span><span class="w"> </span><span class="n">S</span><span class="p">,</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">M</span><span class="o">&gt;</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">PGen</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">arch</span><span class="o">::</span><span class="n">ProblemGenerator</span><span class="o">&lt;</span><span class="n">S</span><span class="p">,</span><span class="w"> </span><span class="n">M</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="c1">// ...</span>
+
+<span class="w">  </span><span class="c1">// the name of the class may be arbitrary, but the instance must be named `init_flds`</span>
+<span class="w">  </span><span class="n">FancyFieldInitializer</span><span class="o">&lt;</span><span class="n">S</span><span class="p">,</span><span class="w"> </span><span class="n">M</span><span class="o">&gt;</span><span class="w"> </span><span class="n">init_flds</span><span class="p">;</span>
+<span class="p">};</span>
+</code></pre></div>
+<p>This class in turn may have an arbitrarily complex constructor, but it must have any number of the methods <code>ex1()</code>, <code>ex2()</code>, ... <code>dx1()</code>, <code>dx2()</code>, etc., which set the corresponding field components. For instance, to set the electric field in the <span class="arithmatex">\(x_2\)</span> direction to a constant value, one would write:
+<div class="language-c++ highlight"><pre><span></span><code><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="n">Dimension</span><span class="w"> </span><span class="n">D</span><span class="o">&gt;</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">NotSoFancyFieldInitializer</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">NotSoFancyFieldInitializer</span><span class="p">(</span><span class="n">real_t</span><span class="w"> </span><span class="n">myval</span><span class="p">)</span>
+<span class="w">    </span><span class="o">:</span><span class="w"> </span><span class="n">myvalue</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">myval</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">{}</span>
+
+<span class="w">  </span><span class="n">Inline</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">ex2</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">coord_t</span><span class="o">&lt;</span><span class="n">D</span><span class="o">&gt;&amp;</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">real_t</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">myvalue</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="c1">// you may skip other field components if you don&#39;t need them</span>
+
+<span class="k">private</span><span class="o">:</span>
+<span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="n">real_t</span><span class="w"> </span><span class="n">myvalue</span><span class="p">;</span>
+<span class="p">};</span>
+</code></pre></div></p>
+<p>Notice, that <code>ex2</code> takes a single argument of type <code>coord_t&lt;D&gt;</code> (coordinate vector), which in this case is empty, since we are not using it. In general, one may define fields as functions of the coordinate. </p>
+<div class="language-c++ highlight"><pre><span></span><code><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="n">Dimension</span><span class="w"> </span><span class="n">D</span><span class="o">&gt;</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">SinusoidalField</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">SinusoidalField</span><span class="p">(</span><span class="n">real_t</span><span class="w"> </span><span class="n">kx</span><span class="p">,</span><span class="w"> </span><span class="n">real_t</span><span class="w"> </span><span class="n">ampl</span><span class="p">)</span>
+<span class="w">    </span><span class="o">:</span><span class="w"> </span><span class="n">kx</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">kx</span><span class="w"> </span><span class="p">},</span><span class="w"> </span><span class="n">amplitude</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">ampl</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">{}</span>
+
+<span class="w">  </span><span class="n">Inline</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">bx1</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">coord_t</span><span class="o">&lt;</span><span class="n">D</span><span class="o">&gt;&amp;</span><span class="w"> </span><span class="n">x_Ph</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">real_t</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">amplitude</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nf">math::sin</span><span class="p">(</span><span class="n">kx</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">x_Ph</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span><span class="w"> </span><span class="c1">// function of x2 coordinate</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="c1">// you may skip other field components if you don&#39;t need them</span>
+
+<span class="k">private</span><span class="o">:</span>
+<span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="n">real_t</span><span class="w"> </span><span class="n">kx</span><span class="p">,</span><span class="w"> </span><span class="n">amplitude</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="c1">// and then use it in the problem generator</span>
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="n">SimEngine</span><span class="o">::</span><span class="n">type</span><span class="w"> </span><span class="n">S</span><span class="p">,</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">M</span><span class="o">&gt;</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">PGen</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">arch</span><span class="o">::</span><span class="n">ProblemGenerator</span><span class="o">&lt;</span><span class="n">S</span><span class="p">,</span><span class="w"> </span><span class="n">M</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="c1">// ...</span>
+
+<span class="w">  </span><span class="n">SinusoidalField</span><span class="o">&lt;</span><span class="n">S</span><span class="p">,</span><span class="w"> </span><span class="n">M</span><span class="o">&gt;</span><span class="w"> </span><span class="n">init_flds</span><span class="p">;</span>
+
+<span class="w">  </span><span class="c1">// initialize the `init_flds` by passing the parameters from the input</span>
+<span class="w">  </span><span class="kr">inline</span><span class="w"> </span><span class="n">PGen</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">SimulationParams</span><span class="o">&amp;</span><span class="w"> </span><span class="n">p</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">Metadomain</span><span class="o">&lt;</span><span class="n">S</span><span class="p">,</span><span class="w"> </span><span class="n">M</span><span class="o">&gt;&amp;</span><span class="p">)</span>
+<span class="w">      </span><span class="o">:</span><span class="w"> </span><span class="n">arch</span><span class="o">::</span><span class="n">ProblemGenerator</span><span class="o">&lt;</span><span class="n">S</span><span class="p">,</span><span class="w"> </span><span class="n">M</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="p">}</span>
+<span class="w">      </span><span class="p">,</span><span class="w"> </span><span class="n">init_flds</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="k">template</span><span class="w"> </span><span class="n">get</span><span class="o">&lt;</span><span class="n">real_t</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;setup.kx&quot;</span><span class="p">),</span><span class="w"> </span>
+<span class="w">                    </span><span class="n">p</span><span class="p">.</span><span class="k">template</span><span class="w"> </span><span class="n">get</span><span class="o">&lt;</span><span class="n">real_t</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;setup.amplitude&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">}</span><span class="w"> </span>
+<span class="w">      </span><span class="p">{}</span>
+<span class="p">};</span>
+</code></pre></div>
+<p>Fields must be returned in the local tetrad (orthonormal) basis, while the passed coordinates are the physical coordinates. Conversion to code units and staggering of each corresponding field component is done automatically under the hood.</p>
+<h2 id="initializing-particles">Initializing particles<a class="headerlink" href="#initializing-particles" title="Permanent link">&para;</a></h2>
+<p>Similar to initializing the fields, one can also initialize particles with a given energy or spatial distribution. This is done by providing a custom method of the <code>PGen</code> class called <code>InitPrtls(Domain&lt;S, M&gt;&amp;)</code> which takes a reference to the local subdomain as a parameter. In principle, one can manually initialize the particles in any way they want, but it is recommended to use the built-in routines from the <code>arch::</code> (archetypes) namespace.</p>
+<p>For instance, to initialize a uniform Maxwellian of a given temperature, one can use the <code>arch::Maxwellian</code> class together with the <code>InjectUniform</code> method:</p>
+<div class="language-c++ highlight"><pre><span></span><code><span class="c1">// don&#39;t forget to include the proper headers</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;archetypes/energy_dist.h&quot;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;archetypes/particle_injector.h&quot;</span>
+
+<span class="c1">// ...</span>
+
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="n">SimEngine</span><span class="o">::</span><span class="n">type</span><span class="w"> </span><span class="n">S</span><span class="p">,</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">M</span><span class="o">&gt;</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">PGen</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">arch</span><span class="o">::</span><span class="n">ProblemGenerator</span><span class="o">&lt;</span><span class="n">S</span><span class="p">,</span><span class="w"> </span><span class="n">M</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="c1">// </span>
+<span class="w">  </span><span class="kr">inline</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">InitPrtls</span><span class="p">(</span><span class="n">Domain</span><span class="o">&lt;</span><span class="n">S</span><span class="p">,</span><span class="w"> </span><span class="n">M</span><span class="o">&gt;&amp;</span><span class="w"> </span><span class="n">local_domain</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">energy_dist</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">arch</span><span class="o">::</span><span class="n">Maxwellian</span><span class="o">&lt;</span><span class="n">S</span><span class="p">,</span><span class="w"> </span><span class="n">M</span><span class="o">&gt;</span><span class="p">(</span>
+<span class="w">                                  </span><span class="n">local_domain</span><span class="p">.</span><span class="n">mesh</span><span class="p">.</span><span class="n">metric</span><span class="p">,</span><span class="w"> </span>
+<span class="w">                                  </span><span class="n">local_domain</span><span class="p">.</span><span class="n">random_pool</span><span class="p">,</span><span class="w"> </span>
+<span class="w">                                  </span><span class="n">temperature</span><span class="p">);</span>
+<span class="w">    </span><span class="n">arch</span><span class="o">::</span><span class="n">InjectUniform</span><span class="o">&lt;</span><span class="n">S</span><span class="p">,</span><span class="w"> </span><span class="n">M</span><span class="p">,</span><span class="w"> </span><span class="k">decltype</span><span class="p">(</span><span class="n">energy_dist</span><span class="p">),</span><span class="w"> </span><span class="k">decltype</span><span class="p">(</span><span class="n">energy_dist</span><span class="p">)</span><span class="o">&gt;</span><span class="p">(</span>
+<span class="w">                          </span><span class="n">params</span><span class="p">,</span>
+<span class="w">                          </span><span class="n">local_domain</span><span class="p">,</span>
+<span class="w">                          </span><span class="p">{</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="c1">//                      ^^^^^</span>
+<span class="w">    </span><span class="c1">//                      species to inject    </span>
+<span class="w">                          </span><span class="p">{</span><span class="w"> </span><span class="n">energy_dist</span><span class="p">,</span><span class="w"> </span><span class="n">energy_dist</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="c1">//                      ^^^^^        ^^^^^</span>
+<span class="w">    </span><span class="c1">//                      energy distributions for each species</span>
+<span class="w">                          </span><span class="mf">1.0</span><span class="p">);</span><span class="w"> </span><span class="c1">// &lt;-- this is the number density in units of `n0`</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div>
+<p>To initialize a non-uniform distribution and/or an arbitrary energy distribution, we will need to provide our own classes, which in turn must inherit from the <code>arch::SpatialDistribution&lt;S, M&gt;</code> and <code>arch::EnergyDistribution&lt;S, M&gt;</code>. For instance, let us initialize a distribution of two particle species counter-streaming in opposing direction with their velocities depending on the <span class="arithmatex">\(x_2\)</span> (<span class="arithmatex">\(y\)</span>) coordinate, distributed in space according to a Gaussian profile. We first need to define the energy distribution:</p>
+<div class="language-c++ highlight"><pre><span></span><code><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="n">SimEngine</span><span class="o">::</span><span class="n">type</span><span class="w"> </span><span class="n">S</span><span class="p">,</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">M</span><span class="o">&gt;</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">CounterstreamEnergyDist</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">arch</span><span class="o">::</span><span class="n">EnergyDistribution</span><span class="o">&lt;</span><span class="n">S</span><span class="p">,</span><span class="w"> </span><span class="n">M</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">CounterstreamEnergyDist</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">M</span><span class="o">&amp;</span><span class="w"> </span><span class="n">metric</span><span class="p">,</span><span class="w"> </span><span class="n">real_t</span><span class="w"> </span><span class="n">v_max</span><span class="p">,</span><span class="w"> </span><span class="n">real_t</span><span class="w"> </span><span class="n">sx2</span><span class="p">)</span>
+<span class="w">    </span><span class="o">:</span><span class="w"> </span><span class="n">arch</span><span class="o">::</span><span class="n">EnergyDistribution</span><span class="o">&lt;</span><span class="n">S</span><span class="p">,</span><span class="w"> </span><span class="n">M</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">metric</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="p">,</span><span class="w"> </span><span class="n">v_max</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">v_max</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="p">,</span><span class="w"> </span><span class="n">kx2</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="n">real_t</span><span class="o">&gt;</span><span class="p">(</span><span class="n">constant</span><span class="o">::</span><span class="n">TWO_PI</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">sx2</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">{}</span>
+
+<span class="w">  </span><span class="c1">// three arguments passed here are</span>
+<span class="w">  </span><span class="c1">// x_Ph: global physical coordinates of the particle</span>
+<span class="w">  </span><span class="c1">// v: the velocity of the particle to-be-set in the tetrad basis</span>
+<span class="w">  </span><span class="c1">// sp: species index</span>
+<span class="w">  </span><span class="n">Inline</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="k">operator</span><span class="p">()(</span><span class="k">const</span><span class="w"> </span><span class="n">coord_t</span><span class="o">&lt;</span><span class="n">M</span><span class="o">::</span><span class="n">Dim</span><span class="o">&gt;&amp;</span><span class="w"> </span><span class="n">x_Ph</span><span class="p">,</span>
+<span class="w">                         </span><span class="n">vec_t</span><span class="o">&lt;</span><span class="n">Dim</span><span class="o">::</span><span class="n">_3D</span><span class="o">&gt;&amp;</span><span class="w">       </span><span class="n">v</span><span class="p">,</span>
+<span class="w">                         </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">short</span><span class="w">         </span><span class="n">sp</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">sp</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">v_max</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">math</span><span class="o">::</span><span class="n">sin</span><span class="p">(</span><span class="n">kx2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">x_Ph</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">-</span><span class="n">v_max</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">math</span><span class="o">::</span><span class="n">sin</span><span class="p">(</span><span class="n">kx2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">x_Ph</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="k">private</span><span class="o">:</span>
+<span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="n">real_t</span><span class="w"> </span><span class="n">v_max</span><span class="p">,</span><span class="w"> </span><span class="n">kx2</span><span class="p">;</span>
+<span class="p">};</span>
+</code></pre></div>
+<p>We then need to define the spatial distribution, which takes a coordinate as an argument and returns the probability of a particle to be injected at that point. In our case, we will use a Gaussian profile:</p>
+<div class="language-c++ highlight"><pre><span></span><code><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="n">SimEngine</span><span class="o">::</span><span class="n">type</span><span class="w"> </span><span class="n">S</span><span class="p">,</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">M</span><span class="o">&gt;</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">GaussianDist</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">arch</span><span class="o">::</span><span class="n">SpatialDistribution</span><span class="o">&lt;</span><span class="n">S</span><span class="p">,</span><span class="w"> </span><span class="n">M</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">GaussianDist</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">M</span><span class="o">&amp;</span><span class="w"> </span><span class="n">metric</span><span class="p">,</span><span class="w"> </span><span class="n">real_t</span><span class="w"> </span><span class="n">x1c</span><span class="p">,</span><span class="w"> </span><span class="n">real_t</span><span class="w"> </span><span class="n">x2c</span><span class="p">,</span><span class="w"> </span><span class="n">real_t</span><span class="w"> </span><span class="n">dr</span><span class="p">)</span>
+<span class="w">    </span><span class="o">:</span><span class="w"> </span><span class="n">arch</span><span class="o">::</span><span class="n">SpatialDistribution</span><span class="o">&lt;</span><span class="n">S</span><span class="p">,</span><span class="w"> </span><span class="n">M</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">metric</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="p">,</span><span class="w"> </span><span class="n">x1c</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">x1c</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="p">,</span><span class="w"> </span><span class="n">x2c</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">x2c</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="p">,</span><span class="w"> </span><span class="n">dr</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">dr</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">{}</span>
+
+<span class="w">  </span><span class="c1">// to properly scale the number density, the probability should be normalized to 1</span>
+<span class="w">  </span><span class="n">Inline</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="k">operator</span><span class="p">()(</span><span class="k">const</span><span class="w"> </span><span class="n">coord_t</span><span class="o">&lt;</span><span class="n">M</span><span class="o">::</span><span class="n">Dim</span><span class="o">&gt;&amp;</span><span class="w"> </span><span class="n">x_Ph</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">real_t</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">math</span><span class="o">::</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">SQR</span><span class="p">(</span><span class="n">x_Ph</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">x1c</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">SQR</span><span class="p">(</span><span class="n">x_Ph</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">x2c</span><span class="p">))</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">SQR</span><span class="p">(</span><span class="n">dr</span><span class="p">));</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="k">private</span><span class="o">:</span>
+<span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="n">real_t</span><span class="w"> </span><span class="n">x1c</span><span class="p">,</span><span class="w"> </span><span class="n">x2c</span><span class="p">,</span><span class="w"> </span><span class="n">dr</span><span class="p">;</span>
+<span class="p">};</span>
+</code></pre></div>
+<p>We can then pass the instances of these classes to the <code>arch::InjectNonUniform</code> method called from within the <code>InitPrtls</code> method of the problem generator:</p>
+<div class="language-c++ highlight"><pre><span></span><code><span class="c1">// definition of CounterstreamEnergyDist and GaussianDist classes</span>
+<span class="c1">// ...</span>
+
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="n">SimEngine</span><span class="o">::</span><span class="n">type</span><span class="w"> </span><span class="n">S</span><span class="p">,</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">M</span><span class="o">&gt;</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">PGen</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">arch</span><span class="o">::</span><span class="n">ProblemGenerator</span><span class="o">&lt;</span><span class="n">S</span><span class="p">,</span><span class="w"> </span><span class="n">M</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="c1">// internal variables to-be-used in the constructor</span>
+<span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="n">real_t</span><span class="w"> </span><span class="n">temperature</span><span class="p">,</span><span class="w"> </span><span class="n">v_max</span><span class="p">,</span><span class="w"> </span><span class="n">sx2</span><span class="p">;</span>
+<span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="n">real_t</span><span class="w"> </span><span class="n">x1c</span><span class="p">,</span><span class="w"> </span><span class="n">x2c</span><span class="p">,</span><span class="w"> </span><span class="n">dr</span><span class="p">;</span>
+
+<span class="w">  </span><span class="c1">// read the parameters from the input</span>
+<span class="w">  </span><span class="kr">inline</span><span class="w"> </span><span class="n">PGen</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">SimulationParams</span><span class="o">&amp;</span><span class="w"> </span><span class="n">p</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">Metadomain</span><span class="o">&lt;</span><span class="n">S</span><span class="p">,</span><span class="w"> </span><span class="n">M</span><span class="o">&gt;&amp;</span><span class="w"> </span><span class="n">global_domain</span><span class="p">)</span>
+<span class="w">    </span><span class="o">:</span><span class="w"> </span><span class="n">arch</span><span class="o">::</span><span class="n">ProblemGenerator</span><span class="o">&lt;</span><span class="n">S</span><span class="p">,</span><span class="w"> </span><span class="n">M</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="p">,</span><span class="w"> </span><span class="n">temperature</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="k">template</span><span class="w"> </span><span class="n">get</span><span class="o">&lt;</span><span class="n">real_t</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;setup.temperature&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="p">,</span><span class="w"> </span><span class="n">v_max</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="k">template</span><span class="w"> </span><span class="n">get</span><span class="o">&lt;</span><span class="n">real_t</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;setup.v_max&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="p">,</span><span class="w"> </span><span class="n">sx2</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">global_domain</span><span class="p">.</span><span class="n">mesh</span><span class="p">().</span><span class="n">extent</span><span class="p">(</span><span class="n">in</span><span class="o">::</span><span class="n">x2</span><span class="p">).</span><span class="n">second</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">global_domain</span><span class="p">.</span><span class="n">mesh</span><span class="p">().</span><span class="n">extent</span><span class="p">(</span><span class="n">in</span><span class="o">::</span><span class="n">x2</span><span class="p">).</span><span class="n">first</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="c1">// (1)!</span>
+<span class="w">    </span><span class="p">,</span><span class="w"> </span><span class="n">x1c</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="k">template</span><span class="w"> </span><span class="n">get</span><span class="o">&lt;</span><span class="n">real_t</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;setup.x1c&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="p">,</span><span class="w"> </span><span class="n">x2c</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="k">template</span><span class="w"> </span><span class="n">get</span><span class="o">&lt;</span><span class="n">real_t</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;setup.x2c&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="p">,</span><span class="w"> </span><span class="n">dr</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="k">template</span><span class="w"> </span><span class="n">get</span><span class="o">&lt;</span><span class="n">real_t</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;setup.dr&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="p">{}</span>
+
+<span class="w">  </span><span class="kr">inline</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">InitPrtls</span><span class="p">(</span><span class="n">Domain</span><span class="o">&lt;</span><span class="n">S</span><span class="p">,</span><span class="w"> </span><span class="n">M</span><span class="o">&gt;&amp;</span><span class="w"> </span><span class="n">local_domain</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">energy_dist</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="n">CounterstreamEnergyDist</span><span class="o">&lt;</span><span class="n">S</span><span class="p">,</span><span class="w"> </span><span class="n">M</span><span class="o">&gt;</span><span class="p">(</span>
+<span class="w">                                        </span><span class="n">local_domain</span><span class="p">.</span><span class="n">mesh</span><span class="p">.</span><span class="n">metric</span><span class="p">,</span>
+<span class="w">                                        </span><span class="n">v_max</span><span class="p">,</span>
+<span class="w">                                        </span><span class="n">sx2</span><span class="p">);</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">spatial_dist</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">GaussianDist</span><span class="o">&lt;</span><span class="n">S</span><span class="p">,</span><span class="w"> </span><span class="n">M</span><span class="o">&gt;</span><span class="p">(</span><span class="n">domain</span><span class="p">.</span><span class="n">mesh</span><span class="p">.</span><span class="n">metric</span><span class="p">,</span>
+<span class="w">                                                 </span><span class="n">x1c</span><span class="p">,</span>
+<span class="w">                                                 </span><span class="n">x2c</span><span class="p">,</span>
+<span class="w">                                                 </span><span class="n">dr</span><span class="p">);</span>
+
+<span class="w">    </span><span class="n">arch</span><span class="o">::</span><span class="n">InjectNonUniform</span><span class="o">&lt;</span><span class="n">S</span><span class="p">,</span><span class="w"> </span><span class="n">M</span><span class="p">,</span><span class="w"> </span><span class="k">decltype</span><span class="p">(</span><span class="n">energy_dist</span><span class="p">),</span><span class="w"> </span><span class="k">decltype</span><span class="p">(</span><span class="n">energy_dist</span><span class="p">),</span><span class="w"> </span><span class="k">decltype</span><span class="p">(</span><span class="n">spatial_dist</span><span class="p">)</span><span class="o">&gt;</span><span class="p">(</span>
+<span class="w">            </span><span class="n">params</span><span class="p">,</span>
+<span class="w">            </span><span class="n">domain</span><span class="p">,</span>
+<span class="w">            </span><span class="p">{</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="p">},</span>
+<span class="w">            </span><span class="p">{</span><span class="w"> </span><span class="n">energy_dist</span><span class="p">,</span><span class="w"> </span><span class="n">energy_dist</span><span class="w"> </span><span class="p">},</span>
+<span class="w">            </span><span class="n">spatial_dist</span><span class="p">,</span>
+<span class="w">            </span><span class="mf">1.0</span><span class="p">);</span><span class="w"> </span><span class="c1">// &lt;-- injected density in units of `n0` </span>
+<span class="w">            </span><span class="c1">// (2)!</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="p">};</span>
+</code></pre></div>
+<ol>
+<li><code>x_2</code> extent of the global domain can be directly read from the metadomain instance passed to the constructor.</li>
+<li>Here, the value of <code>1.0</code> corresponds to the probability of <code>1.0</code> returned by the spatial distribution class.</li>
+</ol>
+<h2 id="boundary-conditions">Boundary Conditions<a class="headerlink" href="#boundary-conditions" title="Permanent link">&para;</a></h2>
+<p>Entity supports a number of boundary conditions for fields and particles which we will list in the following section.
+We currently provide:</p>
+<div class="language-toml highlight"><pre><span></span><code><span class="k">[grid.boundaries]</span>
+<span class="w">  </span><span class="c1"># one of: [&quot;PERIODIC&quot;, &quot;MATCH&quot;, &quot;FIXED&quot;, &quot;ATMOSPHERE&quot;, &quot;CUSTOM&quot;, &quot;HORIZON&quot;, &quot;CONDUCTOR&quot;]</span>
+<span class="w">  </span><span class="n">fields</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="w"> </span>
+
+<span class="w">  </span><span class="c1"># one of: [&quot;PERIODIC&quot;, &quot;ABSORB&quot;, &quot;ATMOSPHERE&quot;, &quot;CUSTOM&quot;, &quot;REFLECT&quot;, &quot;HORIZON&quot;]</span>
+<span class="w">  </span><span class="n">particles</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;&quot;</span>
+</code></pre></div>
+<h3 id="periodic-boundaries">Periodic boundaries<a class="headerlink" href="#periodic-boundaries" title="Permanent link">&para;</a></h3>
+<p>This boundary condition is valid for both fields and particles and is quite self-explanatory. It simply maps fields and particles outside of the domain on one side into the domain on the other side.</p>
+<h3 id="atmospheric-boundaries">Atmospheric boundaries<a class="headerlink" href="#atmospheric-boundaries" title="Permanent link">&para;</a></h3>
+<p>There is a special type of boundary condition named "atmosphere," which applies an additional "gravitational" force to particles and automatically replenishes the plasma to a given target level, while also resetting the fields to a specific value. For Cartesian geometry this boundary condition can be applied in the arbitrary direction, while for spherical/qspherical coordinates, it is only applicable in the <span class="arithmatex">\(-\hat{x}_1\)</span> (same as <span class="arithmatex">\(-\hat{r})\)</span> dimension. Thes boundary conditions are specified just like any other ones, via the <code>fields</code> and <code>particles</code> input parameters of the <code>[grid.boundaries]</code> section of the input file. </p>
+<p>The injected particle distribution is in Boltzmann-equilibrium with the gravity: <span class="arithmatex">\(\bm{u}\cdot\nabla_{\bm{x}} f + m \bm{g}\cdot \nabla_{\bm{u}} f = 0\)</span>; the scale-height and the temperature of of the atmosphere are configurable from <a href="../../1-getting-started/3-inputfile/">the input file</a> using the <code>grid.boundaries.atmosphere</code> parameters. The user also has a control over the peak density of the atmosphere, the extent to which the force is acting, as well as the particle species that are being injected. </p>
+<div class="language-toml highlight"><pre><span></span><code><span class="k">[grid.boundaries.atmosphere]</span>
+<span class="c1"># @required: if ATMOSPHERE is one of the boundaries</span>
+<span class="w">  </span><span class="c1"># Temperature of the atmosphere in units of m0 c^2</span>
+<span class="w">  </span><span class="c1">#   @type: float</span>
+<span class="w">  </span><span class="n">temperature</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;&quot;</span>
+<span class="w">  </span><span class="c1"># Peak number density of the atmosphere at base in units of n0</span>
+<span class="w">  </span><span class="c1">#   @type: float</span>
+<span class="w">  </span><span class="n">density</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;&quot;</span>
+<span class="w">  </span><span class="c1"># Pressure scale-height in physical units</span>
+<span class="w">  </span><span class="c1">#   @type: float</span>
+<span class="w">  </span><span class="n">height</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;&quot;</span>
+<span class="w">  </span><span class="c1"># Species indices of particles that populate the atmosphere</span>
+<span class="w">  </span><span class="c1">#   @type: array of ints of size 2</span>
+<span class="w">  </span><span class="n">species</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;&quot;</span>
+<span class="w">  </span><span class="c1"># Distance from the edge to which the gravity is imposed in physical units</span>
+<span class="w">  </span><span class="c1">#   @type: float</span>
+<span class="w">  </span><span class="c1">#   @default: 0.0</span>
+<span class="w">  </span><span class="c1">#   @note: 0.0 means no limit</span>
+<span class="w">  </span><span class="n">ds</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;&quot;</span>
+</code></pre></div>
+<p>While the particle atmospheric boundaries are handled automatically, when field boundaries are set to <code>ATMOSPHERE</code>, the user must also provide target electromagnetic fields which will be used to reset the field values below the atmosphere. To do this, one needs to provide a <code>FieldDriver</code> method in their problem generator, which takes <code>time</code> as an argument and returns an arbitrary class with methods: <code>ex1</code>, <code>ex2</code>, ... etc. An example of such a class is shown below:</p>
+<div class="language-c++ highlight"><pre><span></span><code><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="n">Dimension</span><span class="w"> </span><span class="n">D</span><span class="o">&gt;</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">AtmFields</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">  </span><span class="c1">// functions take the physical coordinate as an argument</span>
+<span class="w">  </span><span class="n">Inline</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">ex1</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">coord_t</span><span class="o">&lt;</span><span class="n">D</span><span class="o">&gt;&amp;</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">real_t</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// return something</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="c1">// ex2, ex3</span>
+
+<span class="w">  </span><span class="n">Inline</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">bx1</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">coord_t</span><span class="o">&lt;</span><span class="n">D</span><span class="o">&gt;&amp;</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">real_t</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// return something ...</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="c1">// bx2, bx3</span>
+<span class="p">};</span>
+
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="n">SimEngine</span><span class="o">::</span><span class="n">type</span><span class="w"> </span><span class="n">S</span><span class="p">,</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">M</span><span class="o">&gt;</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">PGen</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">arch</span><span class="o">::</span><span class="n">ProblemGenerator</span><span class="o">&lt;</span><span class="n">S</span><span class="p">,</span><span class="w"> </span><span class="n">M</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="c1">// ...</span>
+
+<span class="w">  </span><span class="k">auto</span><span class="w"> </span><span class="n">FieldDriver</span><span class="p">(</span><span class="n">real_t</span><span class="w"> </span><span class="n">time</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">AtmFields</span><span class="o">&lt;</span><span class="n">D</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">AtmFields</span><span class="o">&lt;</span><span class="n">D</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="cm">/* ... params ... */</span><span class="w"> </span><span class="p">};</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div>
+<p>Below is a diagram which indicates how the atmospheric boundary conditions operate (in the example, they are applied in <span class="arithmatex">\(-\hat{\bm{x}}\)</span> direction). Note, that when the fields are enforced, the normal components of the electric field, and the tangential components of the magnetic field are only enforced below the last (first) cell of the region, whereas the tangential components of the electric field and the normal components of the magnetic field are enforced everywhere (including in the last (first) cell of the region).</p>
+<div class="d3-diagram" id="atm-bcs"></div>
+
+<h3 id="conductor-boundaries">Conductor boundaries<a class="headerlink" href="#conductor-boundaries" title="Permanent link">&para;</a></h3>
+<p><a href="https://github.com/entity-toolkit/entity/pull/84">
+  <span class="since-version">1.2.0</span>
+</a></p>
+<p>Another kind of special boundary condition is the perfect (magnetic) conductor boundary. This boundary should be used in combination with reflecting boundaries for particles. You can think of the perfect conductor as introducing a mirror charge outside the boundary.</p>
+<p>An example usage can be found in the <code>srpic/shock/shock.toml</code>:</p>
+<div class="language-toml highlight"><pre><span></span><code><span class="k">[grid.boundaries]</span>
+<span class="w">    </span><span class="n">fields</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[[</span><span class="s2">&quot;CONDUCTOR&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;MATCH&quot;</span><span class="p">],</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;PERIODIC&quot;</span><span class="p">]]</span>
+<span class="w">    </span><span class="n">particles</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[[</span><span class="s2">&quot;REFLECT&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;ABSORB&quot;</span><span class="p">],</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;PERIODIC&quot;</span><span class="p">]]</span>
+</code></pre></div>
+<p>A perfect conductor satisfies the equations <span class="arithmatex">\(\hat{\boldsymbol{n}} \times \boldsymbol{B} = 0\)</span> and <span class="arithmatex">\(\hat{\boldsymbol{n}} \cdot \boldsymbol{E} = 0\)</span>, where <span class="arithmatex">\(\hat{\boldsymbol{n}}\)</span> is the surface normal of the boundary. This is achieved by setting <span class="arithmatex">\(E\)</span>- and <span class="arithmatex">\(B\)</span>-field at distance <span class="arithmatex">\(x\)</span> from the boundary to:</p>
+<table>
+<thead>
+<tr>
+<th><strong>E-field</strong></th>
+<th><strong>B-field</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="arithmatex">\(E_\perp(-\vec{x}) = - E_\perp(+\vec{x})\)</span></td>
+<td><span class="arithmatex">\(B_\parallel(-\vec{x}) = - B_\parallel(+\vec{x})\)</span></td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(E_\perp(0) = 0\)</span></td>
+<td><span class="arithmatex">\(B_\parallel(0) = 0\)</span></td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(E_\parallel(-\vec{x}) = E_\parallel(+\vec{x})\)</span></td>
+<td><span class="arithmatex">\(B_\perp(-\vec{x}) = B_\perp(+\vec{x})\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>where <span class="arithmatex">\(\perp\)</span> is the component perpendicular to <span class="arithmatex">\(\hat{\boldsymbol{n}}\)</span> (tangential to the conductor boundary), while <span class="arithmatex">\(||\)</span> component is along <span class="arithmatex">\(\hat{\boldsymbol{n}}\)</span> (perpendicular to the conductor boundary).</p>
+<p>Note that the current densities which might propagate beyond the particle stencil due to filtering, should be reflected in the same way as the electric fields; in the <code>Entity</code> this is handled at the current filtering kernel. </p>
+<!-- Hence you need at least `current_filters = 1` for this boundary condition to work properly. -->
+
+<p>These boundary conditions do not require any additional input paremeters.</p>
+<h3 id="match-boundaries">Match boundaries<a class="headerlink" href="#match-boundaries" title="Permanent link">&para;</a></h3>
+<p><a href="https://github.com/entity-toolkit/entity/pull/69">
+  <span class="since-version">1.2.0</span>
+</a></p>
+<p>If you want to drive the fields at your boundary to a given value you can do so using the <code>MATCH</code> boundary conditions. You can define the width across which the code drives the fields the target values with the <code>grid.boundaries.match.ds</code> parameter:</p>
+<div class="language-toml highlight"><pre><span></span><code><span class="k">[grid.boundaries.match]</span>
+<span class="w">  </span><span class="c1"># Size of the matching layer in each direction for fields in physical (code) units:</span>
+<span class="w">  </span><span class="c1">#   @type: float or array of tuples</span>
+<span class="w">  </span><span class="c1">#   @default: 1% of the domain size (in shortest dimension)</span>
+<span class="w">  </span><span class="c1">#   @note: In spherical, this is the size of the layer in r from the outer wall</span>
+<span class="w">  </span><span class="c1">#   @example: ds = 1.5 (will set the same for all directions)</span>
+<span class="w">  </span><span class="c1">#   @example: ds = [[1.5], [2.0, 1.0], [1.1]] (will duplicate 1.5 for +/- x1 and 1.1 for +/- x3)</span>
+<span class="w">  </span><span class="c1">#   @example: ds = [[], [1.5], []] (will only set for x2)</span>
+<span class="w">  </span><span class="n">ds</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;&quot;</span>
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Under the hood, the matching boundary conditions simply apply the following condition to the field components:
+$$
+  A^{\rm new} = A^{\rm old}s + A^{\rm target} (1-s),~~~ s\equiv \tanh{\left(\frac{|x^i - x^i_b|}{ds_i/4}\right)}
+$$
+where <span class="arithmatex">\(x^i\)</span> is the physical coordinate in the direction <span class="arithmatex">\(i\)</span>, <span class="arithmatex">\(x^i_b\)</span> -- is the corresponding boundary in that direction, and <span class="arithmatex">\(A\)</span> is one of the <span class="arithmatex">\(E\)</span> (or <span class="arithmatex">\(D\)</span> in GR) or <span class="arithmatex">\(B\)</span> components. The user is responsible for supplying the target values (in the problem generator, see below), and the values of <span class="arithmatex">\(ds_i\)</span> (for all directions) from the input file.</p>
+</div>
+<p>In the problem generator one only needs to define a <code>MatchFields</code> method which should inherit from a <code>struct</code> that defines the field components you want to drive (the name of the struct can be arbitrary, as long as the name of the function returning it is <code>MatchFields</code>). </p>
+<div class="language-c++ highlight"><pre><span></span><code><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="n">Dimension</span><span class="w"> </span><span class="n">D</span><span class="o">&gt;</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">MyBoundaryFields</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="cm">/*</span>
+<span class="cm">    Defines the fields you want to drive your boundary towards</span>
+<span class="cm">  */</span>
+
+<span class="w">  </span><span class="c1">// functions take the physical coordinate as an argument</span>
+<span class="w">  </span><span class="n">Inline</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">ex1</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">coord_t</span><span class="o">&lt;</span><span class="n">D</span><span class="o">&gt;&amp;</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">real_t</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// return something</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="c1">// ex2, ex3</span>
+
+<span class="w">  </span><span class="n">Inline</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">bx1</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">coord_t</span><span class="o">&lt;</span><span class="n">D</span><span class="o">&gt;&amp;</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">real_t</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// return something ...</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="c1">// bx2, bx3</span>
+<span class="p">};</span>
+
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="n">SimEngine</span><span class="o">::</span><span class="n">type</span><span class="w"> </span><span class="n">S</span><span class="p">,</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">M</span><span class="o">&gt;</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">PGen</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">arch</span><span class="o">::</span><span class="n">ProblemGenerator</span><span class="o">&lt;</span><span class="n">S</span><span class="p">,</span><span class="w"> </span><span class="n">M</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="c1">// ...</span>
+
+<span class="w">  </span><span class="c1">// This function is called within the BC kernel</span>
+<span class="w">  </span><span class="c1">// (potentially, bc_flds may depend on time)</span>
+<span class="w">  </span><span class="k">auto</span><span class="w"> </span><span class="n">MatchFields</span><span class="p">(</span><span class="n">simtime_t</span><span class="w"> </span><span class="n">time</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">MyBoundaryFields</span><span class="o">&lt;</span><span class="n">D</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">bc_flds</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">BoundaryFields</span><span class="o">&lt;</span><span class="n">D</span><span class="o">&gt;</span><span class="p">{};</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">bc_flds</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div>
+<p>All the coordinate conversions and field staggering is performed automatically, so all specified coordinates are in physical units, while the field values are normalized to <span class="arithmatex">\(B_0\)</span>.</p>
+<p>If the <code>struct</code> does not explicitly define certain components (in the example above, <code>ex2</code>, <code>ex3</code>, <code>bx2</code>, <code>bx3</code> are omitted), the code will not apply any specific boundaries to them. If you wish to damp the fields to zero, you will have to explicitly specify it, e.g.,</p>
+<div class="language-cpp highlight"><pre><span></span><code><span class="w">  </span><span class="c1">// ...</span>
+<span class="w">  </span><span class="n">Inline</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">ex2</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">coord_t</span><span class="o">&lt;</span><span class="n">D</span><span class="o">&gt;&amp;</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">real_t</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">ZERO</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Matching boundaries in different directions</p>
+<p>You might need to have separate matching boundaries (i.e., fields being matched to different values) in different directions. For example, you may have one set of BCs in <span class="arithmatex">\(\pm x\)</span>, while completely different conditions in <span class="arithmatex">\(\pm y\)</span>. This can be achieved by specifying separately <code>MatchFieldsInX1</code> (for <span class="arithmatex">\(\pm x\)</span>) and <code>MatchFieldsInX2</code> (in <span class="arithmatex">\(\pm y\)</span>) instead of <code>MatchFields</code>. The function will still take time as the argument and return a class defining BCs in each distinct direction.</p>
+</div>
+<h3 id="fixed-field-boundaries">Fixed field boundaries<a class="headerlink" href="#fixed-field-boundaries" title="Permanent link">&para;</a></h3>
+<p><a href="https://github.com/entity-toolkit/entity/pull/69">
+  <span class="since-version">1.2.0</span>
+</a></p>
+<p>With <code>FIXED</code> boundary conditions you can explicitly set the field components at the boundary cells to a given predefined value. For this you need to define a method <code>FixFieldsConst(const bc_in&amp;, const em&amp; comp)</code> which should return a pair of the value you want to set, and a bool if the component should be set or not.</p>
+<p>In this example, the <span class="arithmatex">\(E^2\)</span>, and <span class="arithmatex">\(E^3\)</span> components are set to zero in the boundary, while all the other components remain untouched:</p>
+<div class="language-c++ highlight"><pre><span></span><code><span class="c1">// ...</span>
+
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="n">SimEngine</span><span class="o">::</span><span class="n">type</span><span class="w"> </span><span class="n">S</span><span class="p">,</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">M</span><span class="o">&gt;</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">PGen</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">arch</span><span class="o">::</span><span class="n">ProblemGenerator</span><span class="o">&lt;</span><span class="n">S</span><span class="p">,</span><span class="w"> </span><span class="n">M</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="c1">// ...</span>
+
+<span class="w">  </span><span class="c1">// This function is called within the BC kernel</span>
+<span class="w">  </span><span class="c1">// the first element in the pair ...</span>
+<span class="w">  </span><span class="c1">// ... determines the value to which the component is set</span>
+<span class="w">  </span><span class="c1">// while the second bool component ...</span>
+<span class="w">  </span><span class="c1">// ... determines whether that component is updated at all</span>
+<span class="w">  </span><span class="c1">// ... i.e., if bool is false, the first component is simply ignored</span>
+<span class="w">  </span><span class="k">auto</span><span class="w"> </span><span class="n">FixFieldsConst</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">bc_in</span><span class="o">&amp;</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">em</span><span class="o">&amp;</span><span class="w"> </span><span class="n">comp</span><span class="p">)</span><span class="w"> </span><span class="k">const</span>
+<span class="w">      </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">pair</span><span class="o">&lt;</span><span class="n">real_t</span><span class="p">,</span><span class="w"> </span><span class="kt">bool</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">comp</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">em</span><span class="o">::</span><span class="n">ex2</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">ZERO</span><span class="p">,</span><span class="w"> </span><span class="nb">true</span><span class="w"> </span><span class="p">};</span>
+<span class="w">      </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">comp</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">em</span><span class="o">::</span><span class="n">ex3</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">ZERO</span><span class="p">,</span><span class="w"> </span><span class="nb">true</span><span class="w"> </span><span class="p">};</span>
+<span class="w">      </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">ZERO</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="w"> </span><span class="p">};</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div>
+<div class="admonition hint">
+<p class="admonition-title">Changing BCs at runtime</p>
+<p>One can change the boundary conditions at runtime by directly accessing the global metadomain, for example, in the <code>CustomPostStep</code> routine. Below is an example of how to do that (chaging boundaries to <code>MATCH</code> for fields and <code>ABSORB</code> for particles in <span class="arithmatex">\(\pm x\)</span> and <span class="arithmatex">\(\pm y\)</span> at a certain time):
+<div class="language-c++ highlight"><pre><span></span><code><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="n">SimEngine</span><span class="o">::</span><span class="n">type</span><span class="w"> </span><span class="n">S</span><span class="p">,</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">M</span><span class="o">&gt;</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">PGen</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">arch</span><span class="o">::</span><span class="n">ProblemGenerator</span><span class="o">&lt;</span><span class="n">S</span><span class="p">,</span><span class="w"> </span><span class="n">M</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="c1">// ...</span>
+<span class="w">  </span><span class="n">Metadomain</span><span class="o">&lt;</span><span class="n">S</span><span class="p">,</span><span class="w"> </span><span class="n">M</span><span class="o">&gt;&amp;</span><span class="w"> </span><span class="n">metadomain</span><span class="p">;</span>
+<span class="w">  </span><span class="kt">bool</span><span class="w"> </span><span class="n">bc_opened</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nb">false</span><span class="w"> </span><span class="p">};</span>
+<span class="w">  </span><span class="c1">// ...</span>
+<span class="w">  </span><span class="kr">inline</span><span class="w"> </span><span class="n">PGen</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">SimulationParams</span><span class="o">&amp;</span><span class="w"> </span><span class="n">p</span><span class="p">,</span><span class="w"> </span><span class="n">Metadomain</span><span class="o">&lt;</span><span class="n">S</span><span class="p">,</span><span class="w"> </span><span class="n">M</span><span class="o">&gt;&amp;</span><span class="w"> </span><span class="n">m</span><span class="p">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span>
+<span class="w">    </span><span class="o">:</span><span class="w"> </span><span class="n">arch</span><span class="o">::</span><span class="n">ProblemGenerator</span><span class="o">&lt;</span><span class="n">S</span><span class="p">,</span><span class="w"> </span><span class="n">M</span><span class="o">&gt;</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+<span class="w">    </span><span class="p">,</span><span class="w"> </span><span class="n">metadomain</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">m</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">{}</span>
+
+<span class="w">  </span><span class="kt">void</span><span class="w"> </span><span class="n">CustomPostStep</span><span class="p">(</span><span class="n">timestep_t</span><span class="p">,</span><span class="w"> </span><span class="n">simtime_t</span><span class="w"> </span><span class="n">time</span><span class="p">,</span><span class="w"> </span><span class="n">Domain</span><span class="o">&lt;</span><span class="n">S</span><span class="p">,</span><span class="w"> </span><span class="n">M</span><span class="o">&gt;&amp;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">((</span><span class="n">time</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">t_open</span><span class="p">)</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="p">(</span><span class="k">not</span><span class="w"> </span><span class="n">bc_opened</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="c1">// (1)!</span>
+<span class="w">      </span><span class="n">bc_opened</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
+<span class="w">      </span><span class="n">metadomain</span><span class="p">.</span><span class="n">setFldsBC</span><span class="p">(</span><span class="n">bc_in</span><span class="o">::</span><span class="n">Mx1</span><span class="p">,</span><span class="w"> </span><span class="n">FldsBC</span><span class="o">::</span><span class="n">MATCH</span><span class="p">);</span><span class="w"> </span><span class="c1">// (2)!</span>
+<span class="w">      </span><span class="n">metadomain</span><span class="p">.</span><span class="n">setPrtlBC</span><span class="p">(</span><span class="n">bc_in</span><span class="o">::</span><span class="n">Mx1</span><span class="p">,</span><span class="w"> </span><span class="n">PrtlBC</span><span class="o">::</span><span class="n">ABSORB</span><span class="p">);</span>
+<span class="w">      </span><span class="n">metadomain</span><span class="p">.</span><span class="n">setFldsBC</span><span class="p">(</span><span class="n">bc_in</span><span class="o">::</span><span class="n">Px1</span><span class="p">,</span><span class="w"> </span><span class="n">FldsBC</span><span class="o">::</span><span class="n">MATCH</span><span class="p">);</span>
+<span class="w">      </span><span class="n">metadomain</span><span class="p">.</span><span class="n">setPrtlBC</span><span class="p">(</span><span class="n">bc_in</span><span class="o">::</span><span class="n">Px1</span><span class="p">,</span><span class="w"> </span><span class="n">PrtlBC</span><span class="o">::</span><span class="n">ABSORB</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="c1">// ...</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div></p>
+<ol>
+<li>check if not already opened &amp; open after certain time</li>
+<li>first argument is the direction in which to change the boundary; <code>M</code>/<code>P</code> stand for minus/plus</li>
+</ol>
+</div>
+<h2 id="custom-post-timestep-routines">Custom post-timestep routines<a class="headerlink" href="#custom-post-timestep-routines" title="Permanent link">&para;</a></h2>
+<p>Often times, one needs to intervene to the simulation process to perform some custom operations by updating the fields or the particles (for instance, to apply special boundary conditions, inject particles etc.). The safest way of performing this is at the end of each timestep, when all the quantities have already been computed and stored. For that, Entity allows users to define another special method in the problem generator called <code>CustomPostStep</code>. It accepts the current timestep, the current physical time, and the local subdomain as a parameter. For instance, to inject particles at a given rate, one can write:</p>
+<div class="language-c++ highlight"><pre><span></span><code><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="n">SimEngine</span><span class="o">::</span><span class="n">type</span><span class="w"> </span><span class="n">S</span><span class="p">,</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">M</span><span class="o">&gt;</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">PGen</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">arch</span><span class="o">::</span><span class="n">ProblemGenerator</span><span class="o">&lt;</span><span class="n">S</span><span class="p">,</span><span class="w"> </span><span class="n">M</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="c1">// ... </span>
+
+<span class="w">  </span><span class="kt">void</span><span class="w"> </span><span class="nf">CustomPostStep</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span><span class="p">,</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="kt">double</span><span class="p">,</span><span class="w"> </span><span class="n">Domain</span><span class="o">&lt;</span><span class="n">S</span><span class="p">,</span><span class="w"> </span><span class="n">M</span><span class="o">&gt;&amp;</span><span class="w"> </span><span class="n">domain</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// ... some energy/spatial distribution &amp; injector here (see above) ...</span>
+<span class="w">    </span><span class="n">arch</span><span class="o">::</span><span class="n">InjectNonUniform</span><span class="o">&lt;</span><span class="n">S</span><span class="p">,</span><span class="w"> </span><span class="n">M</span><span class="p">,</span><span class="w"> </span><span class="cm">/* ... */</span><span class="o">&gt;</span><span class="p">(</span><span class="w"> </span><span class="cm">/* ... */</span><span class="w"> </span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div>
+<p>Or you may also manually access the fields and particles through the <code>domain.fields</code> and <code>domain.species[...]</code> objects, respectively, and perform any operations you need. Be mindful, however, that all the raw quantities stored within the <code>domain</code> object are in the code units (for more details, see the <a href="../../3-code/4-fields_particles/">fields and particles</a> section; for ways to convert from one system/basis to another, see the <a href="../../3-code/5-metrics/">metric</a> section).</p>
+<h2 id="particle-purging">Particle purging<a class="headerlink" href="#particle-purging" title="Permanent link">&para;</a></h2>
+<p>The custom post-timestep can also be used to purge particles within a given region of the domain. This can be useful to inject fresh plasma in the part of the domain and make sure that the old plasma has been removed before replenishing.</p>
+<div class="admonition warning">
+<p class="admonition-title">Conserving the currents</p>
+<p>Keep in mind that removing charged particles in general will violate charge conservation, unless the <span class="arithmatex">\(E\)</span>-fields are then explicitly forced to obey <span class="arithmatex">\(\nabla\cdot\boldsymbol{E}=4\pi \rho\)</span>. For that reason, in the example below, along with purging particles we will also reset the fields in that region.</p>
+</div>
+<p>Below we use the example from the shock setup to illustrate particle purging routine. Here, all plasma particles that have <span class="arithmatex">\(x&gt;x_{\rm min}\)</span> (denoted <code>xmin</code> in the code) is purged and the fields are reset before new plasma is injected.</p>
+<div class="language-c++ highlight"><pre><span></span><code><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="n">Dimension</span><span class="w"> </span><span class="n">D</span><span class="o">&gt;</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">InitFields</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="cm">/**</span>
+<span class="cm">   * Defines the fields at initialisation</span>
+<span class="cm">  **/</span>
+
+<span class="w">  </span><span class="n">Inline</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">ex1</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">coord_t</span><span class="o">&lt;</span><span class="n">D</span><span class="o">&gt;&amp;</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">real_t</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="cm">/*...*/</span><span class="p">;</span><span class="w"> </span><span class="c1">//(1)!</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="n">Inline</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">bx1</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">coord_t</span><span class="o">&lt;</span><span class="n">D</span><span class="o">&gt;&amp;</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">real_t</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="cm">/*...*/</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">};</span>
+
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="n">SimEngine</span><span class="o">::</span><span class="n">type</span><span class="w"> </span><span class="n">S</span><span class="p">,</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">M</span><span class="o">&gt;</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">PGen</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">arch</span><span class="o">::</span><span class="n">ProblemGenerator</span><span class="o">&lt;</span><span class="n">S</span><span class="p">,</span><span class="w"> </span><span class="n">M</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">InitFields</span><span class="o">&lt;</span><span class="n">D</span><span class="o">&gt;</span><span class="w"> </span><span class="n">init_flds</span><span class="p">;</span>
+
+<span class="w">  </span><span class="kt">void</span><span class="w"> </span><span class="nf">CustomPostStep</span><span class="p">(</span><span class="n">timestep_t</span><span class="w"> </span><span class="n">step</span><span class="p">,</span><span class="w"> </span><span class="n">simtime_t</span><span class="w"> </span><span class="n">time</span><span class="p">,</span><span class="w"> </span><span class="n">Domain</span><span class="o">&lt;</span><span class="n">S</span><span class="p">,</span><span class="w"> </span><span class="n">M</span><span class="o">&gt;&amp;</span><span class="w"> </span><span class="n">domain</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="cm">/**</span>
+<span class="cm">     * tag particles inside the injection zone as dead</span>
+<span class="cm">    **/</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="o">&amp;</span><span class="w"> </span><span class="n">mesh</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">domain</span><span class="p">.</span><span class="n">mesh</span><span class="p">;</span>
+<span class="w">    </span><span class="c1">// loop over particle species</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">auto</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="mi">0u</span><span class="w"> </span><span class="p">};</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">s</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="c1">// get particle properties</span>
+<span class="w">      </span><span class="k">auto</span><span class="o">&amp;</span><span class="w"> </span><span class="n">species</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">domain</span><span class="p">.</span><span class="n">species</span><span class="p">[</span><span class="n">s</span><span class="p">];</span>
+<span class="w">      </span><span class="k">auto</span><span class="w">  </span><span class="n">i1</span><span class="w">      </span><span class="o">=</span><span class="w"> </span><span class="n">species</span><span class="p">.</span><span class="n">i1</span><span class="p">;</span>
+<span class="w">      </span><span class="k">auto</span><span class="w">  </span><span class="n">dx1</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="n">species</span><span class="p">.</span><span class="n">dx1</span><span class="p">;</span>
+<span class="w">      </span><span class="k">auto</span><span class="w">  </span><span class="n">tag</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="n">species</span><span class="p">.</span><span class="n">tag</span><span class="p">;</span><span class="w">  </span>
+
+<span class="w">      </span><span class="n">Kokkos</span><span class="o">::</span><span class="n">parallel_for</span><span class="p">(</span>
+<span class="w">          </span><span class="s">&quot;RemoveParticles&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="n">species</span><span class="p">.</span><span class="n">rangeActiveParticles</span><span class="p">(),</span>
+<span class="w">          </span><span class="n">Lambda</span><span class="p">(</span><span class="n">index_t</span><span class="w"> </span><span class="n">p</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="c1">// check if the particle is already dead</span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">tag</span><span class="p">(</span><span class="n">p</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">ParticleTag</span><span class="o">::</span><span class="n">dead</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">              </span><span class="k">return</span><span class="p">;</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">            </span><span class="c1">// convert particle position to grid coordinates</span>
+<span class="w">            </span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">x_Cd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="n">real_t</span><span class="o">&gt;</span><span class="p">(</span><span class="n">i1</span><span class="p">(</span><span class="n">p</span><span class="p">))</span><span class="w"> </span><span class="o">+</span>
+<span class="w">                              </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="n">real_t</span><span class="o">&gt;</span><span class="p">(</span><span class="n">dx1</span><span class="p">(</span><span class="n">p</span><span class="p">));</span>
+<span class="w">            </span><span class="c1">// convert grid coordinates to physical coordinates</span>
+<span class="w">            </span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">x_Ph</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mesh</span><span class="p">.</span><span class="n">metric</span><span class="p">.</span><span class="k">template</span><span class="w"> </span><span class="n">convert</span><span class="o">&lt;</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">Crd</span><span class="o">::</span><span class="n">Cd</span><span class="p">,</span><span class="w"> </span><span class="n">Crd</span><span class="o">::</span><span class="n">XYZ</span><span class="o">&gt;</span><span class="p">(</span>
+<span class="w">              </span><span class="n">x_Cd</span><span class="p">);</span>
+
+<span class="w">            </span><span class="c1">// if the particle position is to the right of xmin, tag it as dead</span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">x_Ph</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">xmin</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">              </span><span class="n">tag</span><span class="p">(</span><span class="n">p</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ParticleTag</span><span class="o">::</span><span class="n">dead</span><span class="p">;</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">          </span><span class="p">});</span>
+<span class="w">      </span><span class="p">}</span>
+
+<span class="w">    </span><span class="cm">/*</span>
+<span class="cm">      Reset the fields inside the purged region</span>
+<span class="cm">    */</span>
+<span class="w">    </span><span class="c1">// define indices range to reset fields</span>
+<span class="w">    </span><span class="c1">// (not including ghost zones in either direction)</span>
+<span class="w">    </span><span class="n">boundaries_t</span><span class="o">&lt;</span><span class="kt">bool</span><span class="o">&gt;</span><span class="w"> </span><span class="n">incl_ghosts</span><span class="p">;</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">auto</span><span class="w"> </span><span class="n">d</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">d</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">M</span><span class="o">::</span><span class="n">Dim</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">d</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="n">incl_ghosts</span><span class="p">.</span><span class="n">push_back</span><span class="p">({</span><span class="w"> </span><span class="nb">false</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="w"> </span><span class="p">});</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// define the rectangular box region where fields are reset</span>
+<span class="w">    </span><span class="n">boundaries_t</span><span class="o">&lt;</span><span class="n">real_t</span><span class="o">&gt;</span><span class="w"> </span><span class="n">purge_box</span><span class="p">;</span>
+<span class="w">    </span><span class="c1">// loop over all dimension</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">auto</span><span class="w"> </span><span class="n">d</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0u</span><span class="p">;</span><span class="w"> </span><span class="n">d</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">M</span><span class="o">::</span><span class="n">Dim</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">d</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">d</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">purge_box</span><span class="p">.</span><span class="n">push_back</span><span class="p">({</span><span class="w"> </span><span class="n">xmin</span><span class="p">,</span><span class="w"> </span><span class="n">global_xmax</span><span class="w"> </span><span class="p">});</span>
+<span class="w">      </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">purge_box</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">Range</span><span class="o">::</span><span class="n">All</span><span class="p">);</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// convert physical extent to a range of cells</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">extent</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">domain</span><span class="p">.</span><span class="n">mesh</span><span class="p">.</span><span class="n">ExtentToRange</span><span class="p">(</span><span class="n">purge_box</span><span class="p">,</span><span class="w"> </span><span class="n">incl_ghosts</span><span class="p">);</span>
+<span class="w">    </span><span class="c1">// record the range min/max boundaries in each dimension</span>
+<span class="w">    </span><span class="n">tuple_t</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span><span class="p">,</span><span class="w"> </span><span class="n">M</span><span class="o">::</span><span class="n">Dim</span><span class="o">&gt;</span><span class="w"> </span><span class="n">x_min</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">},</span><span class="w"> </span><span class="n">x_max</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">};</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">auto</span><span class="w"> </span><span class="n">d</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">d</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">M</span><span class="o">::</span><span class="n">Dim</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">d</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="n">x_min</span><span class="p">[</span><span class="n">d</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">extent</span><span class="p">[</span><span class="n">d</span><span class="p">].</span><span class="n">first</span><span class="p">;</span>
+<span class="w">      </span><span class="n">x_max</span><span class="p">[</span><span class="n">d</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">extent</span><span class="p">[</span><span class="n">d</span><span class="p">].</span><span class="n">second</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="n">Kokkos</span><span class="o">::</span><span class="n">parallel_for</span><span class="p">(</span><span class="s">&quot;ResetFields&quot;</span><span class="p">,</span>
+<span class="w">                         </span><span class="n">CreateRangePolicy</span><span class="o">&lt;</span><span class="n">M</span><span class="o">::</span><span class="n">Dim</span><span class="o">&gt;</span><span class="p">(</span><span class="n">x_min</span><span class="p">,</span><span class="w"> </span><span class="n">x_max</span><span class="p">),</span>
+<span class="w">                         </span><span class="n">arch</span><span class="o">::</span><span class="n">SetEMFields_kernel</span><span class="o">&lt;</span><span class="k">decltype</span><span class="p">(</span><span class="n">init_flds</span><span class="p">),</span><span class="w"> </span><span class="n">S</span><span class="p">,</span><span class="w"> </span><span class="n">M</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                           </span><span class="n">domain</span><span class="p">.</span><span class="n">fields</span><span class="p">.</span><span class="n">em</span><span class="p">,</span>
+<span class="w">                           </span><span class="n">init_flds</span><span class="p">,</span>
+<span class="w">                           </span><span class="n">domain</span><span class="p">.</span><span class="n">mesh</span><span class="p">.</span><span class="n">metric</span><span class="w"> </span><span class="p">});</span>
+
+<span class="w">  </span><span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div>
+<ol>
+<li>because we essentially remove the particles, the returned E-fields must have zero divergence.</li>
+</ol>
+<h2 id="custom-external-force">Custom external force<a class="headerlink" href="#custom-external-force" title="Permanent link">&para;</a></h2>
+<p>Similar to all the other custom routines, one may also define a custom external force which will optionally be applied to the particles together with the electromagnetic pusher. This is done by defining an arbitrary class with an instance named <code>ext_force</code>, which implements three methods: <code>fx1()</code>, <code>fx2()</code>, <code>fx3()</code>. For instance, to apply a force in the <span class="arithmatex">\(x_1\)</span> direction decaying over time, one would write:</p>
+<div class="language-c++ highlight"><pre><span></span><code><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="n">Dimension</span><span class="w"> </span><span class="n">D</span><span class="o">&gt;</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">PushDaTempo</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="c1">// specify which species to apply the force to</span>
+<span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">short</span><span class="o">&gt;</span><span class="w"> </span><span class="n">species</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="p">};</span>
+
+<span class="w">  </span><span class="n">PushDaTempo</span><span class="p">(</span><span class="n">real_t</span><span class="w"> </span><span class="n">f</span><span class="p">,</span><span class="w"> </span><span class="n">real_t</span><span class="w"> </span><span class="n">t</span><span class="p">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">force</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="p">},</span><span class="w"> </span><span class="n">tau</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">{}</span>
+
+<span class="w">  </span><span class="n">Inline</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">fx1</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">short</span><span class="o">&amp;</span><span class="p">,</span>
+<span class="w">                  </span><span class="k">const</span><span class="w"> </span><span class="n">real_t</span><span class="o">&amp;</span><span class="w"> </span><span class="n">time</span><span class="p">,</span>
+<span class="w">                  </span><span class="k">const</span><span class="w"> </span><span class="n">coord_t</span><span class="o">&lt;</span><span class="n">D</span><span class="o">&gt;&amp;</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">real_t</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">force</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nf">math::exp</span><span class="p">(</span><span class="o">-</span><span class="n">time</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">tau</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="n">Inline</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">fx2</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">short</span><span class="o">&amp;</span><span class="p">,</span>
+<span class="w">                  </span><span class="k">const</span><span class="w"> </span><span class="n">real_t</span><span class="o">&amp;</span><span class="p">,</span>
+<span class="w">                  </span><span class="k">const</span><span class="w"> </span><span class="n">coord_t</span><span class="o">&lt;</span><span class="n">D</span><span class="o">&gt;&amp;</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">real_t</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">ZERO</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="n">Inline</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">fx3</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">short</span><span class="o">&amp;</span><span class="p">,</span>
+<span class="w">                  </span><span class="k">const</span><span class="w"> </span><span class="n">real_t</span><span class="o">&amp;</span><span class="p">,</span>
+<span class="w">                  </span><span class="k">const</span><span class="w"> </span><span class="n">coord_t</span><span class="o">&lt;</span><span class="n">D</span><span class="o">&gt;&amp;</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">real_t</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">ZERO</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="k">private</span><span class="o">:</span>
+<span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="n">real_t</span><span class="w"> </span><span class="n">force</span><span class="p">,</span><span class="w"> </span><span class="n">tau</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="c1">// and then in the problem generator class</span>
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="n">SimEngine</span><span class="o">::</span><span class="n">type</span><span class="w"> </span><span class="n">S</span><span class="p">,</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">M</span><span class="o">&gt;</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">PGen</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">arch</span><span class="o">::</span><span class="n">ProblemGenerator</span><span class="o">&lt;</span><span class="n">S</span><span class="p">,</span><span class="w"> </span><span class="n">M</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="c1">// ...</span>
+<span class="w">  </span><span class="n">PushDaTempo</span><span class="o">&lt;</span><span class="n">S</span><span class="p">,</span><span class="w"> </span><span class="n">M</span><span class="o">&gt;</span><span class="w"> </span><span class="n">ext_force</span><span class="p">;</span>
+<span class="w">  </span><span class="c1">// and read the parameters from the input</span>
+<span class="w">  </span><span class="kr">inline</span><span class="w"> </span><span class="n">PGen</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">SimulationParams</span><span class="o">&amp;</span><span class="w"> </span><span class="n">p</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">Metadomain</span><span class="o">&lt;</span><span class="n">S</span><span class="p">,</span><span class="w"> </span><span class="n">M</span><span class="o">&gt;&amp;</span><span class="w"> </span><span class="n">global_domain</span><span class="p">)</span>
+<span class="w">    </span><span class="o">:</span><span class="w"> </span><span class="n">arch</span><span class="o">::</span><span class="n">ProblemGenerator</span><span class="o">&lt;</span><span class="n">S</span><span class="p">,</span><span class="w"> </span><span class="n">M</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="p">,</span><span class="w"> </span><span class="n">ext_force</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="k">template</span><span class="w"> </span><span class="n">get</span><span class="o">&lt;</span><span class="n">real_t</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;setup.force&quot;</span><span class="p">),</span>
+<span class="w">                  </span><span class="n">p</span><span class="p">.</span><span class="k">template</span><span class="w"> </span><span class="n">get</span><span class="o">&lt;</span><span class="n">real_t</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;setup.tau&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="p">{}</span>
+<span class="p">};</span>
+</code></pre></div>
+<p>Again, as everything else in the problem generator, the force (rather, the acceleration) must be returned in the local tetrad basis and the passed coordinates are the physical coordinates.</p>
+<div class="admonition note">
+<p class="admonition-title">All functions are optional</p>
+<p>Note, that among the functions mentioned throughout this section, you may specify only the ones you actually need, and ignore the ones you don't (i.e., there is no need to provide dummy functions that return zero), as the code will automatically determine at compile-time which functions are present.</p>
+</div>
+<h2 id="custom-external-current">Custom external current<a class="headerlink" href="#custom-external-current" title="Permanent link">&para;</a></h2>
+<p><a href="https://github.com/entity-toolkit/entity/pull/92">
+  <span class="since-version">1.2.0</span>
+</a></p>
+<p>There are specific instances, where one needs to apply a source term to the Ampere's law as additional (external) currents (e.g., driven turbulence). This can easily be achieved by defining an arbitrary class instance called <code>ext_current</code>, which implements 3 methods: <code>jx1()</code>, <code>jx2()</code>, <code>jx3()</code> -- each returning the corresponding external current component in units of <span class="arithmatex">\(j_0\)</span>. For instance, to apply a constant sinusoidal current <span class="arithmatex">\(j_3\)</span> as a function of <span class="arithmatex">\(x_1\)</span>, one could write:</p>
+<div class="language-c++ highlight"><pre><span></span><code><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="n">Dimension</span><span class="w"> </span><span class="n">D</span><span class="o">&gt;</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">ImmaRealLiveWire</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="c1">//(1)!</span>
+<span class="w">  </span><span class="n">ImmaRealLiveWire</span><span class="p">(</span><span class="n">real_t</span><span class="w"> </span><span class="n">amplitude</span><span class="p">,</span><span class="w"> </span><span class="n">real_t</span><span class="w"> </span><span class="n">k</span><span class="p">)</span>
+<span class="w">    </span><span class="o">:</span><span class="w"> </span><span class="n">amp</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">amplitude</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="p">,</span><span class="w"> </span><span class="n">k</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">k</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">{};</span>
+
+<span class="w">  </span><span class="n">Inline</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">jx1</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">coord_t</span><span class="o">&lt;</span><span class="n">D</span><span class="o">&gt;&amp;</span><span class="w"> </span><span class="n">x_Ph</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">real_t</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="n">ZERO</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">  </span><span class="n">Inline</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">jx2</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">coord_t</span><span class="o">&lt;</span><span class="n">D</span><span class="o">&gt;&amp;</span><span class="w"> </span><span class="n">x_Ph</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">real_t</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="n">ZERO</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">  </span><span class="n">Inline</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">jx3</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">coord_t</span><span class="o">&lt;</span><span class="n">D</span><span class="o">&gt;&amp;</span><span class="w"> </span><span class="n">x_Ph</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">real_t</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="n">amp</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nf">math::sin</span><span class="p">(</span><span class="n">k</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">x_Ph</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">  </span><span class="k">private</span><span class="o">:</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">real_t</span><span class="w"> </span><span class="n">amp</span><span class="p">,</span><span class="w"> </span><span class="n">k</span><span class="p">;</span><span class="w"> </span>
+<span class="p">};</span>
+
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="n">SimEngine</span><span class="o">::</span><span class="n">type</span><span class="w"> </span><span class="n">S</span><span class="p">,</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">M</span><span class="o">&gt;</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">PGen</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">arch</span><span class="o">::</span><span class="n">ProblemGenerator</span><span class="o">&lt;</span><span class="n">S</span><span class="p">,</span><span class="w"> </span><span class="n">M</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">ImmaRealLiveWire</span><span class="o">&lt;</span><span class="n">D</span><span class="o">&gt;</span><span class="w"> </span><span class="n">ext_current</span><span class="p">;</span>
+
+<span class="w">  </span><span class="kr">inline</span><span class="w"> </span><span class="n">PGen</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">SimulationParams</span><span class="o">&amp;</span><span class="w"> </span><span class="n">p</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">Metadomain</span><span class="o">&lt;</span><span class="n">S</span><span class="p">,</span><span class="w"> </span><span class="n">M</span><span class="o">&gt;&amp;</span><span class="w"> </span><span class="n">global_domain</span><span class="p">)</span>
+<span class="w">    </span><span class="o">:</span><span class="w"> </span><span class="n">arch</span><span class="o">::</span><span class="n">ProblemGenerator</span><span class="o">&lt;</span><span class="n">S</span><span class="p">,</span><span class="w"> </span><span class="n">M</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="p">,</span><span class="w"> </span><span class="n">ext_current</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="k">template</span><span class="w"> </span><span class="n">get</span><span class="o">&lt;</span><span class="n">real_t</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;setup.amplitude&quot;</span><span class="p">),</span>
+<span class="w">                    </span><span class="n">p</span><span class="p">.</span><span class="k">template</span><span class="w"> </span><span class="n">get</span><span class="o">&lt;</span><span class="n">real_t</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;setup.k&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="c1">//(2)!</span>
+<span class="w">    </span><span class="p">{}</span>
+<span class="p">};</span>
+</code></pre></div>
+<ol>
+<li>
+<p>name of the class is not important, as long as its instance declared in the problem generator class itself is called <code>ext_current</code>.</p>
+</li>
+<li>
+<p>directly initialize the <code>ext_current</code> in the <code>PGen</code> constructor by passing values read from the input.</p>
+</li>
+</ol>
+<p>Keep in mind, that in contrast to the external force, all of the components of the current have to be defined in the structure, even if they return zero. </p>
+<div class="admonition note">
+<p class="admonition-title">External current</p>
+<p>The external current routine is currently only limited to work in Minkowski space. </p>
+</div>
+<h2 id="custom-field-output">Custom field output<a class="headerlink" href="#custom-field-output" title="Permanent link">&para;</a></h2>
+<p>The code also allows for custom-defined fields to be written together with other field quantities during the output. To enable that, simply define the name of your field in the input file:</p>
+<div class="language-toml highlight"><pre><span></span><code><span class="k">[output.fields]</span>
+<span class="w">  </span><span class="p">...</span>
+<span class="w">  </span><span class="n">custom</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;my_field&quot;</span><span class="p">]</span>
+<span class="w">  </span><span class="p">...</span>
+</code></pre></div>
+<p>There can be as many custom fields as one needs. And then in the problem generator, populate the corresponding field by defining the following function:</p>
+<div class="language-c++ highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="n">CustomFieldOutput</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span><span class="w">   </span><span class="n">name</span><span class="p">,</span><span class="c1">//(1)!</span>
+<span class="w">                       </span><span class="n">ndfield_t</span><span class="o">&lt;</span><span class="n">M</span><span class="o">::</span><span class="n">Dim</span><span class="p">,</span><span class="w"> </span><span class="mi">6</span><span class="o">&gt;</span><span class="w"> </span><span class="n">buffer</span><span class="p">,</span><span class="c1">//(2)!</span>
+<span class="w">                       </span><span class="n">index_t</span><span class="w">              </span><span class="n">index</span><span class="p">,</span><span class="c1">//(3)!</span>
+<span class="w">                       </span><span class="n">timestep_t</span><span class="p">,</span><span class="c1">//(4)!</span>
+<span class="w">                       </span><span class="n">simtime_t</span><span class="p">,</span><span class="c1">//(5)!</span>
+<span class="w">                       </span><span class="k">const</span><span class="w"> </span><span class="n">Domain</span><span class="o">&lt;</span><span class="n">S</span><span class="p">,</span><span class="w"> </span><span class="n">M</span><span class="o">&gt;&amp;</span><span class="w">  </span><span class="n">domain</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="c1">//(6)!</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">name</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s">&quot;my_field&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// 1D example (can be easily generalized)</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="k">constexpr</span><span class="w"> </span><span class="p">(</span><span class="n">M</span><span class="o">::</span><span class="n">Dim</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">Dim</span><span class="o">::</span><span class="n">_1D</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="o">&amp;</span><span class="w"> </span><span class="n">EM</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">domain</span><span class="p">.</span><span class="n">fields</span><span class="p">.</span><span class="n">em</span><span class="p">;</span>
+<span class="w">      </span><span class="n">Kokkos</span><span class="o">::</span><span class="n">parallel_for</span><span class="p">(</span>
+<span class="w">        </span><span class="s">&quot;MyField&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="n">domain</span><span class="p">.</span><span class="n">mesh</span><span class="p">.</span><span class="n">rangeActiveCells</span><span class="p">(),</span>
+<span class="w">        </span><span class="n">Lambda</span><span class="p">(</span><span class="n">index_t</span><span class="w"> </span><span class="n">i1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="w">      </span><span class="n">i1_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">COORD</span><span class="p">(</span><span class="n">i1</span><span class="p">);</span>
+<span class="w">          </span><span class="n">coord_t</span><span class="o">&lt;</span><span class="n">M</span><span class="o">::</span><span class="n">Dim</span><span class="o">&gt;</span><span class="w"> </span><span class="n">x_Ph</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">ZERO</span><span class="w"> </span><span class="p">};</span>
+<span class="w">          </span><span class="c1">// convert coordinate to physical basis:</span>
+<span class="w">          </span><span class="n">metric</span><span class="p">.</span><span class="k">template</span><span class="w"> </span><span class="n">convert</span><span class="o">&lt;</span><span class="n">Crd</span><span class="o">::</span><span class="n">Cd</span><span class="p">,</span><span class="w"> </span><span class="n">Crd</span><span class="o">::</span><span class="n">Ph</span><span class="o">&gt;</span><span class="p">({</span><span class="w"> </span><span class="n">i1_</span><span class="w"> </span><span class="p">},</span><span class="w"> </span><span class="n">x_Ph</span><span class="p">);</span>
+<span class="w">          </span><span class="c1">// compute whatever needs to be written</span>
+<span class="w">          </span><span class="c1">// ... may also depend on the EM fields from the `domain`</span>
+<span class="w">          </span><span class="c1">// ... in this example -- output Ex * x^2</span>
+<span class="w">          </span><span class="n">buffer</span><span class="p">(</span><span class="n">i1</span><span class="p">,</span><span class="w"> </span><span class="n">index</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SQR</span><span class="p">(</span><span class="n">x_Ph</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="w"> </span><span class="o">*</span>
+<span class="w">                              </span><span class="n">metric</span><span class="p">.</span><span class="k">template</span><span class="w"> </span><span class="n">transform</span><span class="o">&lt;</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">Idx</span><span class="o">::</span><span class="n">U</span><span class="p">,</span><span class="w"> </span><span class="n">Idx</span><span class="o">::</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(</span>
+<span class="w">                                </span><span class="p">{</span><span class="w"> </span><span class="n">i1_</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">HALF</span><span class="w"> </span><span class="p">},</span>
+<span class="w">                                </span><span class="n">EM</span><span class="p">(</span><span class="n">i1</span><span class="p">,</span><span class="w"> </span><span class="n">em</span><span class="o">::</span><span class="n">ex1</span><span class="p">));</span>
+<span class="w">          </span><span class="c1">// here we also convert Ex1(i + 1/2) to Tetrad basis</span>
+<span class="w">        </span><span class="p">});</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">raise</span><span class="o">::</span><span class="n">Error</span><span class="p">(</span><span class="s">&quot;Custom output not provided&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">HERE</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<ol>
+<li>the same name that went into the input file</li>
+<li>buffer array where the field is going to be written into</li>
+<li>an index of the buffer array where the field is written into</li>
+<li>completed step index</li>
+<li>completed step time in physical units</li>
+<li>reference of the local subdomain</li>
+</ol>
+<p>Alternatively, you can precompute the desired quantity in the <code>CustomPostStep</code> function and then simply copy to the buffer in the same function:</p>
+<div class="language-c++ highlight"><pre><span></span><code><span class="c1">// assuming 2D and that the desired quantity is saved in `cbuff`</span>
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="n">SimEngine</span><span class="o">::</span><span class="n">type</span><span class="w"> </span><span class="n">S</span><span class="p">,</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">M</span><span class="o">&gt;</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">PGen</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">arch</span><span class="o">::</span><span class="n">ProblemGenerator</span><span class="o">&lt;</span><span class="n">S</span><span class="p">,</span><span class="w"> </span><span class="n">M</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="c1">// ...</span>
+
+<span class="w">  </span><span class="n">array_t</span><span class="o">&lt;</span><span class="n">real_t</span><span class="o">**&gt;</span><span class="w"> </span><span class="n">cbuff</span><span class="p">;</span>
+
+<span class="w">  </span><span class="c1">// ...</span>
+
+<span class="w">  </span><span class="kt">void</span><span class="w"> </span><span class="nf">CustomPostStep</span><span class="p">(</span><span class="n">timestep_t</span><span class="w"> </span><span class="n">step</span><span class="p">,</span><span class="w"> </span><span class="n">simtime_t</span><span class="p">,</span><span class="w"> </span><span class="n">Domain</span><span class="o">&lt;</span><span class="n">S</span><span class="p">,</span><span class="w"> </span><span class="n">M</span><span class="o">&gt;&amp;</span><span class="w"> </span><span class="n">domain</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">step</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="c1">// allocate the array at time = 0</span>
+<span class="w">      </span><span class="n">cbuff</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">array_t</span><span class="o">&lt;</span><span class="n">real_t</span><span class="o">**&gt;</span><span class="p">(</span><span class="s">&quot;cbuff&quot;</span><span class="p">,</span>
+<span class="w">                                </span><span class="n">domain</span><span class="p">.</span><span class="n">mesh</span><span class="p">.</span><span class="n">n_all</span><span class="p">(</span><span class="n">in</span><span class="o">::</span><span class="n">x1</span><span class="p">),</span>
+<span class="w">                                </span><span class="n">domain</span><span class="p">.</span><span class="n">mesh</span><span class="p">.</span><span class="n">n_all</span><span class="p">(</span><span class="n">in</span><span class="o">::</span><span class="n">x2</span><span class="p">));</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="c1">// populate the buffer (can be done at specific timesteps)</span>
+<span class="w">    </span><span class="n">Kokkos</span><span class="o">::</span><span class="n">parallel_for</span><span class="p">(</span>
+<span class="w">      </span><span class="s">&quot;FillCbuff&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="n">domain</span><span class="p">.</span><span class="n">mesh</span><span class="p">.</span><span class="n">rangeActiveCells</span><span class="p">(),</span>
+<span class="w">      </span><span class="n">Lambda</span><span class="p">(</span><span class="n">index_t</span><span class="w"> </span><span class="n">i1</span><span class="p">,</span><span class="w"> </span><span class="n">index_t</span><span class="w"> </span><span class="n">i2</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// ...</span>
+<span class="w">      </span><span class="p">});</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="kt">void</span><span class="w"> </span><span class="nf">CustomFieldOutput</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span><span class="w">    </span><span class="n">name</span><span class="p">,</span>
+<span class="w">                         </span><span class="n">ndfield_t</span><span class="o">&lt;</span><span class="n">M</span><span class="o">::</span><span class="n">Dim</span><span class="p">,</span><span class="w"> </span><span class="mi">6</span><span class="o">&gt;</span><span class="w"> </span><span class="n">buffer</span><span class="p">,</span>
+<span class="w">                         </span><span class="n">index_t</span><span class="w">              </span><span class="n">index</span><span class="p">,</span>
+<span class="w">                         </span><span class="n">timestep_t</span><span class="p">,</span>
+<span class="w">                         </span><span class="n">simtime_t</span><span class="p">,</span>
+<span class="w">                         </span><span class="k">const</span><span class="w"> </span><span class="n">Domain</span><span class="o">&lt;</span><span class="n">S</span><span class="p">,</span><span class="w"> </span><span class="n">M</span><span class="o">&gt;&amp;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">name</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s">&quot;my_field&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="n">Kokkos</span><span class="o">::</span><span class="n">deep_copy</span><span class="p">(</span><span class="n">Kokkos</span><span class="o">::</span><span class="n">subview</span><span class="p">(</span><span class="n">buffer</span><span class="p">,</span><span class="w"> </span><span class="n">Kokkos</span><span class="o">::</span><span class="n">ALL</span><span class="p">,</span><span class="w"> </span><span class="n">Kokkos</span><span class="o">::</span><span class="n">ALL</span><span class="p">,</span><span class="w"> </span><span class="n">index</span><span class="p">),</span><span class="w"> </span><span class="n">cbuff</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="c1">// ...</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div>
+<p>Keep in mind that the custom field output is written as-is, i.e., no additional interpolation or transformation is applied. So make sure the quantity you output is covariant (i.e., does not depend on the resolution or the stretching of coordinates; essentially, always output "physical" covariant/contravariant vectors or transform them to the tetrad basis).</p>
+<h2 id="custom-stats">Custom stats<a class="headerlink" href="#custom-stats" title="Permanent link">&para;</a></h2>
+<p>One can also write custom user-defined stats.</p>
+<div class="language-toml highlight"><pre><span></span><code><span class="k">[output.stats]</span>
+<span class="w">  </span><span class="p">...</span>
+<span class="w">  </span><span class="n">custom</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;my_stat&quot;</span><span class="p">]</span>
+<span class="w">  </span><span class="p">...</span>
+</code></pre></div>
+<p>Just like in the case with custom fields, you specify a special function in the problem generator class which has a name <code>CustomStat</code> and returns a single real value:</p>
+<div class="language-c++ highlight"><pre><span></span><code><span class="k">auto</span><span class="w"> </span><span class="n">CustomStat</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span><span class="w">   </span><span class="n">name</span><span class="p">,</span><span class="c1">//(1)!</span>
+<span class="w">                </span><span class="n">timestep_t</span><span class="p">,</span>
+<span class="w">                </span><span class="n">simtime_t</span><span class="p">,</span>
+<span class="w">                </span><span class="k">const</span><span class="w"> </span><span class="n">Domain</span><span class="o">&lt;</span><span class="n">S</span><span class="p">,</span><span class="w"> </span><span class="n">M</span><span class="o">&gt;&amp;</span><span class="w">  </span><span class="n">domain</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">real_t</span><span class="w"> </span><span class="p">{</span><span class="c1">//(2)!</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">name</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s">&quot;my_stat&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mf">42.0</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">raise</span><span class="o">::</span><span class="n">Error</span><span class="p">(</span><span class="s">&quot;Custom stat not provided&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">HERE</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Reduction from all meshblocks of the custom stat is done automatically (the values are summed).</p>
+<ol>
+<li>the same name that went into the input file</li>
+<li>reference of the local subdomain</li>
+</ol>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+  
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2021++, Entity dev team
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/entity-toolkit/entity/" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M216.29 158.39H137C97 147.9 6.51 150.63 6.51 233.18c0 30.09 15 51.23 35 61-25.1 23-37 33.85-37 49.21 0 11 4.47 21.14 17.89 26.81C8.13 383.61 0 393.35 0 411.65c0 32.11 28.05 50.82 101.63 50.82 70.75 0 111.79-26.42 111.79-73.18 0-58.66-45.16-56.5-151.63-63l13.43-21.55c27.27 7.58 118.7 10 118.7-67.89 0-18.7-7.73-31.71-15-41.07l37.41-2.84zm-63.42 241.9c0 32.06-104.89 32.1-104.89 2.43 0-8.14 5.27-15 10.57-21.54 77.71 5.3 94.32 3.37 94.32 19.11m-50.81-134.58c-52.8 0-50.46-71.16 1.2-71.16 49.54 0 50.82 71.16-1.2 71.16m133.3 100.51v-32.1c26.75-3.66 27.24-2 27.24-11V203.61c0-8.5-2.05-7.38-27.24-16.26l4.47-32.92H324v168.71c0 6.51.4 7.32 6.51 8.14l20.73 2.84v32.1zm52.45-244.31c-23.17 0-36.59-13.43-36.59-36.61s13.42-35.77 36.59-35.77c23.58 0 37 12.62 37 35.77s-13.42 36.61-37 36.61M512 350.46c-17.49 8.53-43.1 16.26-66.28 16.26-48.38 0-66.67-19.5-66.67-65.46V194.75c0-5.42 1.05-4.06-31.71-4.06V154.5c35.78-4.07 50-22 54.47-66.27h38.63c0 65.83-1.34 61.81 3.26 61.81H501v40.65h-60.56v97.15c0 6.92-4.92 51.41 60.57 26.84z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tracking", "navigation.indexes", "navigation.expand", "content.code.annotate", "content.code.copy", "content.tooltips", "header.autohide", "search.highlight"], "search": "../../../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.13a4f30d.min.js"></script>
+      
+    
+  </body>
+</html>

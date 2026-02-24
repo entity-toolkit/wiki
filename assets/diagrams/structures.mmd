@@ -1,0 +1,37 @@
+classDiagram
+  direction TB
+  class Metadomain~SimEngine, class~ {
+    see metadomain...*
+  }
+  class Domain~SimEngine, class~ {
+    see domain...*
+  }
+  class Mesh~class~ {
+    see mesh...*
+  }
+  class Grid~Dimension~ {
+    see grid...*
+  }
+  class MetricBase~Dimension~ {
+    see metrics...*
+  }
+  class ParticleSpecies {
+    see species...*
+  }
+  class Particles~Dimension, Coord~ {
+    see particles...*
+  }
+  class Fields~Dimension, SimEngine~ {
+    see fields...*
+  }
+
+  Domain --* Mesh : contains
+  Grid <|-- Mesh : inherits
+  Mesh --* MetricBase : contains
+  Metadomain --* Domain : contains many
+  Metadomain --* Mesh : contains
+  Domain --* Fields : contains
+  Domain --* Particles : contains many
+  ParticleSpecies <|-- Particles : inherits
+  Mesh --* MetricBase : contains
+

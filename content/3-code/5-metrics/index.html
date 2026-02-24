@@ -1,0 +1,2088 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://entity-toolkit.github.io/wiki/content/3-code/5-metrics/">
+      
+      
+        <link rel="prev" href="../4-fields_particles/">
+      
+      
+        <link rel="next" href="../6-higherorder/">
+      
+      
+      <link rel="icon" href="../../../assets/logo.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.14">
+    
+    
+      
+        <title>Metrics - Entity: wiki</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.342714a4.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+  
+  
+  
+  
+  <style>:root{--md-annotation-icon:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M12%2020c-4.41%200-8-3.59-8-8s3.59-8%208-8%208%203.59%208%208-3.59%208-8%208m0-18A10%2010%200%200%200%202%2012a10%2010%200%200%200%2010%2010%2010%2010%200%200%200%2010-10A10%2010%200%200%200%2012%202m1%205h-2v4H7v2h4v4h2v-4h4v-2h-4z%22/%3E%3C/svg%3E');}</style>
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=DM+Sans:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"DM Sans";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../css/style.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  
+  
+  <link rel="stylesheet" href="../../../js/vendor/katex/katex.min.css">
+  <script src="../../../js/vendor/katex/katex.min.js"></script>
+  <script src="../../../js/vendor/katex/contrib/auto-render.min.js"></script>
+  <script src="../../../js/hooks/katex.js" defer></script>
+  
+  
+    
+      
+        <script src="../../../js/vendor/mermaid.min.js"></script>
+        <script src="../../../js/hooks/mermaid.js" defer></script>
+      
+    
+      
+        <script src="../../../js/vendor/d3.min.js"></script>
+        <script src="../../../js/hooks/d3.js" defer></script>
+      
+    
+      
+        <link rel="stylesheet" href="../../../css/extra/tikzjax/fonts.css">
+        <script src="../../../js/extra/tikzjax/tikzjax.js"></script>
+      
+    
+  
+  
+  
+    
+      <script type="module" src="../../../js/scripts/coord-stretching.js"></script>
+    
+  
+
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="ntt-light" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#metrics" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Entity: wiki" class="md-header__button md-logo" aria-label="Entity: wiki" data-md-component="logo">
+      
+  <img src="../../../assets/logo.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Entity: wiki
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Metrics
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="ntt-light" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7M9 21a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-1H9z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="ntt-dark" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7M9 21v-1h6v1a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1m3-17a5 5 0 0 0-5 5c0 2.05 1.23 3.81 3 4.58V16h4v-2.42c1.77-.77 3-2.53 3-4.58a5 5 0 0 0-5-5"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/entity-toolkit/entity" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M23.546 10.93 13.067.452a1.55 1.55 0 0 0-2.188 0L8.708 2.627l2.76 2.76a1.838 1.838 0 0 1 2.327 2.341l2.658 2.66a1.838 1.838 0 0 1 1.9 3.039 1.837 1.837 0 0 1-2.6 0 1.85 1.85 0 0 1-.404-1.996L12.86 8.955v6.525c.176.086.342.203.488.348a1.85 1.85 0 0 1 0 2.6 1.844 1.844 0 0 1-2.609 0 1.834 1.834 0 0 1 0-2.598c.182-.18.387-.316.605-.406V8.835a1.834 1.834 0 0 1-.996-2.41L7.636 3.7.45 10.881c-.6.605-.6 1.584 0 2.189l10.48 10.477a1.545 1.545 0 0 0 2.186 0l10.43-10.43a1.544 1.544 0 0 0 0-2.187"/></svg>
+  </div>
+  <div class="md-source__repository">
+    entity
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Entity: wiki" class="md-nav__button md-logo" aria-label="Entity: wiki" data-md-component="logo">
+      
+  <img src="../../../assets/logo.svg" alt="logo">
+
+    </a>
+    Entity: wiki
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/entity-toolkit/entity" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M23.546 10.93 13.067.452a1.55 1.55 0 0 0-2.188 0L8.708 2.627l2.76 2.76a1.838 1.838 0 0 1 2.327 2.341l2.658 2.66a1.838 1.838 0 0 1 1.9 3.039 1.837 1.837 0 0 1-2.6 0 1.85 1.85 0 0 1-.404-1.996L12.86 8.955v6.525c.176.086.342.203.488.348a1.85 1.85 0 0 1 0 2.6 1.844 1.844 0 0 1-2.609 0 1.834 1.834 0 0 1 0-2.598c.182-.18.387-.316.605-.406V8.835a1.834 1.834 0 0 1-.996-2.41L7.636 3.7.45 10.881c-.6.605-.6 1.584 0 2.189l10.48 10.477a1.545 1.545 0 0 0 2.186 0l10.43-10.43a1.544 1.544 0 0 0 0-2.187"/></svg>
+  </div>
+  <div class="md-source__repository">
+    entity
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Getting Started
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Getting Started
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-getting-started/1-compile-run/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Compiling/running
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-getting-started/2-dependencies/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Dependencies
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-getting-started/3-inputfile/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Input parameters
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-getting-started/8-docker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Docker containers
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    How-To
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            How-To
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-howto/1-problem_generators/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Problem generators
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-howto/2-vis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Output &amp; visualization
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-howto/3-units/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Understanding the units
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-howto/4-checkpoints/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Writing checkpoints &amp; restarting
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-howto/5-docs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Editing the documentation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-howto/6-guidelines/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Code guidelines
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-howto/7-faq/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    F.A.Q.
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Understanding the Code
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Understanding the Code
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1-pic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    PIC Algorithm
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2-hierarchy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Hierarchy of structures
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3-domains/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Metadomain, subdomains and meshes
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../4-fields_particles/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Fields and particles
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Metrics
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Metrics
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#coordinate-systems-and-bases" class="md-nav__link">
+    <span class="md-ellipsis">
+      Coordinate systems and bases
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#metric-classes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Metric classes
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      Methods
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#metric-structure-and-hierarchy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Metric structure and hierarchy
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../6-higherorder/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Higher order methods
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Useful Things
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Useful Things
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../useful/costtool/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Simulation cost estimator
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../useful/cluster-setups/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Cluster setups
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Theory
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../useful/float-comparison/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Floating point comparison
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../useful/theory_pic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory behind PIC
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../useful/ks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Kerr metric
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Fun
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Fun
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../fun/pushers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Particle pushers
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../fun/coords/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Axisymmetric coordinates
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../fun/cubed_sphere/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Cubed-sphere geometry
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../fun/particle-shapes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    2D particle shapes
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Events
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            Events
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../events/sceecs2024/instructions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    SCEECS Summer School 2024
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#coordinate-systems-and-bases" class="md-nav__link">
+    <span class="md-ellipsis">
+      Coordinate systems and bases
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#metric-classes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Metric classes
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      Methods
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#metric-structure-and-hierarchy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Metric structure and hierarchy
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+  
+
+
+
+  
+  
+
+
+<h1 id="metrics">Metrics<a class="headerlink" href="#metrics" title="Permanent link">&para;</a></h1>
+<div class="admonition abstract">
+<p class="admonition-title">Relevant headers</p>
+<ul>
+<li><code>metrics/metric_base.h</code></li>
+<li><code>metrics/minkowski.h</code></li>
+<li><code>metrics/spherical.h</code></li>
+<li><code>metrics/qspherical.h</code></li>
+<li><code>metrics/kerr_schild.h</code></li>
+<li><code>metrics/qkerr_schild.h</code></li>
+<li><code>metrics/kerr_schild_0.h</code></li>
+</ul>
+</div>
+<p>Metrics are key objects of the Entity framework. Superimposed on the discretized mesh, they define the spacetime geometry of the simulation and provide necessary functions for converting coordinates and transforming vectors from one basis to another.</p>
+<h2 id="coordinate-systems-and-bases">Coordinate systems and bases<a class="headerlink" href="#coordinate-systems-and-bases" title="Permanent link">&para;</a></h2>
+<p>To understand how metrics are implemented in Entity, one must first understand the different coordinate systems and bases the Entity works with. For each metric, there are two or three levels of coordinates.</p>
+<ul>
+<li><strong>Physical</strong>, <span class="arithmatex">\(x^I\)</span>: this is the coordinate system in which the metric is originally defined (e.g., for Kerr-Schild -- it's spherical, for Minkowski -- Cartesian).</li>
+<li><strong>Linear</strong>: this is the coordinate system in which the grid discretization is uniform. It is often stretched or squeezed w.r.t. the original physical (e.g., for Q-Kerr-Schild -- it's quasi-spherical, for Kerr-Schild -- it's the same as the physical);</li>
+<li><strong>Code-unit</strong>, <span class="arithmatex">\(x^i\)</span>: finally, this is the coordinate system the code works with; it takes the linear coordinate system and remaps it to the interval of <span class="arithmatex">\([0, n_i)\)</span>, where <span class="arithmatex">\(n_i\)</span> is the number of grid points in the <span class="arithmatex">\(i\)</span>-th direction on the given domain.</li>
+</ul>
+<div class="admonition example">
+<p class="admonition-title">Qspherical coordinates</p>
+<p>All qspherical metrics (<code>QSpherical</code>, <code>QKerrSchild</code>) take spherical coordinates as their base <span class="arithmatex">\((r,\theta,\phi)\)</span>, then <a href="../../fun/coords/">stretch them to quasi-spherical coordinates</a> <span class="arithmatex">\((\xi,\eta,\phi)\)</span>, and finally map them to code-unit coordinates <span class="arithmatex">\((x^1,x^2,x^3)\)</span>.</p>
+<div class="arithmatex">\[
+\begin{CD}
+ (r,\theta,\phi) @&gt;\text{stretch}&gt;&gt; (\xi,\eta,\phi) @&gt;\text{map}&gt;&gt; (x^1,x^2,x^3)
+\end{CD}
+\]</div>
+<p>where stretching is done via <span class="arithmatex">\(\xi=\log{(r-r_0)}\)</span>, <span class="arithmatex">\(\theta = x_2 + 2h \eta (\pi - 2 \eta) (\pi - \eta) / \pi^2\)</span> (<span class="arithmatex">\(\eta\)</span> set implicitly), and mapping -- via <span class="arithmatex">\(x^1 = (\xi - \xi_{\rm min})/n_1\)</span>, etc.</p>
+<p>The diagram below demonstrates the stretching of the quasi-spherical coordinates in the <span class="arithmatex">\(\xi\)</span> direction, and how that maps to both the physical and code-unit coordinates. Here we stretch <span class="arithmatex">\(r=[1, 90)\)</span> logarithmically <span class="arithmatex">\(\xi=\ln{r}\)</span>, and map it to <span class="arithmatex">\(x^1=[0, 18)\)</span> which coincides with our discretization. The result is a non-uniformly discretized grid with more cells focused towards the origin.</p>
+<p><div class="d3-diagram" id="plot-coord-stretch"></div></p>
+</div>
+<p>Vectors in Entity can also be defined in different bases. We typically define covariant and contravariant vectors in code-, <span class="arithmatex">\(x^i\)</span>, and physical-, <span class="arithmatex">\(x^I\)</span>, generally non-orthonormal coordinates: <span class="arithmatex">\(u_i\)</span>, <span class="arithmatex">\(u^i\)</span>, and <span class="arithmatex">\(u_I\)</span>, <span class="arithmatex">\(u^I\)</span>. We can also define a locally-flat orthonormal basis, <span class="arithmatex">\(u_{\hat{i}}\equiv u^{\hat{i}}\equiv u^{\hat{I}}\equiv u_{\hat{I}}\)</span>, also called the tetrad basis. For special-relativistic metrics, tetrad basis is exactly the same in all points of space, and is thus global. For general-relativistic metrics, the tetrad basis is defined locally, and is different in each point of space.</p>
+<h2 id="metric-classes">Metric classes<a class="headerlink" href="#metric-classes" title="Permanent link">&para;</a></h2>
+<p>Each metric has a number of distinct attributes. These are:</p>
+<ul>
+<li><code>D</code>: the dimensionality of the metric:<ul>
+<li><code>Dim::_1D</code>, <code>Dim::_2D</code>, <code>Dim::_3D</code></li>
+</ul>
+</li>
+<li><code>Label</code>: a string that identifies the metric;</li>
+<li><code>CoordType</code>: the type of coordinates used in the metric;<ul>
+<li><code>Coord::Cart</code>, <code>Coord::Sph</code>, <code>Coord::Qsph</code></li>
+</ul>
+</li>
+<li>
+<p class="annotate"><code>PrtlDim</code>: the dimensionality of the particle coordinates. <code>PrtlDim == Dim::_3D</code> for SR spherical metrics, and <code>== D</code> otherwise; (1) </p>
+<ol>
+<li><img alt="🙋‍♂️" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/1f64b-200d-2642-fe0f.svg" title=":man_raising_hand:" /> In 2D axisymmetric SR simulations, particles carry all three coordinates to recover their full Cartesian position, and transform fields to/from the global Cartesian basis.</li>
+</ol>
+</li>
+</ul>
+<h2 id="methods">Methods<a class="headerlink" href="#methods" title="Permanent link">&para;</a></h2>
+<table> 
+  <tr>
+    <th>method</th>
+    <th>description</th>
+    <th>arguments</th>
+    <th>returns</th>
+  </tr>
+  <tr>
+    <td><code>h_<i, j></code></td>
+    <td>metric components $h_{ij}$</td>
+    <td><code>coord_t&lt;D&gt; x_C</code></td>
+    <td><code>real_t</code></td>
+  </tr>
+  <tr class="tr-gr2">
+    <td><code>h<i, j></code></td>
+    <td>inverse metric components $h^{ij}$</td>
+    <td><code>coord_t&lt;D&gt; x_C</code></td>
+    <td><code>real_t</code></td>
+  </tr>
+  <tr class="tr-gr2">
+    <td><code>alpha</code></td>
+    <td>lapse function $\alpha$</td>
+    <td><code>coord_t&lt;D&gt; x_C</code></td>
+    <td><code>real_t</code></td>
+  </tr>
+  <tr class="tr-gr2">
+    <td><code>beta1</code></td>
+    <td>shift vector component $\beta^1$</td>
+    <td><code>coord_t&lt;D&gt; x_C</code></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td><code>sqrt_det_h</code></td>
+    <td>$\sqrt{\det{h_{ij}}}$</td>
+    <td><code>coord_t&lt;D&gt; x_C</code></td>
+    <td><code>real_t</code></td>
+  </tr>
+  <tr class="tr-gr2">
+    <td><code>sqrt_det_h_tilde</code></td>
+    <td>$\sqrt{\det{h_{ij}}} / \sin{\theta}$</td>
+    <td><code>coord_t&lt;D&gt; x_C</code></td>
+    <td><code>real_t</code></td>
+  </tr>
+  <tr class="tr-gr1">
+    <td><code>sqrt_h_<i, j></code></td>
+    <td>$\sqrt{h_{ij}}$</td>
+    <td><code>coord_t&lt;D&gt; x_C</code></td>
+    <td><code>real_t</code></td>
+  </tr>
+  <tr class="tr-gr3">
+    <td><code>polar_area</code></td>
+    <td>$A_{\theta\phi}$</td>
+    <td><code>real_t x1_C</code></td>
+    <td><code>real_t</code></td>
+  </tr>
+  <tr>
+    <td><code>convert<i, in, out></code></td>
+    <td>converts the $i$-th component of a coordinate to another basis</td>
+    <td><code>real_t</code></td>
+    <td><code>real_t</code></td>
+  </tr>
+  <tr>
+    <td><code>convert<in, out></code></td>
+    <td>converts the full $D$-dimensional coordinate to another basis</td>
+    <td><code>coord_t&lt;D&gt;, &coord_t&lt;D&gt;</code></td>
+    <td></td>
+  </tr>
+  <tr class="tr-gr1">
+    <td><code>convert_xyz<in, out></code></td>
+    <td>explicitly converts to/from a Cartesian basis</td>
+    <td><code>coord_t&lt;PrtlDim&gt;, &coord_t&lt;PrtlDim&gt;</code></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td><code>transform<i, in, out></code></td>
+    <td>transforms the $i$-th component of a vector to another frame</td>
+    <td><code>coord_t&lt;D&gt; x_C, real_t</code></td>
+    <td><code>real_t</code></td>
+  </tr>
+  <tr>
+    <td><code>transform<in, out></code></td>
+    <td>transforms the full $3D$ vector to another frame</td>
+    <td><code>coord_t&lt;D&gt;, vec_t<3D>, &vec_t<3D></code></td>
+    <td></td>
+  </tr>
+  <tr class="tr-gr1">
+    <td><code>transform_xyz<in, out></code></td>
+    <td>explicitly transforms to/from a Cartesian frame</td>
+    <td><code>coord_t&lt;PrtlDim&gt;, vec_t<3D>, &vec_t<3D></code></td>
+    <td></td>
+  </tr>
+</table>
+
+<p><span tr-gr1></span> = only defined for SR metrics</p>
+<p><span tr-gr2></span> = only defined for GR metrics</p>
+<p><span tr-gr3></span> = only defined for spherical metrics</p>
+<p>The <code>in</code> and <code>out</code> template arguments for the <code>convert&lt;&gt;</code> and <code>transform&lt;&gt;</code> functions are, respectively, the coordinate bases (stored as an enum <code>Crd::</code>) and the vector reference frame (stored as enum <code>Idx::</code>). The members of these enums are:</p>
+<table>
+  <tr>
+    <th></th>
+    <th>description</th>
+  </tr>
+  <tr>
+    <td><code>Crd::Cd</code></td>
+    <td>code-unit coordinates: $x^i$</td>
+  </tr>
+  <tr class="tr-gr1">
+    <td><code>Crd::XYZ</code></td>
+    <td>cartesian coordinates: $x^{x}$</td>
+  </tr>
+  <tr>
+    <td><code>Crd::Sph</code></td>
+    <td>spherical coordinates: $x^{r}$</td>
+  </tr>
+  <tr>
+    <td><code>Crd::Ph</code></td>
+    <td>"physical" coordinates: $x^{I}$</td>
+  </tr>
+</table>
+
+<div class="admonition note">
+<p class="admonition-title"><code>Crd::Ph</code></p>
+<p>Depending on the metric, <code>Crd::Ph</code> is equivalent to <code>Crd::XYZ</code> or <code>Crd::Sph</code>. </p>
+</div>
+<table>
+  <tr>
+    <th></th>
+    <th>description</th>
+  </tr>
+  <tr>
+    <td><code>Idx::U</code></td>
+    <td>upper (contravariant) basis (code units): $u^i$</td>
+  </tr>
+  <tr>
+    <td><code>Idx::D</code></td>
+    <td>lower (covariant) basis (code units): $u_i$</td>
+  </tr>
+  <tr>
+    <td><code>Idx::T</code></td>
+    <td>tetrad (orthonormal) basis $u^{\hat{i}} \equiv u_{\hat{i}} \equiv u^{\hat{I}} \equiv u_{\hat{I}}$</td>
+  </tr>
+  <tr class="tr-gr1">
+    <td><code>Idx::XYZ</code></td>
+    <td>global Cartesian basis: $u^{\hat{x}}\equiv u_{\hat{x}}$</td>
+  </tr>
+  <tr class="tr-gr1">
+    <td><code>Idx::Sph</code></td>
+    <td>global spherical basis: $u^{\hat{r}}\equiv u_{\hat{r}}$</td>
+  </tr>
+  <tr>
+    <td><code>Idx::PU</code></td>
+    <td>physical contravariant basis: $u^I$</td>
+  </tr>
+  <tr>
+    <td><code>Idx::PD</code></td>
+    <td>physical covariant basis: $u_I$</td>
+  </tr>
+</table>
+
+<p><span tr-gr1></span> = only possible in SR</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For Cartesian metric, transforming to <code>Idx::T</code> is equivalent to converting to <code>Idx::XYZ</code>, and similarly for the spherical metric, transforming to <code>Idx::T</code> is equivalent to converting to <code>Idx::Sph</code>.</p>
+</div>
+<div class="admonition code">
+<p class="admonition-title">Code</p>
+<p>Metric component <span class="arithmatex">\(1,1\)</span> in the covariant basis, <span class="arithmatex">\(h_{11}\)</span>, can be accessed via in the certain position <code>x_Code</code> in code units by calling (assuming <code>D</code> is the dimension of the metric): 
+<div class="language-c++ highlight"><pre><span></span><code><span class="n">coord_t</span><span class="o">&lt;</span><span class="n">D</span><span class="o">&gt;</span><span class="w"> </span><span class="n">x_Code</span><span class="p">;</span>
+<span class="c1">// define x_Code</span>
+<span class="n">metric</span><span class="p">.</span><span class="k">template</span><span class="w"> </span><span class="n">h_</span><span class="o">&lt;</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="o">&gt;</span><span class="p">(</span><span class="n">x_Code</span><span class="p">)</span>
+</code></pre></div>
+To convert <code>x_Code</code> to physical coordinates:
+<div class="language-c++ highlight"><pre><span></span><code><span class="n">coord_t</span><span class="o">&lt;</span><span class="n">D</span><span class="o">&gt;</span><span class="w"> </span><span class="n">x_Ph</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">ZERO</span><span class="w"> </span><span class="p">};</span><span class="w"> </span><span class="c1">// init with zero so the compiler doesn&#39;t complain</span>
+<span class="n">metric</span><span class="p">.</span><span class="k">template</span><span class="w"> </span><span class="n">convert</span><span class="o">&lt;</span><span class="n">Crd</span><span class="o">::</span><span class="n">Cd</span><span class="p">,</span><span class="w"> </span><span class="n">Crd</span><span class="o">::</span><span class="n">Ph</span><span class="o">&gt;</span><span class="p">(</span><span class="n">x_Code</span><span class="p">,</span><span class="w"> </span><span class="n">x_Ph</span><span class="p">);</span>
+</code></pre></div>
+To transform a vector <code>v_Cov</code> from the covariant basis to the tetrad basis:
+<div class="language-c++ highlight"><pre><span></span><code><span class="n">vec_t</span><span class="o">&lt;</span><span class="n">Dim</span><span class="o">::</span><span class="n">_3D</span><span class="o">&gt;</span><span class="w"> </span><span class="n">v_Cov</span><span class="p">;</span>
+<span class="c1">// define v_Cov</span>
+<span class="n">vec_t</span><span class="o">&lt;</span><span class="n">Dim</span><span class="o">::</span><span class="n">_3D</span><span class="o">&gt;</span><span class="w"> </span><span class="n">v_T</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">ZERO</span><span class="w"> </span><span class="p">};</span>
+<span class="n">metric</span><span class="p">.</span><span class="k">template</span><span class="w"> </span><span class="n">transform</span><span class="o">&lt;</span><span class="n">Idx</span><span class="o">::</span><span class="n">D</span><span class="p">,</span><span class="w"> </span><span class="n">Idx</span><span class="o">::</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">x_Code</span><span class="p">,</span><span class="w"> </span><span class="n">v_Cov</span><span class="p">,</span><span class="w"> </span><span class="n">v_T</span><span class="p">);</span>
+</code></pre></div>
+For SR metrics you can also explicitly convert coordinates and transform vectors to/from the cartesian basis:
+<div class="language-c++ highlight"><pre><span></span><code><span class="n">coord_t</span><span class="o">&lt;</span><span class="n">PrtlDim</span><span class="o">&gt;</span><span class="w"> </span><span class="n">x_Code</span><span class="p">;</span>
+<span class="c1">// define x_Code (notice, that for 2D spherical metrics this will be 3D)</span>
+<span class="n">metric</span><span class="p">.</span><span class="k">template</span><span class="w"> </span><span class="n">convert_xyz</span><span class="o">&lt;</span><span class="n">Crd</span><span class="o">::</span><span class="n">Cd</span><span class="p">,</span><span class="w"> </span><span class="n">Crd</span><span class="o">::</span><span class="n">XYZ</span><span class="o">&gt;</span><span class="p">(</span><span class="n">x_Code</span><span class="p">,</span><span class="w"> </span><span class="n">x_Cart</span><span class="p">);</span>
+
+<span class="n">vec_t</span><span class="o">&lt;</span><span class="n">Dim</span><span class="o">::</span><span class="n">_3D</span><span class="o">&gt;</span><span class="w"> </span><span class="n">v_Cntrv</span><span class="p">;</span>
+<span class="c1">// define v_Cntrv</span>
+<span class="n">vec_t</span><span class="o">&lt;</span><span class="n">Dim</span><span class="o">::</span><span class="n">_3D</span><span class="o">&gt;</span><span class="w"> </span><span class="n">v_XYZ</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">ZERO</span><span class="w"> </span><span class="p">};</span>
+<span class="n">metric</span><span class="p">.</span><span class="k">template</span><span class="w"> </span><span class="n">transform_xyz</span><span class="o">&lt;</span><span class="n">Idx</span><span class="o">::</span><span class="n">U</span><span class="p">,</span><span class="w"> </span><span class="n">Idx</span><span class="o">::</span><span class="n">XYZ</span><span class="o">&gt;</span><span class="p">(</span><span class="n">x_Code</span><span class="p">,</span><span class="w"> </span><span class="n">v_Cntrv</span><span class="p">,</span><span class="w"> </span><span class="n">v_XYZ</span><span class="p">);</span>
+</code></pre></div></p>
+</div>
+<p>Below is a diagram demonstrating all the possible transformations.</p>
+<div class="tikz">
+<script type="text/tikz">
+  \usetikzlibrary{shapes.geometric, arrows, bending}
+  \begin{document}
+  \begin{tikzpicture}[
+      node distance=2cm,
+      node/.style={rectangle, rounded corners, draw=black, fill=gray!20, minimum size=1cm, scale=1.5},
+      arrow/.style={thick,<->,>=stealth},
+      dasharrow/.style={thick,dashed,<->,>=stealth},
+      scale=1.1, transform shape
+  ]
+
+  \node at (0.1, 0) (O) {};
+  \node[node, right of=O, xshift=-0.75cm, yshift=-0.5cm] (A1) {$u^i$: \texttt{Idx::U}};
+  \node[node, right of=A1, xshift=0.5cm, yshift=-2cm] (A2) {$u_i$: \texttt{Idx::D}};
+  \node[node, right of=A2, xshift=2cm] (B2) {$u_I$: \texttt{Idx::PD}};
+  \node[node, right of=B2, xshift=0.5cm, yshift=2cm] (B1) {$u^I$: \texttt{Idx::PU}};
+  \node[node, below of=B2, xshift=-1.75cm, yshift=-1cm] (C) {$u_{\hat{i}}\equiv u^{\hat{i}}\equiv u^{\hat{I}}\equiv u_{\hat{I}}$: \texttt{Idx::T}};
+
+  \draw[arrow] (A1) -- (A2);
+
+  \draw[arrow] (B1) -- (B2);
+
+  \draw[arrow] (A1) to[bend right=30] (C);
+
+  \draw[arrow] (A2) -- (C);
+
+  \draw[arrow] (B1) to[bend left=30] (C);
+
+  \draw[arrow] (B2) -- (C);
+
+  \draw[dasharrow] (A2) -- (B2);
+
+  \draw[dasharrow] (A1) -- (B1);
+
+  \end{tikzpicture}
+
+\end{document}
+</script>
+</div>
+
+<h2 id="metric-structure-and-hierarchy">Metric structure and hierarchy<a class="headerlink" href="#metric-structure-and-hierarchy" title="Permanent link">&para;</a></h2>
+<p>Schematics below shows the structure of the metric classes and their inheritance hierarchy with all the private/public variables and methods.</p>
+<pre class="mermaid-diagram">
+classDiagram
+  direction LR
+  class Mesh~class~ {
+    see mesh...*
+  }
+  class MetricBase~Dimension~ {
+    +bool is_metric$
+    +Dimension Dim$
+    #real_t dx_min
+    #const real_t nx1
+    #const real_t nx2
+    #const real_t nx3
+    #const real_t x1_min
+    #const real_t x1_max
+    #const real_t x2_min
+    #const real_t x2_max
+    #const real_t x3_min
+    #const real_t x3_max
+    +find_dxMin() real_t
+    +totVolume() real_t
+    +dxMin() real_t
+    +set_dxMin(real_t dxmin) void
+  }
+
+  class Minkowski~Dimension~ {
+    -const real_t dx
+    -const real_t dx_inv
+    +const char *       Label$
+    +Dimension PrtlDim$
+    +ntt\:\:Metric MetricType$
+    +ntt\:\:Coord CoordType$
+    +find_dxMin() real_t override
+    +totVolume() real_t override
+    +sqrt_det_h(coord_t~D~ &) Inline auto
+  }
+  class Spherical~Dimension~ {
+    -const real_t dr
+    -const real_t dtheta
+    -const real_t dphi
+    -const real_t dr_inv
+    -const real_t dtheta_inv
+    -const real_t dphi_inv
+    -const bool small_angle
+    +const char *       Label$
+    +Dimension PrtlDim$
+    +ntt\:\:Metric MetricType$
+    +ntt\:\:Coord CoordType$
+    +find_dxMin() real_t override
+    +totVolume() real_t override
+    +sqrt_det_h(coord_t~D~ & x) Inline auto
+    +sqrt_det_h_tilde(coord_t~D~ & x) Inline auto
+    +polar_area(real_t x1) Inline auto
+  }
+  class QSpherical~Dimension~ {
+    -const real_t r0
+    -const real_t h
+    -const real_t chi_min
+    -const real_t eta_min
+    -const real_t phi_min
+    -const real_t dchi
+    -const real_t deta
+    -const real_t dphi
+    -const real_t dchi_inv
+    -const real_t deta_inv
+    -const real_t dphi_inv
+    -const bool small_angle
+    +const char *       Label$
+    +Dimension PrtlDim$
+    +ntt\:\:Metric MetricType$
+    +ntt\:\:Coord CoordType$
+    +find_dxMin() real_t override
+    +totVolume() real_t override
+    +sqrt_det_h(coord_t~D~ & x) Inline auto
+    +sqrt_det_h_tilde(coord_t~D~ & x) Inline auto
+    +polar_area(real_t x1) Inline auto
+    -dtheta_deta(real_t eta) Inline auto
+    -eta2theta(real_t eta) Inline auto
+    -theta2eta(real_t theta) Inline auto
+  }
+  class KerrSchild~Dimension~ {
+    -const real_t a
+    -const real_t rg_
+    -const real_t rh_
+    -const real_t dr
+    -const real_t dtheta
+    -const real_t dphi
+    -const real_t dr_inv
+    -const real_t dtheta_inv
+    -const real_t dphi_inv
+    +const char *       Label$
+    +Dimension PrtlDim$
+    +ntt\:\:Coord CoordType$
+    +ntt\:\:Metric MetricType$
+    -Delta(real_t r) Inline auto
+    -Sigma(real_t r, real_t theta) Inline auto
+    -A(real_t r, real_t theta) Inline auto
+    -z(real_t r, real_t theta) Inline auto
+    +spin() Inline auto
+    +rhorizon() Inline auto
+    +rg() Inline auto
+    +find_dxMin() real_t override
+    +totVolume() real_t override
+    +alpha(coord_t~D~ & x) Inline auto
+    +dr_alpha(coord_t~D~ & x) Inline auto
+    +dt_alpha(coord_t~D~ & x) Inline auto
+    +beta1(coord_t~D~ & x) Inline auto
+    +dr_beta1(coord_t~D~ & x) Inline auto
+    +dt_beta1(coord_t~D~ & x) Inline auto
+    +dr_h11(coord_t~D~ & x) Inline auto
+    +dr_h22(coord_t~D~ & x) Inline auto
+    +dr_h33(coord_t~D~ & x) Inline auto
+    +dr_h13(coord_t~D~ & x) Inline auto
+    +dt_Sigma(real_t theta) Inline auto
+    +dt_A(real_t r, real_t theta) Inline auto
+    +dt_h11(coord_t~D~ & x) Inline auto
+    +dt_h22(coord_t~D~ & x) Inline auto
+    +dt_h33(coord_t~D~ & x) Inline auto
+    +dt_h13(coord_t~D~ & x) Inline auto
+    +sqrt_det_h(coord_t~D~ & x) Inline auto
+    +sqrt_det_h_tilde(coord_t~D~ & x) Inline auto
+    +polar_area(real_t x1) Inline auto
+  }
+  class QKerrSchild~Dimension~ {
+    -const real_t a
+    -const real_t rg_
+    -const real_t rh_
+    -const real_t r0
+    -const real_t h0
+    -const real_t chi_min
+    -const real_t eta_min
+    -const real_t phi_min
+    -const real_t dchi
+    -const real_t deta
+    -const real_t dphi
+    -const real_t dchi_inv
+    -const real_t deta_inv
+    -const real_t dphi_inv
+    +const char *       Label$
+    +Dimension PrtlDim$
+    +ntt\:\:Metric MetricType$
+    +ntt\:\:Coord CoordType$
+    -Delta(real_t r) Inline auto
+    -Sigma(real_t r, real_t theta) Inline auto
+    -A(real_t r, real_t theta) Inline auto
+    -z(real_t r, real_t theta) Inline auto
+    +spin() Inline auto
+    +rhorizon() Inline auto
+    +rg() Inline auto
+    +find_dxMin() real_t override
+    +totVolume() real_t override
+    +alpha(coord_t~D~ & x) Inline auto
+    +dr_alpha(coord_t~D~ & x) Inline auto
+    +dt_alpha(coord_t~D~ & x) Inline auto
+    +beta1(coord_t~D~ & x) Inline auto
+    +dr_beta1(coord_t~D~ & x) Inline auto
+    +dt_beta1(coord_t~D~ & x) Inline auto
+    +dr_h11(coord_t~D~ & x) Inline auto
+    +dr_h22(coord_t~D~ & x) Inline auto
+    +dr_h33(coord_t~D~ & x) Inline auto
+    +dr_h13(coord_t~D~ & x) Inline auto
+    +dt_Sigma(real_t eta) Inline auto
+    +dt_A(real_t r, real_t eta) Inline auto
+    +dt_h11(coord_t~D~ & x) Inline auto
+    +dt_h22(coord_t~D~ & x) Inline auto
+    +dt_h33(coord_t~D~ & x) Inline auto
+    +dt_h13(coord_t~D~ & x) Inline auto
+    +sqrt_det_h(coord_t~D~ & x) Inline auto
+    +sqrt_det_h_tilde(coord_t~D~ & x) Inline auto
+    +polar_area(real_t x1) Inline auto
+    -dtheta_deta(real_t eta) Inline auto
+    -eta2theta(real_t eta) Inline auto
+    -dx_dt(real_t eta) Inline auto
+    -theta2eta(real_t theta) Inline auto
+  }
+  class KerrSchild0~Dimension~ {
+    -const real_t dr
+    -const real_t dtheta
+    -const real_t dphi
+    -const real_t dr_inv
+    -const real_t dtheta_inv
+    -const real_t dphi_inv
+    -const real_t a
+    -const real_t rg_
+    -const real_t rh_
+    +const char * Label$
+    +Dimension PrtlDim$
+    +ntt\:\:Metric MetricType$
+    +ntt\:\:Coord CoordType$
+    +spin() Inline auto
+    +rhorizon() Inline auto
+    +rg() Inline auto
+    +find_dxMin() real_t override
+    +totVolume() real_t override
+    +alpha(coord_t~D~ &) Inline auto
+    +dr_alpha(coord_t~D~ & x) Inline auto
+    +dt_alpha(coord_t~D~ & x) Inline auto
+    +beta1(coord_t~D~ &) Inline auto
+    +dr_beta1(coord_t~D~ & x) Inline auto
+    +dt_beta1(coord_t~D~ & x) Inline auto
+    +dr_h11(coord_t~D~ & x) Inline auto
+    +dr_h22(coord_t~D~ & x) Inline auto
+    +dr_h33(coord_t~D~ & x) Inline auto
+    +dr_h13(coord_t~D~ & x) Inline auto
+    +dt_h11(coord_t~D~ & x) Inline auto
+    +dt_h22(coord_t~D~ & x) Inline auto
+    +dt_h33(coord_t~D~ & x) Inline auto
+    +dt_h13(coord_t~D~ & x) Inline auto
+    +sqrt_det_h(coord_t~D~ & x) Inline auto
+    +sqrt_det_h_tilde(coord_t~D~ & x) Inline auto
+    +polar_area(real_t x1) Inline auto
+  }
+
+  MetricBase <|-- Minkowski : implements
+  MetricBase <|-- Spherical : implements
+  MetricBase <|-- QSpherical : implements
+  MetricBase <|-- KerrSchild : implements
+  MetricBase <|-- QKerrSchild : implements
+  MetricBase <|-- KerrSchild0 : implements
+  Mesh --* MetricBase : contains
+
+  note "+: public\n-: private\n#: protected\nunderline: static constexpr\nitalic: virtual"
+
+</pre>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+  
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2021++, Entity dev team
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/entity-toolkit/entity/" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M216.29 158.39H137C97 147.9 6.51 150.63 6.51 233.18c0 30.09 15 51.23 35 61-25.1 23-37 33.85-37 49.21 0 11 4.47 21.14 17.89 26.81C8.13 383.61 0 393.35 0 411.65c0 32.11 28.05 50.82 101.63 50.82 70.75 0 111.79-26.42 111.79-73.18 0-58.66-45.16-56.5-151.63-63l13.43-21.55c27.27 7.58 118.7 10 118.7-67.89 0-18.7-7.73-31.71-15-41.07l37.41-2.84zm-63.42 241.9c0 32.06-104.89 32.1-104.89 2.43 0-8.14 5.27-15 10.57-21.54 77.71 5.3 94.32 3.37 94.32 19.11m-50.81-134.58c-52.8 0-50.46-71.16 1.2-71.16 49.54 0 50.82 71.16-1.2 71.16m133.3 100.51v-32.1c26.75-3.66 27.24-2 27.24-11V203.61c0-8.5-2.05-7.38-27.24-16.26l4.47-32.92H324v168.71c0 6.51.4 7.32 6.51 8.14l20.73 2.84v32.1zm52.45-244.31c-23.17 0-36.59-13.43-36.59-36.61s13.42-35.77 36.59-35.77c23.58 0 37 12.62 37 35.77s-13.42 36.61-37 36.61M512 350.46c-17.49 8.53-43.1 16.26-66.28 16.26-48.38 0-66.67-19.5-66.67-65.46V194.75c0-5.42 1.05-4.06-31.71-4.06V154.5c35.78-4.07 50-22 54.47-66.27h38.63c0 65.83-1.34 61.81 3.26 61.81H501v40.65h-60.56v97.15c0 6.92-4.92 51.41 60.57 26.84z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tracking", "navigation.indexes", "navigation.expand", "content.code.annotate", "content.code.copy", "content.tooltips", "header.autohide", "search.highlight"], "search": "../../../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.13a4f30d.min.js"></script>
+      
+    
+  </body>
+</html>
