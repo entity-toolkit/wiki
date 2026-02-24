@@ -16,20 +16,43 @@ scripts:
 
 This documentation includes everything you need to know to get started with using and/or contributing to the `Entity toolkit`. If you find bugs or issues, please feel free to add a GitHub issue or submit a pull request. Users with significant contributions to the code will be added to the list of developers, and assigned an emoji of their choice (important).
 
-### Contributors (alphabetical)
+### Contributors
 
-* :guitar: Ludwig Böss {[@LudwigBoess](https://github.com/LudwigBoess)}
-* :eyes: Yangyang Cai {[@StaticObserver](https://github.com/StaticObserver)}
-* :person_tipping_hand: Alexander Chernoglazov {[@SChernoglazov](https://github.com/SChernoglazov)}
-* :tea: Benjamin Crinquand {[@bcrinquand](https://github.com/bcrinquand)}
-* :bubble_tea: Alisa Galishnikova {[@alisagk](https://github.com/alisagk)}
-* :locomotive: Evgeny Gorbunov {[@Alcauchy](https://github.com/Alcauchy)}
-* :coffee: Hayk Hakobyan {[@haykh](https://github.com/haykh)}
-* :potato: Jens Mahlmann {[@jmahlmann](https://github.com/jmahlmann)}
-* :dolphin: Sasha Philippov {[@sashaph](https://github.com/sashaph)}
-* :radio: Siddhant Solanki {[@sidruns30](https://github.com/sidruns30)}
-* :shrug: Arno Vanthieghem {[@vanthieg](https://github.com/vanthieg)}
-* :cat: Muni Zhou {[@munizhou](https://github.com/munizhou)}
+<div class ="contributors">
+  <div class="tagcloud-wrapper">
+    <div class="tagcloud-controls" style="--num-elements: 0">
+      <div class="tagcloud-rotation">
+        <ul class="tagcloud-tags" style="--num-elements: 12">
+          <li class="tagcloud-tag" style="--index: 1"><div><a href="https://github.com/LudwigBoess" target="_blank">🎸 Ludwig Böss</a></div></li>
+          <li class="tagcloud-tag" style="--index: 2"><div><a href="https://github.com/StaticObserver" target="_blank">👀 Yangyang Cai</a></div></li>
+          <li class="tagcloud-tag" style="--index: 3"><div><a href="https://github.com/SChernoglazov" target="_blank">💁 Alexander Chernoglazov</a></div></li>
+          <li class="tagcloud-tag" style="--index: 4"><div><a href="https://github.com/bcrinquand" target="_blank">🍵 Benjamin Crinquand</a></div></li>
+          <li class="tagcloud-tag" style="--index: 5"><div><a href="https://github.com/alisagk" target="_blank">🧋 Alisa Galishnikova</a></div></li>
+          <li class="tagcloud-tag" style="--index: 6"><div><a href="https://github.com/Alcauchy" target="_blank">🚂 Evgeny Gorbunov</a></div></li>
+          <li class="tagcloud-tag" style="--index: 7"><div><a href="https://github.com/haykh" target="_blank">☕ Hayk Hakobyan</a></div></li>
+          <li class="tagcloud-tag" style="--index: 8"><div><a href="https://github.com/jmahlmann" target="_blank">🥔 Jens Mahlmann</a></div></li>
+          <li class="tagcloud-tag" style="--index: 9"><div><a href="https://github.com/sashaph" target="_blank">🐬 Sasha Philippov</a></div></li>
+          <li class="tagcloud-tag" style="--index: 10"><div><a href="https://github.com/sidruns30" target="_blank">📻 Siddhant Solanki</a></div></li>
+          <li class="tagcloud-tag" style="--index: 11"><div><a href="https://github.com/vanthieg" target="_blank">🤷 Arno Vanthieghem</a></div></li>
+          <li class="tagcloud-tag" style="--index: 12"><div><a href="https://github.com/munizhou" target="_blank">🐱 Muni Zhou</a></div></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- * :guitar: Ludwig Böss {[@LudwigBoess](https://github.com/LudwigBoess)} -->
+<!-- * :eyes: Yangyang Cai {[@StaticObserver](https://github.com/StaticObserver)} -->
+<!-- * :person_tipping_hand: Alexander Chernoglazov {[@SChernoglazov](https://github.com/SChernoglazov)} -->
+<!-- * :tea: Benjamin Crinquand {[@bcrinquand](https://github.com/bcrinquand)} -->
+<!-- * :bubble_tea: Alisa Galishnikova {[@alisagk](https://github.com/alisagk)} -->
+<!-- * :locomotive: Evgeny Gorbunov {[@Alcauchy](https://github.com/Alcauchy)} -->
+<!-- * :coffee: Hayk Hakobyan {[@haykh](https://github.com/haykh)} -->
+<!-- * :potato: Jens Mahlmann {[@jmahlmann](https://github.com/jmahlmann)} -->
+<!-- * :dolphin: Sasha Philippov {[@sashaph](https://github.com/sashaph)} -->
+<!-- * :radio: Siddhant Solanki {[@sidruns30](https://github.com/sidruns30)} -->
+<!-- * :shrug: Arno Vanthieghem {[@vanthieg](https://github.com/vanthieg)} -->
+<!-- * :cat: Muni Zhou {[@munizhou](https://github.com/munizhou)} -->
 
 ### Supporting grants
 

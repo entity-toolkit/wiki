@@ -1,0 +1,182 @@
+@use "../colors" as colors;
+
+:root {
+  --tagcloud-transition-duration: 250ms;
+  --tagcloud-transition-ease: ease-out;
+  --tagcloud-animation-duration: 120s;
+  --tagcloud-animation-direction: normal;
+  --tagcloud-animation-play-state: running;
+  --tagcloud-diameter: 32rem;
+  --tagcloud-start-rotation: 54;
+  --tag-diameter: 6rem;
+  --tag-font-size: 0.75rem;
+}
+
+.contributors {
+  margin-top: -4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 748px;
+  overflow: hidden;
+}
+
+.tagcloud-wrapper {
+  --_control-radius: calc(var(--_control-diamater) / 2);
+  --_diameter: var(--tagcloud-diameter);
+  --_radius: calc(calc(var(--_diameter) / 2) - calc(var(--tag-diameter) / 2));
+  width: var(--control-diameter);
+  aspect-ratio: 1 / 1;
+  font-size: var(--tag-font-size);
+}
+
+@media only screen and (max-width: 48rem) {
+  .tagcloud-wrapper {
+    --_diameter: calc(var(--tagcloud-diameter) * 0.88);
+  }
+}
+
+@media only screen and (max-width: 32rem) {
+  .tagcloud-wrapper {
+    --_diameter: calc(var(--tagcloud-diameter) * 0.75);
+  }
+}
+
+.tagcloud-wrapper .tagcloud-tags {
+  position: absolute;
+  width: var(--_diameter);
+  aspect-ratio: 1 / 1;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  list-style-type: none;
+  position: relative;
+  transform-style: inherit;
+  animation: tagcloud-rotation var(--tagcloud-animation-duration) var(--tagcloud-animation-direction) linear infinite var(--tagcloud-animation-play-state);
+}
+
+@keyframes tagcloud-rotation {
+  from {
+    transform: translate(-50%, -50%) rotateX(0deg);
+  }
+
+  to {
+    transform: translate(-50%, -50%) rotateX(360deg);
+  }
+}
+
+.tagcloud-wrapper .tagcloud-tags:has(.tagcloud-tag div a:hover) .tagcloud-tag:not(:has(div a:hover)) {
+  opacity: 0.25;
+}
+
+.tagcloud-wrapper .tagcloud-tag {
+  --_phi: acos(calc(-1 + (2 * var(--index)) / var(--num-elements)));
+  --_theta: calc(sqrt(calc(var(--num-elements) * 3.141592653589793)) * var(--_phi));
+  --_x: calc(cos(var(--_theta)) * sin(var(--_phi)));
+  --_y: calc(sin(var(--_theta)) * sin(var(--_phi)));
+  --_z: calc(cos(var(--_phi)));
+  --_vector-length: sqrt(var(--_x) * var(--_x) + var(--_y) * var(--_y) + var(--_z) * var(--_z));
+  --_normalized-x: calc(var(--_x) / var(--_vector-length));
+  --_normalized-y: calc(var(--_y) / var(--_vector-length));
+  --_normalized-z: calc(var(--_z) / var(--_vector-length));
+  --_scaled-x: calc(var(--_normalized-x) * var(--_radius));
+  --_scaled-y: calc(var(--_normalized-y) * var(--_radius));
+  --_scaled-z: calc(var(--_normalized-z) * var(--_radius));
+  --_final-x: calc(var(--_scaled-x) + var(--_radius));
+  --_final-y: calc(var(--_scaled-y) + var(--_radius));
+  --_final-z: var(--_scaled-z);
+  pointer-events: none;
+  width: var(--tag-diameter);
+  height: var(--tag-diameter);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  transition: opacity var(--tagcloud-transition-duration) var(--tagcloud-transition-ease);
+  transform: translate3d(var(--_final-x), var(--_final-y), var(--_final-z));
+  animation: tagcloud-tag-rotation var(--tagcloud-animation-duration) var(--tagcloud-animation-direction) linear infinite var(--tagcloud-animation-play-state);
+}
+
+@keyframes tagcloud-tag-rotation {
+  from {
+    transform: translate3d(var(--_final-x), var(--_final-y), var(--_final-z)) rotateX(360deg);
+  }
+
+  to {
+    transform: translate3d(var(--_final-x), var(--_final-y), var(--_final-z)) rotateX(0deg);
+  }
+}
+
+.tagcloud-wrapper .tagcloud-tag div {
+  transform: rotateZ(calc(var(--_current-rotation) * -1deg));
+}
+
+.tagcloud-wrapper .tagcloud-tag div a {
+  pointer-events: initial;
+  text-decoration: none;
+
+  @include colors.light-theme {
+    color: var(--col-light-fg);
+  }
+
+  @include colors.dark-theme {
+    color: var(--col-dark-fg);
+  }
+}
+
+.tagcloud-wrapper .tagcloud-controls {
+  width: var(--_control-diamater);
+  aspect-ratio: 1 / 1;
+  position: relative;
+  --_current-rotation: var(--tagcloud-start-rotation);
+  transform-style: inherit;
+}
+
+.tagcloud-wrapper .tagcloud-controls .tagcloud-control-button:has(input:checked)~.tagcloud-rotation {
+  transform: translate(-50%, -50%) rotate(calc(var(--_current-rotation) * 1deg));
+}
+
+.tagcloud-wrapper .tagcloud-controls .tagcloud-control-button:has(input:checked)~.tagcloud-rotation .tagcloud-tags .tagcloud-tag div {
+  transform: rotateZ(calc(var(--_current-rotation) * -1deg));
+}
+
+.tagcloud-wrapper .tagcloud-controls .tagcloud-rotation {
+  position: absolute;
+  width: var(--_diameter);
+  aspect-ratio: 1 / 1;
+  perspective: calc(var(--_diameter) * 3);
+  transform-style: preserve-3d;
+  left: 50%;
+  top: 50%;
+  border-radius: 50%;
+  transform: translate(-50%, -50%) rotate(calc(var(--_current-rotation) * 1deg));
+  transition: transform var(--tagcloud-transition-user-duration) var(--tagcloud-transition-user-ease);
+
+  @include colors.light-theme {
+    $color-from: rgba(colors.$col-light-bg, 0.75);
+    $color-to: rgba(colors.$col-light-bg, 0);
+
+    background: radial-gradient(circle at center,
+      $color-from 15%,
+      $color-to calc(75% - #{var(--tag-diameter)}));
+  }
+
+  @include colors.dark-theme {
+    $color-from: rgba(colors.$col-dark-bg, 0.75);
+    $color-to: rgba(colors.$col-dark-bg, 0);
+
+    background: radial-gradient(circle at center,
+      $color-from 15%,
+      $color-to calc(75% - #{var(--tag-diameter)}));
+  }
+}
+
+.tagcloud-wrapper .tagcloud-tag {
+  will-change: transform;
+}
+
+.tagcloud-wrapper .tagcloud-tag div,
+.tagcloud-wrapper .tagcloud-tag a {
+  backface-visibility: hidden;
+  -webkit-font-smoothing: antialiased;
+}
