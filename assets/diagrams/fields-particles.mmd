@@ -1,0 +1,82 @@
+classDiagram
+  class Domain~SimEngine, class~ {
+    see domain...*
+  }
+  class ParticleSpecies {
+    #const spidx_t m_index
+    #const string m_label
+    #const float m_mass
+    #const float m_charge
+    #npart_t m_maxnpart
+    #const PrtlPusher m_pusher
+    #const bool m_use_tracking
+    #const bool m_use_gca
+    #const Cooling m_cooling
+    #const ushort m_npld_r
+    #const ushort m_npld_i
+    +index() spidx_t
+    +label() string
+    +mass() float
+    +charge() float
+    +maxnpart() npart_t
+    +pusher() PrtlPusher
+    +use_tracking() bool
+    +use_gca() bool
+    +cooling() Cooling
+    +npld_r() ushort
+    +npld_i() ushort
+  }
+  class Particles~Dimension, Coord~ {
+    -npart_t m_npart
+    -npart_t m_counter
+    -bool m_is_sorted
+    +array_t~int*~ i1
+    +array_t~int*~ i2
+    +array_t~int*~ i3
+    +array_t~prtldx_t*~ dx1
+    +array_t~prtldx_t*~ dx2
+    +array_t~prtldx_t*~ dx3
+    +array_t~real_t*~ ux1
+    +array_t~real_t*~ ux2
+    +array_t~real_t*~ ux3
+    +array_t~real_t*~ weight
+    +array_t~int*~ i1_prev
+    +array_t~int*~ i2_prev
+    +array_t~int*~ i3_prev
+    +array_t~prtldx_t*~ dx1_prev
+    +array_t~prtldx_t*~ dx2_prev
+    +array_t~prtldx_t*~ dx3_prev
+    +array_t~short*~ tag
+    +array_t~real_t**~ pld_r
+    +array_t~npart_t**~ pld_i
+    +array_t~real_t*~ phi
+    +rangeActiveParticles() range_t~1D~
+    +rangeAllParticles() range_t~1D~
+    +npart() npart_t
+    +counter() npart_t
+    +is_sorted() bool
+    +ntags() size_t
+    +memory_footprint() size_t
+    +NpartsPerTagAndOffsets() vector~npart_t~,array_t~npart_t*~
+    +set_npart(npart_t n) void
+    +set_counter(npart_t n) void
+    +set_unsorted() void
+    +RemoveDead() void
+    +SyncHostDevice() void
+  }
+  class Fields~Dimension, SimEngine~ {
+    +ndfield_t~D, 6~ em
+    +ndfield_t~D, 6~ bckp
+    +ndfield_t~D, 3~ cur
+    +ndfield_t~D, 3~ buff
+    +ndfield_t~D, 6~ aux
+    +ndfield_t~D, 6~ em0
+    +ndfield_t~D, 3~ cur0
+    +memory_footprint() size_t
+  }
+
+  Domain --* Particles : contains many
+  Domain --* Fields : contains
+  ParticleSpecies <|-- Particles : inherits
+
+  note "+: public\n-: private\n#: protected\nunderline: static constexpr\nitalic: virtual"
