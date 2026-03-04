@@ -18,12 +18,13 @@ scripts:
     - `kernels/current_deposit.hpp`
     - `kernels/particle_pusher_sr.hpp`
 
-
-Since release 1.3.0 Entity supports higher order methods for the field solver as well as particle shapes.
-The field solver has been generalized to allow for the construction of custom stencils that can be optimized to mitigate e.g. the Cherenkov instability.
-Higher order particle shapes can be used for improved accuracy in the current deposit and particle pusher.
+Entity supports higher order methods for the field solver as well as particle shapes. The field solver has been generalized to allow for the construction of custom stencils that can be optimized to mitigate e.g. the Cherenkov instability. Higher order particle shapes can be used for improved accuracy in the current deposit and particle pusher.
 
 ## Generalized field stencil
+
+<a href="https://github.com/entity-toolkit/entity/pull/103">
+  <span class="since-version">1.3.0</span>
+</a>
 
 The field stencil generalisation is based on work by [Blinne et al. (2018)](https://ui.adsabs.harvard.edu/abs/2018CoPhC.224..273B/abstract) and aims to minimize numerical dispersion in Maxwell solvers.
 We closely follow their notation, so to reproduce their stencils you can set the `alpha_i` and `beta_i` parameters in the `[algorithms.fieldsolver]` section of your parameter file following their Tables 1 and 3.
@@ -239,6 +240,10 @@ Each column corresponds to a different field stencil from the table above.
 
 
 ## Higher order shape functions
+
+<a href="https://github.com/entity-toolkit/entity/pull/109">
+  <span class="since-version">1.3.0</span>
+</a>
 
 To interpolate the current of a particle to the grid and the fields back to the particle, Entity uses a shape function. Before v1.3.0 this shape function was only of first order.
 Since v1.3.0 you can use shape functions with up-to 11th order and deposit charges with the scheme introduced by [Esirkepov (2001)](https://ui.adsabs.harvard.edu/abs/2001CoPhC.135..144E/abstract).
