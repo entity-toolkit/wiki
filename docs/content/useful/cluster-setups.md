@@ -324,7 +324,7 @@ This section goes over some instructions on how to compile & run the `Entity` on
     ```sh
     # Kokkos
     cmake -B build  \
-        -D CMAKE_CXX_STANDARD=17 \
+        -D CMAKE_CXX_STANDARD=20 \
         -D CMAKE_CXX_EXTENSIONS=OFF \
         -D CMAKE_POSITION_INDEPENDENT_CODE=TRUE \
         -D CMAKE_C_COMPILER=cc \
@@ -339,7 +339,7 @@ This section goes over some instructions on how to compile & run the `Entity` on
 
     # ADIOS2
     cmake -B build  \
-        -D CMAKE_CXX_STANDARD=17 \
+        -D CMAKE_CXX_STANDARD=20 \
         -D CMAKE_CXX_EXTENSIONS=OFF \
         -D CMAKE_POSITION_INDEPENDENT_CODE=TRUE \
         -D BUILD_SHARED_LIBS=ON \
@@ -428,7 +428,7 @@ This section goes over some instructions on how to compile & run the `Entity` on
     wget https://github.com/kokkos/kokkos/releases/download/4.6.01/kokkos-4.6.01.tar.gz
     tar xvf kokkos-4.6.01.tar.gz
     cd kokkos-4.6.01
-    cmake -B build -D CMAKE_CXX_STANDARD=17 \
+    cmake -B build -D CMAKE_CXX_STANDARD=20 \
         -D CMAKE_BUILD_TYPE=Release \
         -D CMAKE_CXX_EXTENSIONS=OFF \
         -D CMAKE_POSITION_INDEPENDENT_CODE=TRUE \
@@ -448,7 +448,7 @@ This section goes over some instructions on how to compile & run the `Entity` on
     wget https://github.com/ornladios/ADIOS2/archive/refs/tags/v2.10.2.tar.gz
     tar xvf v2.10.2.tar.gz
     cd ADIOS2-2.10.2
-    cmake -B build -D CMAKE_CXX_STANDARD=17 \
+    cmake -B build -D CMAKE_CXX_STANDARD=20 \
         -D CMAKE_CXX_EXTENSIONS=OFF \
         -D CMAKE_POSITION_INDEPENDENT_CODE=TRUE \
         -D BUILD_SHARED_LIBS=ON \
@@ -754,7 +754,7 @@ This section goes over some instructions on how to compile & run the `Entity` on
     ```sh
     module load gcc/12.4.0 openmpi/5.0.5 cmake/3.31.4
     cmake -B build \
-        -D CMAKE_CXX_STANDARD=17 \
+        -D CMAKE_CXX_STANDARD=20 \
         -D CMAKE_CXX_EXTENSIONS=OFF \
         -D CMAKE_POSITION_INDEPENDENT_CODE=TRUE \
         -D BUILD_SHARED_LIBS=ON \

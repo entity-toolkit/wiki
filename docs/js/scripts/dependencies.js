@@ -2,7 +2,7 @@ document.addEventListener(
   "DOMContentLoaded",
   () => {
     const all_tabs = document
-      .querySelector("#building-dependencies-from-source ~ .tabbed-set")
+      .querySelector("#building-dependencies-from-source-recommended ~ .tabbed-set")
       .querySelector(".tabbed-content")
       .getElementsByClassName("tabbed-block");
     let tabs = {
@@ -23,8 +23,7 @@ document.addEventListener(
       let result = "";
       result += `mkdir -p build
 cd build
-../configure --with-devel-headers \\
-             --prefix=<MPI_INSTALL_DIR> \\
+../configure --prefix=<MPI_INSTALL_DIR> \\
              --enable-mpi-fortran=no`;
       if (cuda) {
         result += ` \\
@@ -57,8 +56,8 @@ append-path -d { } LOCAL_CFLAGS       -I $basedir/include
 append-path -d { } LOCAL_FCFLAGS      -I $basedir/include
 append-path -d { } LOCAL_CXXFLAGS     -I $basedir/include
 
-setenv             CXX                   $basedir/bin/mpicxx
-setenv             CC                    $basedir/bin/mpicc
+setenv             MPICXX                $basedir/bin/mpicxx
+setenv             MPICC                 $basedir/bin/mpicc
 
 setenv             MPIHOME               $basedir
 setenv             MPI_HOME              $basedir
@@ -101,24 +100,24 @@ append-path        -d { } LOCAL_FFLAGS   -I$basedir/include
 append-path        -d { } LOCAL_FCFLAGS  -I$basedir/include
 append-path        -d { } LOCAL_CXXFLAGS -I$basedir/include`;
 
-    const ADIOS2_compile_script = (mpi) =>
+    const ADIOS2_compile_script = (mpi, hdf5) =>
       `cmake -B build \\
-    -D CMAKE_CXX_STANDARD=17 \\
+    -D CMAKE_CXX_STANDARD=20 \\
     -D CMAKE_CXX_EXTENSIONS=OFF \\
     -D CMAKE_POSITION_INDEPENDENT_CODE=TRUE \\
     -D BUILD_SHARED_LIBS=ON \\
-    -D ADIOS2_USE_HDF5=ON \\
+    -D ADIOS2_USE_HDF5=${hdf5 ? "ON" : "OFF"} \\
     -D ADIOS2_USE_Python=OFF \\
     -D ADIOS2_USE_Fortran=OFF \\
     -D ADIOS2_USE_ZeroMQ=OFF \\
     -D BUILD_TESTING=OFF \\
     -D ADIOS2_BUILD_EXAMPLES=OFF \\
     -D ADIOS2_USE_MPI=${mpi ? "ON" : "OFF"} \\
-    -D ADIOS2_HAVE_HDF5_VOL=${mpi ? "ON" : "OFF"} \\
+    -D ADIOS2_HAVE_HDF5_VOL=${mpi && hdf5 ? "ON" : "OFF"} \\
     -D CMAKE_INSTALL_PREFIX=<ADIOS2_INSTALL_DIR>`;
 
     const ADIOS2_module = (
-      mpi,
+      mpi, hdf5
     ) => `#%Module1.0######################################################################
 ##
 ## ADIOS2 modulefile
@@ -136,9 +135,9 @@ set                basedir      <ADIOS2_INSTALL_DIR>
 prepend-path       PATH         $basedir/bin
 setenv             ADIOS2_DIR   $basedir
 
-setenv ADIOS2_USE_HDF5 ON
+setenv ADIOS2_USE_HDF5 ${hdf5 ? "ON" : "OFF"}
 setenv ADIOS2_USE_MPI ${mpi ? "ON" : "OFF"}
-setenv ADIOS2_HAVE_HDF5_VOL ${mpi ? "ON" : "OFF"}`;
+setenv ADIOS2_HAVE_HDF5_VOL ${mpi && hdf5 ? "ON" : "OFF"}`;
 
     const kokkos_flags = (use_gpu, cpuarch, gpuarch) => {
       let flags = [];
@@ -158,7 +157,7 @@ setenv ADIOS2_HAVE_HDF5_VOL ${mpi ? "ON" : "OFF"}`;
 
     const Kokkos_compile_script = (use_gpu, cpuarch, gpuarch) => {
       let result = `cmake -B build  \\
-      -D CMAKE_CXX_STANDARD=17 \\
+      -D CMAKE_CXX_STANDARD=20 \\
       -D CMAKE_CXX_EXTENSIONS=OFF \\
       -D CMAKE_POSITION_INDEPENDENT_CODE=TRUE`;
       if (use_gpu && gpuarch === "NATIVE") {
@@ -282,12 +281,13 @@ setenv             Kokkos_DIR   $basedir`;
         "script",
         ADIOS2_compile_script(
           document.getElementById("adios2_use_mpi").checked,
+          document.getElementById("adios2_use_hdf5").checked,
         ),
       );
       update(
         "adios2",
         "module",
-        ADIOS2_module(document.getElementById("adios2_use_mpi").checked),
+        ADIOS2_module(document.getElementById("adios2_use_mpi").checked, document.getElementById("adios2_use_hdf5").checked),
       );
 
       update_kokkos();
@@ -309,10 +309,16 @@ setenv             Kokkos_DIR   $basedir`;
       });
 
     document
-      .getElementById("adios2_use_mpi")
+      .getElementById("adios2_use_mpi").addEventListener("change", (event) => {
+        update("adios2", "script", ADIOS2_compile_script(event.target.checked, document.getElementById("adios2_use_hdf5").checked));
+        update("adios2", "module", ADIOS2_module(event.target.checked, document.getElementById("adios2_use_hdf5").checked));
+      });
+
+    document
+      .getElementById("adios2_use_hdf5")
       .addEventListener("change", (event) => {
-        update("adios2", "script", ADIOS2_compile_script(event.target.checked));
-        update("adios2", "module", ADIOS2_module(event.target.checked));
+        update("adios2", "script", ADIOS2_compile_script(document.getElementById("adios2_use_mpi").checked, event.target.checked));
+        update("adios2", "module", ADIOS2_module(document.getElementById("adios2_use_mpi").checked, event.target.checked));
       });
 
     document
