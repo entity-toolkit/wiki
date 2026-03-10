@@ -2,7 +2,7 @@ document.addEventListener(
   "DOMContentLoaded",
   () => {
     const all_tabs = document
-      .querySelector("#building-dependencies-from-source-recommended ~ .tabbed-set")
+      .querySelector("#building-dependencies-from-source ~ .tabbed-set")
       .querySelector(".tabbed-content")
       .getElementsByClassName("tabbed-block");
     let tabs = {

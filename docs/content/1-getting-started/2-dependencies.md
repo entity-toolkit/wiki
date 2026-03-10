@@ -41,7 +41,17 @@ To speed up the compilation process, it is often beneficial to precompile & inst
 
     If the system you're working on has `MPI` or `HDF5` already installed (either through environment modules or any package manager), it's highly recommended to use these libraries, instead of building your own. Instructions for these two here are provided as a last resort.
 
-### Building dependencies from source (recommended)
+### Using the supplied `dependencies.py` (recommended)
+
+<span class="since-version">1.4.0</span>
+
+The code provides a python file called `dependencies.py` in the root directory which generates an installation script for the dependencies provided the choices of the user in the terminal interface. You can run it as `./dependencies.py` (use version `python >= 3.7`). After you fill the desired configurations and hit `install`, a shell script is created (by default in `$HOME/.entity/install.sh`) which you can simply run as `$HOME/.entity/install.sh`. The dependencies will be compiled and installed into corresponding directories under `$HOME/.entity`, while the module files will be located in `$HOME/.entity/modules`. You can use the modules by adding them to your `.rc` script: `module use --append $HOME/.entity/modules`.
+
+!!! note 
+      
+    Note, that there are preconfigured options for specific clusters you can pick from within the terminal UI of the `dependencies.py`. This will ensure the proper modules are loaded and the proper flags are used during the compilation.
+
+### Building dependencies from source
 
 The form below allows you to generate the appropriate build scripts and optionally the environment modules for the libraries you want to compile and install. 
 
