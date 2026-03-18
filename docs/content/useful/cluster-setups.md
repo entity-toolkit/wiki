@@ -68,7 +68,7 @@ This section goes over some instructions on how to compile & run the `Entity` on
 
     --8<-- "docs/content/useful/clusters/lumi.md"
 
-    _Last updated: 6/19/2025_
+    _Last updated: 3/18/2026_
 
 === "`Trillium` (SciNet, Canada)"
 
