@@ -28,6 +28,7 @@ nav:
       - content/3-code/5-metrics.md
       - content/3-code/6-higherorder.md
       - content/3-code/7-radiative.md
+      - content/3-code/8-rendering.md
   - Useful Things:
       - content/useful/costtool.md
       - content/useful/cluster-setups.md
