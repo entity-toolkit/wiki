@@ -29,6 +29,8 @@ nav:
       - content/3-code/6-higherorder.md
       - content/3-code/7-radiative.md
       - content/3-code/8-rendering.md
+      - content/3-code/9-load_balancing.md
+      - content/3-code/10-team_policy.md
   - Useful Things:
       - content/useful/costtool.md
       - content/useful/cluster-setups.md
