@@ -587,8 +587,12 @@ The annotation style adapts to the mode:
   (`0, π/4, π/2, …`) along the curved outline, and a curvilinear spine (outer &
   inner arcs plus the radial edges).
 - **3D** -- the global box is rendered as a wireframe **spine inside the
-  ray-march** (opaque, so the volume occludes its far edges) with ticks on the
-  three silhouette edges and labels rotated to align with each edge.
+  ray-march** (opaque, so the volume occludes its far edges), while the ticks and
+  labels are drawn in the **foreground** on the box silhouette so they are never
+  hidden behind the volume. The annotated edge for each axis is picked from the
+  silhouette (outline) edges nearest the bottom-left of the image, so the choice
+  **follows the camera** rather than assuming the default diagonal view; labels
+  are rotated to align with each edge.
 
 ## How seamless compositing works
 
@@ -617,6 +621,54 @@ $C^0$-continuous up to the shared face.
     full-frame assembly ($W\cdot H\cdot 16$ bytes for the float frame plus the
     uint8 canvas). Because each rank only ever holds its footprint, the renderer
     scales to thousands of ranks.
+
+## Previewing the scene geometry
+
+Getting the 3D camera framing (or a 2D crop) right usually takes a few tries, and
+relaunching the simulation for each attempt is wasteful. The repo ships a
+**data-free** preview tool, `render_preview.py` (at the entity root), that reads a
+simulation `.toml` and draws the geometry the renderer *would* produce -- the
+domain box, camera framing, axes and ticks, region crop, and field-line seed
+lattice -- **without any simulation data or ray-marching**. It reproduces the same
+camera, projection, and region math the C++ renderer uses, so the box you see in
+the preview is the box the run will draw.
+
+```sh
+module load python/3.13.0   # needs numpy + matplotlib; tomllib (py3.11+) or tomli
+python render_preview.py <toml> [--out preview.png] [--time T] [--scene N]
+```
+
+- `<toml>` -- the simulation config; only its `[grid]` and `[output.render]`
+  tables are read (the geometry is previewed even if `enable = false`, with a
+  note).
+- `--out` -- output PNG (default `<toml_dir>/<simname>_preview.png`).
+- `--time T` -- sim time for the moving-view pan (`camera_velocity` /
+  `camera_start_time`); default `0`, i.e. the initial framing.
+- `--scene N` -- accepted for parity, but the geometry is scene-independent, so
+  it only tags the printed label.
+
+It selects the same mode the renderer would and prints a one-line summary (mode,
+metric, camera eye, `ortho_height`, resolved region):
+
+- **3D Cartesian** -- the domain cube (and region crop, if any) projected with
+  the exact ray-march camera, plus an optional schematic scatter of the
+  field-line seed lattice (seeds, not traced lines).
+- **2D Cartesian** -- the aspect-expanded slice window with the domain/region box
+  and ticks.
+- **2D spherical / Kerr--Schild** -- the meridional wedge (arcs at
+  $r \in \{r_\text{min}, r_\text{max}\}$, rays at
+  $\theta \in \{\theta_\text{min}, \theta_\text{max}\}$), mirrored into a full
+  disk when `mirror = true`.
+- **1D, or 3D non-Cartesian** -- warns that the renderer is inactive for that
+  setup and draws nothing.
+
+!!! warning "Keep it in sync"
+
+    `render_preview.py` is a hand-port of the C++ camera / projection / region /
+    seed-lattice math (`renderer.cpp`, `composite.h`, `raymarch.hpp`, `axes.h`,
+    `metadomain_render.cpp`, `grid.cpp`, `fieldlines.h`). If any of those change,
+    the script has to be updated to match or the preview will drift from what the
+    renderer actually draws.
 
 ## Examples
 
