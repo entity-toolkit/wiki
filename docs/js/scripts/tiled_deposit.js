@@ -5,9 +5,6 @@
 // (kernel::DepositCurrentsTiled_kernel, src/kernels/currents_deposit.hpp;
 //  launched from src/engines/{srpic,grpic}/currents.h).
 //
-// JS port of manim/tiled_deposit.py so the same walkthrough can render live in
-// the wiki (docs/content/3-code/10-team_policy.md) instead of a stored mp4.
-//
 // Timeline of one GPU team (one spatial tile):
 //   0 title
 //   1 J grid cut into tiles; spatially-sorted particles coloured by tile/team
@@ -76,7 +73,7 @@ document.addEventListener(
       let W, H, cg, cs, gx, gy, sx, sy, fs;
       let t = 0.0;
       let playing = true;
-      let btnPlay, btnReplay, btnSkip;
+      let btnPlay, btnReplay, btnPrev, btnNext;
 
       // ----- helpers -----
       const clamp = (x, lo, hi) => Math.min(hi, Math.max(lo, x));
@@ -84,8 +81,9 @@ document.addEventListener(
         p < 0.5 ? 2 * p * p : 1 - Math.pow(-2 * p + 2, 2) / 2;
 
       const fg = () =>
-        getComputedStyle(document.body).getPropertyValue("--md-default-fg-color") ||
-        "#666";
+        getComputedStyle(document.body).getPropertyValue(
+          "--md-default-fg-color",
+        ) || "#666";
       const withAlpha = (hex, a) => {
         const c = ctx.color(hex);
         c.setAlpha(255 * a);
@@ -104,14 +102,19 @@ document.addEventListener(
       };
       const localP = (idx) => clamp((t - STARTS[idx]) / PHASES[idx].dur, 0, 1);
 
-      const gcell = (i, j) => ({ x: gx + (i + 0.5) * cg, y: gy + (j + 0.5) * cg });
+      const gcell = (i, j) => ({
+        x: gx + (i + 0.5) * cg,
+        y: gy + (j + 0.5) * cg,
+      });
       const scell = (li, lj) => ({
         x: sx + (li + HALO + 0.5) * cs,
         y: sy + (lj + HALO + 0.5) * cs,
       });
-      const tileColor = (tx, ty) => TILE_COLORS[(tx + ty * TILES) % TILE_COLORS.length];
+      const tileColor = (tx, ty) =>
+        TILE_COLORS[(tx + ty * TILES) % TILE_COLORS.length];
       const isFocusCell = (i, j) =>
-        Math.floor(i / T_TILE) === FOCUS.tx && Math.floor(j / T_TILE) === FOCUS.ty;
+        Math.floor(i / T_TILE) === FOCUS.tx &&
+        Math.floor(j / T_TILE) === FOCUS.ty;
 
       // reveal fraction for a scratch-interior cell during the flush sweep
       const flushReveal = (li, lj, p) => {
@@ -171,7 +174,11 @@ document.addEventListener(
             }
             // flush fills the focus tile green as scratch drains into it
             if (idx === 5 && focus) {
-              const r = flushReveal(i - T_TILE * FOCUS.tx, j - T_TILE * FOCUS.ty, p);
+              const r = flushReveal(
+                i - T_TILE * FOCUS.tx,
+                j - T_TILE * FOCUS.ty,
+                p,
+              );
               if (r > 0) {
                 hex = C.flush;
                 a = 0.14 + 0.4 * r;
@@ -186,7 +193,9 @@ document.addEventListener(
           for (let ty = 0; ty < TILES; ty++) {
             const c0 = gcell(tx * T_TILE, ty * T_TILE);
             const focus = dim && tx === FOCUS.tx && ty === FOCUS.ty;
-            const col = focus ? withAlpha(C.focus, 0.95) : withAlpha(fg(), 0.5 * gAlpha);
+            const col = focus
+              ? withAlpha(C.focus, 0.95)
+              : withAlpha(fg(), 0.5 * gAlpha);
             cellSquare(
               c0.x - cg / 2 + (T_TILE * cg) / 2,
               c0.y - cg / 2 + (T_TILE * cg) / 2,
@@ -252,7 +261,14 @@ document.addEventListener(
               a = 0.5;
             }
             const cc = scell(li, lj);
-            cellSquare(cc.x, cc.y, cs, withAlpha(hex, a), withAlpha(C.scrBorder, 0.25), 1);
+            cellSquare(
+              cc.x,
+              cc.y,
+              cs,
+              withAlpha(hex, a),
+              withAlpha(C.scrBorder, 0.25),
+              1,
+            );
           }
         }
         // outer scratch border + inner tile boundary
@@ -265,7 +281,14 @@ document.addEventListener(
           withAlpha(C.scrBorder, 0.95),
           2.5,
         );
-        cellSquare(cCtr.x, cCtr.y, T_TILE * cs, null, withAlpha(C.scrBorder, 0.6), 1.8);
+        cellSquare(
+          cCtr.x,
+          cCtr.y,
+          T_TILE * cs,
+          null,
+          withAlpha(C.scrBorder, 0.6),
+          1.8,
+        );
         // label
         ctx.push();
         ctx.noStroke();
@@ -282,7 +305,14 @@ document.addEventListener(
           for (let di = 0; di < 2; di++)
             for (let dj = 0; dj < 2; dj++) {
               const cc = scell(ci + di, cj + dj);
-              cellSquare(cc.x, cc.y, cs, withAlpha(hex, 0.4), ctx.color(hex), 2.5);
+              cellSquare(
+                cc.x,
+                cc.y,
+                cs,
+                withAlpha(hex, 0.4),
+                ctx.color(hex),
+                2.5,
+              );
             }
         };
         stencil(1, 1, C.stencilA, p > 0.12);
@@ -306,7 +336,14 @@ document.addEventListener(
           const pulse = 0.35 + 0.25 * Math.sin(p * 22);
           for (const lj of [1, 2]) {
             const cc = scell(2, lj);
-            cellSquare(cc.x, cc.y, cs, withAlpha(C.overlap, pulse), ctx.color(C.overlap), 4);
+            cellSquare(
+              cc.x,
+              cc.y,
+              cs,
+              withAlpha(C.overlap, pulse),
+              ctx.color(C.overlap),
+              4,
+            );
           }
         }
       }
@@ -316,7 +353,14 @@ document.addEventListener(
         const li = T_TILE + HALO - 1;
         const inCell = scell(li, 1);
         const app = easeInOut(clamp(p * 1.6, 0, 1));
-        cellSquare(inCell.x, inCell.y, cs, withAlpha(C.escape, 0.4 * app), ctx.color(C.escape), 3);
+        cellSquare(
+          inCell.x,
+          inCell.y,
+          cs,
+          withAlpha(C.escape, 0.4 * app),
+          ctx.color(C.escape),
+          3,
+        );
         // the escaped cell sits one step past the scratch window
         const escCell = scell(li + 1, 1);
         cellSquare(
@@ -339,7 +383,15 @@ document.addEventListener(
             C.escape,
             3,
           );
-          if (ap > 0.98) cellSquare(tgt.x, tgt.y, cg, withAlpha(C.escape, 0.5), ctx.color(C.escape), 2.5);
+          if (ap > 0.98)
+            cellSquare(
+              tgt.x,
+              tgt.y,
+              cg,
+              withAlpha(C.escape, 0.5),
+              ctx.color(C.escape),
+              2.5,
+            );
         }
       }
 
@@ -350,13 +402,22 @@ document.addEventListener(
             if (r <= 0) continue;
             const s = scell(li, lj);
             const g = gcell(li + T_TILE * FOCUS.tx, lj + T_TILE * FOCUS.ty);
-            arrow(s.x, s.y, s.x + (g.x - s.x) * r, s.y + (g.y - s.y) * r, C.arrow, 2);
+            arrow(
+              s.x,
+              s.y,
+              s.x + (g.x - s.x) * r,
+              s.y + (g.y - s.y) * r,
+              C.arrow,
+              2,
+            );
           }
       }
 
       // ----- title / caption / summary text -----
       function drawTitle(p) {
-        const a = easeInOut(clamp(p * 2, 0, 1)) * (1 - easeInOut(clamp((p - 0.8) * 5, 0, 1)));
+        const a =
+          easeInOut(clamp(p * 2, 0, 1)) *
+          (1 - easeInOut(clamp((p - 0.8) * 5, 0, 1)));
         ctx.push();
         ctx.noStroke();
         ctx.textAlign(ctx.CENTER, ctx.CENTER);
@@ -365,7 +426,11 @@ document.addEventListener(
         ctx.text("Entity — Tiled Current Deposit", W / 2, H / 2 - fs);
         ctx.fill(withAlpha(fg(), 0.6 * a));
         ctx.textSize(fs * 0.95);
-        ctx.text("one GPU team per spatial tile · SLM scratch + single flush", W / 2, H / 2 + fs * 0.6);
+        ctx.text(
+          "one GPU team per spatial tile · SLM scratch + single flush",
+          W / 2,
+          H / 2 + fs * 0.6,
+        );
         ctx.pop();
       }
 
@@ -411,10 +476,22 @@ document.addEventListener(
       function drawSummary(p) {
         const a = easeInOut(clamp(p * 1.6, 0, 1));
         const rows = [
-          ["Flat kernel:  ~ (stencil writes) × (particles) global-memory atomics", C.stencilB, 0.95],
+          [
+            "Flat kernel:  ~ (stencil writes) × (particles) global-memory atomics",
+            C.stencilB,
+            0.95,
+          ],
           ["Tiled kernel: per-particle stencils → LDS atomics;", C.flush, 0.95],
-          ["              global J touched once per scratch cell per tile.", C.flush, 0.95],
-          ["Same charge-conserving deposit math — only the memory traffic differs.", fg(), 0.6],
+          [
+            "              global J touched once per scratch cell per tile.",
+            C.flush,
+            0.95,
+          ],
+          [
+            "Same charge-conserving deposit math — only the memory traffic differs.",
+            fg(),
+            0.6,
+          ],
         ];
         ctx.push();
         ctx.textAlign(ctx.LEFT, ctx.CENTER);
@@ -470,42 +547,46 @@ document.addEventListener(
         cnv.parent(HOST);
         ctx.textFont("sans-serif");
 
-        const mkBtn = (label, yOff, onClick) => {
+        const mkBtn = (label, xOff, onClick) => {
           const b = ctx.createButton(label);
           b.parent(HOST);
-          b.position(W - 42, 8 + yOff);
-          b.size(34, 28);
+          b.position(W - xOff - 50, 8);
+          b.size(50, 45);
           b.mouseClicked(onClick);
           b.style("cursor", "pointer");
-          b.style("border-radius", "6px");
-          b.style("border", "1px solid rgba(127,127,127,0.4)");
-          b.style("background-color", "rgba(127,127,127,0.12)");
           return b;
         };
-        btnPlay = mkBtn("⏸", 0, () => {
+        btnPlay = mkBtn("||", 55 * 3, () => {
           if (t >= TOTAL) t = 0;
           playing = !playing;
-          btnPlay.html(playing ? "⏸" : "▶");
+          btnPlay.html(playing ? "||" : ">");
         });
-        btnReplay = mkBtn("⟲", 34, () => {
+        btnReplay = mkBtn("⟲", 55 * 2, () => {
           t = 0;
           playing = true;
-          btnPlay.html("⏸");
+          btnPlay.html("||");
         });
-        btnSkip = mkBtn("⏭", 68, () => {
+        btnPrev = mkBtn("<<", 55, () => {
+          const idx = phaseIndex();
+          t = idx > 0 ? STARTS[idx - 1] : 0;
+          playing = true;
+          btnPlay.html("||");
+        });
+        btnNext = mkBtn(">>", 0, () => {
           const idx = phaseIndex();
           t = idx < PHASES.length - 1 ? STARTS[idx + 1] : 0;
           playing = true;
-          btnPlay.html("⏸");
+          btnPlay.html("||");
         });
       };
 
       ctx.windowResized = () => {
         layout();
         ctx.resizeCanvas(W, H);
-        btnPlay.position(W - 42, 8);
-        btnReplay.position(W - 42, 42);
-        btnSkip.position(W - 42, 76);
+        btnPlay.position(W - 55 * 3 - 50, 8);
+        btnReplay.position(W - 55 * 2 - 50, 8);
+        btnPrev.position(W - 55 - 50, 8);
+        btnNext.position(W - 50, 8);
       };
 
       ctx.draw = () => {

@@ -5,7 +5,7 @@
 !!! note "Using the `dependencies.py`"
 
     <span class="since-version">1.4.0</span>
-    Simply pick the `perlmutter` option from the cluster-specific parameters from the `dependencies.py` file included with the root of the code, and then run `$HOME/.entity/install.sh` which will both compile and install the dependencies and create modulefiles.
+    Simply pick the `perlmutter` option from the cluster-specific parameters by running the `scripts/dependencies.py` script to generate the install script, and then run it -- `$HOME/.entity/install.sh` which will both compile and install the dependencies and create modulefiles.
 
 The easiest way to use the code here is to compile and install your own modules manually. First, load the modules you will need for that:
 

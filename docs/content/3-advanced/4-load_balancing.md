@@ -8,11 +8,16 @@ hide:
 !!! abstract "Relevant headers"
 
     - `framework/domain/metadomain.h`
+    - `framework/domain/comm/fields.cpp`
+    - `framework/domain/comm/particles.cpp`
     - `framework/domain/metadomain_loadbal.cpp`
-    - `framework/domain/metadomain_comm.cpp`
     - `framework/parameters/parameters.cpp`
     - `engines/engine.hpp`
     - `global/utils/tools.h`
+
+<a href="https://github.com/entity-toolkit/entity/pull/216">
+  <span class="since-version">1.5.0</span>
+</a>
 
 In a PIC run the wall-clock cost of a rank is dominated by the particles it
 owns -- the push and the current deposit scale with the local particle count,
@@ -29,8 +34,7 @@ domain -- the number of subdomains per axis, the neighbor graph, and the
 boundary conditions are all fixed for the whole run. It only slides the
 *interior faces* by at most a ghost-zone width per event, and every byte it
 moves travels over the **existing nearest-neighbor field and particle
-communication paths**. There is no global gather, no all-to-all, and no new
-buffer sized to the domain.
+communication paths**. 
 
 It is off by default and, being an MPI operation, is a no-op in serial builds.
 

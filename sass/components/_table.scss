@@ -93,12 +93,12 @@ $groups: (
 
     $max-depth: 10;
 
-    tr[data-depth] {
+    tr[data-depth]:not(.category) {
       @for $i from 1 through $max-depth {
         &[data-depth="#{$i}"] {
           td:first-child {
             &>pre {
-              margin-left: $i * 15px;
+              margin-left: 15px;
             }
           }
         }

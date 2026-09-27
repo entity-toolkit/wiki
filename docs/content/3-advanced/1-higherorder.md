@@ -15,8 +15,8 @@ scripts:
 
     - `kernels/faraday_mink.hpp`
     - `kernels/particle_shapes.hpp`
-    - `kernels/current_deposit.hpp`
-    - `kernels/particle_pusher_sr.hpp`
+    - `kernels/deposition/currents/single-particle.hpp`
+    - `kernels/pushers/sr.hpp`
 
 Entity supports higher order methods for the field solver as well as particle shapes. The field solver has been generalized to allow for the construction of custom stencils that can be optimized to mitigate e.g. the Cherenkov instability. Higher order particle shapes can be used for improved accuracy in the current deposit and particle pusher.
 
@@ -27,7 +27,7 @@ Entity supports higher order methods for the field solver as well as particle sh
 </a>
 
 The field stencil generalisation is based on work by [Blinne et al. (2018)](https://ui.adsabs.harvard.edu/abs/2018CoPhC.224..273B/abstract) and aims to minimize numerical dispersion in Maxwell solvers.
-We closely follow their notation, so to reproduce their stencils you can set the `alpha_i` and `beta_i` parameters in the `[algorithms.fieldsolver]` section of your parameter file following their Tables 1 and 3.
+We closely follow their notation, so to reproduce their stencils you can set the `delta_i` and `beta_ij` parameters in the `[algorithms.fieldsolver]` section of your parameter file following their Tables 1 and 3.
 
 For convencience we provide the parameters for all reported stencils in [Blinne et al. (2018)](https://ui.adsabs.harvard.edu/abs/2018CoPhC.224..273B/abstract) in the following table. 
 

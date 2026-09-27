@@ -32,18 +32,23 @@ First, make sure you have all [the necessary dependencies](2-dependencies.md) in
 
     All the build options are specified using the `-D` flag followed by the argument and its value (as shown above). Boolean options are specified as `ON` or `OFF`. The following are all the options that can be specified:
 
-    | Option | Description | Values | Default |
-    | --- | --- | --- | --- |
-    | `pgen` | problem generator | e.g., see `pgens/` directory |  |
-    | `pgens` <span class="since-version">1.4.0</span> | multiple problem generators | same as above, comma-separated |  |
-    | `precision` | floating point precision | `single`, `double` | `single` |
-    | `deposit` <a href="https://github.com/entity-toolkit/entity/pull/109"> <span class="since-version">1.3.0</span>  </a>  | choose current deposit scheme | `zigzag`, `esirkepov` | `zigzag` |
-    | `shape_order` <a href="https://github.com/entity-toolkit/entity/pull/109"> <span class="since-version">1.3.0</span>  </a>  | interpolation order for deposit and pusher | `1-11` | `1` |
-    | `output` | enable output | `ON`, `OFF` | `ON` |
-    | `mpi` | enable multi-node support | `ON`, `OFF` | `OFF` |
-    | `gpu_aware_mpi` <a href="https://github.com/entity-toolkit/entity/pull/105"> <span class="since-version">1.2.0</span>  </a>  | enable GPU-aware MPI communications | `ON`, `OFF` | `ON` |
-    | `DEBUG` | enable debug mode | `ON`, `OFF` | `OFF` |
-    | `TESTS` | compile the unit tests | `ON`, `OFF` | `OFF` |
+    | Option | Description | Values | Default | Prerequisite |
+    | --- | --- | --- | --- | --- |
+    | `pgen` | problem generator | e.g., see `pgens/` directory |  |  |
+    | `pgens` <br><span class="since-version">1.4.0</span> | multiple problem generators | same as above, semicolon-separated |  |  |
+    | `precision` | floating point precision | `single`, `double` | `single` |  |
+    | `deposit` <br><a href="https://github.com/entity-toolkit/entity/pull/109"> <span class="since-version">1.3.0</span>  </a>  | choose current deposit scheme for PIC | `zigzag`, `esirkepov` | `zigzag` |  |
+    | `shape_order` <br><a href="https://github.com/entity-toolkit/entity/pull/109"> <span class="since-version">1.3.0</span>  </a>  | interpolation order for deposit and pusher | `1-11` | `1` | hybrid engine, or PIC with Esirkepov deposit |
+    | `output` | enable output | `ON`, `OFF` | `ON` |  |
+    | `vendor_sort` <br><a href="https://github.com/entity-toolkit/entity/pull/209"> <span class="since-version">1.5.0</span>  </a> | use vendor-specific sorting algorithm instead of built-in Kokkos | `ON`, `OFF` | `ON` |  |
+    | `mpi` | enable multi-node support | `ON`, `OFF` | `OFF` |  |
+    | `gpu_aware_mpi` <br><a href="https://github.com/entity-toolkit/entity/pull/105"> <span class="since-version">1.2.0</span>  </a>  | enable GPU-aware MPI communications | `ON`, `OFF` | `ON` | `mpi=ON` |
+    | `tiled_deposit` <br><a href="https://github.com/entity-toolkit/entity/pull/209"> <span class="since-version">1.5.0</span>  </a> | enable team-based tiled deposition  | `ON`, `OFF` | `OFF` |
+    | `tiled_deposit_tile_size` <br><a href="https://github.com/entity-toolkit/entity/pull/209"> <span class="since-version">1.5.0</span>  </a> | tile edge length in cells for the tiled deposition | 4, 6, 8, 10, 12, 14, 16 | 8 | `tiled_deposit=ON` |
+    | `tiled_deposit_drift` <br><a href="https://github.com/entity-toolkit/entity/pull/209"> <span class="since-version">1.5.0</span>  </a>  | cells of drift the scratch tile deposition halo absorbs | integer | 1 | `tiled_deposit=ON` |
+    | `DEBUG` | enable debug mode | `ON`, `OFF` | `OFF` |  |
+    | `TESTS` | compile the unit tests | `ON`, `OFF` | `OFF` |  |
+    | `OFFLINE` | skip the online check for dependencies (forces use of submodules) | `ON`, `OFF` | `OFF` |
 
     Optionally, when compiling the Kokkos/ADIOS2 in-tree, there are some CMake and other library-specific options (for [Kokkos](https://kokkos.github.io/kokkos-core-wiki/keywords.html) and [ADIOS2](https://adios2.readthedocs.io/en/latest/setting_up/setting_up.html#cmake-options)) that can be specified along with the above ones. While the code picks most of these options for the end-user, some of them can/should be specified manually. In particular:
 
@@ -70,7 +75,7 @@ First, make sure you have all [the necessary dependencies](2-dependencies.md) in
   
 1. After the compilation is done, you will find the executable called `entity.xc` in the `./build/src/` directory. That's it! You can now finally _run_ the code.
 
-1. You may also "install" the executable in a specific direction (by default, it would be `./bin`, which can be overriden using the `-D CMAKE_INSTALL_PREFIX` flag) by running `cmake --install build` after the compilation is done.
+1. You may also "install" the executable in a specific direction (by default, it would be `<CMAKE_INSTALL_PREFIX>/bin`, which can be overriden using the `-D CMAKE_INSTALL_PREFIX` flag) by running `cmake --install build` after the compilation is done.
 
 ## Running
 
@@ -79,42 +84,8 @@ You can run the code with the following command:
 ```sh
 /path/to/entity.xc -input /path/to/input_file.toml
 ```
-`entity.xc` runs headlessly, producing several diagnostic outputs. `.info` file contains the general information about the simulation including all the parameters used, the compiler version, the architecture, etc. `.log` file contains timestamps of each simulation substep and is mainly used for debugging purposes. In case the simulation fails or throws warnings, an `.err` file will be generated, containing the error message. The simulation also dumps a live stdout report after each successfull simulation step, which contains information about the time spent on each simulation substep, the number of active particles, and the estimated time for completion. It may look something like this:
-```text
-................................................................................
-Step: 1260     [of 1448]
-Time: 1.7401   [Δt = 0.0014]
+`entity.xc` runs headlessly, producing several diagnostic outputs. `.info` file contains the general information about the simulation including all the parameters used, the compiler version, the architecture, etc. `.log` file contains timestamps of each simulation substep and is mainly used for debugging purposes. In case the simulation fails or throws warnings, an `.err` file will be generated, containing the error message. The simulation also dumps a live stdout report after each successfull simulation step (with an interval controlled via the input parameter `diagnostics.interval`), which contains information about the time spent on each simulation substep, the number of active particles, and the estimated time for completion
 
-[SUBSTEP]                  [DURATION]  [% TOT]
-  Communications............314.00 µs     9.55
-  CurrentDeposit............400.00 µs    12.17
-  CurrentFiltering..........803.00 µs    24.43
-  Custom....................929.00 µs    28.26
-  FieldBoundaries.............0.00 ns     0.00
-  FieldSolver...............502.00 µs    15.27
-  ParticleBoundaries..........0.00 ns     0.00
-  ParticlePusher............339.00 µs    10.31
-Total                         3.29 ms
-
-Particle count:                [TOT (%)]
-  species 1 (e-)........2.59e+04 ( 2.6%)
-  species 2 (e+)........2.59e+04 ( 2.6%)
-
-Average timestep: 9.57 ms
-Remaining time: 1.80 s
-Elapsed time: 11.12 s
-[■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■          ]  87.02%
-................................................................................
-```
-
-<!-- To enable data dumping (output), one needs to compile with the `-D output=ON` flag. 
-
-`entity-GUI.xc` runs the simulation together with the GUI. The simulation lives as long as the GUI window is open. Additionally, `entity-GUI.xc` also accepts the `-scale <S>` flag, where `<S>` is the scale factor for the GUI (e.g. `-scale 2` will make the GUI twice as big; this setting depends on the personal preference and the monitor DPI/resolution used).
- -->
-<!-- !!! note
-    
-    When running the `entity-GUI.xc` on a remote machine (e.g., via a `vnc` server), one needs to run with `vglrun ./path/to/entity-GUI.xc`. This is because `entity-GUI.xc` uses OpenGL for rendering the GUI, and `vglrun` is a wrapper that enables OpenGL on a remote machine. -->
-      
 ## Testing
 
 <span class="since-version">1.0.0</span>

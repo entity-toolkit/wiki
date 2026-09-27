@@ -7,7 +7,8 @@ hide:
 
 !!! abstract "Relevant headers"
 
-    - `framework/domain/metadomain_render.cpp`
+    - `framework/domain/io/init.cpp`
+    - `framework/domain/io/render.cpp`
     - `output/render/renderer.h`
     - `output/render/renderer.cpp`
     - `output/render/raymarch.hpp`
@@ -19,6 +20,11 @@ hide:
     - `output/render/colorbar.h`
     - `output/render/png.h`
     - `output/render/reduce.hpp`
+    - `scripts/render.py`
+
+<a href="https://github.com/entity-toolkit/entity/pull/219">
+  <span class="since-version">1.5.0</span>
+</a>
 
 Entity can render scalar fields directly to `.png` images on the GPU *during* the
 run. At every output cadence the renderer prepares a scalar field, integrates it
@@ -49,7 +55,7 @@ from the simulation dimension and coordinate system.
 
 ## Enabling the renderer
 
-The renderer is configured under `[output.render]`. It is off by default.
+The renderer is configured under `[output.render]` with no additional compile-time flags required. 
 
 ```toml
 [output.render]
@@ -626,7 +632,7 @@ $C^0$-continuous up to the shared face.
 
 Getting the 3D camera framing (or a 2D crop) right usually takes a few tries, and
 relaunching the simulation for each attempt is wasteful. The repo ships a
-**data-free** preview tool, `render_preview.py` (at the entity root), that reads a
+**data-free** preview tool, `render.py` (inside the `scripts/` directory), that reads a
 simulation `.toml` and draws the geometry the renderer *would* produce -- the
 domain box, camera framing, axes and ticks, region crop, and field-line seed
 lattice -- **without any simulation data or ray-marching**. It reproduces the same
@@ -634,18 +640,17 @@ camera, projection, and region math the C++ renderer uses, so the box you see in
 the preview is the box the run will draw.
 
 ```sh
-module load python/3.13.0   # needs numpy + matplotlib; tomllib (py3.11+) or tomli
-python render_preview.py <toml> [--out preview.png] [--time T] [--scene N]
-```
+usage: render.py preview [-h] [-o OUT] [-t TIME] [-s SCENE] toml
 
-- `<toml>` -- the simulation config; only its `[grid]` and `[output.render]`
-  tables are read (the geometry is previewed even if `enable = false`, with a
-  note).
-- `--out` -- output PNG (default `<toml_dir>/<simname>_preview.png`).
-- `--time T` -- sim time for the moving-view pan (`camera_velocity` /
-  `camera_start_time`); default `0`, i.e. the initial framing.
-- `--scene N` -- accepted for parity, but the geometry is scene-independent, so
-  it only tags the printed label.
+positional arguments:
+  toml               simulation .toml file
+
+options:
+  -h, --help         show this help message and exit
+  -o, --out OUT      output PNG (default: <toml_dir>/<simname>_preview.png)
+  -t, --time TIME    sim time T for the moving-view pan (default 0)
+  -s, --scene SCENE  scene index (accepted for parity; geometry is scene-independent, so it only affects the reported label)
+```
 
 It selects the same mode the renderer would and prints a one-line summary (mode,
 metric, camera eye, `ortho_height`, resolved region):
@@ -662,13 +667,35 @@ metric, camera eye, `ortho_height`, resolved region):
 - **1D, or 3D non-Cartesian** -- warns that the renderer is inactive for that
   setup and draws nothing.
 
-!!! warning "Keep it in sync"
+## Making a movie
 
-    `render_preview.py` is a hand-port of the C++ camera / projection / region /
-    seed-lattice math (`renderer.cpp`, `composite.h`, `raymarch.hpp`, `axes.h`,
-    `metadomain_render.cpp`, `grid.cpp`, `fieldlines.h`). If any of those change,
-    the script has to be updated to match or the preview will drift from what the
-    renderer actually draws.
+The renderer produces a series of `png` files for each output scene and step marked as `<QUANTITY>_%08d.png`. 
+To combine those into a movie, you can use the same `render.py` script with a `movie` command (`ffmpeg` will need to be in your path):
+
+```sh
+usage: render.py movie [-h] [-p PREFIX] [-c COLS] [-m] [-r FRAMERATE] [-z COMPRESSION] path
+
+positional arguments:
+  path                  path to the rendered PNGs
+
+options:
+  -h, --help            show this help message and exit
+  -p, --prefix PREFIX   prefix for the scene (when rendering only one scene without -m | --merge flag)
+  -c, --cols COLS       number of columns for combining multiple scenes (default: 1)
+  -m, --merge           merge multiple scenes into a single movie (default: false)
+  -r, --framerate FRAMERATE
+                        framerate for the output movie (default: 30)
+  -z, --compression COMPRESSION
+                        compression level (default: 1)
+```
+
+It can also combine different scenes into side-by-side panels using the `-m` flag. For example:
+
+```sh
+render.py merge -m -c 2 simulation/renders
+```
+
+will produce a movie from all the scenes the rendered scenes using 2 columns for panels.
 
 ## Examples
 

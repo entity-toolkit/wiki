@@ -11,7 +11,7 @@ nav:
       - content/1-getting-started/2-dependencies.md
       - content/1-getting-started/3-inputfile.md
       # - content/1-getting-started/4-writing-pgen.md
-      - content/1-getting-started/8-docker.md
+      # - content/1-getting-started/8-docker.md
   - How-To:
       - content/2-howto/1-problem_generators.md
       - content/2-howto/2-vis.md
@@ -20,17 +20,19 @@ nav:
       - content/2-howto/5-docs.md
       - content/2-howto/6-guidelines.md
       - content/2-howto/7-faq.md
+  - Advanced How-To:
+      - content/3-advanced/1-higherorder.md
+      - content/3-advanced/2-radiative.md
+      - content/3-advanced/3-rendering.md
+      - content/3-advanced/4-load_balancing.md
+      - content/3-advanced/5-tiled_deposit.md
+      - content/3-advanced/6-moving-window.md
   - Understanding the Code:
-      - content/3-code/1-pic.md
-      - content/3-code/2-hierarchy.md
-      - content/3-code/3-domains.md
-      - content/3-code/4-fields_particles.md
-      - content/3-code/5-metrics.md
-      - content/3-code/6-higherorder.md
-      - content/3-code/7-radiative.md
-      - content/3-code/8-rendering.md
-      - content/3-code/9-load_balancing.md
-      - content/3-code/10-team_policy.md
+      - content/4-code/1-pic.md
+      - content/4-code/2-hierarchy.md
+      - content/4-code/3-domains.md
+      - content/4-code/4-fields_particles.md
+      - content/4-code/5-metrics.md
   - Useful Things:
       - content/useful/costtool.md
       - content/useful/cluster-setups.md

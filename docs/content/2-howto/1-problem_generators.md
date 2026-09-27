@@ -11,12 +11,13 @@ scripts:
 
 !!! abstract "Relevant headers"
 
-    - `setups/**/pgen.hpp`
-    - `archetypes/problem_generator.h`
+    - `pgens/**/pgen.hpp`
+    - `examples/**/pgen.hpp`
     - `archetypes/field_setter.h`
     - `archetypes/energy_dist.h`
     - `archetypes/spatial_dist.h`
     - `archetypes/particle_injector.h`
+    - `archetypes/utils.h`
 
 ## Problem generators
 
@@ -28,7 +29,7 @@ cmake ... -D pgen=streaming
 
 ### Basic structure
 
-All problem generators contain a namespace `user::` and a structure named `Pgen<S, M>` which must inherit from the `arch::ProblemGenerator<S, M>` class, where `S` is the simulation engine and `M` is the metric. A typical dummy problem generator will look like this:
+All problem generators contain a namespace `user::` and a structure named `Pgen<S, M>`, where `S` is the simulation engine and `M` is the metric. A typical dummy problem generator will look like this:
 
 ```cpp
 #ifndef PROBLEM_GENERATOR_H
@@ -37,8 +38,7 @@ All problem generators contain a namespace `user::` and a structure named `Pgen<
 #include "enums.h"
 #include "global.h"
 
-#include "archetypes/traits.h"
-#include "archetypes/problem_generator.h"
+#include "traits/pgen.h"
 #include "framework/domain/metadomain.h"
 #include "framework/parameters/parameters.h"
 
@@ -46,28 +46,27 @@ namespace user {
   using namespace ntt; // (2)!
 
   template <SimEngine::type S, class M>
-  struct PGen : public arch::ProblemGenerator<S, M> {
+  struct PGen {
     // enumerate which engines/metrics/dimensions are compatible (1)
     static constexpr auto engines {
-      arch::traits::pgen::compatible_with<SimEngine::SRPIC, SimEngine::GRPIC>::value
+      ::traits::pgen::compatible_with<SimEngine::SRPIC, SimEngine::GRPIC> {}
     };
     static constexpr auto metrics {
-      arch::traits::pgen::compatible_with<Metric::Minkowski,
-                              Metric::Spherical,
-                              Metric::QSpherical,
-                              Metric::Kerr_Schild,
-                              Metric::QKerr_Schild,
-                              Metric::Kerr_Schild_0>::value
+      ::traits::pgen::compatible_with<Metric::Minkowski,
+                                      Metric::Spherical,
+                                      Metric::QSpherical,
+                                      Metric::Kerr_Schild,
+                                      Metric::QKerr_Schild,
+                                      Metric::Kerr_Schild_0> {}
     };
     static constexpr auto dimensions {
-      arch::traits::pgen::compatible_with<Dim::_1D, Dim::_2D, Dim::_3D>::value
+      ::traits::pgen::compatible_with<Dim::_1D, Dim::_2D, Dim::_3D> {}
     };
 
     // ... additional definitions ..
 
-    inline PGen(const SimulationParams& p, const Metadomain<S, M>&)
-      : arch::ProblemGenerator<S, M> { p } 
-      // ... any additional initialization ...
+    inline PGen(const SimulationParams&, const Metadomain<S, M>&)
+      : // ... any additional initialization ...
       {}
 
     // ... additional methods ...
@@ -81,7 +80,7 @@ namespace user {
 1. This is done not only for the runtime sanity check, but also to shorten the compile time, as the compiler will not generate the code for the incompatible engines/metrics/dimensions.
 2. To avoid using `ntt::` everywhere
 
-There are three special definitions one may provide in the problem generator that will allow the simulation engine to call custom routines at the beginning of the simulation or at the end of each timestep.
+There are several special definitions one may provide in the problem generator that will allow the simulation engine to call custom routines at the beginning of the simulation, at the end of each timestep, or during one of the standard routine kernels.
 
 !!! note "Units"
 
@@ -93,7 +92,7 @@ To initialize electromagnetic fields to specific values, one may provide a custo
 
 ```cpp
 template <SimEngine::type S, class M>
-struct PGen : public arch::ProblemGenerator<S, M> {
+struct PGen {
   // ...
   
   // the name of the class may be arbitrary, but the instance must be named `init_flds`
@@ -137,15 +136,14 @@ private:
 
 // and then use it in the problem generator
 template <SimEngine::type S, class M>
-struct PGen : public arch::ProblemGenerator<S, M> {
+struct PGen {
   // ...
   
   SinusoidalField<D> init_flds;
 
   // initialize the `init_flds` by passing the parameters from the input
-  inline PGen(const SimulationParams& p, const Metadomain<S, M>&)
-      : arch::ProblemGenerator<S, M> { p }
-      , init_flds { p.template get<real_t>("setup.kx"), 
+  inline PGen(const SimulationParams&, const Metadomain<S, M>&)
+      : init_flds { p.template get<real_t>("setup.kx"), 
                     p.template get<real_t>("setup.amplitude") } 
       {}
 };
@@ -157,7 +155,7 @@ Fields must be returned in the local tetrad (orthonormal) basis in SR and coordi
 
 Similar to initializing the fields, one can also initialize particles with a given energy or spatial distribution. This is done by providing a custom method of the `PGen` class called `InitPrtls(Domain<S, M>&)` which takes a reference to the local subdomain as a parameter. In principle, one can manually initialize the particles in any way they want, but it is recommended to use the built-in routines from the `arch::` (archetypes) namespace.
 
-For instance, to initialize a uniform Maxwellian of a given temperature, one can use the `arch::Maxwellian` class together with the `InjectUniform` method:
+For instance, to initialize a uniform Maxwellian of a given temperature, one can use the `arch::energy_dist::Maxwellian` class together with the `InjectUniform` method:
 
 ```cpp
 // don't forget to include the proper headers
@@ -167,16 +165,15 @@ For instance, to initialize a uniform Maxwellian of a given temperature, one can
 // ...
 
 template <SimEngine::type S, class M>
-struct PGen : public arch::ProblemGenerator<S, M> {
+struct PGen {
+  const SimulationParams& params;
+
   // 
-  inline void InitPrtls(Domain<S, M>& local_domain) {
-    const auto energy_dist = arch::Maxwellian<S, M>(
-                                  local_domain.mesh.metric, 
-                                  local_domain.random_pool(), 
-                                  temperature);
+  inline void InitPrtls(Domain<S, M>& domain) {
+    const auto energy_dist = arch::energy_dist::Maxwellian<M::Dim, M::CoordType>(domain.random_pool(), temperature);
     arch::InjectUniform<S, M, decltype(energy_dist), decltype(energy_dist)>(
                           params,
-                          local_domain,
+                          domain,
                           { 1, 2 },
     //                      ^^^^^
     //                      species to inject    
@@ -188,23 +185,29 @@ struct PGen : public arch::ProblemGenerator<S, M> {
 };
 ```
 
-To initialize a non-uniform distribution and/or an arbitrary energy distribution, we will need to provide our own classes, which in turn must inherit from the `arch::SpatialDistribution<S, M>` and `arch::EnergyDistribution<S, M>`. For instance, let us initialize a distribution of two particle species counter-streaming in opposing direction with their velocities depending on the $x_2$ ($y$) coordinate, distributed in space according to a Gaussian profile. We first need to define the energy distribution:
+!!! note "Injecting a Maxwellian"
+
+    Equivalently, for a Maxwellian, one could also use a convenient wrapper:
+    ```cpp
+    arch::InjectUniformMaxwellian<S, M>(params, xomain, 1.0, temperature, { 1, 2 });
+    ```
+
+To initialize a non-uniform distribution and/or an arbitrary energy distribution, we will need to provide our own classes. For instance, let us initialize a distribution of two particle species counter-streaming in opposing direction with their velocities depending on the $x_2$ ($y$) coordinate, distributed in space according to a Gaussian profile. We first need to define the energy distribution:
 
 ```cpp
 template <SimEngine::type S, class M>
-struct CounterstreamEnergyDist : public arch::EnergyDistribution<S, M> {
-  CounterstreamEnergyDist(const M& metric, real_t v_max, real_t sx2)
-    : arch::EnergyDistribution<S, M> { metric }
-    , v_max { v_max }
-    , kx2 { static_cast<real_t>(constant::TWO_PI) / sx2 } {}
+struct CounterstreamEnergyDist {
+  CounterstreamEnergyDist(real_t v_max, real_t sx2, spidx_t sp)
+    : v_max { v_max }
+    , kx2 { static_cast<real_t>(constant::TWO_PI) / sx2 }
+    , sp { sp } {}
 
   // three arguments passed here are
   // x_Ph: global physical coordinates of the particle
   // v: the velocity of the particle to-be-set in the tetrad basis
   // sp: species index
   Inline void operator()(const coord_t<M::Dim>& x_Ph,
-                         vec_t<Dim::_3D>&       v,
-                         unsigned short         sp) const {
+                         vec_t<Dim::_3D>&       v) const {
     if (sp == 1) {
       v[0] = v_max * math::sin(kx2 * x_Ph[1]);
     } else {
@@ -214,6 +217,7 @@ struct CounterstreamEnergyDist : public arch::EnergyDistribution<S, M> {
 
 private:
   const real_t v_max, kx2;
+  const spidx_t sp;
 };
 ```
 
@@ -221,10 +225,9 @@ We then need to define the spatial distribution, which takes a coordinate as an 
 
 ```cpp
 template <SimEngine::type S, class M>
-struct GaussianDist : public arch::SpatialDistribution<S, M> {
-  GaussianDist(const M& metric, real_t x1c, real_t x2c, real_t dr)
-    : arch::SpatialDistribution<S, M> { metric }
-    , x1c { x1c }
+struct GaussianDist {
+  GaussianDist(real_t x1c, real_t x2c, real_t dr)
+    : x1c { x1c }
     , x2c { x2c }
     , dr { dr } {}
 
@@ -245,39 +248,33 @@ We can then pass the instances of these classes to the `arch::InjectNonUniform` 
 // ...
 
 template <SimEngine::type S, class M>
-struct PGen : public arch::ProblemGenerator<S, M> {
+struct PGen {
   // internal variables to-be-used in the constructor
   const real_t temperature, v_max, sx2;
   const real_t x1c, x2c, dr;
 
   // read the parameters from the input
-  inline PGen(const SimulationParams& p, const Metadomain<S, M>& global_domain)
-    : arch::ProblemGenerator<S, M> { p }
-    , temperature { p.template get<real_t>("setup.temperature") }
+  inline PGen(const SimulationParams& p, const Metadomain<S, M>& metadomain)
+    : temperature { p.template get<real_t>("setup.temperature") }
     , v_max { p.template get<real_t>("setup.v_max") }
-    , sx2 { global_domain.mesh().extent(in::x2).second - global_domain.mesh().extent(in::x2).first } // (1)!
+    , sx2 { metadomain.mesh().extent(in::x2).second - metadomain.mesh().extent(in::x2).first } // (1)!
     , x1c { p.template get<real_t>("setup.x1c") }
     , x2c { p.template get<real_t>("setup.x2c") }
     , dr { p.template get<real_t>("setup.dr") }
     {}
 
-  inline void InitPrtls(Domain<S, M>& local_domain) {
-    const auto energy_dist  = CounterstreamEnergyDist<S, M>(
-                                        local_domain.mesh.metric,
-                                        v_max,
-                                        sx2);
-    const auto spatial_dist = GaussianDist<S, M>(domain.mesh.metric,
-                                                 x1c,
-                                                 x2c,
-                                                 dr);
+  inline void InitPrtls(Domain<S, M>& domain) {
+    const auto energy_dist_1  = CounterstreamEnergyDist<S, M>(v_max, sx2, 1);
+    const auto energy_dist_2  = CounterstreamEnergyDist<S, M>(v_max, sx2, 2);
+    const auto spatial_dist = GaussianDist<S, M>(x1c, x2c, dr);
 
-    arch::InjectNonUniform<S, M, decltype(energy_dist), decltype(energy_dist), decltype(spatial_dist)>(
+    arch::InjectNonUniform<S, M, decltype(energy_dist_1), decltype(energy_dist_2), decltype(spatial_dist)>(
             params,
             domain,
             { 1, 2 },
-            { energy_dist, energy_dist },
+            { energy_dist_1, energy_dist_2 },
             spatial_dist,
-            1.0); // <-- injected density in units of `n0` 
+            1.0); // <-- injected density in units of `n0`x
             // (2)!
   }
 
@@ -293,66 +290,55 @@ Often times, one needs to intervene to the simulation process to perform some cu
 
 ```cpp
 template <SimEngine::type S, class M>
-struct PGen : public arch::ProblemGenerator<S, M> {
+struct PGen {
   // ... 
 
-  void CustomPostStep(std::size_t, long double, Domain<S, M>& domain) {
+  void CustomPostStep(timestep_t, simtime_t, Domain<S, M>& domain) {
     // ... some energy/spatial distribution & injector here (see above) ...
     arch::InjectNonUniform<S, M, /* ... */>( /* ... */ );
   }
 };
 ```
 
-Or you may also manually access the fields and particles through the `domain.fields` and `domain.species[...]` objects, respectively, and perform any operations you need. Be mindful, however, that all the raw quantities stored within the `domain` object are in the code units (for more details, see the [fields and particles](../3-code/4-fields_particles.md) section; for ways to convert from one system/basis to another, see the [metric](../3-code/5-metrics.md) section).
+Or you may also manually access the fields and particles through the `domain.fields` and `domain.species[...]` objects, respectively, and perform any operations you need. Be mindful, however, that all the raw quantities stored within the `domain` object are in the code units (for more details, see the [fields and particles](../4-code/4-fields_particles.md) section; for ways to convert from one system/basis to another, see the [metric](../4-code/5-metrics.md) section).
 
-### Custom external force
+### Custom external force / fields
 
-Similar to all the other custom routines, one may also define a custom external force which will optionally be applied to the particles together with the electromagnetic pusher. This is done by defining an arbitrary class with an instance named `ext_force`, which implements three methods: `fx1()`, `fx2()`, `fx3()`. For instance, to apply a force in the $x_1$ direction decaying over time, one would write:
+Similar to all the other custom routines, one may also define a custom external force or external EM field which will optionally be applied to the particles together with the electromagnetic pusher (fields will be added to the ones interpolated from the grid). This is done by returning an arbitrary class instance from problem generator's `ExternalFields` routine which implements methods: `fx1()`, `fx2()`, and/or `fx3()`, `ex1()`, `ex2()`, and/or `ex3()`, `bx1()`, `bx2()`, and/or `bx3()`. For instance, to apply a force in the $x_1$ direction decaying over time, and a magnetic field in the $z$ direction only to the first species, one would write:
 
 ```cpp
 template <Dimension D>
 struct PushDaTempo {
-  // specify which species to apply the force to
-  const std::vector<unsigned short> species { 1, 2 };
-
   PushDaTempo(real_t f, real_t t) : force { f }, tau { t } {}
 
-  Inline auto fx1(const unsigned short&,
-                  const real_t& time,
-                  const coord_t<D>&) const -> real_t {
+  Inline auto fx1(const coord_t<D>&) const -> real_t {
     return force * math::exp(-time / tau);
   }
 
-  Inline auto fx2(const unsigned short&,
-                  const real_t&,
-                  const coord_t<D>&) const -> real_t {
-    return ZERO;
+  Inline auto bx3(const coord_t<D>&) const -> real_t {
+    return 0.1;
   }
 
-  Inline auto fx3(const unsigned short&,
-                  const real_t&,
-                  const coord_t<D>&) const -> real_t {
-    return ZERO;
-  }
 private:
   const real_t force, tau;
 };
 
 // and then in the problem generator class
 template <SimEngine::type S, class M>
-struct PGen : public arch::ProblemGenerator<S, M> {
+struct PGen {
   // ...
-  PushDaTempo<S, M> ext_force;
-  // and read the parameters from the input
-  inline PGen(const SimulationParams& p, const Metadomain<S, M>& global_domain)
-    : arch::ProblemGenerator<S, M> { p }
-    , ext_force { p.template get<real_t>("setup.force"),
-                  p.template get<real_t>("setup.tau") }
-    {}
+  auto ExternalFields(simtime_t time, spidx_t sp, const Domain<S, M>& /*domain*/) const 
+    -> std::pair<bool, PushDaTempo<M::Dim>> {
+    return { 
+      sp == 1, 
+      PushDaTempo { 0.2, time }
+    }
+  }
+
 };
 ```
 
-Again, as everything else in the problem generator, the force (rather, the acceleration) must be returned in the local tetrad basis and the passed coordinates are the physical coordinates.
+The returned pair has a boolean to indicate whether to apply the force for the given species at a given time, and the class instance itself. Again, as everything else in the problem generator, the force (rather, the acceleration), and the EM fields must be returned in the local tetrad basis and the passed coordinates are the physical coordinates.
 
 
 !!! note "All functions are optional"
@@ -391,12 +377,11 @@ struct ImmaRealLiveWire { //(1)!
 };
 
 template <SimEngine::type S, class M>
-struct PGen : public arch::ProblemGenerator<S, M> {
-  ImmaRealLiveWire<D> ext_current;
+struct PGen {
+  ImmaRealLiveWire<M::Dim> ext_current;
 
-  inline PGen(const SimulationParams& p, const Metadomain<S, M>& global_domain)
-    : arch::ProblemGenerator<S, M> { p }
-    , ext_current { p.template get<real_t>("setup.amplitude"),
+  inline PGen(const SimulationParams& p, const Metadomain<S, M>&)
+    : ext_current { p.template get<real_t>("setup.amplitude"),
                     p.template get<real_t>("setup.k") } //(2)!
     {}
 };
@@ -429,7 +414,7 @@ There can be as many custom fields as one needs. And then in the problem generat
 ```cpp
 void CustomFieldOutput(const std::string&   name,//(1)!
                        ndfield_t<M::Dim, 6> buffer,//(2)!
-                       index_t              index,//(3)!
+                       cellidx_t            index,//(3)!
                        timestep_t,//(4)!
                        simtime_t,//(5)!
                        const Domain<S, M>&  domain) {//(6)!
@@ -440,16 +425,16 @@ void CustomFieldOutput(const std::string&   name,//(1)!
       Kokkos::parallel_for(
         "MyField",
         domain.mesh.rangeActiveCells(),
-        Lambda(index_t i1) {
+        Lambda(cellidx_t i1) {
           const auto      i1_ = COORD(i1);
           coord_t<M::Dim> x_Ph { ZERO };
           // convert coordinate to physical basis:
-          metric.template convert<Crd::Cd, Crd::Ph>({ i1_ }, x_Ph);
+          domain.mesh.metric.template convert<Crd::Cd, Crd::Ph>({ i1_ }, x_Ph);
           // compute whatever needs to be written
           // ... may also depend on the EM fields from the `domain`
           // ... in this example -- output Ex * x^2
           buffer(i1, index) = SQR(x_Ph[0]) *
-                              metric.template transform<1, Idx::U, Idx::T>(
+                              domain.mesh.metric.template transform<1, Idx::U, Idx::T>(
                                 { i1_ + HALF },
                                 EM(i1, em::ex1));
           // here we also convert Ex1(i + 1/2) to Tetrad basis
@@ -473,7 +458,7 @@ Alternatively, you can precompute the desired quantity in the `CustomPostStep` f
 ```cpp
 // assuming 2D and that the desired quantity is saved in `cbuff`
 template <SimEngine::type S, class M>
-struct PGen : public arch::ProblemGenerator<S, M> {
+struct PGen {
   // ...
 
   array_t<real_t**> cbuff;
@@ -491,14 +476,14 @@ struct PGen : public arch::ProblemGenerator<S, M> {
     Kokkos::parallel_for(
       "FillCbuff",
       domain.mesh.rangeActiveCells(),
-      Lambda(index_t i1, index_t i2) {
+      Lambda(cellidx_t i1, cellidx_t i2) {
         // ...
       });
   }
 
-  void CustomFieldOutput(const std::string&    name,
+  void CustomFieldOutput(const std::string&   name,
                          ndfield_t<M::Dim, 6> buffer,
-                         index_t              index,
+                         cellidx_t            index,
                          timestep_t,
                          simtime_t,
                          const Domain<S, M>&) {
@@ -590,11 +575,11 @@ The injected particle distribution is in Boltzmann-equilibrium with the gravity:
   ds = ""
 ```
 
-While the particle atmospheric boundaries are handled automatically, when field boundaries are set to `ATMOSPHERE`, the user must also provide target electromagnetic fields which will be used to reset the field values below the atmosphere. To do this, one needs to provide a `FieldDriver` method in their problem generator, which takes `time` as an argument and returns an arbitrary class with methods: `ex1`, `ex2`, ... etc. An example of such a class is shown below:
+While the particle atmospheric boundaries are handled automatically, when field boundaries are set to `ATMOSPHERE`, the user must also provide target electromagnetic fields which will be used to reset the field values below the atmosphere. To do this, one needs to provide an `AtmFields` method in their problem generator, which takes `time` as an argument and returns an arbitrary class with methods: `ex1`, `ex2`, ... etc. An example of such a class is shown below:
 
 ```cpp
 template <Dimension D>
-struct AtmFields {
+struct AtmBoundaryFields {
 
   // functions take the physical coordinate as an argument
   Inline auto ex1(const coord_t<D>&) const -> real_t {
@@ -611,11 +596,11 @@ struct AtmFields {
 };
 
 template <SimEngine::type S, class M>
-struct PGen : public arch::ProblemGenerator<S, M> {
+struct PGen {
   // ...
 
-  auto FieldDriver(real_t time) const -> AtmFields<D> {
-    return AtmFields<D> { /* ... params ... */ };
+  auto AtmFields(simtime_t time) const -> AtmBoundaryFields<D> {
+    return AtmBoundaryFields<D> { /* params */ };
   }
 };
 ```
@@ -636,7 +621,7 @@ An example usage can be found in the `srpic/shock/shock.toml`:
 
 ```toml
 [grid.boundaries]
-    fields = [["CONDUCTOR", "MATCH"], ["PERIODIC"]]
+    fields    = [["CONDUCTOR", "MATCH"], ["PERIODIC"]]
     particles = [["REFLECT", "ABSORB"], ["PERIODIC"]]
 ```
 
@@ -707,13 +692,13 @@ struct MyBoundaryFields {
 };
 
 template <SimEngine::type S, class M>
-struct PGen : public arch::ProblemGenerator<S, M> {
+struct PGen {
   // ...
 
   // This function is called within the BC kernel
   // (potentially, bc_flds may depend on time)
   auto MatchFields(simtime_t time) const -> MyBoundaryFields<D> {
-    const auto bc_flds = BoundaryFields<D>{};
+    const auto bc_flds = MyBoundaryFields<D>{};
     return bc_flds;
   }
 };
@@ -732,7 +717,7 @@ If the `struct` does not explicitly define certain components (in the example ab
 
 !!! note "Matching boundaries in different directions"
 
-    You might need to have separate matching boundaries (i.e., fields being matched to different values) in different directions. For example, you may have one set of BCs in $\pm x$, while completely different conditions in $\pm y$. This can be achieved by specifying separately `MatchFieldsInX1` (for $\pm x$) and `MatchFieldsInX2` (in $\pm y$) instead of `MatchFields`. The function will still take time as the argument and return a class defining BCs in each distinct direction.
+    You might need to have separate matching boundaries (i.e., fields being matched to different values) in different directions. For example, you may have one set of BCs in $\pm x$, while completely different conditions in $\pm y$. This can be achieved by specifying separately `MatchFieldsInX1` (for $\pm x$), `MatchFieldsInX2` (in $\pm y$), and `MatchFieldsInX3` (in $\pm z$) instead of `MatchFields`. The function will still take time as the argument and return a class defining BCs in each distinct direction.
 
 ### Fixed field boundaries
 
@@ -748,7 +733,7 @@ In this example, the $E^2$, and $E^3$ components are set to zero in the boundary
 // ...
 
 template <SimEngine::type S, class M>
-struct PGen : public arch::ProblemGenerator<S, M> {
+struct PGen {
   // ...
 
   // This function is called within the BC kernel
@@ -757,16 +742,16 @@ struct PGen : public arch::ProblemGenerator<S, M> {
   // while the second bool component ...
   // ... determines whether that component is updated at all
   // ... i.e., if bool is false, the first component is simply ignored
-  auto FixFieldsConst(const bc_in&, const em& comp) const
+  auto FixFieldsConst(simtime_t, const bc_in&, const em& comp) const
       -> std::pair<real_t, bool> {
-      if (comp == em::ex2) {
-        return { ZERO, true };
-      } else if (comp == em::ex3) {
-        return { ZERO, true };
-      } else {
-        return { ZERO, false };
-      }
+    if (comp == em::ex2) {
+      return { ZERO, true };
+    } else if (comp == em::ex3) {
+      return { ZERO, true };
+    } else {
+      return { ZERO, false };
     }
+  }
 };
 ```
 
@@ -775,14 +760,14 @@ struct PGen : public arch::ProblemGenerator<S, M> {
     One can change the boundary conditions at runtime by directly accessing the global metadomain, for example, in the `CustomPostStep` routine. Below is an example of how to do that (chaging boundaries to `MATCH` for fields and `ABSORB` for particles in $\pm x$ and $\pm y$ at a certain time):
     ```cpp
     template <SimEngine::type S, class M>
-    struct PGen : public arch::ProblemGenerator<S, M> {
+    struct PGen {
       // ...
+      const SimulationParams& params;
       Metadomain<S, M>& metadomain;
       bool bc_opened { false };
       // ...
       inline PGen(const SimulationParams& p, Metadomain<S, M>& m) : 
-        : arch::ProblemGenerator<S, M>(p)
-        , metadomain { m } {}
+        : params { p }, metadomain { m } {}
 
       void CustomPostStep(timestep_t, simtime_t time, Domain<S, M>&) {
         if ((time > t_open) and (not bc_opened)) { // (1)!
@@ -828,81 +813,112 @@ struct InitFields {
 };
 
 template <SimEngine::type S, class M>
-struct PGen : public arch::ProblemGenerator<S, M> {
+struct PGen {
   InitFields<D> init_flds;
 
   void CustomPostStep(timestep_t step, simtime_t time, Domain<S, M>& domain) {
-    /**
-     * tag particles inside the injection zone as dead
-    **/
-    const auto& mesh = domain.mesh;
-    // loop over particle species
-    for (auto s { 0u }; s < 2; ++s) {
-      // get particle properties
-      auto& species = domain.species[s];
-      auto  i1      = species.i1;
-      auto  dx1     = species.dx1;
-      auto  tag     = species.tag;  
-    
-      Kokkos::parallel_for(
-          "RemoveParticles",
-          species.rangeActiveParticles(),
-          Lambda(index_t p) {
-            // check if the particle is already dead
-            if (tag(p) == ParticleTag::dead) {
-              return;
-            }
-            // convert particle position to grid coordinates
-            const auto x_Cd = static_cast<real_t>(i1(p)) +
-                              static_cast<real_t>(dx1(p));
-            // convert grid coordinates to physical coordinates
-            const auto x_Ph = mesh.metric.template convert<1, Crd::Cd, Crd::XYZ>(
-              x_Cd);
-            
-            // if the particle position is to the right of xmin, tag it as dead
-            if (x_Ph > xmin) {
-              tag(p) = ParticleTag::dead;
-            }
-          });
-      }
-
     /*
-      Reset the fields inside the purged region
-    */
-    // define indices range to reset fields
-    // (not including ghost zones in either direction)
-    boundaries_t<bool> incl_ghosts;
-    for (auto d = 0; d < M::Dim; ++d) {
-      incl_ghosts.push_back({ false, false });
+      *  Replenish plasma in a moving injector
+      *
+      *  Injector setup:
+      *
+      * global_xmin           purge/replenish  global_xmax
+      * |         x_init            |          |
+      * V           v               V          V
+      * |:::::::::::;::::::::::|\\\\\\\\|......|
+      *                       xmin    xmax
+      *                                 ^
+      *                                 |
+      *                           moving injector
+      */
+
+    // check if the injector should be active
+    if (step % injection_frequency != 0) {
+      return;
     }
 
-    // define the rectangular box region where fields are reset
+    // initial position of injector
+    const auto x_init = global_xmin +
+                        filling_fraction * (global_xmax - global_xmin);
+
+    // compute the position of the injector after the current timestep
+    auto xmax = x_init + injector_velocity *
+                            (std::max<real_t>(time - injection_start, ZERO) + dt);
+    if (xmax >= global_xmax) {
+      xmax = global_xmax;
+    }
+
+    // compute the beginning of the injected region
+    auto xmin = xmax - injection_frequency * dt;
+    if (xmin <= global_xmin) {
+      xmin = global_xmin;
+    }
+
+    // define index range to reset fields
+    boundaries_t<bool> incl_ghosts;
+    for (auto d = 0; d < M::Dim; ++d) {
+      incl_ghosts.emplace_back(false, false);
+    }
+
+    // define box to reset fields
     boundaries_t<real_t> purge_box;
     // loop over all dimension
     for (auto d = 0u; d < M::Dim; ++d) {
       if (d == 0) {
-        purge_box.push_back({ xmin, global_xmax });
+        purge_box.emplace_back(xmin, global_xmax);
       } else {
         purge_box.push_back(Range::All);
       }
     }
 
-    // convert physical extent to a range of cells
     const auto extent = domain.mesh.ExtentToRange(purge_box, incl_ghosts);
-    // record the range min/max boundaries in each dimension
-    tuple_t<std::size_t, M::Dim> x_min { 0 }, x_max { 0 };
+    tuple_t<ncells_t, M::Dim> x_min { 0 }, x_max { 0 };
     for (auto d = 0; d < M::Dim; ++d) {
       x_min[d] = extent[d].first;
       x_max[d] = extent[d].second;
     }
 
     Kokkos::parallel_for("ResetFields",
-                         CreateRangePolicy<M::Dim>(x_min, x_max),
-                         arch::SetEMFields_kernel<decltype(init_flds), S, M> {
-                           domain.fields.em,
-                           init_flds,
-                           domain.mesh.metric });
+                          CreateRangePolicy<M::Dim>(x_min, x_max),
+                          arch::SetEMFields_kernel<S, M, decltype(init_flds)> {
+                            domain.fields.em,
+                            init_flds,
+                            domain.mesh.metric });
+    metadomain.CommunicateFields(domain, Comm::E | Comm::B);
 
+    /*
+      tag particles inside the injection zone as dead
+    */
+    const auto& mesh = domain.mesh;
+
+    // loop over particle species
+    for (auto s { 0u }; s < 2; ++s) {
+      // get particle properties
+      auto& species = domain.species[s];
+      auto  i1      = species.i1;
+      auto  dx1     = species.dx1;
+      auto  tag     = species.tag;
+
+      Kokkos::parallel_for(
+        "RemoveParticles",
+        species.rangeActiveParticles(),
+        Lambda(prtlidx_t p) {
+          // check if the particle is already dead
+          if (tag(p) == ParticleTag::dead) {
+            return;
+          }
+          const auto x_Cd = static_cast<real_t>(i1(p)) +
+                            static_cast<real_t>(dx1(p));
+          const auto x_Ph = mesh.metric.template convert<1, Crd::Cd, Crd::XYZ>(
+            x_Cd);
+
+          if (x_Ph > xmin) {
+            tag(p) = ParticleTag::dead;
+          }
+        });
+    }
+
+    // Inject a slab of fresh plasma ...
   }
 };
 ```

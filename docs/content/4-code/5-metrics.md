@@ -41,7 +41,7 @@ To understand how metrics are implemented in Entity, one must first understand t
     \end{CD}
     $$
 
-    where stretching is done via $\xi=\log{(r-r_0)}$, $\theta = x_2 + 2h \eta (\pi - 2 \eta) (\pi - \eta) / \pi^2$ ($\eta$ set implicitly), and mapping -- via $x^1 = (\xi - \xi_{\rm min})/n_1$, etc.
+    where stretching is done via $\xi=\log{(r-r_0)}$, $\theta = \eta + 2h \eta (\pi - 2 \eta) (\pi - \eta) / \pi^2$ ($\eta$ set implicitly), and mapping -- via $x^1 = n_1 (\xi - \xi_{\rm min}) / (\xi_{\rm max} - \xi_{\rm min})$, etc.
 
     The diagram below demonstrates the stretching of the quasi-spherical coordinates in the $\xi$ direction, and how that maps to both the physical and code-unit coordinates. Here we stretch $r=[1, 90)$ logarithmically $\xi=\ln{r}$, and map it to $x^1=[0, 18)$ which coincides with our discretization. The result is a non-uniformly discretized grid with more cells focused towards the origin.
 
@@ -58,7 +58,7 @@ Each metric has a number of distinct attributes. These are:
     - `Dim::_1D`, `Dim::_2D`, `Dim::_3D`
 - `Label`: a string that identifies the metric;
 - `CoordType`: the type of coordinates used in the metric;
-    - `Coord::Cart`, `Coord::Sph`, `Coord::Qsph`
+    - `Coord::Cartesian`, `Coord::Spherical`, `Coord::Qspherical`
 - `PrtlDim`: the dimensionality of the particle coordinates. `PrtlDim == Dim::_3D` for SR spherical metrics, and `== D` otherwise; (1) 
     { .annotate }
 
@@ -103,7 +103,7 @@ Each metric has a number of distinct attributes. These are:
     <td><code>coord_t&lt;D&gt; x_C</code></td>
     <td><code>real_t</code></td>
   </tr>
-  <tr class="tr-gr2">
+  <tr class="tr-gr3">
     <td><code>sqrt_det_h_tilde</code></td>
     <td>$\sqrt{\det{h_{ij}}} / \sin{\theta}$</td>
     <td><code>coord_t&lt;D&gt; x_C</code></td>
@@ -154,6 +154,24 @@ Each metric has a number of distinct attributes. These are:
   <tr class="tr-gr1">
     <td><code>transform_xyz<in, out></code></td>
     <td>explicitly transforms to/from a Cartesian frame</td>
+    <td><code>coord_t&lt;PrtlDim&gt;, vec_t<3D>, &vec_t<3D></code></td>
+    <td></td>
+  </tr>
+  <tr class="tr-gr2">
+    <td><code>g_<i, j></code></td>
+    <td>covariant four-metric</td>
+    <td><code>coord_t&lt;PrtlDim&gt;</code></td>
+    <td>real_t</td>
+  </tr>
+  <tr class="tr-gr2">
+    <td><code>g<i, j></code></td>
+    <td>contravariant four-metric</td>
+    <td><code>coord_t&lt;PrtlDim&gt;</code></td>
+    <td>real_t</td>
+  </tr>
+  <tr class="tr-gr2">
+    <td><code>transform_4d<in, out></code></td>
+    <td>perform vector transformation for a full four-vector</td>
     <td><code>coord_t&lt;PrtlDim&gt;, vec_t<3D>, &vec_t<3D></code></td>
     <td></td>
   </tr>

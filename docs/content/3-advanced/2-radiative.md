@@ -7,11 +7,9 @@ hide:
 
 !!! abstract "Relevant headers"
 
-    - `engines/srpic/particle_pusher.h`
-    - `kernels/emission/emission.hpp`
-    - `kernels/emission/compton.hpp`
-    - `kernels/emission/synchrotron.hpp`
-    - `kernels/particle_pusher_sr.hpp`
+    - `archetypes/emission/compton.hpp`
+    - `archetypes/emission/synchrotron.hpp`
+    - `kernels/pushers/sr.hpp`
 
 ## Radiative drag
 
@@ -47,7 +45,7 @@ with $\bm{e}\equiv \bm{E}/B_0$, $\bm{b}\equiv \bm{B}/B_0$.
 Similarly, for the Compton drag (with $\eta\equiv 0.1$):
 
 $$
-\frac{d\bm{u}}{dt} = -\frac{|q|/m}{q_0/m_0}\eta \left(\frac{\gamma}{\gamma_{\rm rad}}\right)^2\bm{\beta}.
+\frac{d\bm{u}}{dt} = -\frac{|q|/m}{q_0/m_0}\omega_B^0\eta \left(\frac{\gamma}{\gamma_{\rm rad}}\right)^2\bm{\beta}.
 $$
 
 In both cases, the relative strength of the drag is controlled by the corresponding $\gamma_{\rm rad}$ dimensionless parameter, which can be set from the input file for both processes separately:
@@ -95,7 +93,7 @@ There are currently two built-in emission algorithms implemented, which can be e
 
 !!! note
 
-    When enabling the emission for a given species, you also automatically enable the corresponding `radiative_drag` (i.e., particles will feel a recoil when emitting). This, however, can be explicitly disabled, by setting the corresponding `radiative_drag = "none"` in the `[[particles.species]]` section.
+    When enabling the emission for a given species, you also automatically enable the corresponding `radiative_drag` (i.e., particles will feel a recoil when emitting). Make sure you are not explicitly setting the `radiative_drag` in the `[[particles.species]]` section. This drag can be explicitly disabled, by setting the corresponding `radiative_drag = "none"` in the `[[particles.species]]` section.
 
 ### Synchrotron & Compton emission
 
@@ -109,7 +107,7 @@ There are several parameters that control how the emission works. These are set 
   gamma_qed = ""
   # Minimum photon energy for synchrotron emission (units of `m0 c^2`)
   #   @type: float [> 0.0]
-  #   @default: 1e-4
+  #   @default: 1e-3
   photon_energy_min = ""
   # Weights for the emitted synchrotron photons
   #   @type: float [> 0.0]
@@ -127,7 +125,7 @@ There are several parameters that control how the emission works. These are set 
   gamma_qed = ""
   # Minimum photon energy for inverse Compton emission (units of `m0 c^2`)
   #   @type: float [> 0.0]
-  #   @default: 1e-4
+  #   @default: 1e-3
   photon_energy_min = ""
   # Weights for the emitted inverse Compton photons
   #   @type: float [> 0.0]
@@ -155,4 +153,4 @@ Based on these energy values, as well as the `photon_weight` parameter which set
 
 !!! note
 
-    The emission prescription becomes unphysical, when the probability of the emission at each timestep is close to $1$. This can be estimated as $p = \omega_B^0 \Delta t \eta (\gamma_Q/\gamma_{\rm rad})^2 / w$, where $w$ is the relative photon weight. In this case, it is necessary to either decrease the timestep (CFL), or increase the emitted photon weight. Ideally, one needs to ensure that $p\ll 1$.
+    The emission prescription becomes unphysical, when the probability of the emission at each timestep is close to $1$. This can be estimated as $p = \omega_B^0 \Delta t \eta (\gamma_Q/\gamma_{\rm rad})^2 / w$, where $w$ is the relative photon weight. In this case, it is necessary to either decrease the timestep (CFL), or increase the emitted photon weight. Ideally, one needs to ensure that $p\ll 1$. Also note that the emission (and drag) are disabled, if the energy of the emitted photon is larger than $\sim20\%$ of the $(\gamma-1)mc^2) of the emitting particle for both the `Synchrotron` and `Compton`.

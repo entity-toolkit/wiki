@@ -5,7 +5,7 @@
 !!! note "Using the `dependencies.py`"
 
     <span class="since-version">1.4.0</span>
-    Simply pick the `lumi` option from the cluster-specific parameters from the `dependencies.py` file included with the root of the code, and then run `$HOME/.entity/install.sh` which will both compile and install the dependencies and create modulefiles. It's much faster and more reliable to do this from within a shell running on compute nodes.
+    Simply pick the `lumi` option from the cluster-specific parameters by running the `scripts/dependencies.py` script to generate the install script, and then run it -- `$HOME/.entity/install.sh` which will both compile and install the dependencies and create modulefiles. It's much faster and more reliable to do this from within a shell running on compute nodes.
 
 Building and installing the dependencies can be done using the following modules:
 
@@ -55,20 +55,18 @@ cmake --build build -j
 cmake --install build
 ```
 
-
 **Compiling & running the code**
 
 So far, the gpu-aware MPI is not supported on `LUMI`. The configuration command for `Entity` is the following:
 
 ```sh
-cmake -B build -D pgen=<PGEN> -D mpi=ON -D gpu_aware_mpi=OFF \
-  -D CMAKE_CXX_COMPILER=hipcc -D CMAKE_C_COMPILER=hipcc \
-  -D Kokkos_ROOT=$HOME/.entity/kokkos \
-  -D adios2_ROOT=$HOME/.entity/adios2 \
+cmake -B build -D pgen=<PGEN> -D mpi=ON \
+  -D CMAKE_CXX_COMPILER=hipcc \ 
+  -D CMAKE_C_COMPILER=hipcc \
   -D AMDGPU_TARGETS=gfx90a
-``` 
+```
 
-If you also installed the `Kokkos` and `adios2` environment modules, you can skip the `Kokkos_ROOT` and `adios2_ROOT` flags.
+If CMake doesn't find `Kokkos` or `adios2`, simply pass the paths to it via the `Kokkos_ROOT` and the `adios2_ROOT` flags.
 
 The example submit script for running the code:
 

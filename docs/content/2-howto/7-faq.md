@@ -25,7 +25,7 @@ hide:
 
 !!! faq "Compilation errors"
     
-    Before merging with the released stable version, the code is tested on CUDA and HIP GPU compilers, as well as few version of CPU compilers (GCC 9...11, and LLVM 13...17). If you are encountering compiler errors on GPUs, first thing to check is whether the compilers are set up properly (i.e., whether CMake indeed captures the right compilers). Here are a few tips:
+    Before merging with the released stable version, the code is tested on CUDA and HIP GPU compilers, as well as few version of CPU compilers. If you are encountering compiler errors on GPUs, first thing to check is whether the compilers are set up properly (i.e., whether CMake indeed captures the right compilers). Here are a few tips:
 
     - CUDA @ NVIDIA GPUs: make sure you have a version of `gcc` which is supported by the version of CUDA you are using; check out [this unofficial compatibility matrix](https://gist.github.com/ax3l/9489132#nvcc). In particular, Intel compilers are not very compatible with CUDA, and it is recommended to use `gcc` instead (you won't gain much by using Intel anyway, since CUDA will be doing the heavy-lifting).
   

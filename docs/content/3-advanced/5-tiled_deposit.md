@@ -7,18 +7,23 @@ scripts:
   - tiled_deposit
 ---
 
-# Tiled current deposit (`team_policy`)
+# Tiled current deposit
 
 !!! abstract "Relevant headers"
 
-    - `kernels/currents_deposit.hpp`
+    - `kernels/deposition/currents/single-particle.hpp`
+    - `kernels/deposition/currents/tiled.hpp`
     - `engines/srpic/currents.h`
     - `engines/grpic/currents.h`
     - `framework/containers/particles_sort.cpp`
     - `framework/containers/particles.h`
     - `global/arch/kokkos_aliases.h`
     - `CMakeLists.txt` / `cmake/defaults.cmake`
-    - `ideal_tile_size.py`
+    - `scripts/ideal_tile_size.py`
+
+<a href="https://github.com/entity-toolkit/entity/pull/209">
+  <span class="since-version">1.5.0</span>
+</a>
 
 Current deposition is the hardest PIC kernel to make fast on a GPU: every
 particle scatters its shape stencil into a shared field array, so many threads
@@ -28,7 +33,17 @@ global `J` at the end. That is correct and portable, but on a wide GPU it is
 bound by global-memory atomic traffic and by the scatter-view's memory
 footprint.
 
-The `team_policy` build adds a second, **tiled** deposit path. The domain is cut
+!!! hint "Enabling tiled deposit" 
+
+    To enable the tiled deposit method described in this section, set it at compile-time 
+    with the following flag: 
+
+    ```sh 
+    cmake ... -D tiled_deposit=ON -D tiled_deposit_tile_size=<TILE_SIZE>
+    ```
+    where the `tiled_deposit_tile_size` determines the number of cells for each edge of the tile size (see more details below).
+
+The `tiled_deposit` build adds a second, **tile-based** deposit path. The domain is cut
 into small spatial tiles; one Kokkos *team* (a GPU work-group) owns each tile and
 accumulates its particles' currents into a scratch copy of the tile that lives in
 **on-chip shared memory** (SLM on Intel, LDS on AMD, shared memory on NVIDIA).
@@ -61,7 +76,7 @@ flush. Use the controls (top-right) to pause, replay, or skip ahead.
 
 ## The two paths
 
-| | flat (always available) | tiled (`team_policy=ON`) |
+| | flat (always available) | tiled (`tiled_deposit=ON`) |
 | --- | --- | --- |
 | Kernel | `DepositCurrents_kernel` | `DepositCurrentsTiled_kernel` |
 | Policy | `RangePolicy` over particles | `TeamPolicy`, one team per tile |
@@ -69,7 +84,7 @@ flush. Use the controls (top-right) to pause, replay, or skip ahead.
 | Global `J` traffic | one contribute over the scatter view | one atomic flush per scratch cell |
 | Particle order | any | tile-sorted (`SortSpatially`) |
 
-When `team_policy=ON`, `CurrentsDeposit` (`engines/srpic/currents.h`,
+When `tiled_deposit=ON`, `CurrentsDeposit` (`engines/srpic/currents.h`,
 `engines/grpic/currents.h`) launches the tiled kernel for every species that has
 a populated tile layout, and falls back to the flat kernel only for the edge
 cases below. The engine is otherwise unchanged.
@@ -81,16 +96,16 @@ time:
 
 ```cmake
 # Enable the tiled deposit path (and the tile-based spatial sort that feeds it)
-#   type: BOOL   default: OFF   (env: Entity_ENABLE_TEAM_POLICY)
--D team_policy=ON
+#   type: BOOL   default: OFF   (env: Entity_ENABLE_TILED_DEPOSIT)
+-D tiled_deposit=ON
 
 # Tile edge length in cells (the T_TILE template parameter)
 #   type: STRING  default: 8   allowed: {4, 6, 8, 10, 12, 14, 16}
--D team_policy_tile_size=8
+-D tiled_deposit_tile_size=8
 
 # Scratch-halo drift budget in cells (see "Halo sizing" below)
 #   type: STRING  default: 1
--D team_policy_drift=1
+-D tiled_deposit_drift=1
 
 # Use the vendor sort_by_key (oneDPL / Thrust / rocThrust) for the tile sort.
 #   type: BOOL   default: ON   (env: Entity_ENABLE_VENDOR_SORT)
@@ -98,10 +113,10 @@ time:
 -D vendor_sort=ON
 ```
 
-`team_policy_tile_size` must be one of the values in `team_policy_tile_sizes`
+`tiled_deposit_tile_size` must be one of the values in `tiled_deposit_tile_sizes`
 (`4;6;8;10;12;14;16`); an out-of-list value fails configuration. These map to the
-preprocessor macros `TEAM_POLICY`, `TEAM_POLICY_TILE_SIZE`, and
-`TEAM_POLICY_DRIFT`, and the resolved values are printed in the build report.
+preprocessor macros `TILED_DEPOSIT`, `TILED_DEPOSIT_TILE_SIZE`, and
+`TILED_DEPOSIT_DRIFT`, and the resolved values are printed in the build report.
 
 Two more controls are set at **runtime** in the input deck:
 
@@ -112,9 +127,9 @@ Two more controls are set at **runtime** in the input deck:
   #   @default: 0
   #   @note: 0 keeps Kokkos::AUTO (backend occupancy heuristic); a positive value
   #          overrides it, clamped to the backend/scratch maximum at launch. Only
-  #          used in team_policy=ON builds. Pick a multiple of the device subgroup
+  #          used in tiled_deposit=ON builds. Pick a multiple of the device subgroup
   #          width for best occupancy (see ideal_tile_size.py).
-  team_policy_team_size = 0
+  tiled_deposit_team_size = 0
 
 [particles]
   # Timesteps between spatial re-sorts (0 disables). This sets how tile-coherent
@@ -156,7 +171,7 @@ The scratch halo width per side is
 
 $$
 \texttt{HALO} = \underbrace{\texttt{STENCIL\_REACH}(O)}_{\text{shape stencil}}
-             + \underbrace{\texttt{DRIFT}}_{\texttt{team\_policy\_drift}},
+             + \underbrace{\texttt{DRIFT}}_{\texttt{tiled\_deposit\_drift}},
 $$
 
 derived from first principles in the kernel header. `STENCIL_REACH` is how many
@@ -170,7 +185,7 @@ to `1` -- the sorted-every-step common case.
 
 !!! note "`DRIFT` is a compile-time budget, not the sort cadence"
 
-    `team_policy_drift` sizes the scratch halo at compile time. The actual sort
+    `tiled_deposit_drift` sizes the scratch halo at compile time. The actual sort
     cadence is the runtime `spatial_sorting_interval`. They are decoupled on
     purpose: raising the sort interval to save sort cost does *not* require a
     matching `DRIFT` -- particles that drift past the halo simply take the escape
@@ -206,7 +221,7 @@ active particle is deposited exactly once:
 ## The tile-based spatial sort
 
 The deposit's performance rests on the particle array being **tile-coherent** --
-particles in the same tile stored contiguously. In a `team_policy` build,
+particles in the same tile stored contiguously. In a `tiled_deposit` build,
 `Particles::SortSpatially` (`particles_sort.cpp`) is reshaped to produce exactly
 that, plus the `TileLayout` metadata the deposit consumes:
 
@@ -245,7 +260,7 @@ that, plus the `TileLayout` metadata the deposit consumes:
 ## Choosing the tile size
 
 The scratch tile is squeezed by three competing pressures, modeled by the
-`ideal_tile_size.py` helper:
+`scripts/ideal_tile_size.py` helper script:
 
 - **Shared-memory capacity (hard).** $TE^D \times 3 \times \texttt{sizeof(real)}$
   must fit in the work-group's shared memory, ideally with several groups
@@ -259,22 +274,22 @@ The scratch tile is squeezed by three competing pressures, modeled by the
   contention and load imbalance grow with tile size.
 
 Run `ideal_tile_size.py` for a first-order recommendation, then confirm by
-sweeping `-D team_policy_tile_size` / `-D team_policy_drift` and re-profiling. The
+sweeping `-D tiled_deposit_tile_size` / `-D tiled_deposit_drift` and re-profiling. The
 team (work-group) size defaults to `Kokkos::AUTO`; override it at runtime with
-`[algorithms.deposit] team_policy_team_size` and prefer a multiple of the device
+`[algorithms.deposit] tiled_deposit_team_size` and prefer a multiple of the device
 subgroup width.
 
 ## Constraints and caveats
 
 - **GPU-oriented, compile-time.** Off by default; the flat path remains the CPU
   and fallback route. Toggling it requires a rebuild.
-- **Shared-memory limited.** An over-large `team_policy_tile_size` (or `DRIFT`)
+- **Shared-memory limited.** An over-large `tiled_deposit_tile_size` (or `DRIFT`)
   can exceed the backend's shared memory; keep an eye on the 3D / double-precision
   / AMD cases.
 - **Shape order.** Supported for `O ∈ {0, …, 11}`. `O == 0` (zigzag) is wired for
   A/B benchmarking; its narrow stencil often makes the scratch overhead a
   regression versus the flat kernel, so measure the crossover.
-- **Deposit, for now.** The `team_policy` layout currently feeds the tiled
+- **Deposit, for now.** The `tiled_deposit` layout currently feeds the tiled
   current deposit; the pusher still runs flat. Both SRPIC and GRPIC use the tiled
   deposit.
 - **`vendor_sort=OFF` trade-off.** The `Kokkos::BinSort` fallback has a lower
@@ -287,17 +302,19 @@ A 2D SRPIC turbulence run on a GPU, sorted every step with the default tile:
 
 ```bash
 # configure
-cmake -B build -D team_policy=ON \
-                -D team_policy_tile_size=8 \
-                -D team_policy_drift=1 \
+cmake -B build -D tiled_deposit=ON \
+                -D tiled_deposit_tile_size=8 \
+                -D tiled_deposit_drift=1 \
                 -D vendor_sort=ON \
-                -D shape_order=2 -D output=ON
+                -D shape_order=2 \
+                -D deposit=esirkepov \
+                -D output=ON
 cmake --build build -j
 ```
 
 ```toml
 [algorithms.deposit]
-  team_policy_team_size = 0     # Kokkos::AUTO
+  tiled_deposit_team_size = 0     # Kokkos::AUTO
 
 [particles]
   spatial_sorting_interval = 1  # sort every step -> DRIFT=1 halo is always enough
@@ -308,7 +325,7 @@ between-sort drift at build time and relax the interval at runtime -- particles
 that still escape the halo fall back to the global-J path automatically:
 
 ```bash
-cmake -B build -D team_policy=ON -D team_policy_tile_size=8 -D team_policy_drift=4 ...
+cmake -B build -D tiled_deposit=ON -D tiled_deposit_tile_size=8 -D tiled_deposit_drift=4 ...
 ```
 
 ```toml
