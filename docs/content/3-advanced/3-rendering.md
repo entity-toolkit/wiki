@@ -7,6 +7,7 @@ hide:
 
 !!! abstract "Relevant headers"
 
+    - `framework/parameters/render.cpp`
     - `framework/domain/io/init.cpp`
     - `framework/domain/io/render.cpp`
     - `output/render/renderer.h`
@@ -55,10 +56,11 @@ from the simulation dimension and coordinate system.
 
 ## Enabling the renderer
 
-The renderer is configured under `[output.render]` with no additional compile-time flags required. 
+The renderer is configured in its own top-level `[render]` table (independent
+of `[output]`), with no additional compile-time flags required.
 
 ```toml
-[output.render]
+[render]
   # Toggle for the renderer
   #   @type: bool
   #   @default: false
@@ -66,7 +68,7 @@ The renderer is configured under `[output.render]` with no additional compile-ti
   # Number of timesteps between renders
   #   @type: uint
   #   @default: 0
-  #   @note: when 0, `interval_time` (or `output.interval`) is used instead
+  #   @note: when 0, `interval_time` is used instead
   interval = 0
   # Physical (code) time between renders
   #   @type: float
@@ -79,19 +81,25 @@ The renderer is configured under `[output.render]` with no additional compile-ti
   #   @default: 1024
   width  = 1024
   height = 1024
+  # Convenience: force a square frame (width == height == resolution), e.g.
+  # for a dome master. Overrides `width`/`height` when > 0
+  #   @type: int [> 0]
+  #   @default: 0 (use width/height)
+  resolution = 0
 ```
 
-The cadence mirrors the regular field output: set either a step `interval` or a
-physical `interval_time`.
+The cadence works like the regular field output: set either a step `interval`
+or a physical `interval_time`. If neither is set, the renderer falls back to
+`output.interval` / `output.interval_time`.
 
 ## Scenes and quantities
 
-Each rendered field is a **scene** -- one `[[output.render.scenes]]` table maps
+Each rendered field is a **scene** -- one `[[render.scene]]` table maps
 to one stream of PNGs (e.g. `N_00000001.png`, `N_00000002.png`, ...). Repeat the
 table to render several quantities at once.
 
 ```toml
-[[output.render.scenes]]
+[[render.scene]]
   # Scalar field to render (see the grammar below)
   #   @required
   #   @type: string
@@ -186,7 +194,7 @@ diverging). Swatches are rendered from the exact anchor tables shipped in
 `transfer_fn.h`.*
 
 ```toml
-[[output.render.scenes]]
+[[render.scene]]
   # ...
   # Opacity control points [position in 0..1, alpha in 0..1] (3D volume only)
   #   @type: array<array<float>>
@@ -200,7 +208,7 @@ diverging). Swatches are rendered from the exact anchor tables shipped in
 Top-level options control the overall appearance:
 
 ```toml
-[output.render]
+[render]
   # Opaque background RGB (0..1) shown through transparent / low-opacity pixels
   #   @type: array<float> [size 3]
   #   @default: [0.0, 0.0, 0.0]
@@ -222,14 +230,17 @@ Top-level options control the overall appearance:
 ## Render region
 
 By default the renderer covers the whole domain. An axis-aligned sub-region can
-be selected with `x1_lim` / `x2_lim` / `x3_lim` (physical/world coordinates, one
-`[lo, hi]` pair per axis). Any axis left unset spans the full extent, and the
-limits are clamped to the domain.
+be selected in the `[render.extent]` table with `x1` / `x2` / `x3`
+(physical/world coordinates, one `[lo, hi]` pair per axis). Any axis left unset
+spans the full extent, and the limits are clamped to the domain.
 
 ```toml
-[output.render]
-  x1_lim = [-64.0, 64.0]   # crop x1 to this range
-  x3_lim = [0.0, 128.0]    # crop x3; x2 spans the full extent
+[render.extent]
+  # Render region [lo, hi] along each axis, in physical/world coordinates
+  #   @type: array<float> [size 2]
+  #   @default: [] (full extent)
+  x1 = [-64.0, 64.0]   # crop x1 to this range
+  x3 = [0.0, 128.0]    # crop x3; x2 spans the full extent
 ```
 
 The behavior follows the mode:
@@ -241,7 +252,7 @@ The behavior follows the mode:
   sampling density increases as you crop in. Field-line tubes clip to the region
   automatically.
 - **2D slice** — the slice **window is framed to the region**. For a spherical /
-  Kerr--Schild slice, `x1_lim` crops the radius `r` and `x2_lim` the polar angle
+  Kerr--Schild slice, `x1` crops the radius `r` and `x2` the polar angle
   `theta`, and the meridional window is the bounding box of that cropped wedge.
 
 Cropping is a *view* operation: the seamless multi-domain composite and the
@@ -251,20 +262,29 @@ full field, then clipped to what's visible).
 ### Moving view (tracking a feature)
 
 The region can **translate over time** to keep a propagating feature in frame
-(e.g. a shock). `camera_velocity` is a world-units-per-sim-time vector; the region
-(and, in 3D, the camera — a pure pan, so the view direction and zoom are fixed)
-shifts by `camera_velocity * max(0, t - camera_start_time)`. The `camera_start_time`
-delay lets an initial ramp-up finish before the view starts moving.
+(e.g. a shock). This is configured in `[render.moving_view]`: `velocity` is a
+world-units-per-sim-time vector; the region (and, in 3D, the camera — a pure pan,
+so the view direction and zoom are fixed) shifts by
+`velocity * max(0, t - start_time)`. The `start_time` delay lets an initial
+ramp-up finish before the view starts moving.
 
 ```toml
-[output.render]
-  x1_lim            = [0.0, 512.0]   # initial window (a slab of the domain)
-  camera_velocity   = [0.9, 0.0]     # pan along +x1 at 0.9 c ...
-  camera_start_time = 200.0          # ... starting at t = 200
+[render.extent]
+  x1 = [0.0, 512.0]      # initial window (a slab of the domain)
+
+[render.moving_view]
+  # Velocity of the moving view in world units
+  #   @type: array<float> [size 2 or 3]
+  #   @default: [] (static view)
+  velocity   = [0.9, 0.0]  # pan along +x1 at 0.9 c ...
+  # Sim time at which the view starts moving (static before it)
+  #   @type: float
+  #   @default: 0.0
+  start_time = 200.0       # ... starting at t = 200
 ```
 
 The window keeps its size and slides; all ranks advance the view with the same
-frame time, so the composite stays seamless. Pair it with `x{1,2,3}_lim` — without
+frame time, so the composite stays seamless. Pair it with `[render.extent]` — without
 a region the window would just pan off the full domain.
 
 ## Volume rendering (3D)
@@ -277,7 +297,7 @@ sample therefore lands in exactly one subdomain, so the ordered cross-domain
 composite reproduces the single full-ray integral exactly.
 
 ```toml
-[output.render]
+[render.volume]
   # Number of ray steps across the global box diagonal
   #   @type: int [> 0]
   #   @default: 400
@@ -291,30 +311,70 @@ composite reproduces the single full-ray integral exactly.
   #   @default: 0.99
   early_term_alpha = 0.99
 
-  [output.render.camera]
-    # Orthographic (true) or perspective (false)
-    #   @type: bool
-    #   @default: true
-    orthographic = true
-    # Eye position / look-at point / up vector, in world coordinates
-    #   @default position: box center pushed back ~1.7 diagonals along (1,1,1)
-    #   @default look_at : box center
-    #   @default up      : [0.0, 0.0, 1.0]
-    up           = [0.0, 0.0, 1.0]
-    # Vertical FOV in degrees (perspective only)
-    #   @type: float
-    #   @default: 35.0
-    fov          = 35.0
-    # Vertical view extent in world units (orthographic only)
-    #   @default: the global box diagonal
-    ortho_height = 0.0
+[render.camera]
+  # Projection mode
+  #   @type: string
+  #   @default: "orthographic"
+  #   @enum: "orthographic", "perspective", "dome"
+  mode         = "orthographic"
+  # Eye position / look-at point / up vector, in world coordinates
+  #   @type: array<float> [size 3]
+  #   @default position: box center pushed back ~1.7 diagonals along (1,1,1)
+  #                      (dome: the domain center)
+  #   @default look_at : box center (dome: zenith along +z)
+  #   @default up      : [0.0, 0.0, 1.0] (dome: [0.0, 1.0, 0.0])
+  # position   = [...]
+  # look_at    = [...]
+  up           = [0.0, 0.0, 1.0]
+  # Vertical FOV in degrees (perspective only)
+  #   @type: float [> 0.0]
+  #   @default: 35.0
+  fov          = 35.0
+  # Vertical view extent in world units (orthographic only)
+  #   @type: float [> 0.0]
+  #   @default: the global box diagonal
+  # ortho_height = ...
 ```
+
+The `[render.volume]` and `[render.camera]` tables are ignored by the 2D slice
+rasterizer.
 
 !!! warning "Seamlessness and the camera"
 
     The structured cross-domain order is provably correct for an orthographic
     camera (the default, framing the box down the `(1,1,1)` diagonal). Perspective
-    is seamless only with the eye *outside* the box.
+    is seamless only with the eye *outside* the box. The `dome` mode (below) uses
+    a different composite and is seamless with the eye *inside* the box.
+
+### Dome camera (3D fulldome)
+
+Setting `mode = "dome"` renders a fulldome azimuthal-equidistant fisheye -- a
+planetarium **dome master** -- from an **interior** eye (the domain center by
+default). The direction from `position` to `look_at` is the dome **zenith**
+(`+z` by default), and `up` sets the screen-up of the disk. Since several
+domains can lie along each ray from an interior eye, the dome uses a
+depth-resolved (A-buffer) composite, which is seamless across a full 3D domain
+decomposition. Use a square frame (`resolution`, or `width == height`).
+
+```toml
+[render]
+  resolution = 4096          # square dome master
+
+[render.camera]
+  mode        = "dome"
+  # Full dome field of view in degrees: the image rim is at dome_fov/2 from
+  # the zenith (180 = a full hemisphere down to the horizon)
+  #   @type: float [> 0.0, <= 360.0]
+  #   @default: 180.0
+  dome_fov    = 180.0
+  # Far-clip radius in world units: rays stop this far from the eye, so the
+  # sampled region is a half-ball of this radius instead of the whole box
+  # (uniform path length, no box corner/edge artifacts). `samples` then counts
+  # steps across this radius
+  #   @type: float [>= 0.0]
+  #   @default: half the shortest box side (0 disables the clip)
+  # dome_radius = ...
+```
 
 ## Magnetic field lines
 
@@ -323,7 +383,7 @@ composite reproduces the single full-ray integral exactly.
     - `output/render/fieldlines.h`
 
 The renderer can draw magnetic field lines, configured under
-`[output.render.fieldlines]` (shared by both render modes). The representation
+`[render.fieldlines]` (shared by both render modes). The representation
 follows the dimension:
 
 - **3D (Cartesian)** -- traced **tubes**, colored by $\lvert\bm{B}\rvert$,
@@ -362,7 +422,7 @@ sampled along it, so strength stays meaningful.
     floats) -- keep `bin` at 4--8 for large grids.
 
 ```toml
-[output.render.fieldlines]
+[render.fieldlines]
   # Build the field-line geometry this run. Implied if any scene sets
   # `fieldlines = true` or uses `field = "fieldlines"`.
   #   @type: bool
@@ -420,24 +480,24 @@ sampled along it, so strength stays meaningful.
 The tubes work both **embedded** in a quantity's volume and **standalone**:
 
 ```toml
-[output.render]
+[render]
   enable = true
 
-  [output.render.fieldlines]
+  [render.fieldlines]
     enable   = true
     field    = "B"
     bin      = 8
     colormap = "inferno"
 
   # (a) embedded: density volume with the B-field tubes inside it
-  [[output.render.scenes]]
+  [[render.scene]]
     field       = "Rho"
     colormap    = "viridis"
     alpha       = [[0.0, 0.0], [0.3, 0.1], [1.0, 0.6]]
     fieldlines  = true     # overlay the tubes in this volume
 
   # (b) standalone: the field lines alone, no backing volume
-  [[output.render.scenes]]
+  [[render.scene]]
     field    = "fieldlines"   # no scalar volume is sampled
     prefix   = "Blines_"
     label    = "|B|"          # the colorbar shows the tube strength range
@@ -465,7 +525,7 @@ that point. The same per-scene controls apply: `fieldlines = true` overlays the
 contours on a scene's heatmap, and `field = "fieldlines"` draws them alone.
 
 ```toml
-[output.render.fieldlines]
+[render.fieldlines]
   enable   = true
   field    = "B"
   bin      = 4        # coarsening of the flux grid (bin^2 cells/coarse cell)
@@ -474,13 +534,13 @@ contours on a scene's heatmap, and `field = "fieldlines"` draws them alone.
   colormap = "inferno"
 
 # density heatmap with the in-plane field lines drawn over it
-[[output.render.scenes]]
+[[render.scene]]
   field      = "N"
   colormap   = "viridis"
   fieldlines = true
 
 # field lines alone, colored by |B|
-[[output.render.scenes]]
+[[render.scene]]
   field  = "fieldlines"
   prefix = "Blines_"
   label  = "|B|"
@@ -512,12 +572,12 @@ contours, 2D streamlines) and is the natural choice when **over-plotting** field
 lines on another quantity -- e.g. white lines on a density volume:
 
 ```toml
-[output.render.fieldlines]
+[render.fieldlines]
   enable = true
   field  = "B"
   color  = [1.0, 1.0, 1.0]   # monochrome white; omit to color by |B|
 
-[[output.render.scenes]]
+[[render.scene]]
   field      = "N"           # density heatmap / volume ...
   colormap   = "viridis"
   fieldlines = true          # ... with the field lines drawn over it
@@ -543,19 +603,71 @@ without seams.
   copy, turning one axisymmetric half into a full disk.
 
 ```toml
-[output.render]
+[render]
   # Spherical slice only: mirror the meridional half-plane into a full disk
   #   @type: bool
   #   @default: true
   mirror = true
 ```
 
+### Fulldome fisheye (2D)
+
+The `[render.dome]` table turns a 2D slice into a planetarium **dome master**: a
+circular image centered in the frame's inscribed circle, with the corners left as
+the background. Set a square frame (`resolution`, or `width == height`). With the
+dome on, the axes and the outside colorbar strip are turned off so the PNG stays
+exactly `width x height`. The pixel-to-world map is the same on every rank and
+the tiles stay disjoint, so the result is seamless across MPI domains. It is
+ignored (with a warning) in 3D; use `[render.camera] mode = "dome"` there.
+
+- **Cartesian** -- the flat plane is warped radially into the disk, controlled by
+  `fov`, `radius`, `center`, and `projection`.
+- **Spherical / Kerr--Schild** -- the meridional slice is already a disk, so the
+  dome only mirrors it to a full disk (keep `mirror = true`) and fits it to the
+  inscribed circle, with image radius proportional to $r$. The `fov`, `radius`,
+  `center`, and `projection` keys are ignored.
+
+```toml
+[render]
+  resolution = 4096
+
+[render.dome]
+  # Build the fisheye dome master instead of the plain slice
+  #   @type: bool
+  #   @default: false
+  enable     = true
+  # (Cartesian only) Full dome field of view in degrees (the rim is at fov/2)
+  #   @type: float [> 0.0, <= 180.0]
+  #   @default: 180.0
+  fov        = 180.0
+  # (Cartesian only) World radius of the circular cutout mapped onto the dome
+  #   @type: float [> 0.0]
+  #   @default: half the shorter domain side
+  # radius   = ...
+  # (Cartesian only) World-space center of the cutout
+  #   @type: array<float> [size 2]
+  #   @default: the domain center
+  # center   = [...]
+  # (Cartesian only) How the dome zenith angle maps to a radius on the slice
+  #   @type: string
+  #   @default: "equidistant"
+  #   @enum: "equidistant", "gnomonic", "stereographic", "orthographic"
+  projection = "equidistant"
+```
+
+| `projection` | Mapping | Notes |
+| --- | --- | --- |
+| `equidistant` | $r \propto$ angle | the fulldome standard; a straight radial scaling of the cutout |
+| `gnomonic` | $r \propto \tan(\text{angle})$ | the slice as a flat "ceiling" tangent to the dome; straight lines stay straight |
+| `stereographic` | $r \propto \tan(\text{angle}/2)$ | conformal, preserves shapes |
+| `orthographic` | $r \propto \sin(\text{angle})$ | the slice as seen face-on |
+
 ## Axes and annotations
 
 A spine (frame), axis ticks, and labels can be drawn around the rendered region.
 
 ```toml
-[output.render]
+[render]
   # Draw a spine + ticks + labels
   #   @type: bool
   #   @default: false
@@ -692,7 +804,7 @@ options:
 It can also combine different scenes into side-by-side panels using the `-m` flag. For example:
 
 ```sh
-render.py merge -m -c 2 simulation/renders
+render.py movie -m -c 2 simulation/renders
 ```
 
 will produce a movie from all the scenes the rendered scenes using 2 columns for panels.
@@ -702,15 +814,17 @@ will produce a movie from all the scenes the rendered scenes using 2 columns for
 ### 3D turbulence (volume render)
 
 ```toml
-[output.render]
+[render]
   enable        = true
   interval_time = 12.0
   width         = 1024
   height        = 1024
-  samples       = 400
   axes          = true
 
-  [[output.render.scenes]]
+  [render.volume]
+    samples = 400
+
+  [[render.scene]]
     field    = "N"
     label    = "N / n0"
     min      = 0.0
@@ -718,7 +832,7 @@ will produce a movie from all the scenes the rendered scenes using 2 columns for
     colormap = "cool2warm"
     alpha    = [[0.0, 0.0], [0.2, 0.15], [1.0, 0.6]]
 
-  [[output.render.scenes]]
+  [[render.scene]]
     field    = "Bmag"
     min      = 0.0
     max      = 4.0
@@ -729,7 +843,7 @@ will produce a movie from all the scenes the rendered scenes using 2 columns for
 ### 2D GR accretion (meridional slice + polar axes)
 
 ```toml
-[output.render]
+[render]
   enable        = true
   interval_time = 1.0
   width         = 1024
@@ -737,7 +851,7 @@ will produce a movie from all the scenes the rendered scenes using 2 columns for
   mirror        = false   # render the θ ∈ [0, π] half-disk
   axes          = true    # R radial axis + Theta arc
 
-  [[output.render.scenes]]
+  [[render.scene]]
     field    = "N"
     label    = "N / n0"
     log      = true
@@ -745,7 +859,7 @@ will produce a movie from all the scenes the rendered scenes using 2 columns for
     max      = 100.0
     colormap = "viridis"
 
-  [[output.render.scenes]]
+  [[render.scene]]
     field    = "Bmag"        # |B|
     label    = "|B|"
     log      = true
@@ -753,7 +867,7 @@ will produce a movie from all the scenes the rendered scenes using 2 columns for
     max      = 10.0
     colormap = "inferno"
 
-  [[output.render.scenes]]
+  [[render.scene]]
     field    = "Emag"        # GR: the E slot is the displacement D, so |D|
     label    = "|D|"
     log      = true
