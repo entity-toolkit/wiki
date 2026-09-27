@@ -389,7 +389,7 @@ There are two ingredients which were left out in this picture: interpolation of 
 
 \begin{align*}
 S(\bm{x}) = \begin{cases}
-1 - \frac{|x|\cdot|y|\cdot|z|}{\Delta x\Delta y\Delta z},~~~&|x|<\Delta x,~|y|<\Delta y,~|z|<\Delta z \\
+\left(1 - \frac{|x|}{\Delta x}\right)\left(1 - \frac{|y|}{\Delta y}\right)\left(1 - \frac{|z|}{\Delta z}\right), ~~~&|x|<\Delta x,~|y|<\Delta y,~|z|<\Delta z \\ 
 0,~&\textrm{otherwise}
 \end{cases}
 \end{align*}
@@ -398,4 +398,4 @@ Using this definition, the integral in $(12)$ is simply a linear interpolation o
 
 Current deposition is slightly trickier, and we will not go through the entire derivation of the algorithm (for the reference, see [Esirkepov 2001](https://ui.adsabs.harvard.edu/abs/2001CoPhC.135..144E/abstract) or [Umeda+ 2003](https://ui.adsabs.harvard.edu/abs/2003CoPhC.156...73U/abstract)). However, it can be shown mathematically, that asserting specific properties for the shape function (e.g., symmetry in all directions, etc.), there exists a unique set of coefficients to translate the shape function of each particle at timesteps $(n)$ and $(n+1)$ to the deposited current components. 
 
-Finally, the full timestepping algorithm with everything discussed above is shown on the page of this wiki about the [PIC algorithm](../3-code/1-pic.md#special-relativistic-pic).
+Finally, the full timestepping algorithm with everything discussed above is shown on the page of this wiki about the [PIC algorithm](../4-code/1-pic.md#special-relativistic-pic).

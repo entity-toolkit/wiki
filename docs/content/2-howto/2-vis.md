@@ -7,7 +7,7 @@ hide:
 
 To enable the runtime output of the simulation data, configure the code with the `-D output=ON` flag. As a backend `Entity` uses the open-source [ADIOS2](https://github.com/ornladios/ADIOS2) library compiled in-place. The output is written in the `ADIOS2` format called `BP5`, but [HDF5](https://adios2.readthedocs.io/en/latest/engines/engines.html#hdf5) is also available (but not recommended). 
 
-The output is configured using the following configurations in the `input` file:
+The output is configured using the following configurations in the `input` file (the example is incomplete, refer to the `input.default.toml` for the full list of parameters):
 
 ```toml
 [simulation]
@@ -25,8 +25,12 @@ The output is configured using the following configurations in the `input` file:
 
   [output.fields]
     quantities = ["B", "E", "Rho_1_2", "..."] # (1)!
-    stride = 2 # (9)!
-    mom_smooth = 2 # (4)!
+    downsampling = 2 # (9)!
+    smoothing = 2 # (4)!
+
+    [output.fields.smoothing]
+      order = 2 # (16)!
+      method = "const" # (17)!
 
   [output.particles]
     species = [1, 2, 4] # (7)!
@@ -50,18 +54,20 @@ The output is configured using the following configurations in the `input` file:
 3. output interval (in the number of time steps)
 4. smoothing stencil size for moments (in the number of cells) [defaults to 1]
 5. title is used for the output filename
-6. stride used for particle output (write every `prtl_stride`-th particle) [defaults to 100]
+6. stride used for particle output (write every n-th particle) [defaults to 100]
 7. particle species to output
 8. output interval in time units (overrides `interval` if specified)
-9. stride used for field output (write every `fields_stride`-th cell) [defaults to 1]
+9. stride used for field output (write every n-th cell, can be array for each principal axis) [defaults to 1]
 10. write the field quantities as-is (without conversion/interpolation) [defaults to false]
 11. write the ghost cells [defaults to false]
 12. Min/max energies for binning the energy distribution [default to 1e-3 -> 1e3]
 13. whether to use logarithmic energy bins or linear
 14. box reduced quantities to output as stats
 15. enable tracking for a given particle species
+16. smoothing window size
+17. smoothing window method ("const" or "spline")
 
-For the full list, please look at the `input.example.toml` file or refer to the [following section](../1-getting-started/3-inputfile.md).
+For the full list, please look at the `input.default.toml` file or refer to the [following section](../1-getting-started/3-inputfile.md).
 
 Following is the list of all supported fields
 
@@ -75,7 +81,7 @@ Following is the list of all supported fields
 | `Rho`      | Mass density                             | $m_0 n_0$      |
 | `Charge`   | Charge density                           | $q_0 n_0$      |
 | `N`        | Number density                           | $n_0$          |
-| `V`        &nbsp;<a href="https://github.com/entity-toolkit/entity/pull/69"> <span class="since-version">1.2.0</span> </a> | Mean 3-velocity                          | dimensionless |
+| `V`        &nbsp;<a href="https://github.com/entity-toolkit/entity/pull/69"> <span class="since-version">1.2.0</span> </a> | Mean 3-velocity (in GR -- four components of the Eckart frame velocity) | dimensionless |
 | `Nppc`     | Raw number of particles per cell         | dimensionless  |
 | `Tij`      | Energy-momentum tensor (all components)  | $m_0 n_0$      |
 | `divE`    &nbsp;<a href="https://github.com/entity-toolkit/entity/pull/69"> <span class="since-version">1.2.0</span> </a> | Divergence of $E$                        | arb. units     |
@@ -112,9 +118,9 @@ and particle quantities
 
 !!! note "Refining moments for the output"
 
-    One can specify particular components to output for the `Tij` fields/stats: `T0i` will output the `T00`, `T01`, and `T02` components, while `Tii` will output only the diagonal components: `T11`, `T22`, and `T33`, and `Tij` will output all the 6 components. For quantities computed from particles (moments of the distribution), one can also specify the particle species which will be used to compute the moments: `Rho_1` (density of species 1), `N_2_3` (number density of species 2 and 3), `Tij_1_3` (energy-momentum tensor for species 1 and 3), etc. 
+    One can specify particular components to output for the `Tij` fields/stats: `T0i` will output the `T01`, `T02`, and `T03` components, while `Tii` will output only the diagonal components: `T11`, `T22`, and `T33`, and `Tij` will output all the 6 components. For quantities computed from particles (moments of the distribution), one can also specify the particle species which will be used to compute the moments: `Rho_1` (density of species 1), `N_2_3` (number density of species 2 and 3), `Tij_1_3` (energy-momentum tensor for species 1 and 3), etc. 
 
-All of the vector fields are interpolated to cell centers before the output, and converted to orthonormal basis. The particle-based moments are smoothed with a stencil (specified in the input file; `mom_smooth`) for each particle.
+All of the vector fields are interpolated to cell centers before the output, and converted to orthonormal basis (SR) or to the coordinate contravariant basis (GR). The particle-based moments are smoothed with a stencil (specified in the input file; `mom_smooth`) for each particle.
 
 In addition, one can write custom user-defined field quantities to the output with the fields or stats. Refer to [the following section](../2-howto/1-problem_generators.md#custom-field-output) for more details.
 

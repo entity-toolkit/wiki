@@ -11,10 +11,10 @@ scripts:
 
 To compile the code you need to have the following dependencies installed:
 
-  - [`CMake`](https://cmake.org/) (version >= 3.16; verify by running `cmake --version`).
-  - [`GCC`](https://gcc.gnu.org/) (version >= 8.3.1; verify by running `g++ --version`), [`llvm`](https://llvm.org/) (tested on version >= 11; verify by running `clang++ --version`) or [Intel C++ compiler](https://www.intel.com/content/www/us/en/developer/tools/oneapi/dpc-compiler.html) (version >= 19.1 or higher; verify by running `icx --version`).
-  - to compile for NVIDIA GPUs, you need to have the [`CUDA toolkit`](https://developer.nvidia.com/cuda-toolkit) installed (version >= 11.0; verify by running `nvcc --version`).
-  - to compile for AMD GPUs, you will need the [ROCm libraries and the HIP compilers/runtime](https://github.com/ROCm/HIP) (verify by running `hipcc --version`).
+  - [`CMake`](https://cmake.org/) (version >= 3.22; verify by running `cmake --version`).
+  - [`GCC`](https://gcc.gnu.org/) (version >= 10.4.0; verify by running `g++ --version`), [`llvm`](https://llvm.org/) (tested on version >= 14; verify by running `clang++ --version`) or [Intel C++ compiler](https://www.intel.com/content/www/us/en/developer/tools/oneapi/dpc-compiler.html) (version >= 2022.0.0 or higher; verify by running `icx --version`).
+  - to compile for NVIDIA GPUs, you need to have the [`CUDA toolkit`](https://developer.nvidia.com/cuda-toolkit) installed (version >= 12.2; verify by running `nvcc --version`).
+  - to compile for AMD GPUs, you will need the [ROCm libraries and the HIP compilers/runtime](https://github.com/ROCm/HIP) (version >= 6.2.0; verify by running `hipcc --version`).
   - `MPI` (optional) 
     - e.g., `OpenMPI`, `MPICH`, etc;
     - verify by running `mpicxx --version`;
@@ -45,7 +45,7 @@ To speed up the compilation process, it is often beneficial to precompile & inst
 
 <span class="since-version">1.4.0</span>
 
-The code provides a python file called `dependencies.py` in the root directory which generates an installation script for the dependencies provided the choices of the user in the terminal interface. You can run it as `./dependencies.py` (use version `python >= 3.7`). After you fill the desired configurations and hit `install`, a shell script is created (by default in `$HOME/.entity/install.sh`) which you can simply run as `$HOME/.entity/install.sh`. The dependencies will be compiled and installed into corresponding directories under `$HOME/.entity`, while the module files will be located in `$HOME/.entity/modules`. You can use the modules by adding them to your `.rc` script: `module use --append $HOME/.entity/modules`.
+The code provides a python file called `dependencies.py` in the `scripts` directory which generates an installation script for the dependencies provided the choices of the user in the terminal interface. You can run it as `./scripts/dependencies.py` (use version `python >= 3.7` from the root directory). After you fill the desired configurations and hit `install`, a shell script is created (by default in `$HOME/.entity/install.sh`) which you can simply run as `$HOME/.entity/install.sh`. The dependencies will be compiled and installed into corresponding directories under `$HOME/.entity`, while the module files will be located in `$HOME/.entity/modules`. You can use the modules by adding them to your `.rc` script: `module use --append $HOME/.entity/modules`.
 
 !!! note 
       
@@ -457,3 +457,13 @@ nix-shell dev/nix --arg hdf5 true --arg mpi true --argstr gpu HIP --argstr arch 
 head dev/nix/shell.nix
 ```
 Note the escapes of quotation marks when specifying a string argument.
+
+Or similarly, using the `devenv` environment package:
+
+```sh
+cd dev/nix
+devenv shell -P mpi true -P cuda -O entity.arch:string AMPERE80
+
+# for more options, inspect 
+head devenv.nix
+```

@@ -40,11 +40,11 @@ All of the field arrays have a type `real_t` which compilers to `float` when usi
     Notice that fields have an additional dimension which stores the component. For convenience, Entity provides aliases to access those components: `em::ex1` (which maps to `0`), `em::bx3` (which maps to `5`), etc. A typical loop over all the fields on the local subdomain would look like this:
     ```cpp
     // assume a 2D simulation
-    auto fields = domain.fields;
-    auto metric = domain.mesh.metric;
+    auto& fields = domain.fields;
+    auto& metric = domain.mesh.metric;
     Kokkos::parallel_for("field_loop",
       domain.mesh.rangeActiveCells(),
-      Lambda(index_t i1, index_t i2) {
+      Lambda(cellidx_t i1, cellidx_t i2) {
         // get the code-unit coordinate of the cell corner
         const auto i1_ = COORD(i1);
         const auto i2_ = COORD(i2);
@@ -77,10 +77,10 @@ All of the field arrays have a type `real_t` which compilers to `float` when usi
 | `dx1_prev` | `prtldx_t` | same as `dx1` but for the previous step | always |
 | `dx2_prev` | `prtldx_t` | same as `dx2` but for the previous step | 2D or 3D |
 | `dx3_prev` | `prtldx_t` | same as `dx3` but for the previous step | 3D |
-| `pldr` | `real_t` | custom real-valued particle payloads (2D array) |  as needed (defined in the input) |
-| `pldi` | `npart_t` | custom integer-valued particle payloads (2D array) |  as needed (defined in the input); when tracking is enabled, it uses 1 or 2 slots (depending on whether MPI is used) to store particle identifiers |
+| `pld_r` | `real_t` | custom real-valued particle payloads (2D array) |  as needed (defined in the input) |
+| `pld_i` | `npart_t` | custom integer-valued particle payloads (2D array) |  as needed (defined in the input); when tracking is enabled, it uses 1 or 2 slots (depending on whether MPI is used) to store particle identifiers |
 
-`prtldx_t` is a type alias for `real_t` which is used for the displacement of the particle w.r.t. the corner of the cell (this can be changed to be half-precision). `npart_t` is an alias to a fixed size unsigned integer. Notice, that we additionally store the `phi` coordinate for the particles in non-Cartesian 2D simulations. While in GR this is totally optional, in SR it is required to keep track of the full particle coordinate, to be able to convert to and from the global Cartesian metric.
+`prtldx_t` is a type alias for `float` which is used for the displacement of the particle w.r.t. the corner of the cell (this can be changed to be half-precision). `npart_t` is an alias to a fixed size unsigned integer. Notice, that we additionally store the `phi` coordinate for the particles in non-Cartesian 2D simulations. While in GR this is totally optional, in SR it is required to keep track of the full particle coordinate, to be able to convert to and from the global Cartesian metric.
 
 !!! note "Particle velocities"
 
@@ -93,10 +93,10 @@ All of the particle arrays have shape of `maxnpart`, which is set at the beginni
     A typical loop over all the particles on the local subdomain would look like this:
     ```cpp
     // for example, taking the first species
-    auto particles = domain.species[0];
+    auto& particles = domain.species[0];
     Kokkos::parallel_for("prtl_loop",
       particles.rangeActiveParticles(),
-      Lambda(index_t p) {
+      Lambda(prtlidx_t p) {
         if (particles.tag(p) == ParticleTag::dead) {
           return;
         }

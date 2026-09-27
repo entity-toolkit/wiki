@@ -27,7 +27,6 @@ cmake -B build  \
     -D Kokkos_ARCH_ARMV9_GRACE=ON \
     -D Kokkos_ARCH_HOPPER90=ON \
     -D Kokkos_ENABLE_CUDA=ON \
-    -D Kokkos_ENABLE_DEBUG=ON \
     -D CMAKE_INSTALL_PREFIX=/path/to/install/location/for/kokkos && \
 cmake --build build -j && \
 cmake --install build 
@@ -42,7 +41,6 @@ cmake -B build  \
     -D ADIOS2_USE_Python=OFF \
     -D ADIOS2_USE_Fortran=OFF \
     -D ADIOS2_USE_ZeroMQ=OFF \
-    -D BUILD_TESTING=ON \
     -D CMAKE_C_COMPILER=cc \
     -D CMAKE_CXX_COMPILER=CC \
     -D ADIOS2_BUILD_EXAMPLES=OFF \

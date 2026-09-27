@@ -10,3 +10,8 @@ docs/css/style.css.map
 __pycache__/
 
 temp
+
+# devenv
+.devenv*
+devenv.local.nix
+DOCS_DRIFT_TODO.md

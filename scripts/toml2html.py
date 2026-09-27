@@ -77,6 +77,13 @@ class Node:
     def is_root(self) -> bool:
         return self._parent is None
 
+    @property
+    def path(self) -> str:
+        if self.is_root:
+            return self.name
+        else:
+            return f"{self.parent.path}.{self.name}"
+
     def add_child(self, path: str, attrs: dict[str, str | bool] | None = None):
         path_parts = path.split(".")
         child = self.find_child(path_parts[0])
@@ -209,15 +216,19 @@ class Node:
             classes_str = ' class="' + " ".join(classes) + '"'
         else:
             classes_str = ""
+
+        full_path = self.path if not self.is_final else self.name
+        if (split_path := full_path.split(".")) and len(split_path) > 1:
+            full_path = "<em style='opacity: 0.25;'>" + ".".join(split_path[:-1]) + ".</em>" + split_path[-1]
         return (
             textwrap.dedent(
                 f"""
-            {ind(0)}<tr data-depth="{depth}" data-id="{self.id}"{classes_str}>
-            {ind(2)}<td><pre>{self.name}</pre></td>
-            {ind(2)}<td>{typ}</td>
-            {ind(2)}<td>{desc}</td>
-            {ind(2)}<td>{dflt}</td>
-            {ind(0)}</tr>
+            <tr data-depth="{depth}" data-id="{self.id}"{classes_str}>
+            <td><pre>{full_path}</pre></td>
+            <td>{typ}</td>
+            <td>{desc}</td>
+            <td>{dflt}</td>
+            </tr>
             """
             )
             + "\n".join(

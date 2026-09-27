@@ -14,6 +14,12 @@ if __name__ == "__main__":
         type=str,
         help="Git branch to use for fetching class definitions",
     )
+    parser.add_argument(
+        "--path",
+        type=str,
+        default=None,
+        help="Use a local repository instead of pulling from a branch",
+    )
     cwd = os.path.dirname(os.path.abspath(__file__))
     parser.add_argument(
         "--output",
@@ -23,15 +29,25 @@ if __name__ == "__main__":
     )
     args = parser.parse_args()
 
-    root_url = f"https://raw.githubusercontent.com/entity-toolkit/entity/refs/heads/{args.branch}/src"
+    if args.path is None:
+        def fetchfile(file: str) -> str:
+            local_path = os.path.join(args.path, "src", file)
+            if not os.path.exists(local_path):
+                raise FileNotFoundError(f"File {file} not found in local path {args.path}")
+
+            with open(local_path, "r") as f:
+                return f.read()
+    else:
+        root_url = f"https://raw.githubusercontent.com/entity-toolkit/entity/refs/heads/{args.branch}/src"
+        def fetchfile(file: str) -> str:
+            response = requests.get(f"{root_url}/{file}")
+            if response.status_code != 200:
+                raise FileNotFoundError(f"File {file} not found in branch {args.branch}")
+
+            return response.text
 
     def get_class_from(file: str, which: int = 0) -> cpp.CPPClass:
-        response = requests.get(f"{root_url}/{file}")
-        if response.status_code != 200:
-            raise FileNotFoundError(f"File {file} not found in branch {args.branch}")
-
-        header = response.text
-        parser = cpp.CPPParser(header)
+        parser = cpp.CPPParser(fetchfile(file))
         clss = parser.find_classes()
         return clss[which]
 

@@ -83,7 +83,7 @@ This section goes over some instructions on how to compile & run the `Entity` on
 
     --8<-- "docs/content/useful/clusters/sherlock.md"
 
-    _Last updated: 22/12/2025_
+    _Last updated: 12/22/2025_
 
 
 === "`SuperMUC-NG2` (LRZ)"

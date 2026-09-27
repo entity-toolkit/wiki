@@ -16,9 +16,6 @@ module load craype-accel-amd-gfx90a
 
 **Compiling & running the code**
 
-Even though the documentaion states that the MPI implementation is Cray’s MPICH, which is “GPU-aware", it seems to be bugged,
-so you will always need to add the flag `gpu_aware_mpi=OFF`.
-
 Your `cmake` setting should look something like this:
 ```sh
 cmake -B build \
@@ -28,7 +25,6 @@ cmake -B build \
   -D Kokkos_ARCH_AMD_GFX90A=ON \
   -D CMAKE_CXX_COMPILER=hipcc \
   -D CMAKE_C_COMPILER=hipcc \
-  -D gpu_aware_mpi=OFF \
   -D CMAKE_CXX_FLAGS="-Wno-c++11-narrowing -munsafe-fp-atomics" \
   -D CMAKE_C_FLAGS="-Wno-c++11-narrowing -munsafe-fp-atomics"
 ```
@@ -62,7 +58,7 @@ module load rocm
 module load cray-mpich
 module load craype-accel-amd-gfx90a
 
-srun -N184 -n1472 -c1 --gpus-per-task=1 --gpu-bind=closest ./entity -input <INPUT>.toml
+srun -N184 -n1472 -c1 --gpus-per-task=1 --gpu-bind=closest ./entity.xc -input <INPUT>.toml
 ```
 For post-processing and visualization it is possible to use `extended` partition. This allows to have 24-Hour maximum wall time with 64-Node maximum job size.
 

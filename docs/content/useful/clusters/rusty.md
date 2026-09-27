@@ -5,7 +5,7 @@
 !!! note "Using the `dependencies.py`"
 
     <span class="since-version">1.4.0</span>
-    Simply pick the `rusty` option from the cluster-specific parameters from the `dependencies.py` file included with the root of the code, and then run `$HOME/.entity/install.sh` which will both compile and install the dependencies and create modulefiles.
+    Simply pick the `rusty` option from the cluster-specific parameters by running the `scripts/dependencies.py` script to generate the install script, and then run it -- `$HOME/.entity/install.sh` which will both compile and install the dependencies and create modulefiles.
 
 The most straightforward way to set things up on the `Rusty` cluster, is to use `spack` [as described here](../1-getting-started/2-dependencies.md#spack-recommended). After downloading and initializing the `spack` shell-env, start an interactive session to make compilation faster:
 ```sh

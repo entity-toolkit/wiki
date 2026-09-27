@@ -5,7 +5,7 @@ hide:
 
 # Editing the documentation
 
-`entity` documentation is automatically generated using the `mkdocs` framework and the [`Material for mkdocs`](https://squidfunk.github.io/mkdocs-material/) theme. When you commit/push to the `wiki` branch the static website is automatically compiled and pushed to the `gh-pages` branch of the main repository.
+`entity` documentation is automatically generated using the `mkdocs` framework and the [`Material for mkdocs`](https://squidfunk.github.io/mkdocs-material/) theme. When you commit/push, the static website is automatically compiled and pushed to the `gh-pages` branch of the wiki repository.
 
 !!! hint
 
@@ -45,7 +45,7 @@ libraries:
 
 ## Workflow
 
-1. Pull the `wiki` branch of the main repository (it is recommended to do this in a separate directory from the main code).
+1. Clone the `wiki` repository:
   ```shell
   git clone git@github.com:entity-toolkit/wiki.git entity-wiki
   cd entity-wiki
@@ -81,9 +81,9 @@ libraries:
   git commit -m "<reasonable comment>"
   git push
   ```
-  Shortly after that, `github-actions` will generate the website and push it to the `gh-pages` branch of the main repository, which will be accessible from the web.
+  Shortly after that, `github-actions` will generate the website and push it to the `gh-pages` branch of the `wiki` repository, which will be accessible from the web.
 
 
 !!! hint "Updating code structure diagrams and inputfile metadata"
 
-    Some of the information on this website, such as the mermaid diagrams for the structure of classes in the code as well as the information about the latest input file are auto-generated using python scripts. To run the auto-generation to synchronize the wiki with the latest version of the code, simply run `npm run inputtable:generate` and/or `npm run diagrams:generate`. The script will automatically pull the latest version of the code from the master branch, generate the diagrams and the input metadata and put them in the `assets/diagrams` and `assets/meta` directory of the wiki repository.
+    Some of the information on this website, such as the mermaid diagrams for the structure of classes in the code as well as the information about the latest input file are auto-generated using python scripts. To run the auto-generation to synchronize the wiki with the latest version of the code, simply run `npm run generate`. The script will automatically pull the latest version of the code from the master branch, generate the diagrams and the input metadata and put them in the `assets/` directory.

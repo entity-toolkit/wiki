@@ -38,22 +38,22 @@ We now introduce the fiducial quantities which will help rescale all the equatio
 
 In Gaussian units there is a fundamental freedom to pick $q_0/m_0 \equiv 1$, and $c\equiv 1$. Thus, $B_0 \equiv 1/\rho_0$.
 
-If we now have plasma consisting of static particles (ions) of charge $-q_0$ and fiducial particles of charge $q_0$ with both species having a number density $n_0$ (fiducial number density), then this plasma will have a fundamental oscillation frequency, $\omega_0^2 = 4\pi n_0 q_0^2 / m_0$, and an equivalent lengthscale (fiducial skin depth): $d_0 \equiv 1/\omega_0$. Further we will see, that it is useful to define a fiducial current density as $J_0 \equiv  4\pi q_0 n_0$.
+If we now have plasma consisting of static particles (ions) of charge $q_0$ and fiducial particles of charge $-q_0$ with species having a combined number density $n_i + n_- = n_0$ (fiducial number density), then this plasma will have a fundamental oscillation frequency, $\omega_0^2 = 4\pi n_0 q_0^2 / m_0$, and an equivalent length scale (fiducial skin depth): $d_0 \equiv 1/\omega_0$. Further we will see, that it is useful to define a fiducial current density as $J_0 \equiv  4\pi q_0 n_0$.
 
 Because we are dealing with a discretized space, we also need to define a fiducial cell volume, $V_0$, fiducial number of particles per cell, $\texttt{PPC}_0$. Then the fiducial number density from above can be chosen to be $n_0 \equiv \texttt{PPC}_0 / V_0$.
 
 | Symbol              | Description                   | Definition                                | In the code                         |
 | ---                 | ---                           | ---                                       | ---                                 |
 | $c$                 | speed of light                | $\equiv 1$                                | --                                  |
-| $\texttt{PPC}_0$    | fiducial number of p.p.c.     | fundamental                               | `Simulation::params().ppc0()`       |
-| $d_0$               | fiducial skin-depth           | fundamental                               | `Simulation::params().skindepth0()` |
-| $\rho_0$            | fiducial Larmor radius        | fundamental                               | `Simulation::params().larmor0()`    |
-| $V_0$               | fiducial volume size          | (see below)                               | `Simulation::params().V0()`         |
-| $n_0$               | fiducial number density       | $\equiv\texttt{PPC}_0 / V_0$              | `Simulation::params().n0()`         |
-| $4\pi q_0$          | fiducial particle charge      | $\equiv \left(n_0 d_0^2\right)^{-1}$      | `Simulation::params().q0()`         |
+| $\texttt{PPC}_0$    | fiducial number of p.p.c.     | fundamental                               | `ppc0`       |
+| $d_0$               | fiducial skin-depth           | fundamental                               | `skindepth0` |
+| $\rho_0$            | fiducial Larmor radius        | fundamental                               | `larmor0`    |
+| $V_0$               | fiducial volume size          | (see below)                               | `V0`         |
+| $n_0$               | fiducial number density       | $\equiv\texttt{PPC}_0 / V_0$              | `n0`         |
+| $4\pi q_0$          | fiducial particle charge      | $\equiv \left(n_0 d_0^2\right)^{-1}$      | `q0`         |
 | $m_0$               | fiducial particle masses      | $\equiv q_0$                              |                                     |
-| $\sigma_0$          | fiducial magnetization        | $\equiv \left(d_0/\rho_0\right)^2$        | `Simulation::params().sigma0()`     |
-| $B_0$               | fiducial field strength       | $\equiv \rho_0^{-1}$                      | `Simulation::params().B0()`         |
+| $\sigma_0$          | fiducial magnetization        | $\equiv \left(d_0/\rho_0\right)^2$        | `sigma0`     |
+| $B_0$               | fiducial field strength       | $\equiv \rho_0^{-1}$                      | `B0`         |
 | $J_0$               | fiducial current density      | $\equiv 4\pi q_0 n_0$                  |                                     |
 
 We can then rewrite our equations in the "dimensionless" form, by renormalizing everything to fiducial units.
@@ -106,7 +106,7 @@ Notice, that these quantities are independent of the resolution of the simulatio
 
 ### Defining the physical units
 
-The following parameters are parsed from the `input` file (under the `[units]` block) to define the fiducial physical quantities:
+The following parameters are parsed from the `input` file (under the `[scales]` and `[particles]` block) to define the fiducial physical quantities:
 
 * `larmor0`: fiducial Larmor radius, $\rho_0$, of a particle with charge $q_0$ and mass $m_0$ moving in a uniform magnetic field of strength $B_0$ in the perpendicular plane with a velocity $\bm{\beta}\gamma=1$.
 * `skindepth0`: fiducial skin depth for plasma, $d_0$, consisting of static particles (ions) of charge $-q_0$ and fiducial particles of charge $q_0$ with both species having a number density $n_0$ (fiducial number density).
