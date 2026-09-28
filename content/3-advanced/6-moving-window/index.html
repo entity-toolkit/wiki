@@ -1,0 +1,2161 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://entity-toolkit.github.io/wiki/content/3-advanced/6-moving-window/">
+      
+      
+        <link rel="prev" href="../5-tiled_deposit/">
+      
+      
+        <link rel="next" href="../../4-code/1-pic/">
+      
+      
+      <link rel="icon" href="../../../assets/logo.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.14">
+    
+    
+      
+        <title>Moving window - Entity: wiki</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.342714a4.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+  
+  
+  
+  
+  <style>:root{--md-annotation-icon:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M12%2020c-4.41%200-8-3.59-8-8s3.59-8%208-8%208%203.59%208%208-3.59%208-8%208m0-18A10%2010%200%200%200%202%2012a10%2010%200%200%200%2010%2010%2010%2010%200%200%200%2010-10A10%2010%200%200%200%2012%202m1%205h-2v4H7v2h4v4h2v-4h4v-2h-4z%22/%3E%3C/svg%3E');}</style>
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=DM+Sans:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"DM Sans";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../css/style.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  
+  
+  <link rel="stylesheet" href="../../../js/vendor/katex/katex.min.css">
+  <script src="../../../js/vendor/katex/katex.min.js"></script>
+  <script src="../../../js/vendor/katex/contrib/auto-render.min.js"></script>
+  <script src="../../../js/hooks/katex.js" defer></script>
+  
+  
+  
+  
+
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="ntt-light" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#moving-window" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Entity: wiki" class="md-header__button md-logo" aria-label="Entity: wiki" data-md-component="logo">
+      
+  <img src="../../../assets/logo.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Entity: wiki
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Moving window
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="ntt-light" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7M9 21a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-1H9z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="ntt-dark" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7M9 21v-1h6v1a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1m3-17a5 5 0 0 0-5 5c0 2.05 1.23 3.81 3 4.58V16h4v-2.42c1.77-.77 3-2.53 3-4.58a5 5 0 0 0-5-5"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/entity-toolkit/entity" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M23.546 10.93 13.067.452a1.55 1.55 0 0 0-2.188 0L8.708 2.627l2.76 2.76a1.838 1.838 0 0 1 2.327 2.341l2.658 2.66a1.838 1.838 0 0 1 1.9 3.039 1.837 1.837 0 0 1-2.6 0 1.85 1.85 0 0 1-.404-1.996L12.86 8.955v6.525c.176.086.342.203.488.348a1.85 1.85 0 0 1 0 2.6 1.844 1.844 0 0 1-2.609 0 1.834 1.834 0 0 1 0-2.598c.182-.18.387-.316.605-.406V8.835a1.834 1.834 0 0 1-.996-2.41L7.636 3.7.45 10.881c-.6.605-.6 1.584 0 2.189l10.48 10.477a1.545 1.545 0 0 0 2.186 0l10.43-10.43a1.544 1.544 0 0 0 0-2.187"/></svg>
+  </div>
+  <div class="md-source__repository">
+    entity
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Entity: wiki" class="md-nav__button md-logo" aria-label="Entity: wiki" data-md-component="logo">
+      
+  <img src="../../../assets/logo.svg" alt="logo">
+
+    </a>
+    Entity: wiki
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/entity-toolkit/entity" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M23.546 10.93 13.067.452a1.55 1.55 0 0 0-2.188 0L8.708 2.627l2.76 2.76a1.838 1.838 0 0 1 2.327 2.341l2.658 2.66a1.838 1.838 0 0 1 1.9 3.039 1.837 1.837 0 0 1-2.6 0 1.85 1.85 0 0 1-.404-1.996L12.86 8.955v6.525c.176.086.342.203.488.348a1.85 1.85 0 0 1 0 2.6 1.844 1.844 0 0 1-2.609 0 1.834 1.834 0 0 1 0-2.598c.182-.18.387-.316.605-.406V8.835a1.834 1.834 0 0 1-.996-2.41L7.636 3.7.45 10.881c-.6.605-.6 1.584 0 2.189l10.48 10.477a1.545 1.545 0 0 0 2.186 0l10.43-10.43a1.544 1.544 0 0 0 0-2.187"/></svg>
+  </div>
+  <div class="md-source__repository">
+    entity
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Getting Started
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Getting Started
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-getting-started/1-compile-run/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Compiling/running
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-getting-started/2-dependencies/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Dependencies
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-getting-started/3-inputfile/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Input parameters
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    How-To
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            How-To
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-howto/1-problem_generators/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Customizing your setup
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-howto/2-vis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Output &amp; visualization
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-howto/3-units/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Understanding the units
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-howto/4-checkpoints/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Writing checkpoints &amp; restarting
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-howto/5-docs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Editing the documentation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-howto/6-guidelines/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Code guidelines
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-howto/7-faq/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    F.A.Q.
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Advanced How-To
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Advanced How-To
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1-higherorder/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Higher order methods
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2-radiative/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Radiative physics
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3-rendering/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    On-the-fly rendering
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../4-load_balancing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Dynamic load balancing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../5-tiled_deposit/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Tiled current deposit
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Moving window
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Moving window
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#what-one-window-move-does" class="md-nav__link">
+    <span class="md-ellipsis">
+      What one window move does
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#driving-the-window-from-the-problem-generator" class="md-nav__link">
+    <span class="md-ellipsis">
+      Driving the window from the problem generator
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-flows-into-the-window" class="md-nav__link">
+    <span class="md-ellipsis">
+      What flows into the window
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#windows-along-other-axes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Windows along other axes
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#outputs-renders-and-checkpoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      Outputs, renders and checkpoints
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#constraints-and-caveats" class="md-nav__link">
+    <span class="md-ellipsis">
+      Constraints and caveats
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Understanding the Code
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Understanding the Code
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../4-code/1-pic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    PIC Algorithm
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../4-code/2-hierarchy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Hierarchy of structures
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../4-code/3-domains/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Metadomain, subdomains and meshes
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../4-code/4-fields_particles/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Fields and particles
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../4-code/5-metrics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Metrics
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Useful Things
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Useful Things
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../useful/costtool/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Simulation cost estimator
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../useful/cluster-setups/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Cluster setups
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Theory
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../useful/float-comparison/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Floating point comparison
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../useful/theory_pic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory behind PIC
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../useful/ks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Kerr metric
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Fun
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            Fun
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../fun/pushers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Particle pushers
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../fun/coords/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Axisymmetric coordinates
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../fun/cubed_sphere/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Cubed-sphere geometry
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../fun/particle-shapes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    2D particle shapes
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Events
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            Events
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../events/sceecs2024/instructions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    SCEECS Summer School 2024
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#what-one-window-move-does" class="md-nav__link">
+    <span class="md-ellipsis">
+      What one window move does
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#driving-the-window-from-the-problem-generator" class="md-nav__link">
+    <span class="md-ellipsis">
+      Driving the window from the problem generator
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-flows-into-the-window" class="md-nav__link">
+    <span class="md-ellipsis">
+      What flows into the window
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#windows-along-other-axes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Windows along other axes
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#outputs-renders-and-checkpoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      Outputs, renders and checkpoints
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#constraints-and-caveats" class="md-nav__link">
+    <span class="md-ellipsis">
+      Constraints and caveats
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+  
+
+
+
+  
+  
+
+
+<h1 id="moving-window">Moving window<a class="headerlink" href="#moving-window" title="Permanent link">&para;</a></h1>
+<div class="admonition abstract">
+<p class="admonition-title">Relevant headers</p>
+<ul>
+<li><code>archetypes/moving_window.h</code></li>
+<li><code>framework/domain/metadomain_reshape.cpp</code></li>
+<li><code>framework/domain/metadomain.h</code></li>
+<li><code>engines/engine.hpp</code></li>
+<li><code>examples/moving_window/</code></li>
+</ul>
+</div>
+<p><a href="https://github.com/entity-toolkit/entity/pull/196">
+  <span class="since-version">1.4.0</span>
+</a></p>
+<p>Many interesting problems have a feature that travels: a collisionless shock, a
+jet head, a laser or wakefield front, a relativistic blob. Following such a
+feature in a static box means resolving everything it flies over, and the cost
+of that box grows linearly with how long you want to follow it. A <strong>moving
+window</strong> instead keeps the box the same size and slides it along with the
+feature, so the resolution stays where the physics is.</p>
+<p>Entity implements this as a <em>shift of the simulation content against a shifted
+frame</em>: every <span class="arithmatex">\(n\)</span>-th timestep, all fields and particles are moved back by an
+integer number of cells along one axis, and the physical extent of the grid
+(global and per-subdomain) is moved forward by exactly the same amount. The
+grid itself -- resolution, cell size, MPI decomposition, boundary conditions --
+never changes; only the physical coordinates it is mapped onto do. Everything
+downstream (outputs, renders, checkpoints, the metric used by the pusher) then
+reports the <em>moving</em> frame automatically, because it all reads the extent from
+the mesh.</p>
+<p>There is no <code>[moving_window]</code> section in the input file: the window is driven
+from the problem generator, so you decide when and how fast it moves. The code
+provides the one primitive you can use for that --
+<code>arch::MoveWindow&lt;M, o&gt;</code> -- and the example in
+<a href="https://github.com/entity-toolkit/entity/tree/master/examples/moving_window"><code>examples/moving_window</code></a>
+provides the ~20 lines of bookkeeping that go with it.</p>
+<div class="admonition note">
+<p class="admonition-title">Where the work lives</p>
+<p>The shift itself is a single function,
+<code>arch::MoveWindow&lt;M, o&gt;(domain, metadomain, shift)</code> in
+<code>archetypes/moving_window.h</code>, which you call from <code>CustomPostStep</code>. The
+extent bookkeeping is <code>Metadomain&lt;S, M&gt;::ShiftByCells(n_cells, dir)</code> in
+<code>metadomain_reshape.cpp</code>. Because the call happens in <code>CustomPostStep</code>, the
+engine's particle sort -- which runs <em>after</em> <code>CustomPostStep</code> (see
+<code>engines/engine.hpp</code>) -- re-tiles the species afterwards, so the next
+deposit sees a consistent layout.</p>
+</div>
+<h2 id="what-one-window-move-does">What one window move does<a class="headerlink" href="#what-one-window-move-does" title="Permanent link">&para;</a></h2>
+<p>A single <code>arch::MoveWindow&lt;M, in::x1&gt;(domain, metadomain, shift)</code> call performs
+the following, in order:</p>
+<ol>
+<li><strong>Shift the particles.</strong> For every species, every active particle's cell
+   index along the window axis is decremented: <code>i1(p) -= shift</code>. The sub-cell
+   displacement <code>dx1</code> is untouched, so this is an exact translation by an
+   integer number of cells -- no interpolation, no loss of accuracy.</li>
+<li><strong>Retag migrating particles</strong> (MPI only). Any particle whose new index falls
+   outside the local subdomain is retagged with <code>mpi::SendTag</code> so that the
+   particle exchange picks it up. Dead particles keep their tag.</li>
+<li><strong>Shift the fields.</strong> <code>fields.em</code> is copied to the scratch array
+   <code>fields.bckp</code>, and both the <span class="arithmatex">\(\bm{E}\)</span> and <span class="arithmatex">\(\bm{B}\)</span> components are read back
+   shifted: <code>em(i) = bckp(i + shift)</code> over the range
+   <code>[0, n_all - shift)</code>, ghost cells included. The current density and the
+   output buffers are not shifted -- they are recomputed from scratch every
+   step anyway.</li>
+<li><strong>Refill the ghosts.</strong> <code>CommunicateFields(E | B)</code> runs, which fills the top
+   <code>shift</code> cells that step 3 left untouched, from the neighboring subdomain or
+   from the field boundary condition.</li>
+<li><strong>Exchange the particles.</strong> <code>CommunicateParticles</code> hands the particles
+   retagged in step 2 to the subdomain that now owns them.</li>
+<li><strong>Move the frame.</strong> <code>ShiftByCells(shift, o)</code> adds <code>shift * dx</code> to both ends
+   of the global mesh extent <em>and</em> of every subdomain extent, re-constructing
+   each metric in place. From this point on, code coordinate <code>0</code> corresponds to
+   a physical coordinate that is <code>shift * dx</code> larger than before.</li>
+</ol>
+<div class="admonition warning">
+<p class="admonition-title">The shift must fit inside the ghost zone</p>
+<p>Step 3 pulls the values that enter at the leading edge out of the
+<em>pre-shift ghost cells</em>, and step 4 can only restore <code>N_GHOSTS</code> of them.
+A <code>shift</code> larger than <code>N_GHOSTS</code> would therefore leave a strip of stale,
+un-shifted cells at the leading edge of the active domain. Always use</p>
+<div class="language-cpp highlight"><pre><span></span><code><span class="n">arch</span><span class="o">::</span><span class="n">MoveWindow</span><span class="o">&lt;</span><span class="n">M</span><span class="p">,</span><span class="w"> </span><span class="n">in</span><span class="o">::</span><span class="n">x1</span><span class="o">&gt;</span><span class="p">(</span><span class="n">domain</span><span class="p">,</span><span class="w"> </span><span class="n">metadomain</span><span class="p">,</span><span class="w"> </span><span class="n">N_GHOSTS</span><span class="p">);</span>
+</code></pre></div>
+<p>or a smaller positive value. <code>N_GHOSTS</code> is <code>2</code> for the default shape order
+and grows with it (see <a href="../1-higherorder/">higher order methods</a>), and a
+non-positive <code>shift</code> is not meaningful -- the window only moves forward.</p>
+</div>
+<h2 id="driving-the-window-from-the-problem-generator">Driving the window from the problem generator<a class="headerlink" href="#driving-the-window-from-the-problem-generator" title="Permanent link">&para;</a></h2>
+<p>The window needs to keep track of two things: <em>where</em> it is (to decide when the
+accumulated travel is worth a move) and <em>how fast</em> it goes. Because a move is
+only ever an integer number of cells, the position is stored as an integer cell
+index plus a sub-cell remainder, and the remainder carries into the index. This
+is the helper from the example, verbatim:</p>
+<div class="language-cpp highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;archetypes/moving_window.h&quot;</span>
+
+<span class="c1">// ...</span>
+
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="n">SimEngine</span><span class="o">::</span><span class="n">type</span><span class="w"> </span><span class="n">S</span><span class="p">,</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">M</span><span class="o">&gt;</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">PGen</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="c1">// ...</span>
+<span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="n">SimulationParams</span><span class="o">&amp;</span><span class="w"> </span><span class="n">params</span><span class="p">;</span>
+<span class="w">  </span><span class="n">Metadomain</span><span class="o">&lt;</span><span class="n">S</span><span class="p">,</span><span class="w"> </span><span class="n">M</span><span class="o">&gt;&amp;</span><span class="w">       </span><span class="n">metadomain</span><span class="p">;</span>
+
+<span class="w">  </span><span class="k">struct</span><span class="w"> </span><span class="nc">MovingWindow</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w">    </span><span class="n">pos_i</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="mi">-1</span><span class="w"> </span><span class="p">};</span><span class="w">       </span><span class="c1">// current window position, in cells</span>
+<span class="w">    </span><span class="kt">int</span><span class="w">    </span><span class="n">init_pos_i</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="mi">-1</span><span class="w"> </span><span class="p">};</span><span class="w">  </span><span class="c1">// position at the last move</span>
+<span class="w">    </span><span class="n">real_t</span><span class="w"> </span><span class="n">pos_di</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">ZERO</span><span class="w"> </span><span class="p">};</span><span class="w">    </span><span class="c1">// sub-cell remainder</span>
+<span class="w">    </span><span class="n">real_t</span><span class="w"> </span><span class="n">vel_Cd</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">ZERO</span><span class="w"> </span><span class="p">};</span><span class="w">    </span><span class="c1">// window velocity, in cells per unit time</span>
+
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">init</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">M</span><span class="o">&amp;</span><span class="w"> </span><span class="n">metric</span><span class="p">,</span><span class="w"> </span><span class="n">real_t</span><span class="w"> </span><span class="n">global_x</span><span class="p">,</span><span class="w"> </span><span class="n">real_t</span><span class="w"> </span><span class="n">velocity</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">pos_Cd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">metric</span><span class="p">.</span><span class="k">template</span><span class="w"> </span><span class="n">convert</span><span class="o">&lt;</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">Crd</span><span class="o">::</span><span class="n">Ph</span><span class="p">,</span><span class="w"> </span><span class="n">Crd</span><span class="o">::</span><span class="n">Cd</span><span class="o">&gt;</span><span class="p">(</span><span class="n">global_x</span><span class="p">);</span>
+<span class="w">      </span><span class="c1">//                                             ^^^^^^^^^^^^^^^^</span>
+<span class="w">      </span><span class="c1">//                     physical position -&gt; code coordinate (i.e., cells)</span>
+<span class="w">      </span><span class="n">pos_i</span><span class="w">      </span><span class="o">=</span><span class="w"> </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">pos_Cd</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">      </span><span class="n">init_pos_i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pos_i</span><span class="p">;</span>
+<span class="w">      </span><span class="n">pos_di</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="n">pos_Cd</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="n">real_t</span><span class="o">&gt;</span><span class="p">(</span><span class="n">pos_i</span><span class="p">);</span>
+<span class="w">      </span><span class="n">vel_Cd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">metric</span><span class="p">.</span><span class="k">template</span><span class="w"> </span><span class="n">transform</span><span class="o">&lt;</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">Idx</span><span class="o">::</span><span class="n">XYZ</span><span class="p">,</span><span class="w"> </span><span class="n">Idx</span><span class="o">::</span><span class="n">U</span><span class="o">&gt;</span><span class="p">({},</span><span class="w"> </span><span class="n">velocity</span><span class="p">);</span>
+<span class="w">      </span><span class="c1">//                                    ^^^^^^^^^^^^^^^^</span>
+<span class="w">      </span><span class="c1">//                       physical velocity -&gt; cells per unit time (v / dx)</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">update</span><span class="p">(</span><span class="n">real_t</span><span class="w">            </span><span class="n">dt</span><span class="p">,</span>
+<span class="w">                </span><span class="kt">int</span><span class="w">               </span><span class="n">shift</span><span class="p">,</span>
+<span class="w">                </span><span class="n">Metadomain</span><span class="o">&lt;</span><span class="n">S</span><span class="p">,</span><span class="w"> </span><span class="n">M</span><span class="o">&gt;&amp;</span><span class="w"> </span><span class="n">metadomain</span><span class="p">,</span>
+<span class="w">                </span><span class="n">Domain</span><span class="o">&lt;</span><span class="n">S</span><span class="p">,</span><span class="w"> </span><span class="n">M</span><span class="o">&gt;&amp;</span><span class="w">     </span><span class="n">domain</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="n">pos_di</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">vel_Cd</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">dt</span><span class="p">;</span><span class="w">             </span><span class="c1">// advance the window continuously ...</span>
+<span class="w">      </span><span class="n">pos_i</span><span class="w">  </span><span class="o">+=</span><span class="w"> </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">pos_di</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="n">ONE</span><span class="p">);</span>
+<span class="w">      </span><span class="n">pos_di</span><span class="w"> </span><span class="o">-=</span><span class="w"> </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="n">real_t</span><span class="o">&gt;</span><span class="p">(</span><span class="n">pos_di</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="n">ONE</span><span class="p">);</span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="p">((</span><span class="n">pos_i</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">init_pos_i</span><span class="p">)</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="n">shift</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// ... but move the contents only in whole `shift`-cell jumps</span>
+<span class="w">        </span><span class="n">arch</span><span class="o">::</span><span class="n">MoveWindow</span><span class="o">&lt;</span><span class="n">M</span><span class="p">,</span><span class="w"> </span><span class="n">in</span><span class="o">::</span><span class="n">x1</span><span class="o">&gt;</span><span class="p">(</span><span class="n">domain</span><span class="p">,</span><span class="w"> </span><span class="n">metadomain</span><span class="p">,</span><span class="w"> </span><span class="n">shift</span><span class="p">);</span>
+<span class="w">        </span><span class="n">pos_i</span><span class="w"> </span><span class="o">-=</span><span class="w"> </span><span class="n">shift</span><span class="p">;</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">};</span>
+
+<span class="w">  </span><span class="n">MovingWindow</span><span class="w"> </span><span class="n">moving_window</span><span class="p">;</span>
+<span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="n">real_t</span><span class="w"> </span><span class="n">dt</span><span class="p">;</span>
+
+<span class="w">  </span><span class="n">PGen</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">SimulationParams</span><span class="o">&amp;</span><span class="w"> </span><span class="n">p</span><span class="p">,</span><span class="w"> </span><span class="n">Metadomain</span><span class="o">&lt;</span><span class="n">S</span><span class="p">,</span><span class="w"> </span><span class="n">M</span><span class="o">&gt;&amp;</span><span class="w"> </span><span class="n">m</span><span class="p">)</span>
+<span class="w">    </span><span class="o">:</span><span class="w"> </span><span class="n">params</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="p">,</span><span class="w"> </span><span class="n">metadomain</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">m</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="p">,</span><span class="w"> </span><span class="n">dt</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">params</span><span class="p">.</span><span class="k">template</span><span class="w"> </span><span class="n">get</span><span class="o">&lt;</span><span class="n">real_t</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;algorithms.timestep.dt&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">{}</span>
+
+<span class="w">  </span><span class="kt">void</span><span class="w"> </span><span class="n">InitPrtls</span><span class="p">(</span><span class="n">Domain</span><span class="o">&lt;</span><span class="n">S</span><span class="p">,</span><span class="w"> </span><span class="n">M</span><span class="o">&gt;&amp;</span><span class="w"> </span><span class="n">domain</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">window_velocity</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">params</span><span class="p">.</span><span class="k">template</span><span class="w"> </span><span class="n">get</span><span class="o">&lt;</span><span class="n">real_t</span><span class="o">&gt;</span><span class="p">(</span>
+<span class="w">      </span><span class="s">&quot;setup.window_velocity&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="n">ZERO</span><span class="p">);</span>
+<span class="w">    </span><span class="n">moving_window</span><span class="p">.</span><span class="n">init</span><span class="p">(</span><span class="n">domain</span><span class="p">.</span><span class="n">mesh</span><span class="p">.</span><span class="n">metric</span><span class="p">,</span><span class="w"> </span><span class="n">ZERO</span><span class="p">,</span><span class="w"> </span><span class="n">window_velocity</span><span class="p">);</span>
+<span class="w">    </span><span class="c1">// ... particle injection here ...</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="kt">void</span><span class="w"> </span><span class="n">CustomPostStep</span><span class="p">(</span><span class="n">timestep_t</span><span class="p">,</span><span class="w"> </span><span class="n">simtime_t</span><span class="p">,</span><span class="w"> </span><span class="n">Domain</span><span class="o">&lt;</span><span class="n">S</span><span class="p">,</span><span class="w"> </span><span class="n">M</span><span class="o">&gt;&amp;</span><span class="w"> </span><span class="n">domain</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">moving_window</span><span class="p">.</span><span class="n">update</span><span class="p">(</span><span class="n">dt</span><span class="p">,</span><span class="w"> </span><span class="n">N_GHOSTS</span><span class="p">,</span><span class="w"> </span><span class="n">metadomain</span><span class="p">,</span><span class="w"> </span><span class="n">domain</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div>
+<p>Two details are worth pointing out.</p>
+<p>Note that the problem generator holds a <strong>non-const reference to the
+metadomain</strong> (<code>Metadomain&lt;S, M&gt;&amp; metadomain</code>), not a const one -- <code>MoveWindow</code>
+mutates the global extent, so the usual <code>const Metadomain&lt;S, M&gt;&amp;</code> signature
+will not compile here.</p>
+<p>Also, the window moves in jumps of <code>shift</code> cells, which happen every</p>
+<div class="arithmatex">\[
+\Delta n_{\rm steps} \simeq \frac{\texttt{shift} \cdot \mathrm{d}x}{v_{\rm w}\,\mathrm{d}t}
+\]</div>
+<p>timesteps. In between, the contents of the box do not move at all, so the
+feature you are following drifts by up to <code>shift</code> cells relative to the frame
+and then snaps back. That is the "jerkiness" visible in the example movie; it
+is a property of the output coordinates, not of the physics, and it disappears
+if you plot a fixed <em>physical</em> interval (or crop the render region).</p>
+<p>For the input file, everything specific to the window lives under <code>[setup]</code>, which accepts
+arbitrary user-defined keys and is read with <code>params.get&lt;T&gt;("setup.&lt;key&gt;")</code>:</p>
+<div class="language-toml highlight"><pre><span></span><code><span class="k">[setup]</span>
+<span class="w">  </span><span class="c1"># not a built-in parameter: read by the problem generator above</span>
+<span class="w">  </span><span class="n">window_velocity</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.2</span>
+</code></pre></div>
+<h2 id="what-flows-into-the-window">What flows into the window<a class="headerlink" href="#what-flows-into-the-window" title="Permanent link">&para;</a></h2>
+<p>Each move exposes a <code>shift</code>-cell-wide strip at the leading edge that has to be
+filled with something, and discards a strip of the same width at the trailing
+edge.</p>
+<ul>
+<li><strong>Fields</strong> entering the window come from the leading-edge ghost zone as it
+  was <em>before</em> the shift (step 3 above), i.e. from whatever the field boundary
+  condition -- or the neighboring subdomain -- last put there. With <code>PERIODIC</code>
+  fields along the window axis you get the state at the opposite edge; with
+  <code>MATCH</code>ing or fixed boundaries you get the prescribed upstream field (see
+  <a href="../../2-howto/1-problem_generators/#match-boundaries">matching</a> and
+  <a href="../../2-howto/1-problem_generators/#fixed-field-boundaries">fixed</a> field
+  boundaries). Choose whichever represents your upstream medium.</li>
+<li>
+<p><strong>Particles</strong> are <em>not</em> created by the shift: the fresh strip comes in empty.
+  If the window is supposed to keep plowing into plasma, you have to inject it
+  yourself, right after the move, in the same <code>CustomPostStep</code>. The injectors
+  accept a <code>box</code> in global physical coordinates, and the extent you read from
+  the metadomain is already the shifted one, so the strip is simply the top
+  <code>shift</code> cells of the current extent:</p>
+<div class="language-cpp highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">CustomPostStep</span><span class="p">(</span><span class="n">timestep_t</span><span class="p">,</span><span class="w"> </span><span class="n">simtime_t</span><span class="p">,</span><span class="w"> </span><span class="n">Domain</span><span class="o">&lt;</span><span class="n">S</span><span class="p">,</span><span class="w"> </span><span class="n">M</span><span class="o">&gt;&amp;</span><span class="w"> </span><span class="n">domain</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">moving_window</span><span class="p">.</span><span class="n">update</span><span class="p">(</span><span class="n">dt</span><span class="p">,</span><span class="w"> </span><span class="n">N_GHOSTS</span><span class="p">,</span><span class="w"> </span><span class="n">metadomain</span><span class="p">,</span><span class="w"> </span><span class="n">domain</span><span class="p">);</span>
+
+<span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="o">&amp;</span><span class="w"> </span><span class="n">mesh</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="n">metadomain</span><span class="p">.</span><span class="n">mesh</span><span class="p">();</span>
+<span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="w">  </span><span class="n">x1_max</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mesh</span><span class="p">.</span><span class="n">extent</span><span class="p">()[</span><span class="mi">0</span><span class="p">].</span><span class="n">second</span><span class="p">;</span>
+<span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="w">  </span><span class="n">width</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="n">real_t</span><span class="o">&gt;</span><span class="p">(</span><span class="n">N_GHOSTS</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">mesh</span><span class="p">.</span><span class="n">metric</span><span class="p">.</span><span class="n">get_dx</span><span class="p">();</span>
+
+<span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">energy_dist</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">arch</span><span class="o">::</span><span class="n">energy_dist</span><span class="o">::</span><span class="n">Maxwellian</span><span class="o">&lt;</span><span class="n">M</span><span class="o">::</span><span class="n">Dim</span><span class="p">,</span><span class="w"> </span><span class="n">M</span><span class="o">::</span><span class="n">CoordType</span><span class="o">&gt;</span><span class="p">(</span>
+<span class="w">    </span><span class="n">domain</span><span class="p">.</span><span class="n">random_pool</span><span class="p">(),</span>
+<span class="w">    </span><span class="n">temperature</span><span class="p">,</span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="o">-</span><span class="n">v_upstream</span><span class="p">,</span><span class="w"> </span><span class="n">ZERO</span><span class="p">,</span><span class="w"> </span><span class="n">ZERO</span><span class="w"> </span><span class="p">});</span>
+<span class="w">  </span><span class="n">arch</span><span class="o">::</span><span class="n">InjectUniform</span><span class="o">&lt;</span><span class="n">S</span><span class="p">,</span><span class="w"> </span><span class="n">M</span><span class="p">,</span><span class="w"> </span><span class="k">decltype</span><span class="p">(</span><span class="n">energy_dist</span><span class="p">),</span><span class="w"> </span><span class="k">decltype</span><span class="p">(</span><span class="n">energy_dist</span><span class="p">)</span><span class="o">&gt;</span><span class="p">(</span>
+<span class="w">    </span><span class="n">params</span><span class="p">,</span>
+<span class="w">    </span><span class="n">domain</span><span class="p">,</span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="n">energy_dist</span><span class="p">,</span><span class="w"> </span><span class="n">energy_dist</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="n">ONE</span><span class="p">,</span><span class="w">   </span><span class="c1">// &lt;-- target density in units of `n0`</span>
+<span class="w">    </span><span class="nb">false</span><span class="p">,</span><span class="w"> </span><span class="c1">// &lt;-- no weights for Cartesian metrics</span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">x1_max</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">width</span><span class="p">,</span><span class="w"> </span><span class="n">x1_max</span><span class="w"> </span><span class="p">},</span><span class="w"> </span><span class="n">Range</span><span class="o">::</span><span class="n">All</span><span class="w"> </span><span class="p">});</span>
+<span class="w">  </span><span class="c1">//    ^^^^^^^^^^^^^^^^^^^^^^</span>
+<span class="w">  </span><span class="c1">//    the strip the window just exposed, in global physical coordinates</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>The box is intersected with each local subdomain, so the call is correct on
+every rank -- the ranks that do not touch the leading edge inject nothing.
+If you would rather top the whole box up to a target density instead of
+filling a strip, use the replenishing spatial distributions
+(<code>arch::spatial_dist::Replenish</code>, see <code>examples/replenish_injector</code>).</p>
+</li>
+<li>
+<p><strong>Particles left behind</strong> simply end up with a negative cell index along the
+  window axis. In a serial run the next particle push disposes of them through
+  the ordinary particle boundary condition, so the trailing edge should be
+  <code>ABSORB</code> (or <code>ATMOSPHERE</code>) -- <strong>not</strong> <code>PERIODIC</code>, which would wrap them back
+  in at the leading edge.</p>
+</li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Under MPI, the trailing edge follows the <em>field</em> boundary</p>
+<p>Step 2 retags every particle that leaves its subdomain, and the particle
+exchange decides where a direction leads from the <strong>field</strong> boundary
+condition in that direction. So if the window axis is periodic for the
+fields (as in the example input above), the particles the window leaves
+behind are communicated around to the far edge instead of being absorbed by
+the pusher on the next step. If that matters for your setup, either make
+the window axis non-periodic for the fields, or purge the particles
+explicitly in <code>CustomPostStep</code> before the move (see
+<a href="../../2-howto/1-problem_generators/#particle-purging">particle purging</a>).</p>
+</div>
+<h2 id="windows-along-other-axes">Windows along other axes<a class="headerlink" href="#windows-along-other-axes" title="Permanent link">&para;</a></h2>
+<p>The window direction is a template argument, so it is fixed at compile time and
+costs nothing at runtime:</p>
+<table>
+<thead>
+<tr>
+<th>Call</th>
+<th>Requires</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>arch::MoveWindow&lt;M, in::x1&gt;(...)</code></td>
+<td>1D, 2D or 3D</td>
+</tr>
+<tr>
+<td><code>arch::MoveWindow&lt;M, in::x2&gt;(...)</code></td>
+<td>2D or 3D</td>
+</tr>
+<tr>
+<td><code>arch::MoveWindow&lt;M, in::x3&gt;(...)</code></td>
+<td>3D</td>
+</tr>
+</tbody>
+</table>
+<p>Each call shifts one axis and does its own extent bookkeeping, so a window that
+travels diagonally means calling it once per axis, each with its own position
+tracker.</p>
+<h2 id="outputs-renders-and-checkpoints">Outputs, renders and checkpoints<a class="headerlink" href="#outputs-renders-and-checkpoints" title="Permanent link">&para;</a></h2>
+<p>Because the window is a shift of the <em>extent</em>, every consumer of the mesh
+follows it for free:</p>
+<ul>
+<li><strong>Field and particle outputs</strong> are written in the current physical
+  coordinates, so the coordinate axes of your dumps move with the window. In
+  <code>nt2py</code> this means the <code>x</code> coordinate of successive snapshots is different --
+  which is exactly what you want when you overplot them, and something to keep
+  in mind when you take a <code>sel(x=...)</code> slice.</li>
+<li><strong>Checkpoints</strong> store the global and the per-subdomain extents and restore
+  them on restart, so the <em>frame</em> survives a restart -- this is what
+  <code>tests/framework/checkpoint-extents.cpp</code> verifies. The problem generator's own
+  window state (<code>pos_i</code>, <code>pos_di</code>, <code>vel_Cd</code>) does not: it is not part of the
+  checkpoint, and <code>InitPrtls</code> -- where the example initializes it -- is skipped
+  when resuming. If you intend to restart a windowed run, initialize the tracker
+  lazily on the first <code>CustomPostStep</code> call instead of in <code>InitPrtls</code>; by then
+  the extent has been restored, so reading the window position off
+  <code>domain.mesh.metric</code> gives the right answer and the window resumes at the
+  right speed.</li>
+<li><strong>The in-situ renderer</strong> is independent of all this. Its <code>camera_velocity</code>
+  option (see <a href="../3-rendering/#moving-view-tracking-a-feature">moving view</a>)
+  pans the <em>view</em> across a static domain and does not move the simulation; the
+  moving window moves the simulation and the renderer follows it. The two can
+  be combined, but for tracking a feature you generally want one or the other.</li>
+</ul>
+<h2 id="constraints-and-caveats">Constraints and caveats<a class="headerlink" href="#constraints-and-caveats" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>SRPIC only.</strong> <code>MoveWindow</code> is declared for
+  <code>Domain&lt;SimEngine::SRPIC, M&gt;</code> -- there is no GRPIC version.</li>
+<li><strong>Cartesian metrics only.</strong> The function is constrained on
+  <code>CartesianMetricClass</code>, and <code>ShiftByCells</code> <code>static_assert</code>s on it: shifting a
+  curvilinear grid by a cell would not be a translation.</li>
+<li><strong><code>shift</code> <span class="arithmatex">\(\le\)</span> <code>N_GHOSTS</code></strong>, and strictly positive (see the warning above).</li>
+<li><strong>One subdomain per rank.</strong> <code>CustomPostStep</code> is invoked once per <em>local</em>
+  subdomain, so a rank owning several of them would advance the window tracker
+  -- and the global extent -- more than once per step. The standard
+  one-subdomain-per-rank decomposition is what this is written for.</li>
+<li><strong>The decision to move must be global.</strong> Every rank shifts its own fields and
+  particles <em>and</em> updates the extents of all subdomains, so all ranks must move
+  on the same step. Basing the trigger on <code>dt</code>, the step number, or the
+  prescribed window velocity keeps it deterministic and identical everywhere;
+  basing it on rank-local data (a local particle count, a local field maximum)
+  does not.</li>
+<li><strong>Cost per move.</strong> One full device copy of <code>em</code>, one ghost exchange, and one
+  particle exchange. This is why moves are batched into <code>shift</code>-cell jumps
+  rather than done every step; at the default CFL and a window moving at
+  <span class="arithmatex">\(\sim c\)</span> a 2-cell jump fires every few steps, which is a small fraction of a
+  timestep's cost.</li>
+<li><strong>Interaction with load balancing.</strong>
+  <a href="../4-load_balancing/">Dynamic load balancing</a> also moves things around, but
+  it runs after
+  <code>CustomPostStep</code> in the engine loop and only shifts <em>interior</em> subdomain
+  faces, so the two are independent. Keep in mind, though, that a window
+  sweeping along <code>x1</code> continuously advects particles across the box, so a
+  rebalancer on the same axis will be chasing a moving target.</li>
+</ul>
+<h2 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h2>
+<p><code>examples/moving_window</code> follows a Gaussian blob of pair plasma drifting at
+<span class="arithmatex">\(v_0 = 0.2\,c\)</span> across a 2D periodic box. The full problem generator is the one
+quoted above, plus the density profile and the injection at initialization:</p>
+<div class="language-cpp highlight"><pre><span></span><code><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="n">Dimension</span><span class="w"> </span><span class="n">D</span><span class="o">&gt;</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">NonUniformDensity</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">Inline</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="k">operator</span><span class="p">()(</span><span class="k">const</span><span class="w"> </span><span class="n">coord_t</span><span class="o">&lt;</span><span class="n">D</span><span class="o">&gt;&amp;</span><span class="w"> </span><span class="n">x_Ph</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">real_t</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">real_t</span><span class="w"> </span><span class="n">r2</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">ZERO</span><span class="w"> </span><span class="p">};</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">auto</span><span class="w"> </span><span class="n">d</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0u</span><span class="p">;</span><span class="w"> </span><span class="n">d</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">D</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">d</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="n">r2</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">SQR</span><span class="p">(</span><span class="n">x_Ph</span><span class="p">[</span><span class="n">d</span><span class="p">]</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mf">0.5</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">math</span><span class="o">::</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">r2</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">SQR</span><span class="p">(</span><span class="k">static_cast</span><span class="o">&lt;</span><span class="n">real_t</span><span class="o">&gt;</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)));</span>
+<span class="w">    </span><span class="c1">//                                              ^</span>
+<span class="w">    </span><span class="c1">//                 characteristic width of the density profile</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div>
+<p>The particles are injected once, with a bulk velocity equal to the window
+velocity, so the blob stays put in the window frame:</p>
+<div class="language-cpp highlight"><pre><span></span><code><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">energy_dist</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">arch</span><span class="o">::</span><span class="n">energy_dist</span><span class="o">::</span><span class="n">Maxwellian</span><span class="o">&lt;</span><span class="n">M</span><span class="o">::</span><span class="n">Dim</span><span class="p">,</span><span class="w"> </span><span class="n">M</span><span class="o">::</span><span class="n">CoordType</span><span class="o">&gt;</span><span class="p">(</span>
+<span class="w">  </span><span class="n">domain</span><span class="p">.</span><span class="n">random_pool</span><span class="p">(),</span>
+<span class="w">  </span><span class="mf">0.001</span><span class="p">,</span>
+<span class="w">  </span><span class="p">{</span><span class="w"> </span><span class="n">window_velocity</span><span class="p">,</span><span class="w"> </span><span class="n">ZERO</span><span class="p">,</span><span class="w"> </span><span class="n">ZERO</span><span class="w"> </span><span class="p">});</span>
+<span class="c1">//  ^^^^^^^^^^^^^^^</span>
+<span class="c1">//  the blob drifts with the window</span>
+</code></pre></div>
+<p>and the input file is:</p>
+<div class="language-toml highlight"><pre><span></span><code><span class="k">[simulation]</span>
+<span class="w">  </span><span class="n">name</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;moving_window&quot;</span>
+<span class="w">  </span><span class="n">engine</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;srpic&quot;</span>
+<span class="w">  </span><span class="n">runtime</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">2.0</span>
+
+<span class="k">[grid]</span>
+<span class="w">  </span><span class="n">resolution</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="mi">128</span><span class="p">,</span><span class="w"> </span><span class="mi">128</span><span class="p">]</span>
+<span class="w">  </span><span class="n">extent</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="p">[[</span><span class="mf">0.0</span><span class="p">,</span><span class="w"> </span><span class="mf">1.0</span><span class="p">],</span><span class="w"> </span><span class="p">[</span><span class="mf">0.0</span><span class="p">,</span><span class="w"> </span><span class="mf">1.0</span><span class="p">]]</span>
+
+<span class="w">  </span><span class="k">[grid.metric]</span>
+<span class="w">    </span><span class="n">metric</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;minkowski&quot;</span>
+
+<span class="w">  </span><span class="k">[grid.boundaries]</span>
+<span class="w">    </span><span class="n">fields</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="p">[[</span><span class="s2">&quot;PERIODIC&quot;</span><span class="p">],</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;PERIODIC&quot;</span><span class="p">]]</span>
+<span class="w">    </span><span class="n">particles</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[[</span><span class="s2">&quot;ABSORB&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;ABSORB&quot;</span><span class="p">],</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;PERIODIC&quot;</span><span class="p">]]</span>
+
+<span class="k">[scales]</span>
+<span class="w">  </span><span class="n">larmor0</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="mf">0.01</span>
+<span class="w">  </span><span class="n">skindepth0</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.1</span>
+
+<span class="k">[algorithms]</span>
+
+<span class="w">  </span><span class="k">[algorithms.timestep]</span>
+<span class="w">    </span><span class="n">CFL</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.5</span>
+
+<span class="k">[particles]</span>
+<span class="w">  </span><span class="n">ppc0</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">8.0</span>
+
+<span class="w">  </span><span class="k">[[particles.species]]</span>
+<span class="w">    </span><span class="n">label</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;e+&quot;</span>
+<span class="w">    </span><span class="n">mass</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="mf">1.0</span>
+<span class="w">    </span><span class="n">charge</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="mf">1.0</span>
+<span class="w">    </span><span class="n">maxnpart</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1e6</span>
+
+<span class="w">  </span><span class="k">[[particles.species]]</span>
+<span class="w">    </span><span class="n">label</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;e-&quot;</span>
+<span class="w">    </span><span class="n">mass</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="mf">1.0</span>
+<span class="w">    </span><span class="n">charge</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="mf">-1.0</span>
+<span class="w">    </span><span class="n">maxnpart</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1e6</span>
+
+<span class="k">[setup]</span>
+<span class="w">  </span><span class="n">window_velocity</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.2</span>
+
+<span class="k">[output]</span>
+<span class="w">  </span><span class="n">interval</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span>
+
+<span class="w">  </span><span class="k">[output.fields]</span>
+<span class="w">    </span><span class="n">quantities</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;N_1_2&quot;</span><span class="p">]</span>
+</code></pre></div>
+<p>The density snapshots then show the blob sitting still while the coordinate axis marches forward -- the whole point of the exercise.</p>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+  
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2021++, Entity dev team
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/entity-toolkit/entity/" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M216.29 158.39H137C97 147.9 6.51 150.63 6.51 233.18c0 30.09 15 51.23 35 61-25.1 23-37 33.85-37 49.21 0 11 4.47 21.14 17.89 26.81C8.13 383.61 0 393.35 0 411.65c0 32.11 28.05 50.82 101.63 50.82 70.75 0 111.79-26.42 111.79-73.18 0-58.66-45.16-56.5-151.63-63l13.43-21.55c27.27 7.58 118.7 10 118.7-67.89 0-18.7-7.73-31.71-15-41.07l37.41-2.84zm-63.42 241.9c0 32.06-104.89 32.1-104.89 2.43 0-8.14 5.27-15 10.57-21.54 77.71 5.3 94.32 3.37 94.32 19.11m-50.81-134.58c-52.8 0-50.46-71.16 1.2-71.16 49.54 0 50.82 71.16-1.2 71.16m133.3 100.51v-32.1c26.75-3.66 27.24-2 27.24-11V203.61c0-8.5-2.05-7.38-27.24-16.26l4.47-32.92H324v168.71c0 6.51.4 7.32 6.51 8.14l20.73 2.84v32.1zm52.45-244.31c-23.17 0-36.59-13.43-36.59-36.61s13.42-35.77 36.59-35.77c23.58 0 37 12.62 37 35.77s-13.42 36.61-37 36.61M512 350.46c-17.49 8.53-43.1 16.26-66.28 16.26-48.38 0-66.67-19.5-66.67-65.46V194.75c0-5.42 1.05-4.06-31.71-4.06V154.5c35.78-4.07 50-22 54.47-66.27h38.63c0 65.83-1.34 61.81 3.26 61.81H501v40.65h-60.56v97.15c0 6.92-4.92 51.41 60.57 26.84z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tracking", "navigation.indexes", "navigation.expand", "content.code.annotate", "content.code.copy", "content.tooltips", "header.autohide", "search.highlight"], "search": "../../../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.13a4f30d.min.js"></script>
+      
+    
+  </body>
+</html>
