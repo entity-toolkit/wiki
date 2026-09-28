@@ -21,6 +21,7 @@ classDiagram
     -const map~string, real_t~ g_metric_params
     -const vector~ParticleSpecies~ g_species_params
     -stats\:\:Writer g_stats_writer
+    -out\:\:Renderer g_renderer
     +initialValidityCheck() void
     +finalValidityCheck() void
     +metricCompatibilityCheck() void
@@ -29,9 +30,14 @@ classDiagram
     +redefineBoundaries() void
     +CommunicateFields(Domain~S, M~ &, CommTags ) void
     +SynchronizeFields(Domain~S, M~ &, CommTags ) void
+    +CommunicateBckp(Domain~S, M~ &, cell_range_t &) void
     +CommunicateParticles(Domain~S, M~ &) void
     +SortParticles(simtime_t , timestep_t , SimulationParams &, Domain~S, M~ &) void
     +ShiftByCells(int ) void
+    +Rebalance(uint dim_mask, real_t tolerance, ncells_t max_shift_cells) void
+    +InitRenderer(SimulationParams &) void
+    +Render(SimulationParams &, timestep_t , timestep_t , simtime_t , simtime_t ) bool
+    +prepareRenderScalar(SimulationParams &, Domain~S, M~ &, string & field_name, ndfield_t~M\:\:Dim, 6~ &) bool
     +InitStatsWriter(SimulationParams &, bool ) void
     +WriteStats(SimulationParams &, timestep_t , timestep_t , simtime_t , simtime_t ) bool
     +setFldsBC(bc_in &, FldsBC &) void
@@ -68,6 +74,7 @@ classDiagram
     +is_placeholder() bool
     +random_pool() random_number_pool_t&
     +set_neighbor_idx(dir\:\:direction_t~D~ & dir, uint idx) void
+    +set_offset_ncells(vector~ncells_t~ & off) void
     +Report() string
   }
   class Grid~Dimension~ {
@@ -104,6 +111,7 @@ classDiagram
     +M metric
     -map~string, real_t~ m_metric_params_raw
     +set_extent(boundaries_t~real_t~ & new_extent) void
+    +set_resolution_and_extent(vector~ncells_t~ & new_res, boundaries_t~real_t~ &  new_extent) void
     +Intersection(boundaries_t~real_t~ & box) boundaries_t~real_t~
     +Intersects(boundaries_t~real_t~ & box) bool
     +ExtentToRange(boundaries_t~real_t~ & box, boundaries_t~bool~ &   incl_ghosts) boundaries_t~ncells_t~

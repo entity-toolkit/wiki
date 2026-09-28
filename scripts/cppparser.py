@@ -210,15 +210,17 @@ class CPPClass:
 class CPPParser:
     def __init__(self, source_code: str):
         self.source_code = source_code
+        # tree-sitter reports byte offsets, so keep the encoded source for slicing
+        self.source_bytes = bytes(source_code, "utf8")
         CPP_LANGUAGE = Language(tscpp.language())
         parser = Parser(CPP_LANGUAGE)
-        tree = parser.parse(bytes(source_code, "utf8"))
+        tree = parser.parse(self.source_bytes)
         self.root_node = tree.root_node
 
     def _get_text(self, node) -> str:
         if node is None:
             return ""
-        return self.source_code[node.start_byte : node.end_byte]
+        return self.source_bytes[node.start_byte : node.end_byte].decode("utf8")
 
     def _get_function_return_type_text(self, func_node) -> str | None:
         leading_type_node = func_node.child_by_field_name("type")

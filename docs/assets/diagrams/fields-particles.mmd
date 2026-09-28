@@ -59,6 +59,7 @@ classDiagram
     -npart_t m_npart
     -npart_t m_counter
     -bool m_is_sorted
+    -TileLayout~D~ m_tile_layout
     +rangeActiveParticles() range_t~1D~
     +rangeAllParticles() range_t~1D~
     +npart() npart_t
@@ -72,6 +73,7 @@ classDiagram
     +set_unsorted() void
     +RemoveDead() void
     +SortSpatially(Grid~D~ &) void
+    +tile_layout() const TileLayout~D~&
     +SyncHostDevice() void
   }
   class Fields~Dimension, SimEngine~ {

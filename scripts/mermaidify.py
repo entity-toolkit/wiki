@@ -29,15 +29,8 @@ if __name__ == "__main__":
     )
     args = parser.parse_args()
 
+    fetchfile = None
     if args.path is None:
-        def fetchfile(file: str) -> str:
-            local_path = os.path.join(args.path, "src", file)
-            if not os.path.exists(local_path):
-                raise FileNotFoundError(f"File {file} not found in local path {args.path}")
-
-            with open(local_path, "r") as f:
-                return f.read()
-    else:
         root_url = f"https://raw.githubusercontent.com/entity-toolkit/entity/refs/heads/{args.branch}/src"
         def fetchfile(file: str) -> str:
             response = requests.get(f"{root_url}/{file}")
@@ -45,6 +38,17 @@ if __name__ == "__main__":
                 raise FileNotFoundError(f"File {file} not found in branch {args.branch}")
 
             return response.text
+    else:
+        def fetchfile(file: str) -> str:
+            local_path = os.path.join(args.path, "src", file)
+            if not os.path.exists(local_path):
+                raise FileNotFoundError(f"File {file} not found in local path {args.path}")
+
+            with open(local_path, "r") as f:
+                return f.read()
+
+    if fetchfile is None:
+        raise ValueError("Either --path or --branch must be specified")
 
     def get_class_from(file: str, which: int = 0) -> cpp.CPPClass:
         parser = cpp.CPPParser(fetchfile(file))
