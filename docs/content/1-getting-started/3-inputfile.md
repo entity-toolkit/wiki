@@ -24,11 +24,11 @@ Entity reads almost all the information (except for the problem generator) about
     <tbody>
       <tr class="required">
         <td><pre>required</pre></td>
-        <td>These parameters are required to be specified for any simulation</td>
+        <td>These parameters are required to be specified for any simulation (i.e., no default)</td>
       </tr>
       <tr class="inferred">
         <td><pre>inferred</pre></td>
-        <td>These parameters are not directly specified by the user, but are inferred from other input parameters</td>
+        <td>These parameters are not directly specified by the user, but are inferred from other input parameters or command-line flags</td>
       </tr>
     </tbody>
   </table>

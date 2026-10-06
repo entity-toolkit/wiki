@@ -3,7 +3,11 @@ hide:
   - footer
 ---
 
-# Designing your first problem generator
+# Tutorial: problem generator in Cartesian SR
+
+!!! abstract "Code available"
+
+    The final problem generator as well as the plotting script and the input file for this tutorial are distributed with the source code `tutorials/cartesian_sr/`.
 
 Problem generators are the user entry points of `Entity`, and they allow to customize the simulation to your own liking by specifying custom initialization as well as other routines to alter the flow of the simulation. In this tutorial, we discuss how you can write your own custom problem generator, gradually increasing its complexity. In the interest of brevity, we will skip some of the detailed explanations; if you want to dive more into why and how things work -- please refer to the more detailed discussion on all the capabilities of [problem generators](../2-howto/1-problem_generators.md).
 
@@ -25,8 +29,7 @@ Open the `pgen.hpp` you created and define the following class template inside o
 #include "enums.h"
 #include "global.h"
 
-#include "archetypes/traits.h"
-#include "archetypes/problem_generator.h"
+#include "traits/pgen.h"
 #include "framework/domain/metadomain.h"
 #include "framework/parameters/parameters.h"
 
@@ -34,18 +37,23 @@ namespace user {
   using namespace ntt;
 
   template <SimEngine::type S, class M>
-  struct PGen : public arch::ProblemGenerator<S, M> {
+  struct PGen {
     static constexpr auto engines {
-      arch::traits::pgen::compatible_with<SimEngine::SRPIC>::value
+      ::traits::pgen::compatible_with<SimEngine::SRPIC> {}
     };
     static constexpr auto metrics {
-      arch::traits::pgen::compatible_with<Metric::Minkowski>::value
+      ::traits::pgen::compatible_with<Metric::Minkowski> {}
     };
     static constexpr auto dimensions {
-      arch::traits::pgen::compatible_with<Dim::_2D, Dim::_3D>::value
+      ::traits::pgen::compatible_with<Dim::_2D, Dim::_3D> {}
     };
-    inline PGen(const SimulationParams& p, const Metadomain<S, M>&)
-      : arch::ProblemGenerator<S, M> { p } {}
+
+    const SimulationParams& params;
+    const Metadomain<S, M>& metadomain;
+
+    inline PGen(const SimulationParams& p, const Metadomain<S, M>& m) 
+      : params { p }
+      , metadomain { m } {}
   };
 
 } // namespace user
@@ -53,7 +61,7 @@ namespace user {
 #endif // PROBLEM_GENERATOR_H
 ```
 
-This defines an empty structure, with traits specifying that its compatible with 2D, and 3D Cartesian special-relativistic engine. Currently, this problem generator does nothing. It will initialize an empty simulation domain with no preset electromagnetic fields. 
+This defines an empty structure with traits specifying that its compatible with 2D, and 3D Cartesian special-relativistic engine; it also stores references to two globally defined objects -- `params` (parameters of the simulation) and `metadomain` (which contains all the subdomains, fields, particles etc). Currently, this problem generator does nothing. It will initialize an empty simulation domain with no preset electromagnetic fields. 
 
 ### Adding a dipole magnetic field
 
@@ -79,7 +87,7 @@ namespace user {
   
   
   template <SimEngine::type S, class M>
-  struct PGen : public arch::ProblemGenerator<S, M> {
+  struct PGen {
     // ...
   };
 
@@ -142,14 +150,11 @@ Now that we have our class, we can tell the problem generator to initialize the 
 
 ```cpp hl_lines="6"
 template <SimEngine::type S, class M>
-struct PGen : public arch::ProblemGenerator<S, M> {
+struct PGen {
 
   // ...
 
   DipoleField<M::Dim> init_flds;
-
-  inline PGen(const SimulationParams& p, const Metadomain<S, M>&)
-    : arch::ProblemGenerator<S, M> { p } {}
 };
 ```
 
@@ -248,23 +253,20 @@ In `Entity`, this can be done by defining the so-called "external" fields -- fie
 
 ```cpp hl_lines="6 8-11"
 template <SimEngine::type S, class M>
-struct PGen : public arch::ProblemGenerator<S, M> {
+struct PGen {
 
   // ...
 
   // DipoleField<M::Dim> init_flds;
 
-  inline auto ExternalFields(simtime_t, spidx_t, const Domain<S, M>&) const
+  auto ExternalFields(simtime_t, spidx_t, const Domain<S, M>&) const
     -> std::pair<bool, DipoleField<M::Dim>> {
     return { true, DipoleField<M::Dim> {} };
   }
-
-  inline PGen(const SimulationParams& p, const Metadomain<S, M>&)
-    : arch::ProblemGenerator<S, M> { p } {}
 };
 ```
 
-This method takes in the simulation time, the index of the species currently being processed and the reference to the local subdomain, and returns two things. First, it returns a boolean expression to indicate whether the external fields need to be applied or not. You may choose to selectively apply the field to specific particle species, at specific times, or following any custom logic. The second argument is the field structure itself. Once the code sees that this `ExternalFields` method is defined, it will add these fields to the ones "felt" by the particles (if the first argument is true), but will not use them in the Maxwell-solver.
+This method takes in the simulation time, the index of the species currently being processed and the reference to the local subdomain, and returns two things. First, it returns a boolean expression to indicate whether the external fields need to be applied to the given species (at a given time). You may choose to selectively apply the field to specific particle species, at specific times, or following any custom logic. The second argument is the field structure itself. Once the code sees that this `ExternalFields` method is defined, it will add these fields to the ones "felt" by the particles (if the first argument is true), but will not use them in the Maxwell-solver.
 
 If you compile and run this, you should not see anything at all. The external fields are not output with the fields on the grid, so all your fields will simply be zero, and there will be no dynamics since there are no particles in our simulation.
 
@@ -276,17 +278,17 @@ To test the effect of our external fields, let's add test particles to our simul
 #include "archetypes/particle_injector.h" // <-- add this header file
 
 template <SimEngine::type S, class M>
-struct PGen : public arch::ProblemGenerator<S, M> {
+struct PGen {
 
   // ...
 
   const Metadomain<S, M>& metadomain;
   
-  inline PGen(const SimulationParams& p, const Metadomain<S, M>& metadomain)
+  PGen(const SimulationParams& p, const Metadomain<S, M>& metadomain)
     : arch::ProblemGenerator<S, M> { p }
     , metadomain { metadomain } {}
 
-  inline void InitPrtls(Domain<S, M>& domain) {
+  void InitPrtls(Domain<S, M>& domain) {
     std::map<std::string, std::vector<real_t>> particles {
       {  "x1", {} },
       {  "x2", {} },
@@ -492,12 +494,12 @@ Now let's turn to modifying our problem generator. Instead of using `arch::Injec
 #include "archetypes/utils.h"
 
 template <SimEngine::type S, class M>
-struct PGen : public arch::ProblemGenerator<S, M> {
+struct PGen {
 
   // ...
 
-  inline void InitPrtls(Domain<S, M>& domain) {
-    arch::InjectUniformMaxwellian(this->params,
+  void InitPrtls(Domain<S, M>& domain) {
+    arch::InjectUniformMaxwellian(params,
                                   domain,
                                   ONE,            // total number density [units of n0]: n_1 + n_2
                                   1e-3,           // temperature of both species [units of m_0 c^2]
@@ -515,7 +517,7 @@ This function will initialize a uniform Maxwellian of total number density $n_1+
 Now notice, we are not specifying where we want this plasma to be injected. By default, it will fill the entire domain, which is not exactly what we're going for here. We want the plasma to be injected near the left boundary of our domain, say, somewhere around $-2<x<-1.5$. This can easily be achieved by passing an additional parameter to the `arch::InjectUniformMaxwellian`:
 
 ```cpp hl_lines="8"
-arch::InjectUniformMaxwellian(this->params,
+arch::InjectUniformMaxwellian(params,
                               domain,
                               ONE,
                               1e-3,
@@ -527,7 +529,7 @@ arch::InjectUniformMaxwellian(this->params,
 
 where we select a range in $x$, $y$, and $z$ (the latter will be ignored for 2D). Now our simulation will look something like this:
 
-<video autoplay loop>
+<video autoplay loop controls>
   <source src="../../../assets/images/first-pgen/fig5.webm" type="video/webm">
   Video not supported.
 </video> 
@@ -579,7 +581,7 @@ First of all, let's completely get rid of our `InitPrtls` method -- we won't be 
 
 ```cpp hl_lines="6-8"
 template <SimEngine::type S, class M>
-struct PGen : public arch::ProblemGenerator<S, M> {
+struct PGen {
 
   // ...
 
@@ -595,14 +597,14 @@ The method takes three arguments -- the current timestep, the current physical t
 #include "archetypes/particle_injector.h"
 
 template <SimEngine::type S, class M>
-struct PGen : public arch::ProblemGenerator<S, M> {
+struct PGen {
 
   // ...
 
   void CustomPostStep(timestep_t, simtime_t, Domain<S, M>& domain) {
     // ...
     arch::InjectNonUniform<S, M, decltype(energy_dist), decltype(energy_dist), decltype(replenish_sdist)>(
-      this->params,
+      params,
       domain,
       { 1u, 2u },                   // <-- species to inject
       { energy_dist, energy_dist }, // <-- energy distributions for both species
@@ -640,7 +642,7 @@ To this class, we are passing a buffer array, `domain.fields.buff`, where the de
 ```cpp
 // compute the density of species #1 and #2
 // and save in the field buffer (by default, the index is 0u)
-arch::ComputeMomentWithSpecies<S, M, FldsID::N, 3>(this->params,
+arch::ComputeMomentWithSpecies<S, M, FldsID::N, 3>(params,
                                                    domain,
                                                    { 1u, 2u },
                                                    domain.fields.buff);
@@ -659,7 +661,7 @@ void CustomPostStep(timestep_t, simtime_t, Domain<S, M>& domain) {
 
 If we now run the simulation, it will look a bit more satisfying with the plasma flowing in indefinitely.
 
-<video autoplay loop>
+<video autoplay loop controls>
   <source src="../../../assets/images/first-pgen/fig6.webm" type="video/webm">
   Video not supported.
 </video> 
@@ -697,7 +699,7 @@ struct ZeroFields {
 };
 
 template <SimEngine::type S, class M>
-struct PGen : public arch::ProblemGenerator<S, M> {
+struct PGen {
   // ...
 };
 ```
@@ -706,7 +708,7 @@ We then simply need to pass an instance of that class as an argument to a specia
 
 ```cpp hl_lines="4-6"
 template <SimEngine::type S, class M>
-struct PGen : public arch::ProblemGenerator<S, M> {
+struct PGen {
   // ...
   auto MatchFields(simtime_t) const -> ZeroFields<M::Dim> {
     return ZeroFields<M::Dim> {};
@@ -751,12 +753,12 @@ For reasons that will become clear in a moment, let us also define a function wh
 ```cpp
 template <Dimension D>
 Inline void SetParticleSpeed(index_t                 p,
-                              const array_t<real_t*>& ux1,
-                              const array_t<real_t*>& ux2,
-                              const array_t<real_t*>& ux3,
-                              const coord_t<D>&       x,
-                              real_t                  dist,
-                              real_t                  velocity) {
+                             const array_t<real_t*>& ux1,
+                             const array_t<real_t*>& ux2,
+                             const array_t<real_t*>& ux3,
+                             const coord_t<D>&       x,
+                             real_t                  dist,
+                             real_t                  velocity) {
   ux1(p) = -velocity * x[0] / dist;
   ux2(p) = -velocity * x[1] / dist;
   if constexpr (D == Dim::_3D) {
@@ -778,8 +780,8 @@ void CustomPostStep(timestep_t step, simtime_t time, Domain<S, M>& domain) {
   // particles below r_plummet, gain a constant speed towards the origin,
   // and are removed when they reach r_purge
   for (auto& species : domain.species) {
-    const real_t r_purge       = 0.25;
-    const real_t r_plummet     = 0.5;
+    const real_t r_purge       = 0.15;
+    const real_t r_plummet     = 0.3;
     const real_t plummet_speed = 0.1;
 
     const auto i1  = species.i1;
@@ -875,7 +877,7 @@ or simply remove them, as they are `true` by default. While we are at it, let's 
 [setup]
   temperature   = 1e-3
   drift_vel     = 1.0
-  inject_xrange = [-1.8, -1.5]
+  inject_xrange = [-3.9, -3.8]
   r_plummet     = 0.3
   r_purge       = 0.15
   plummet_speed = 0.1
@@ -885,12 +887,12 @@ By defining these parameters here, we can access them from the problem generator
 
 ```cpp hl_lines="2-4 14 15 31 33-35"
 void CustomPostStep(timestep_t step, simtime_t time, Domain<S, M>& domain) {
-  const auto temperature = this->params.template get<real_t>("setup.temperature");
-  const auto drift_vel = this->params.template get<real_t>("setup.drift_vel");
-  const auto inject_xrange = this->params.template get<std::vector<real_t>>("setup.inject_xrange");
+  const auto temperature = params.template get<real_t>("setup.temperature");
+  const auto drift_vel = params.template get<real_t>("setup.drift_vel");
+  const auto inject_xrange = params.template get<std::vector<real_t>>("setup.inject_xrange");
   // compute the density of species #1 and #2
   // and save in the field buffer (index 0)
-  arch::ComputeMomentWithSpecies<S, M, FldsID::N, 3>(this->params,
+  arch::ComputeMomentWithSpecies<S, M, FldsID::N, 3>(params,
                                                       domain,
                                                       { 1u, 2u },
                                                       domain.fields.buff);
@@ -907,7 +909,7 @@ void CustomPostStep(timestep_t step, simtime_t time, Domain<S, M>& domain) {
     0u,   // <-- index in buff where the density is stored
     ONE); // <-- target density for replenishment
   arch::InjectNonUniform<S, M, decltype(energy_dist), decltype(energy_dist), decltype(replenish_sdist)>(
-    this->params,
+    params,
     domain,
     { 1u, 2u },                   // <-- species to inject
     { energy_dist, energy_dist }, // <-- energy distributions for both species
@@ -916,9 +918,9 @@ void CustomPostStep(timestep_t step, simtime_t time, Domain<S, M>& domain) {
     false, // <-- use weights or not
     { { inject_xrange[0], inject_xrange[1] }, Range::All, Range::All }); // <-- injection region
 
-  const auto r_purge   = this->params.template get<real_t>("setup.r_purge");
-  const auto r_plummet = this->params.template get<real_t>("setup.r_plummet");
-  const auto plummet_speed = this->params.template get<real_t>("setup.plummet_speed");
+  const auto r_purge   = params.template get<real_t>("setup.r_purge");
+  const auto r_plummet = params.template get<real_t>("setup.r_plummet");
+  const auto plummet_speed = params.template get<real_t>("setup.plummet_speed");
   // removing particles below
   for (auto& species : domain.species) {
     // ...
@@ -945,3 +947,14 @@ Now we can change these properties from within the input file without having to 
 
 # ...
 ```
+
+Now the entire simulation looks a lot more reasonable. 
+
+<video autoplay loop controls>
+  <source src="../../../assets/images/first-pgen/fig7.webm" type="video/webm">
+  Video not supported.
+</video> 
+
+!!! success "Sanity check" 
+
+    Inspect, does the standoff distance from the origin (the distance where the flow stops) look correct? What is it determined by from the physical perspective? Note, that even though we are solving fully collissionless equations for the distribution of particles, the behavior of plasma can often be described well-enough in fluid terms.
