@@ -1,0 +1,2978 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://entity-toolkit.github.io/wiki/content/3-advanced/3-rendering/">
+      
+      
+        <link rel="prev" href="../2-radiative/">
+      
+      
+        <link rel="next" href="../4-load_balancing/">
+      
+      
+      <link rel="icon" href="../../../assets/logo.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.14">
+    
+    
+      
+        <title>On-the-fly rendering - Entity: wiki</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.342714a4.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+  
+  
+  
+  
+  <style>:root{--md-annotation-icon:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M12%2020c-4.41%200-8-3.59-8-8s3.59-8%208-8%208%203.59%208%208-3.59%208-8%208m0-18A10%2010%200%200%200%202%2012a10%2010%200%200%200%2010%2010%2010%2010%200%200%200%2010-10A10%2010%200%200%200%2012%202m1%205h-2v4H7v2h4v4h2v-4h4v-2h-4z%22/%3E%3C/svg%3E');}</style>
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=DM+Sans:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"DM Sans";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../css/style.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  
+  
+  <link rel="stylesheet" href="../../../js/vendor/katex/katex.min.css">
+  <script src="../../../js/vendor/katex/katex.min.js"></script>
+  <script src="../../../js/vendor/katex/contrib/auto-render.min.js"></script>
+  <script src="../../../js/hooks/katex.js" defer></script>
+  
+  
+  
+  
+
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="ntt-light" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#on-the-fly-rendering" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Entity: wiki" class="md-header__button md-logo" aria-label="Entity: wiki" data-md-component="logo">
+      
+  <img src="../../../assets/logo.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Entity: wiki
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              On-the-fly rendering
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="ntt-light" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7M9 21a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-1H9z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="ntt-dark" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7M9 21v-1h6v1a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1m3-17a5 5 0 0 0-5 5c0 2.05 1.23 3.81 3 4.58V16h4v-2.42c1.77-.77 3-2.53 3-4.58a5 5 0 0 0-5-5"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/entity-toolkit/entity" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M23.546 10.93 13.067.452a1.55 1.55 0 0 0-2.188 0L8.708 2.627l2.76 2.76a1.838 1.838 0 0 1 2.327 2.341l2.658 2.66a1.838 1.838 0 0 1 1.9 3.039 1.837 1.837 0 0 1-2.6 0 1.85 1.85 0 0 1-.404-1.996L12.86 8.955v6.525c.176.086.342.203.488.348a1.85 1.85 0 0 1 0 2.6 1.844 1.844 0 0 1-2.609 0 1.834 1.834 0 0 1 0-2.598c.182-.18.387-.316.605-.406V8.835a1.834 1.834 0 0 1-.996-2.41L7.636 3.7.45 10.881c-.6.605-.6 1.584 0 2.189l10.48 10.477a1.545 1.545 0 0 0 2.186 0l10.43-10.43a1.544 1.544 0 0 0 0-2.187"/></svg>
+  </div>
+  <div class="md-source__repository">
+    entity
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Entity: wiki" class="md-nav__button md-logo" aria-label="Entity: wiki" data-md-component="logo">
+      
+  <img src="../../../assets/logo.svg" alt="logo">
+
+    </a>
+    Entity: wiki
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/entity-toolkit/entity" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M23.546 10.93 13.067.452a1.55 1.55 0 0 0-2.188 0L8.708 2.627l2.76 2.76a1.838 1.838 0 0 1 2.327 2.341l2.658 2.66a1.838 1.838 0 0 1 1.9 3.039 1.837 1.837 0 0 1-2.6 0 1.85 1.85 0 0 1-.404-1.996L12.86 8.955v6.525c.176.086.342.203.488.348a1.85 1.85 0 0 1 0 2.6 1.844 1.844 0 0 1-2.609 0 1.834 1.834 0 0 1 0-2.598c.182-.18.387-.316.605-.406V8.835a1.834 1.834 0 0 1-.996-2.41L7.636 3.7.45 10.881c-.6.605-.6 1.584 0 2.189l10.48 10.477a1.545 1.545 0 0 0 2.186 0l10.43-10.43a1.544 1.544 0 0 0 0-2.187"/></svg>
+  </div>
+  <div class="md-source__repository">
+    entity
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Getting Started
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Getting Started
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-getting-started/1-compile-run/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Compiling/running
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-getting-started/2-dependencies/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Dependencies
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-getting-started/3-inputfile/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Input parameters
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-getting-started/4-cartesian_sr_tutorial/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Tutorial: problem generator in Cartesian SR
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    How-To
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            How-To
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-howto/1-problem_generators/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Customizing your setup
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-howto/2-vis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Output &amp; visualization
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-howto/3-units/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Understanding the units
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-howto/4-checkpoints/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Writing checkpoints &amp; restarting
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-howto/5-docs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Editing the documentation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-howto/6-guidelines/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Code guidelines
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-howto/7-faq/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    F.A.Q.
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Advanced How-To
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Advanced How-To
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1-higherorder/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Higher order methods
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2-radiative/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Radiative physics
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    On-the-fly rendering
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    On-the-fly rendering
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#enabling-the-renderer" class="md-nav__link">
+    <span class="md-ellipsis">
+      Enabling the renderer
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#scenes-and-quantities" class="md-nav__link">
+    <span class="md-ellipsis">
+      Scenes and quantities
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Scenes and quantities">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#field-grammar" class="md-nav__link">
+    <span class="md-ellipsis">
+      Field grammar
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#transfer-function" class="md-nav__link">
+    <span class="md-ellipsis">
+      Transfer function
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#render-region" class="md-nav__link">
+    <span class="md-ellipsis">
+      Render region
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Render region">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#moving-view-tracking-a-feature" class="md-nav__link">
+    <span class="md-ellipsis">
+      Moving view (tracking a feature)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#volume-rendering-3d" class="md-nav__link">
+    <span class="md-ellipsis">
+      Volume rendering (3D)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Volume rendering (3D)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dome-camera-3d-fulldome" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dome camera (3D fulldome)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#magnetic-field-lines" class="md-nav__link">
+    <span class="md-ellipsis">
+      Magnetic field lines
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Magnetic field lines">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tubes-3d" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tubes (3D)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2d-flux-function-contours" class="md-nav__link">
+    <span class="md-ellipsis">
+      2D: flux-function contours
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2d-spherical-kerr-schild-traced-streamlines" class="md-nav__link">
+    <span class="md-ellipsis">
+      2D spherical / Kerr--Schild: traced streamlines
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#monochrome-and-overlays" class="md-nav__link">
+    <span class="md-ellipsis">
+      Monochrome and overlays
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#slice-rendering-2d" class="md-nav__link">
+    <span class="md-ellipsis">
+      Slice rendering (2D)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Slice rendering (2D)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fulldome-fisheye-2d" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fulldome fisheye (2D)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#axes-and-annotations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Axes and annotations
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-seamless-compositing-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      How seamless compositing works
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#previewing-the-scene-geometry" class="md-nav__link">
+    <span class="md-ellipsis">
+      Previewing the scene geometry
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#making-a-movie" class="md-nav__link">
+    <span class="md-ellipsis">
+      Making a movie
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      Examples
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#3d-turbulence-volume-render" class="md-nav__link">
+    <span class="md-ellipsis">
+      3D turbulence (volume render)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2d-gr-accretion-meridional-slice-polar-axes" class="md-nav__link">
+    <span class="md-ellipsis">
+      2D GR accretion (meridional slice + polar axes)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../4-load_balancing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Dynamic load balancing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../5-tiled_deposit/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Tiled current deposit
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../6-moving-window/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Moving window
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Understanding the Code
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Understanding the Code
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../4-code/1-pic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    PIC Algorithm
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../4-code/2-hierarchy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Hierarchy of structures
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../4-code/3-domains/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Metadomain, subdomains and meshes
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../4-code/4-fields_particles/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Fields and particles
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../4-code/5-metrics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Metrics
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Useful Things
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Useful Things
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../useful/costtool/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Simulation cost estimator
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../useful/cluster-setups/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Cluster setups
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Theory
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../useful/float-comparison/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Floating point comparison
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../useful/theory_pic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory behind PIC
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../useful/ks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Kerr metric
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Fun
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            Fun
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../fun/pushers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Particle pushers
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../fun/coords/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Axisymmetric coordinates
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../fun/cubed_sphere/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Cubed-sphere geometry
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../fun/particle-shapes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    2D particle shapes
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Events
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            Events
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../events/sceecs2024/instructions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    SCEECS Summer School 2024
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#enabling-the-renderer" class="md-nav__link">
+    <span class="md-ellipsis">
+      Enabling the renderer
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#scenes-and-quantities" class="md-nav__link">
+    <span class="md-ellipsis">
+      Scenes and quantities
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Scenes and quantities">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#field-grammar" class="md-nav__link">
+    <span class="md-ellipsis">
+      Field grammar
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#transfer-function" class="md-nav__link">
+    <span class="md-ellipsis">
+      Transfer function
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#render-region" class="md-nav__link">
+    <span class="md-ellipsis">
+      Render region
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Render region">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#moving-view-tracking-a-feature" class="md-nav__link">
+    <span class="md-ellipsis">
+      Moving view (tracking a feature)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#volume-rendering-3d" class="md-nav__link">
+    <span class="md-ellipsis">
+      Volume rendering (3D)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Volume rendering (3D)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dome-camera-3d-fulldome" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dome camera (3D fulldome)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#magnetic-field-lines" class="md-nav__link">
+    <span class="md-ellipsis">
+      Magnetic field lines
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Magnetic field lines">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tubes-3d" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tubes (3D)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2d-flux-function-contours" class="md-nav__link">
+    <span class="md-ellipsis">
+      2D: flux-function contours
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2d-spherical-kerr-schild-traced-streamlines" class="md-nav__link">
+    <span class="md-ellipsis">
+      2D spherical / Kerr--Schild: traced streamlines
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#monochrome-and-overlays" class="md-nav__link">
+    <span class="md-ellipsis">
+      Monochrome and overlays
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#slice-rendering-2d" class="md-nav__link">
+    <span class="md-ellipsis">
+      Slice rendering (2D)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Slice rendering (2D)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fulldome-fisheye-2d" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fulldome fisheye (2D)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#axes-and-annotations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Axes and annotations
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-seamless-compositing-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      How seamless compositing works
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#previewing-the-scene-geometry" class="md-nav__link">
+    <span class="md-ellipsis">
+      Previewing the scene geometry
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#making-a-movie" class="md-nav__link">
+    <span class="md-ellipsis">
+      Making a movie
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      Examples
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#3d-turbulence-volume-render" class="md-nav__link">
+    <span class="md-ellipsis">
+      3D turbulence (volume render)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2d-gr-accretion-meridional-slice-polar-axes" class="md-nav__link">
+    <span class="md-ellipsis">
+      2D GR accretion (meridional slice + polar axes)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+  
+
+
+
+  
+  
+
+
+<h1 id="on-the-fly-rendering">On-the-fly rendering<a class="headerlink" href="#on-the-fly-rendering" title="Permanent link">&para;</a></h1>
+<div class="admonition abstract">
+<p class="admonition-title">Relevant headers</p>
+<ul>
+<li><code>framework/parameters/render.cpp</code></li>
+<li><code>framework/domain/io/init.cpp</code></li>
+<li><code>framework/domain/io/render.cpp</code></li>
+<li><code>output/render/renderer.h</code></li>
+<li><code>output/render/renderer.cpp</code></li>
+<li><code>output/render/raymarch.hpp</code></li>
+<li><code>output/render/fieldlines.h</code></li>
+<li><code>output/render/slice2d.hpp</code></li>
+<li><code>output/render/transfer_fn.h</code></li>
+<li><code>output/render/composite.h</code></li>
+<li><code>output/render/axes.h</code></li>
+<li><code>output/render/colorbar.h</code></li>
+<li><code>output/render/png.h</code></li>
+<li><code>output/render/reduce.hpp</code></li>
+<li><code>scripts/render.py</code></li>
+</ul>
+</div>
+<p><a href="https://github.com/entity-toolkit/entity/pull/219">
+  <span class="since-version">1.5.0</span>
+</a></p>
+<p>Entity can render scalar fields directly to <code>.png</code> images on the GPU <em>during</em> the
+run. At every output cadence the renderer prepares a scalar field, integrates it
+on the device, composites the result across all MPI ranks, and writes a finished
+image to <code>&lt;simulation.name&gt;/renders/</code>. No field data is written to storage, and
+the output is <strong>seamless across MPI domain boundaries</strong> -- there are no visible
+seams where subdomains meet.</p>
+<p>The feature is metric- and engine-aware: it picks a rendering mode automatically
+from the simulation dimension and coordinate system.</p>
+<table>
+<thead>
+<tr>
+<th>Simulation</th>
+<th>Mode</th>
+<th>What is drawn</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>3D Minkowski (Cartesian)</td>
+<td>volume ray-march</td>
+<td>a translucent volume render of the scalar</td>
+</tr>
+<tr>
+<td>2D Minkowski (Cartesian)</td>
+<td>flat slice</td>
+<td>the <code>(x, y)</code> plane as an opaque heatmap</td>
+</tr>
+<tr>
+<td>2D Spherical / QSpherical (SRPIC)</td>
+<td>meridional slice</td>
+<td>the <code>(r, θ)</code> half-plane mapped to Cartesian</td>
+</tr>
+<tr>
+<td>2D Kerr–Schild / QKerr–Schild (GRPIC)</td>
+<td>meridional slice</td>
+<td>same, with GR moments</td>
+</tr>
+<tr>
+<td>1D, or 3D non-Cartesian</td>
+<td>--</td>
+<td>no-op</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Where the work lives</p>
+<p>The renderer is split like the <code>Writer</code>: a non-templated <code>out::Renderer</code>
+owns all metric-agnostic, host-side work (config parsing, cadence, the MPI
+composite, PNG encoding), while the templated <code>Metadomain&lt;S, M&gt;::Render</code>
+owns the per-(engine, metric, dimension) field preparation and the device
+kernel launch. The same <code>ComputeMoments</code> / <code>FieldsToPhys</code> code paths used by
+the field output are reused, so renders are consistent with the ADIOS dumps.</p>
+</div>
+<h2 id="enabling-the-renderer">Enabling the renderer<a class="headerlink" href="#enabling-the-renderer" title="Permanent link">&para;</a></h2>
+<p>The renderer is configured in its own top-level <code>[render]</code> table (independent
+of <code>[output]</code>), with no additional compile-time flags required.</p>
+<div class="language-toml highlight"><pre><span></span><code><span class="k">[render]</span>
+<span class="w">  </span><span class="c1"># Toggle for the renderer</span>
+<span class="w">  </span><span class="c1">#   @type: bool</span>
+<span class="w">  </span><span class="c1">#   @default: false</span>
+<span class="w">  </span><span class="n">enable</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">  </span><span class="c1"># Number of timesteps between renders</span>
+<span class="w">  </span><span class="c1">#   @type: uint</span>
+<span class="w">  </span><span class="c1">#   @default: 0</span>
+<span class="w">  </span><span class="c1">#   @note: when 0, `interval_time` is used instead</span>
+<span class="w">  </span><span class="n">interval</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">  </span><span class="c1"># Physical (code) time between renders</span>
+<span class="w">  </span><span class="c1">#   @type: float</span>
+<span class="w">  </span><span class="c1">#   @default: -1.0</span>
+<span class="w">  </span><span class="c1">#   @note: when &lt; 0, the cadence is controlled by `interval`</span>
+<span class="w">  </span><span class="n">interval_time</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1.0</span>
+<span class="w">  </span><span class="c1"># Output image size in pixels (the rendered region; the PNG is wider if a</span>
+<span class="w">  </span><span class="c1"># colorbar margin is added, see `colorbar_outside`)</span>
+<span class="w">  </span><span class="c1">#   @type: int [&gt; 0]</span>
+<span class="w">  </span><span class="c1">#   @default: 1024</span>
+<span class="w">  </span><span class="n">width</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="mi">1024</span>
+<span class="w">  </span><span class="n">height</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1024</span>
+<span class="w">  </span><span class="c1"># Convenience: force a square frame (width == height == resolution), e.g.</span>
+<span class="w">  </span><span class="c1"># for a dome master. Overrides `width`/`height` when &gt; 0</span>
+<span class="w">  </span><span class="c1">#   @type: int [&gt; 0]</span>
+<span class="w">  </span><span class="c1">#   @default: 0 (use width/height)</span>
+<span class="w">  </span><span class="n">resolution</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span>
+</code></pre></div>
+<p>The cadence works like the regular field output: set either a step <code>interval</code>
+or a physical <code>interval_time</code>. If neither is set, the renderer falls back to
+<code>output.interval</code> / <code>output.interval_time</code>.</p>
+<h2 id="scenes-and-quantities">Scenes and quantities<a class="headerlink" href="#scenes-and-quantities" title="Permanent link">&para;</a></h2>
+<p>Each rendered field is a <strong>scene</strong> -- one <code>[[render.scene]]</code> table maps
+to one stream of PNGs (e.g. <code>N_00000001.png</code>, <code>N_00000002.png</code>, ...). Repeat the
+table to render several quantities at once.</p>
+<div class="language-toml highlight"><pre><span></span><code><span class="k">[[render.scene]]</span>
+<span class="w">  </span><span class="c1"># Scalar field to render (see the grammar below)</span>
+<span class="w">  </span><span class="c1">#   @required</span>
+<span class="w">  </span><span class="c1">#   @type: string</span>
+<span class="w">  </span><span class="n">field</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;N&quot;</span>
+<span class="w">  </span><span class="c1"># PNG filename prefix; files are `&lt;prefix&gt;&lt;cycle&gt;.png`</span>
+<span class="w">  </span><span class="c1">#   @type: string</span>
+<span class="w">  </span><span class="c1">#   @default: &quot;&lt;field&gt;_&quot;</span>
+<span class="w">  </span><span class="n">prefix</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;N_&quot;</span>
+<span class="w">  </span><span class="c1"># Colorbar title</span>
+<span class="w">  </span><span class="c1">#   @type: string</span>
+<span class="w">  </span><span class="c1">#   @default: &quot;&lt;field&gt;&quot;</span>
+<span class="w">  </span><span class="n">label</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;N / n0&quot;</span>
+<span class="w">  </span><span class="c1"># Transfer-function value range</span>
+<span class="w">  </span><span class="c1">#   @type: float</span>
+<span class="w">  </span><span class="n">min</span><span class="w">      </span><span class="o">=</span><span class="w"> </span><span class="mf">0.1</span>
+<span class="w">  </span><span class="n">max</span><span class="w">      </span><span class="o">=</span><span class="w"> </span><span class="mf">100.0</span>
+<span class="w">  </span><span class="c1"># Map the value range logarithmically (requires min &gt; 0)</span>
+<span class="w">  </span><span class="c1">#   @type: bool</span>
+<span class="w">  </span><span class="c1">#   @default: false</span>
+<span class="w">  </span><span class="n">log</span><span class="w">      </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">  </span><span class="c1"># Colormap name</span>
+<span class="w">  </span><span class="c1">#   @type: string</span>
+<span class="w">  </span><span class="c1">#   @default: &quot;viridis&quot;</span>
+<span class="w">  </span><span class="c1">#   @enum: &quot;viridis&quot;, &quot;inferno&quot;, &quot;plasma&quot;, &quot;cool2warm&quot;, &quot;gray&quot;, &quot;RdBu_r&quot; plus</span>
+<span class="w">  </span><span class="c1">#          the CMasher maps: &quot;dusk&quot;, &quot;cosmic&quot;, &quot;freeze&quot;, &quot;apple&quot;, &quot;gothic&quot;,</span>
+<span class="w">  </span><span class="c1">#          &quot;sunburst&quot;, &quot;voltage&quot;, &quot;ocean&quot;, &quot;fusion&quot;, &quot;prinsenvlag&quot;</span>
+<span class="w">  </span><span class="n">colormap</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;viridis&quot;</span>
+</code></pre></div>
+<h3 id="field-grammar">Field grammar<a class="headerlink" href="#field-grammar" title="Permanent link">&para;</a></h3>
+<p>A render needs a scalar, so vector quantities are given as a magnitude or a
+single component. The <code>field</code> string is parsed as follows:</p>
+<table>
+<thead>
+<tr>
+<th><code>field</code></th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>N</code>, <code>Nppc</code>, <code>Rho</code>, <code>Charge</code></td>
+<td>scalar particle moments (number, per-cell count, mass &amp; charge density)</td>
+</tr>
+<tr>
+<td><code>T{i}{j}</code></td>
+<td>one stress–energy component; <code>i,j</code> ∈ <code>{t,x,y,z}</code> or <code>{0,1,2,3}</code> (e.g. <code>Txx</code>, <code>Ttt</code>, <code>T0x</code>)</td>
+</tr>
+<tr>
+<td><code>V{i}</code></td>
+<td>one bulk-velocity component; <code>i</code> ∈ <code>{x,y,z}</code> or <code>{1,2,3}</code></td>
+</tr>
+<tr>
+<td><code>Vmag</code></td>
+<td>bulk-speed magnitude <span class="arithmatex">\(\sqrt{V_1^2 + V_2^2 + V_3^2}\)</span></td>
+</tr>
+<tr>
+<td><code>{E,B,J}mag</code></td>
+<td>field-vector magnitude <span class="arithmatex">\(\lvert\cdot\rvert\)</span></td>
+</tr>
+<tr>
+<td><code>{E,B,J}{1,2,3}</code> or <code>{E,B,J}{x,y,z}</code></td>
+<td>one (signed) physical field component</td>
+</tr>
+</tbody>
+</table>
+<p>Moments accept a <strong>per-species suffix</strong> <code>_&lt;id&gt;</code>: e.g. <code>N_1</code> (species 1 only),
+<code>Rho_2</code>, <code>Txy_1_2</code> (species 1 &amp; 2), <code>V1_3</code>. With no suffix the moment sums over
+all massive species. An invalid species id logs a warning and skips that scene
+rather than aborting the run.</p>
+<div class="admonition note">
+<p class="admonition-title">Engine differences</p>
+<p>Moments follow the engine, exactly as in the field writer:</p>
+<ul>
+<li><strong>SRPIC</strong> -- <code>V</code> is the tetrad-basis bulk 3-velocity (normalized by <code>Rho</code>);
+  <code>T</code> is the tetrad-basis stress–energy.</li>
+<li><strong>GRPIC</strong> -- <code>V</code> is the Eckart-frame <strong>4-velocity</strong>, so <code>Vt</code>/<code>V0</code> (<span class="arithmatex">\(= u^0
+  = \Gamma/\alpha\)</span>) is also a valid component; <code>T</code> is contravariant. The
+  <code>E</code> field slot holds the electric displacement <span class="arithmatex">\(\bm{D}\)</span>, so <code>Emag</code>
+  renders <span class="arithmatex">\(\lvert\bm{D}\rvert\)</span>.</li>
+</ul>
+<p>A bare vector (<code>E</code>, <code>B</code>, <code>J</code>) is <em>not</em> renderable -- pick a component or a
+magnitude.</p>
+</div>
+<h3 id="transfer-function">Transfer function<a class="headerlink" href="#transfer-function" title="Permanent link">&para;</a></h3>
+<p>Each scene maps the scalar through a transfer function: the colormap colors the
+value, and (in 3D volume mode) a piecewise-linear opacity ramp sets how much each
+sample contributes. In 2D slice mode each pixel is a single opaque sample, so the
+opacity ramp is ignored and the colormap is drawn at full opacity.</p>
+<div class="admonition note">
+<p class="admonition-title">Colormaps</p>
+<p>Besides the built-in <code>viridis</code>, <code>inferno</code>, <code>plasma</code>, <code>cool2warm</code>, <code>gray</code>,
+and <code>RdBu_r</code> (the reversed ColorBrewer red-blue diverging map, as in
+matplotlib), ten perceptually-uniform maps from
+<a href="https://cmasher.readthedocs.io">CMasher</a> are bundled: the sequential
+<code>dusk</code>, <code>cosmic</code>, <code>freeze</code>, <code>apple</code>, <code>gothic</code>, <code>sunburst</code>, <code>voltage</code>,
+<code>ocean</code>, and the diverging <code>fusion</code>, <code>prinsenvlag</code>. Any of these names (with
+an optional <code>cmr.</code> prefix for the CMasher maps) can be used anywhere a
+<code>colormap</code> is accepted -- scene volumes, 2D slices, field-line
+tubes/contours, and the colorbar. The CMasher maps are stored as 33-anchor
+downsamplings of the published tables (error &lt; 0.02, visually
+indistinguishable) and re-implemented from the CMasher source under its
+BSD-3-Clause license (© 2019-2021 Ellert van der Velden); <code>RdBu_r</code> is from
+ColorBrewer (© Cynthia A. Brewer, Apache-2.0).</p>
+</div>
+<p><img align="center" alt="render colormaps" src="../../../assets/images/rendering/colormaps_dark.png#only-dark" width="90%" />
+<img align="center" alt="render colormaps" src="../../../assets/images/rendering/colormaps_light.png#only-light" width="90%" /></p>
+<p><em>The colormaps accepted by <code>colormap = "..."</code>: the six built-ins on top, the ten
+bundled CMasher maps below (<code>cool2warm</code>, <code>RdBu_r</code>, <code>fusion</code>, and <code>prinsenvlag</code> are
+diverging). Swatches are rendered from the exact anchor tables shipped in
+<code>transfer_fn.h</code>.</em></p>
+<div class="language-toml highlight"><pre><span></span><code><span class="k">[[render.scene]]</span>
+<span class="w">  </span><span class="c1"># ...</span>
+<span class="w">  </span><span class="c1"># Opacity control points [position in 0..1, alpha in 0..1] (3D volume only)</span>
+<span class="w">  </span><span class="c1">#   @type: array&lt;array&lt;float&gt;&gt;</span>
+<span class="w">  </span><span class="c1">#   @note: signed components pair well with a symmetric min/max and &quot;cool2warm&quot;</span>
+<span class="w">  </span><span class="n">alpha</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[[</span><span class="mf">0.0</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0</span><span class="p">],</span><span class="w"> </span><span class="p">[</span><span class="mf">0.2</span><span class="p">,</span><span class="w"> </span><span class="mf">0.15</span><span class="p">],</span><span class="w"> </span><span class="p">[</span><span class="mf">1.0</span><span class="p">,</span><span class="w"> </span><span class="mf">0.6</span><span class="p">]]</span>
+<span class="w">  </span><span class="c1"># Explicit colorbar tick values (optional; default = 5 evenly spaced)</span>
+<span class="w">  </span><span class="c1">#   @type: array&lt;float&gt;</span>
+<span class="w">  </span><span class="n">colorbar_ticks</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="mf">0.1</span><span class="p">,</span><span class="w"> </span><span class="mf">1.0</span><span class="p">,</span><span class="w"> </span><span class="mf">10.0</span><span class="p">,</span><span class="w"> </span><span class="mf">100.0</span><span class="p">]</span>
+</code></pre></div>
+<p>Top-level options control the overall appearance:</p>
+<div class="language-toml highlight"><pre><span></span><code><span class="k">[render]</span>
+<span class="w">  </span><span class="c1"># Opaque background RGB (0..1) shown through transparent / low-opacity pixels</span>
+<span class="w">  </span><span class="c1">#   @type: array&lt;float&gt; [size 3]</span>
+<span class="w">  </span><span class="c1">#   @default: [0.0, 0.0, 0.0]</span>
+<span class="w">  </span><span class="n">background</span><span class="w">       </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="mf">0.0</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0</span><span class="p">]</span>
+<span class="w">  </span><span class="c1"># Draw a colorbar (gradient + ticks + label) on each PNG</span>
+<span class="w">  </span><span class="c1">#   @type: bool</span>
+<span class="w">  </span><span class="c1">#   @default: true</span>
+<span class="w">  </span><span class="n">colorbar</span><span class="w">         </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">  </span><span class="c1"># Put the colorbar in an added right margin instead of overlaying the data</span>
+<span class="w">  </span><span class="c1">#   @type: bool</span>
+<span class="w">  </span><span class="c1">#   @default: true</span>
+<span class="w">  </span><span class="n">colorbar_outside</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">  </span><span class="c1"># Number of color/opacity LUT entries</span>
+<span class="w">  </span><span class="c1">#   @type: int [&gt; 1]</span>
+<span class="w">  </span><span class="c1">#   @default: 256</span>
+<span class="w">  </span><span class="n">n_lut</span><span class="w">            </span><span class="o">=</span><span class="w"> </span><span class="mi">256</span>
+</code></pre></div>
+<h2 id="render-region">Render region<a class="headerlink" href="#render-region" title="Permanent link">&para;</a></h2>
+<p>By default the renderer covers the whole domain. An axis-aligned sub-region can
+be selected in the <code>[render.extent]</code> table with <code>x1</code> / <code>x2</code> / <code>x3</code>
+(physical/world coordinates, one <code>[lo, hi]</code> pair per axis). Any axis left unset
+spans the full extent, and the limits are clamped to the domain.</p>
+<div class="language-toml highlight"><pre><span></span><code><span class="k">[render.extent]</span>
+<span class="w">  </span><span class="c1"># Render region [lo, hi] along each axis, in physical/world coordinates</span>
+<span class="w">  </span><span class="c1">#   @type: array&lt;float&gt; [size 2]</span>
+<span class="w">  </span><span class="c1">#   @default: [] (full extent)</span>
+<span class="w">  </span><span class="n">x1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="mf">-64.0</span><span class="p">,</span><span class="w"> </span><span class="mf">64.0</span><span class="p">]</span><span class="w">   </span><span class="c1"># crop x1 to this range</span>
+<span class="w">  </span><span class="n">x3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="mf">0.0</span><span class="p">,</span><span class="w"> </span><span class="mf">128.0</span><span class="p">]</span><span class="w">    </span><span class="c1"># crop x3; x2 spans the full extent</span>
+</code></pre></div>
+<p>The behavior follows the mode:</p>
+<ul>
+<li><strong>3D volume</strong> — the volume is <strong>depth-clipped</strong> to the box (each domain's
+  march AABB is intersected with the region; domains fully outside are skipped),
+  the wireframe <strong>spine and axes frame the region</strong>, and the default camera
+  <strong>zooms to it</strong>. <code>samples</code> then spans the region diagonal, so the effective
+  sampling density increases as you crop in. Field-line tubes clip to the region
+  automatically.</li>
+<li><strong>2D slice</strong> — the slice <strong>window is framed to the region</strong>. For a spherical /
+  Kerr--Schild slice, <code>x1</code> crops the radius <code>r</code> and <code>x2</code> the polar angle
+  <code>theta</code>, and the meridional window is the bounding box of that cropped wedge.</li>
+</ul>
+<p>Cropping is a <em>view</em> operation: the seamless multi-domain composite and the
+field-line coarse field are unaffected (the field lines are still traced over the
+full field, then clipped to what's visible).</p>
+<h3 id="moving-view-tracking-a-feature">Moving view (tracking a feature)<a class="headerlink" href="#moving-view-tracking-a-feature" title="Permanent link">&para;</a></h3>
+<p>The region can <strong>translate over time</strong> to keep a propagating feature in frame
+(e.g. a shock). This is configured in <code>[render.moving_view]</code>: <code>velocity</code> is a
+world-units-per-sim-time vector; the region (and, in 3D, the camera — a pure pan,
+so the view direction and zoom are fixed) shifts by
+<code>velocity * max(0, t - start_time)</code>. The <code>start_time</code> delay lets an initial
+ramp-up finish before the view starts moving.</p>
+<div class="language-toml highlight"><pre><span></span><code><span class="k">[render.extent]</span>
+<span class="w">  </span><span class="n">x1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="mf">0.0</span><span class="p">,</span><span class="w"> </span><span class="mf">512.0</span><span class="p">]</span><span class="w">      </span><span class="c1"># initial window (a slab of the domain)</span>
+
+<span class="k">[render.moving_view]</span>
+<span class="w">  </span><span class="c1"># Velocity of the moving view in world units</span>
+<span class="w">  </span><span class="c1">#   @type: array&lt;float&gt; [size 2 or 3]</span>
+<span class="w">  </span><span class="c1">#   @default: [] (static view)</span>
+<span class="w">  </span><span class="n">velocity</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="mf">0.9</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0</span><span class="p">]</span><span class="w">  </span><span class="c1"># pan along +x1 at 0.9 c ...</span>
+<span class="w">  </span><span class="c1"># Sim time at which the view starts moving (static before it)</span>
+<span class="w">  </span><span class="c1">#   @type: float</span>
+<span class="w">  </span><span class="c1">#   @default: 0.0</span>
+<span class="w">  </span><span class="n">start_time</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">200.0</span><span class="w">       </span><span class="c1"># ... starting at t = 200</span>
+</code></pre></div>
+<p>The window keeps its size and slides; all ranks advance the view with the same
+frame time, so the composite stays seamless. Pair it with <code>[render.extent]</code> — without
+a region the window would just pan off the full domain.</p>
+<h2 id="volume-rendering-3d">Volume rendering (3D)<a class="headerlink" href="#volume-rendering-3d" title="Permanent link">&para;</a></h2>
+<p>For 3D Minkowski runs each pixel casts a ray and integrates the transfer function
+front-to-back with premultiplied "over" compositing. Sampling is <strong>global</strong>: every
+rank marches at the same world-space positions <span class="arithmatex">\(t_k = k\,\mathrm{d}s\)</span> from the
+shared camera, with a step <span class="arithmatex">\(\mathrm{d}s\)</span> identical on all ranks. Each global
+sample therefore lands in exactly one subdomain, so the ordered cross-domain
+composite reproduces the single full-ray integral exactly.</p>
+<div class="language-toml highlight"><pre><span></span><code><span class="k">[render.volume]</span>
+<span class="w">  </span><span class="c1"># Number of ray steps across the global box diagonal</span>
+<span class="w">  </span><span class="c1">#   @type: int [&gt; 0]</span>
+<span class="w">  </span><span class="c1">#   @default: 400</span>
+<span class="w">  </span><span class="n">samples</span><span class="w">          </span><span class="o">=</span><span class="w"> </span><span class="mi">400</span>
+<span class="w">  </span><span class="c1"># Fixed world-space step (0 derives it from `samples`)</span>
+<span class="w">  </span><span class="c1">#   @type: float [&gt;= 0.0]</span>
+<span class="w">  </span><span class="c1">#   @default: 0.0</span>
+<span class="w">  </span><span class="n">step_size</span><span class="w">        </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span>
+<span class="w">  </span><span class="c1"># Stop a ray once its accumulated opacity reaches this (pure speed optimization)</span>
+<span class="w">  </span><span class="c1">#   @type: float [0..1]</span>
+<span class="w">  </span><span class="c1">#   @default: 0.99</span>
+<span class="w">  </span><span class="n">early_term_alpha</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.99</span>
+
+<span class="k">[render.camera]</span>
+<span class="w">  </span><span class="c1"># Projection mode</span>
+<span class="w">  </span><span class="c1">#   @type: string</span>
+<span class="w">  </span><span class="c1">#   @default: &quot;orthographic&quot;</span>
+<span class="w">  </span><span class="c1">#   @enum: &quot;orthographic&quot;, &quot;perspective&quot;, &quot;dome&quot;</span>
+<span class="w">  </span><span class="n">mode</span><span class="w">         </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;orthographic&quot;</span>
+<span class="w">  </span><span class="c1"># Eye position / look-at point / up vector, in world coordinates</span>
+<span class="w">  </span><span class="c1">#   @type: array&lt;float&gt; [size 3]</span>
+<span class="w">  </span><span class="c1">#   @default position: box center pushed back ~1.7 diagonals along (1,1,1)</span>
+<span class="w">  </span><span class="c1">#                      (dome: the domain center)</span>
+<span class="w">  </span><span class="c1">#   @default look_at : box center (dome: zenith along +z)</span>
+<span class="w">  </span><span class="c1">#   @default up      : [0.0, 0.0, 1.0] (dome: [0.0, 1.0, 0.0])</span>
+<span class="w">  </span><span class="c1"># position   = [...]</span>
+<span class="w">  </span><span class="c1"># look_at    = [...]</span>
+<span class="w">  </span><span class="n">up</span><span class="w">           </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="mf">0.0</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w"> </span><span class="mf">1.0</span><span class="p">]</span>
+<span class="w">  </span><span class="c1"># Vertical FOV in degrees (perspective only)</span>
+<span class="w">  </span><span class="c1">#   @type: float [&gt; 0.0]</span>
+<span class="w">  </span><span class="c1">#   @default: 35.0</span>
+<span class="w">  </span><span class="n">fov</span><span class="w">          </span><span class="o">=</span><span class="w"> </span><span class="mf">35.0</span>
+<span class="w">  </span><span class="c1"># Vertical view extent in world units (orthographic only)</span>
+<span class="w">  </span><span class="c1">#   @type: float [&gt; 0.0]</span>
+<span class="w">  </span><span class="c1">#   @default: the global box diagonal</span>
+<span class="w">  </span><span class="c1"># ortho_height = ...</span>
+</code></pre></div>
+<p>The <code>[render.volume]</code> and <code>[render.camera]</code> tables are ignored by the 2D slice
+rasterizer.</p>
+<div class="admonition warning">
+<p class="admonition-title">Seamlessness and the camera</p>
+<p>The structured cross-domain order is provably correct for an orthographic
+camera (the default, framing the box down the <code>(1,1,1)</code> diagonal). Perspective
+is seamless only with the eye <em>outside</em> the box. The <code>dome</code> mode (below) uses
+a different composite and is seamless with the eye <em>inside</em> the box.</p>
+</div>
+<h3 id="dome-camera-3d-fulldome">Dome camera (3D fulldome)<a class="headerlink" href="#dome-camera-3d-fulldome" title="Permanent link">&para;</a></h3>
+<p>Setting <code>mode = "dome"</code> renders a fulldome azimuthal-equidistant fisheye -- a
+planetarium <strong>dome master</strong> -- from an <strong>interior</strong> eye (the domain center by
+default). The direction from <code>position</code> to <code>look_at</code> is the dome <strong>zenith</strong>
+(<code>+z</code> by default), and <code>up</code> sets the screen-up of the disk. Since several
+domains can lie along each ray from an interior eye, the dome uses a
+depth-resolved (A-buffer) composite, which is seamless across a full 3D domain
+decomposition. Use a square frame (<code>resolution</code>, or <code>width == height</code>).</p>
+<div class="language-toml highlight"><pre><span></span><code><span class="k">[render]</span>
+<span class="w">  </span><span class="n">resolution</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4096</span><span class="w">          </span><span class="c1"># square dome master</span>
+
+<span class="k">[render.camera]</span>
+<span class="w">  </span><span class="n">mode</span><span class="w">        </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;dome&quot;</span>
+<span class="w">  </span><span class="c1"># Full dome field of view in degrees: the image rim is at dome_fov/2 from</span>
+<span class="w">  </span><span class="c1"># the zenith (180 = a full hemisphere down to the horizon)</span>
+<span class="w">  </span><span class="c1">#   @type: float [&gt; 0.0, &lt;= 360.0]</span>
+<span class="w">  </span><span class="c1">#   @default: 180.0</span>
+<span class="w">  </span><span class="n">dome_fov</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="mf">180.0</span>
+<span class="w">  </span><span class="c1"># Far-clip radius in world units: rays stop this far from the eye, so the</span>
+<span class="w">  </span><span class="c1"># sampled region is a half-ball of this radius instead of the whole box</span>
+<span class="w">  </span><span class="c1"># (uniform path length, no box corner/edge artifacts). `samples` then counts</span>
+<span class="w">  </span><span class="c1"># steps across this radius</span>
+<span class="w">  </span><span class="c1">#   @type: float [&gt;= 0.0]</span>
+<span class="w">  </span><span class="c1">#   @default: half the shortest box side (0 disables the clip)</span>
+<span class="w">  </span><span class="c1"># dome_radius = ...</span>
+</code></pre></div>
+<h2 id="magnetic-field-lines">Magnetic field lines<a class="headerlink" href="#magnetic-field-lines" title="Permanent link">&para;</a></h2>
+<div class="admonition abstract">
+<p class="admonition-title">Relevant header</p>
+<ul>
+<li><code>output/render/fieldlines.h</code></li>
+</ul>
+</div>
+<p>The renderer can draw magnetic field lines, configured under
+<code>[render.fieldlines]</code> (shared by both render modes). The representation
+follows the dimension:</p>
+<ul>
+<li><strong>3D (Cartesian)</strong> -- traced <strong>tubes</strong>, colored by <span class="arithmatex">\(\lvert\bm{B}\rvert\)</span>,
+  composited inside the volume (below).</li>
+<li><strong>2D (Cartesian)</strong> -- iso-<strong>contours</strong> of the flux function <span class="arithmatex">\(\psi\)</span>, i.e. the
+  in-plane field lines (the <a href="#2d-flux-function-contours">2D contours</a> subsection).</li>
+</ul>
+<p>Both are built from the same coarse, MPI-replicated copy of the field, so the
+geometry is global and seamless across domains.</p>
+<h3 id="tubes-3d">Tubes (3D)<a class="headerlink" href="#tubes-3d" title="Permanent link">&para;</a></h3>
+<p>In 3D the renderer overlays <strong>field-line tubes</strong> -- magnetic field lines drawn
+as solid tubes, colored by the field strength <span class="arithmatex">\(\lvert\bm{B}\rvert\)</span> along their
+length. The tubes are composited <em>inside</em> the same front-to-back ray-march as the
+spine, so a tube is correctly occluded by (and occludes) the translucent volume,
+and the existing cross-domain composite stitches them seamlessly.</p>
+<p>The lines are intrinsically non-local -- a streamline wanders across MPI domains --
+which would normally require parallel particle advection. Entity sidesteps that:
+the (physical-basis) field is volume-averaged onto a <strong>coarse grid</strong> and
+<strong>MPI-replicated</strong> to every rank, so every rank traces the <em>same</em> global polylines
+locally (bidirectional RK4) and renders only the segments inside its own domain.
+The coarsening (<code>bin</code>) is what makes replicate-and-trace cheap; it also smooths the
+field to a "general morphology" sketch, which is usually what field lines are for.
+Tracing uses the coarse field, but each tube is colored by <span class="arithmatex">\(\lvert\bm{B}\rvert\)</span>
+sampled along it, so strength stays meaningful.</p>
+<div class="admonition note">
+<p class="admonition-title">Performance</p>
+<p>A ray sample never tests every segment: segments are bucketed into a local
+uniform grid (CSR), and because the tube radius is far smaller than a coarse
+cell, a sample only walks the few segments in its own cell. Cost scales with
+line density, not image size. The transient memory cost is the replicated
+coarse field on every rank (<span class="arithmatex">\(\sim N_\text{cells}/\texttt{bin}^3 \times 3\)</span>
+floats) -- keep <code>bin</code> at 4--8 for large grids.</p>
+</div>
+<div class="language-toml highlight"><pre><span></span><code><span class="k">[render.fieldlines]</span>
+<span class="w">  </span><span class="c1"># Build the field-line geometry this run. Implied if any scene sets</span>
+<span class="w">  </span><span class="c1"># `fieldlines = true` or uses `field = &quot;fieldlines&quot;`.</span>
+<span class="w">  </span><span class="c1">#   @type: bool</span>
+<span class="w">  </span><span class="c1">#   @default: false</span>
+<span class="w">  </span><span class="n">enable</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">  </span><span class="c1"># Vector field to trace</span>
+<span class="w">  </span><span class="c1">#   @type: string</span>
+<span class="w">  </span><span class="c1">#   @default: &quot;B&quot;</span>
+<span class="w">  </span><span class="c1">#   @enum: &quot;B&quot;, &quot;E&quot;, &quot;J&quot;</span>
+<span class="w">  </span><span class="n">field</span><span class="w">      </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;B&quot;</span>
+<span class="w">  </span><span class="c1"># Coarsening factor (simulation cells per coarse cell, per axis)</span>
+<span class="w">  </span><span class="c1">#   @type: int [1..16]</span>
+<span class="w">  </span><span class="c1">#   @default: 4</span>
+<span class="w">  </span><span class="c1">#   @note: larger = smoother morphology + cheaper replication</span>
+<span class="w">  </span><span class="n">bin</span><span class="w">        </span><span class="o">=</span><span class="w"> </span><span class="mi">8</span>
+<span class="w">  </span><span class="c1"># Seed-lattice spacing in screen pixels (sets how many lines you get)</span>
+<span class="w">  </span><span class="c1">#   @type: float [&gt; 0]</span>
+<span class="w">  </span><span class="c1">#   @default: 8</span>
+<span class="w">  </span><span class="n">seed_px</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="mi">8</span>
+<span class="w">  </span><span class="c1"># Tube radius in screen pixels</span>
+<span class="w">  </span><span class="c1">#   @type: float [&gt; 0]</span>
+<span class="w">  </span><span class="c1">#   @default: 2</span>
+<span class="w">  </span><span class="n">tube_px</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span>
+<span class="w">  </span><span class="c1"># Tube colormap (by |field|)</span>
+<span class="w">  </span><span class="c1">#   @type: string</span>
+<span class="w">  </span><span class="c1">#   @default: &quot;inferno&quot;</span>
+<span class="w">  </span><span class="n">colormap</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;inferno&quot;</span>
+<span class="w">  </span><span class="c1"># Map the tube color range logarithmically (requires min &gt; 0)</span>
+<span class="w">  </span><span class="c1">#   @type: bool</span>
+<span class="w">  </span><span class="c1">#   @default: false</span>
+<span class="w">  </span><span class="n">log</span><span class="w">        </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span>
+<span class="w">  </span><span class="c1"># Tube color range; when min &gt;= max it is auto-set from |field| along the lines</span>
+<span class="w">  </span><span class="c1">#   @type: float</span>
+<span class="w">  </span><span class="c1">#   @default: 0.0 (auto)</span>
+<span class="w">  </span><span class="n">min</span><span class="w">        </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span>
+<span class="w">  </span><span class="n">max</span><span class="w">        </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span>
+<span class="w">  </span><span class="c1"># RK4 step as a fraction of one coarse cell</span>
+<span class="w">  </span><span class="c1">#   @type: float [&gt; 0]</span>
+<span class="w">  </span><span class="c1">#   @default: 0.5</span>
+<span class="w">  </span><span class="n">step_frac</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="mf">0.5</span>
+<span class="w">  </span><span class="c1"># Per-direction integration-step cap</span>
+<span class="w">  </span><span class="c1">#   @type: int [&gt; 0]</span>
+<span class="w">  </span><span class="c1">#   @default: 4000</span>
+<span class="w">  </span><span class="n">max_steps</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="mi">4000</span>
+<span class="w">  </span><span class="c1"># Maximum line length, in global box diagonals (per direction)</span>
+<span class="w">  </span><span class="c1">#   @type: float [&gt; 0]</span>
+<span class="w">  </span><span class="c1">#   @default: 3.0</span>
+<span class="w">  </span><span class="n">max_length</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">3.0</span>
+<span class="w">  </span><span class="c1"># Hard cap on the seed count (spacing grows to fit; logged if hit)</span>
+<span class="w">  </span><span class="c1">#   @type: int [&gt; 0]</span>
+<span class="w">  </span><span class="c1">#   @default: 4096</span>
+<span class="w">  </span><span class="n">seed_max</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="mi">4096</span>
+</code></pre></div>
+<p>The tubes work both <strong>embedded</strong> in a quantity's volume and <strong>standalone</strong>:</p>
+<div class="language-toml highlight"><pre><span></span><code><span class="k">[render]</span>
+<span class="w">  </span><span class="n">enable</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+
+<span class="w">  </span><span class="k">[render.fieldlines]</span>
+<span class="w">    </span><span class="n">enable</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">    </span><span class="n">field</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;B&quot;</span>
+<span class="w">    </span><span class="n">bin</span><span class="w">      </span><span class="o">=</span><span class="w"> </span><span class="mi">8</span>
+<span class="w">    </span><span class="n">colormap</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;inferno&quot;</span>
+
+<span class="w">  </span><span class="c1"># (a) embedded: density volume with the B-field tubes inside it</span>
+<span class="w">  </span><span class="k">[[render.scene]]</span>
+<span class="w">    </span><span class="n">field</span><span class="w">       </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Rho&quot;</span>
+<span class="w">    </span><span class="n">colormap</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;viridis&quot;</span>
+<span class="w">    </span><span class="n">alpha</span><span class="w">       </span><span class="o">=</span><span class="w"> </span><span class="p">[[</span><span class="mf">0.0</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0</span><span class="p">],</span><span class="w"> </span><span class="p">[</span><span class="mf">0.3</span><span class="p">,</span><span class="w"> </span><span class="mf">0.1</span><span class="p">],</span><span class="w"> </span><span class="p">[</span><span class="mf">1.0</span><span class="p">,</span><span class="w"> </span><span class="mf">0.6</span><span class="p">]]</span>
+<span class="w">    </span><span class="n">fieldlines</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="w">     </span><span class="c1"># overlay the tubes in this volume</span>
+
+<span class="w">  </span><span class="c1"># (b) standalone: the field lines alone, no backing volume</span>
+<span class="w">  </span><span class="k">[[render.scene]]</span>
+<span class="w">    </span><span class="n">field</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;fieldlines&quot;</span><span class="w">   </span><span class="c1"># no scalar volume is sampled</span>
+<span class="w">    </span><span class="n">prefix</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Blines_&quot;</span>
+<span class="w">    </span><span class="n">label</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;|B|&quot;</span><span class="w">          </span><span class="c1"># the colorbar shows the tube strength range</span>
+</code></pre></div>
+<ul>
+<li><code>fieldlines = true</code> on any scene overlays the tubes inside that scene's volume;
+  the colorbar still shows the volume scalar.</li>
+<li>A scene with <code>field = "fieldlines"</code> samples <strong>no volume</strong> -- the tubes render
+  against the background alone, and the colorbar shows <span class="arithmatex">\(\lvert\bm{B}\rvert\)</span>.</li>
+</ul>
+<h3 id="2d-flux-function-contours">2D: flux-function contours<a class="headerlink" href="#2d-flux-function-contours" title="Permanent link">&para;</a></h3>
+<p>In 2D the in-plane field lines are exactly the iso-contours of the <strong>flux
+function</strong> <span class="arithmatex">\(\psi\)</span> (the out-of-plane vector potential), where
+<span class="arithmatex">\(B_x = \partial_y\psi\)</span> and <span class="arithmatex">\(B_y = -\partial_x\psi\)</span>. The renderer integrates
+<span class="arithmatex">\(\psi\)</span> on the coarse, MPI-replicated field -- so the integration is a single
+local pass (no parallel flux scan) and the contour <strong>levels are global</strong>, making
+the lines seamless across the disjoint 2D tiles. Evenly-spaced <span class="arithmatex">\(\psi\)</span> levels are
+field lines whose on-screen <strong>density tracks <span class="arithmatex">\(\lvert\bm{B}\rvert\)</span></strong> automatically
+(equal flux between adjacent contours), so there is no seeding to tune.</p>
+<p>A pixel is on a contour when <span class="arithmatex">\(\psi\)</span> is within a (screen-space) line width of a
+level; the line is colored by <span class="arithmatex">\(\lvert\bm{B}\rvert = \lvert\nabla\psi\rvert\)</span> at
+that point. The same per-scene controls apply: <code>fieldlines = true</code> overlays the
+contours on a scene's heatmap, and <code>field = "fieldlines"</code> draws them alone.</p>
+<div class="language-toml highlight"><pre><span></span><code><span class="k">[render.fieldlines]</span>
+<span class="w">  </span><span class="n">enable</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">  </span><span class="n">field</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;B&quot;</span>
+<span class="w">  </span><span class="n">bin</span><span class="w">      </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span><span class="w">        </span><span class="c1"># coarsening of the flux grid (bin^2 cells/coarse cell)</span>
+<span class="w">  </span><span class="n">levels</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="mi">16</span><span class="w">       </span><span class="c1"># number of evenly-spaced psi contours</span>
+<span class="w">  </span><span class="n">tube_px</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="mf">1.5</span><span class="w">      </span><span class="c1"># contour line width in pixels</span>
+<span class="w">  </span><span class="n">colormap</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;inferno&quot;</span>
+
+<span class="c1"># density heatmap with the in-plane field lines drawn over it</span>
+<span class="k">[[render.scene]]</span>
+<span class="w">  </span><span class="n">field</span><span class="w">      </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;N&quot;</span>
+<span class="w">  </span><span class="n">colormap</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;viridis&quot;</span>
+<span class="w">  </span><span class="n">fieldlines</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+
+<span class="c1"># field lines alone, colored by |B|</span>
+<span class="k">[[render.scene]]</span>
+<span class="w">  </span><span class="n">field</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;fieldlines&quot;</span>
+<span class="w">  </span><span class="n">prefix</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Blines_&quot;</span>
+<span class="w">  </span><span class="n">label</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;|B|&quot;</span>
+</code></pre></div>
+<p>The <code>seed_*</code>, <code>step_frac</code>, <code>max_steps</code>, and <code>max_length</code> knobs apply to traced
+lines (3D tubes and 2D spherical streamlines); <code>levels</code> is 2D-Cartesian-only.
+<code>bin</code>, <code>field</code>, <code>tube_px</code> (line width), <code>colormap</code>, <code>color</code>, <code>log</code>, and
+<code>min</code>/<code>max</code> apply everywhere.</p>
+<h3 id="2d-spherical-kerr-schild-traced-streamlines">2D spherical / Kerr--Schild: traced streamlines<a class="headerlink" href="#2d-spherical-kerr-schild-traced-streamlines" title="Permanent link">&para;</a></h3>
+<p>On a meridional (spherical / Kerr--Schild) slice the field lines are <strong>traced
+streamlines</strong> of the poloidal field, following <a href="https://github.com/entity-toolkit/nt2py">nt2py</a>:
+the physical <span class="arithmatex">\((B_r, B_\theta)\)</span> are rotated into the meridional plane,
+<span class="arithmatex">\(F_x = B_r\sin\theta + B_\theta\cos\theta\)</span>,
+<span class="arithmatex">\(F_z = B_r\cos\theta - B_\theta\sin\theta\)</span>, and integrated by bidirectional RK4
+through the coarse, replicated field. The resulting polylines are rasterized as
+lines (the same segment-bucket test the 3D tubes use, restricted to the <span class="arithmatex">\(z=0\)</span>
+meridional plane), colored by <span class="arithmatex">\(\lvert\bm{B}_{\mathrm{pol}}\rvert\)</span>. With <code>mirror</code>
+the traced <span class="arithmatex">\(X\ge 0\)</span> lines are reflected into the <span class="arithmatex">\(X&lt;0\)</span> half for a full disk. Seed
+density follows <code>seed_px</code> / <code>seed_max</code> as in 3D.</p>
+<h3 id="monochrome-and-overlays">Monochrome and overlays<a class="headerlink" href="#monochrome-and-overlays" title="Permanent link">&para;</a></h3>
+<p>Set <code>color = [r, g, b]</code> (each in <code>0..1</code>) to draw the lines in a <strong>single color</strong>
+instead of the <code>|B|</code> colormap. This applies to all three modes (3D tubes, 2D
+contours, 2D streamlines) and is the natural choice when <strong>over-plotting</strong> field
+lines on another quantity -- e.g. white lines on a density volume:</p>
+<div class="language-toml highlight"><pre><span></span><code><span class="k">[render.fieldlines]</span>
+<span class="w">  </span><span class="n">enable</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">  </span><span class="n">field</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;B&quot;</span>
+<span class="w">  </span><span class="n">color</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="mf">1.0</span><span class="p">,</span><span class="w"> </span><span class="mf">1.0</span><span class="p">,</span><span class="w"> </span><span class="mf">1.0</span><span class="p">]</span><span class="w">   </span><span class="c1"># monochrome white; omit to color by |B|</span>
+
+<span class="k">[[render.scene]]</span>
+<span class="w">  </span><span class="n">field</span><span class="w">      </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;N&quot;</span><span class="w">           </span><span class="c1"># density heatmap / volume ...</span>
+<span class="w">  </span><span class="n">colormap</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;viridis&quot;</span>
+<span class="w">  </span><span class="n">fieldlines</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="w">          </span><span class="c1"># ... with the field lines drawn over it</span>
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Cartesian volume vs. spherical slice</p>
+<p>Field lines are available in 3D Minkowski (tubes), 2D Minkowski (flux
+contours), and 2D spherical / Kerr--Schild (traced streamlines). They are
+<em>not</em> drawn in 3D non-Cartesian runs (which have no volume render at all).</p>
+</div>
+<h2 id="slice-rendering-2d">Slice rendering (2D)<a class="headerlink" href="#slice-rendering-2d" title="Permanent link">&para;</a></h2>
+<p>A 2D run has no depth to integrate, so each pixel is a single inverse-mapped
+sample, painted opaque. Subdomains tile the screen disjointly and composite
+without seams.</p>
+<ul>
+<li><strong>Cartesian</strong> (Minkowski 2D): the screen <em>is</em> the <code>(x, y)</code> physical plane.</li>
+<li><strong>Spherical / Kerr–Schild</strong> (all 2D SR-spherical and GR): the screen is the
+  meridional plane; a pixel at world <code>(X, Z)</code> maps to
+  <span class="arithmatex">\(r = \sqrt{X^2 + Z^2}\)</span>, <span class="arithmatex">\(\theta = \mathrm{atan2}(|X|, Z)\)</span>, then to the
+  per-axis code index. With <code>mirror</code> the <span class="arithmatex">\(X&lt;0\)</span> half is the <span class="arithmatex">\(\theta\)</span>-reflected
+  copy, turning one axisymmetric half into a full disk.</li>
+</ul>
+<div class="language-toml highlight"><pre><span></span><code><span class="k">[render]</span>
+<span class="w">  </span><span class="c1"># Spherical slice only: mirror the meridional half-plane into a full disk</span>
+<span class="w">  </span><span class="c1">#   @type: bool</span>
+<span class="w">  </span><span class="c1">#   @default: true</span>
+<span class="w">  </span><span class="n">mirror</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+</code></pre></div>
+<h3 id="fulldome-fisheye-2d">Fulldome fisheye (2D)<a class="headerlink" href="#fulldome-fisheye-2d" title="Permanent link">&para;</a></h3>
+<p>The <code>[render.dome]</code> table turns a 2D slice into a planetarium <strong>dome master</strong>: a
+circular image centered in the frame's inscribed circle, with the corners left as
+the background. Set a square frame (<code>resolution</code>, or <code>width == height</code>). With the
+dome on, the axes and the outside colorbar strip are turned off so the PNG stays
+exactly <code>width x height</code>. The pixel-to-world map is the same on every rank and
+the tiles stay disjoint, so the result is seamless across MPI domains. It is
+ignored (with a warning) in 3D; use <code>[render.camera] mode = "dome"</code> there.</p>
+<ul>
+<li><strong>Cartesian</strong> -- the flat plane is warped radially into the disk, controlled by
+  <code>fov</code>, <code>radius</code>, <code>center</code>, and <code>projection</code>.</li>
+<li><strong>Spherical / Kerr--Schild</strong> -- the meridional slice is already a disk, so the
+  dome only mirrors it to a full disk (keep <code>mirror = true</code>) and fits it to the
+  inscribed circle, with image radius proportional to <span class="arithmatex">\(r\)</span>. The <code>fov</code>, <code>radius</code>,
+  <code>center</code>, and <code>projection</code> keys are ignored.</li>
+</ul>
+<div class="language-toml highlight"><pre><span></span><code><span class="k">[render]</span>
+<span class="w">  </span><span class="n">resolution</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4096</span>
+
+<span class="k">[render.dome]</span>
+<span class="w">  </span><span class="c1"># Build the fisheye dome master instead of the plain slice</span>
+<span class="w">  </span><span class="c1">#   @type: bool</span>
+<span class="w">  </span><span class="c1">#   @default: false</span>
+<span class="w">  </span><span class="n">enable</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">  </span><span class="c1"># (Cartesian only) Full dome field of view in degrees (the rim is at fov/2)</span>
+<span class="w">  </span><span class="c1">#   @type: float [&gt; 0.0, &lt;= 180.0]</span>
+<span class="w">  </span><span class="c1">#   @default: 180.0</span>
+<span class="w">  </span><span class="n">fov</span><span class="w">        </span><span class="o">=</span><span class="w"> </span><span class="mf">180.0</span>
+<span class="w">  </span><span class="c1"># (Cartesian only) World radius of the circular cutout mapped onto the dome</span>
+<span class="w">  </span><span class="c1">#   @type: float [&gt; 0.0]</span>
+<span class="w">  </span><span class="c1">#   @default: half the shorter domain side</span>
+<span class="w">  </span><span class="c1"># radius   = ...</span>
+<span class="w">  </span><span class="c1"># (Cartesian only) World-space center of the cutout</span>
+<span class="w">  </span><span class="c1">#   @type: array&lt;float&gt; [size 2]</span>
+<span class="w">  </span><span class="c1">#   @default: the domain center</span>
+<span class="w">  </span><span class="c1"># center   = [...]</span>
+<span class="w">  </span><span class="c1"># (Cartesian only) How the dome zenith angle maps to a radius on the slice</span>
+<span class="w">  </span><span class="c1">#   @type: string</span>
+<span class="w">  </span><span class="c1">#   @default: &quot;equidistant&quot;</span>
+<span class="w">  </span><span class="c1">#   @enum: &quot;equidistant&quot;, &quot;gnomonic&quot;, &quot;stereographic&quot;, &quot;orthographic&quot;</span>
+<span class="w">  </span><span class="n">projection</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;equidistant&quot;</span>
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th><code>projection</code></th>
+<th>Mapping</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>equidistant</code></td>
+<td><span class="arithmatex">\(r \propto\)</span> angle</td>
+<td>the fulldome standard; a straight radial scaling of the cutout</td>
+</tr>
+<tr>
+<td><code>gnomonic</code></td>
+<td><span class="arithmatex">\(r \propto \tan(\text{angle})\)</span></td>
+<td>the slice as a flat "ceiling" tangent to the dome; straight lines stay straight</td>
+</tr>
+<tr>
+<td><code>stereographic</code></td>
+<td><span class="arithmatex">\(r \propto \tan(\text{angle}/2)\)</span></td>
+<td>conformal, preserves shapes</td>
+</tr>
+<tr>
+<td><code>orthographic</code></td>
+<td><span class="arithmatex">\(r \propto \sin(\text{angle})\)</span></td>
+<td>the slice as seen face-on</td>
+</tr>
+</tbody>
+</table>
+<h2 id="axes-and-annotations">Axes and annotations<a class="headerlink" href="#axes-and-annotations" title="Permanent link">&para;</a></h2>
+<p>A spine (frame), axis ticks, and labels can be drawn around the rendered region.</p>
+<div class="language-toml highlight"><pre><span></span><code><span class="k">[render]</span>
+<span class="w">  </span><span class="c1"># Draw a spine + ticks + labels</span>
+<span class="w">  </span><span class="c1">#   @type: bool</span>
+<span class="w">  </span><span class="c1">#   @default: false</span>
+<span class="w">  </span><span class="n">axes</span><span class="w">        </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">  </span><span class="c1"># Axis names (3D uses all three; the 2D Cartesian slice uses the first two)</span>
+<span class="w">  </span><span class="c1">#   @type: array&lt;string&gt;</span>
+<span class="w">  </span><span class="c1">#   @default: [&quot;x&quot;, &quot;y&quot;, &quot;z&quot;]</span>
+<span class="w">  </span><span class="n">axis_labels</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;x&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;y&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;z&quot;</span><span class="p">]</span>
+<span class="w">  </span><span class="c1"># Target ticks per axis (rounded to nice values)</span>
+<span class="w">  </span><span class="c1">#   @type: int [&gt;= 2]</span>
+<span class="w">  </span><span class="c1">#   @default: 5</span>
+<span class="w">  </span><span class="n">axis_ticks</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span>
+<span class="w">  </span><span class="c1"># Target 3D spine line width in pixels (the box wireframe)</span>
+<span class="w">  </span><span class="c1">#   @type: float [&gt; 0.0]</span>
+<span class="w">  </span><span class="c1">#   @default: 2.0</span>
+<span class="w">  </span><span class="n">spine_width</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">2.0</span>
+<span class="w">  </span><span class="c1"># Draw the current simulation time (&quot;T = &lt;value&gt;&quot;) in the upper-right corner</span>
+<span class="w">  </span><span class="c1">#   @type: bool</span>
+<span class="w">  </span><span class="c1">#   @default: false</span>
+<span class="w">  </span><span class="n">time_label</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+</code></pre></div>
+<p><code>time_label</code> prints the frame's simulation time as <code>T = &lt;value&gt;</code> (fixed to two
+decimals) in the top-right of the render region, vertically centered between the
+frame top and the top of the colorbar, in a color that contrasts with the
+background. It uses the same embedded bitmap font as the colorbar and axes and is
+independent of <code>axes</code>.</p>
+<p>The annotation style adapts to the mode:</p>
+<ul>
+<li><strong>2D Cartesian</strong> -- a rectangular frame with linear spatial ticks (world
+  coordinates), tick labels and axis names in dedicated margins.</li>
+<li><strong>2D Spherical</strong> -- <em>polar</em> axes: an <code>R</code> radial axis along the symmetry axis
+  with <code>R = 0</code> at the center, a <code>Theta</code> axis with <span class="arithmatex">\(\pi\)</span>-fraction ticks
+  (<code>0, π/4, π/2, …</code>) along the curved outline, and a curvilinear spine (outer &amp;
+  inner arcs plus the radial edges).</li>
+<li><strong>3D</strong> -- the global box is rendered as a wireframe <strong>spine inside the
+  ray-march</strong> (opaque, so the volume occludes its far edges), while the ticks and
+  labels are drawn in the <strong>foreground</strong> on the box silhouette so they are never
+  hidden behind the volume. The annotated edge for each axis is picked from the
+  silhouette (outline) edges nearest the bottom-left of the image, so the choice
+  <strong>follows the camera</strong> rather than assuming the default diagonal view; labels
+  are rotated to align with each edge.</li>
+</ul>
+<h2 id="how-seamless-compositing-works">How seamless compositing works<a class="headerlink" href="#how-seamless-compositing-works" title="Permanent link">&para;</a></h2>
+<p>The renderer never gathers full frames to a single rank. Each subdomain produces
+only a <strong>sparse sub-image</strong> -- the screen-space bounding box of its footprint plus
+premultiplied RGBA pixels -- and these are combined with an <strong>order-preserving
+binary tree reduction</strong> of the associative "over" operator. Every rank learns the
+global front-to-back order from a single <code>MPI_Allgather</code> of sort keys, then the
+tree reduces in <span class="arithmatex">\(O(\log N_\text{ranks})\)</span> rounds with no single-rank bottleneck.
+Only the root rank assembles the final full frame and writes the PNG.</p>
+<p>The wire format between ranks is premultiplied <strong>uint8</strong> RGBA (4× less bandwidth
+than float); compositing stays in float, so the only added error is sub-pixel
+quantization through the tree -- effectively the precision of the final 8-bit PNG.</p>
+<p>Trilinear (3D) / bilinear (2D) sampling reads into the one-cell ghost halo, which
+the renderer halo-fills from neighboring active cells so the per-rank field is
+<span class="arithmatex">\(C^0\)</span>-continuous up to the shared face.</p>
+<div class="admonition note">
+<p class="admonition-title">Memory footprint</p>
+<p>The renderer reuses the existing <code>bckp</code> scratch field for field preparation,
+so it adds <strong>no new field-sized device buffer</strong>. Persistent overhead is a few
+LUTs (a few KB per scene). The transient per-render cost is dominated by the
+per-rank footprint bounding box (device + host) and, on the root only, the
+full-frame assembly (<span class="arithmatex">\(W\cdot H\cdot 16\)</span> bytes for the float frame plus the
+uint8 canvas). Because each rank only ever holds its footprint, the renderer
+scales to thousands of ranks.</p>
+</div>
+<h2 id="previewing-the-scene-geometry">Previewing the scene geometry<a class="headerlink" href="#previewing-the-scene-geometry" title="Permanent link">&para;</a></h2>
+<p>Getting the 3D camera framing (or a 2D crop) right usually takes a few tries, and
+relaunching the simulation for each attempt is wasteful. The repo ships a
+<strong>data-free</strong> preview tool, <code>render.py</code> (inside the <code>scripts/</code> directory), that reads a
+simulation <code>.toml</code> and draws the geometry the renderer <em>would</em> produce -- the
+domain box, camera framing, axes and ticks, region crop, and field-line seed
+lattice -- <strong>without any simulation data or ray-marching</strong>. It reproduces the same
+camera, projection, and region math the C++ renderer uses, so the box you see in
+the preview is the box the run will draw.</p>
+<div class="language-sh highlight"><pre><span></span><code>usage:<span class="w"> </span>render.py<span class="w"> </span>preview<span class="w"> </span><span class="o">[</span>-h<span class="o">]</span><span class="w"> </span><span class="o">[</span>-o<span class="w"> </span>OUT<span class="o">]</span><span class="w"> </span><span class="o">[</span>-t<span class="w"> </span>TIME<span class="o">]</span><span class="w"> </span><span class="o">[</span>-s<span class="w"> </span>SCENE<span class="o">]</span><span class="w"> </span>toml
+
+positional<span class="w"> </span>arguments:
+<span class="w">  </span>toml<span class="w">               </span>simulation<span class="w"> </span>.toml<span class="w"> </span>file
+
+options:
+<span class="w">  </span>-h,<span class="w"> </span>--help<span class="w">         </span>show<span class="w"> </span>this<span class="w"> </span><span class="nb">help</span><span class="w"> </span>message<span class="w"> </span>and<span class="w"> </span><span class="nb">exit</span>
+<span class="w">  </span>-o,<span class="w"> </span>--out<span class="w"> </span>OUT<span class="w">      </span>output<span class="w"> </span>PNG<span class="w"> </span><span class="o">(</span>default:<span class="w"> </span>&lt;toml_dir&gt;/&lt;simname&gt;_preview.png<span class="o">)</span>
+<span class="w">  </span>-t,<span class="w"> </span>--time<span class="w"> </span>TIME<span class="w">    </span>sim<span class="w"> </span><span class="nb">time</span><span class="w"> </span>T<span class="w"> </span><span class="k">for</span><span class="w"> </span>the<span class="w"> </span>moving-view<span class="w"> </span>pan<span class="w"> </span><span class="o">(</span>default<span class="w"> </span><span class="m">0</span><span class="o">)</span>
+<span class="w">  </span>-s,<span class="w"> </span>--scene<span class="w"> </span>SCENE<span class="w">  </span>scene<span class="w"> </span>index<span class="w"> </span><span class="o">(</span>accepted<span class="w"> </span><span class="k">for</span><span class="w"> </span>parity<span class="p">;</span><span class="w"> </span>geometry<span class="w"> </span>is<span class="w"> </span>scene-independent,<span class="w"> </span>so<span class="w"> </span>it<span class="w"> </span>only<span class="w"> </span>affects<span class="w"> </span>the<span class="w"> </span>reported<span class="w"> </span>label<span class="o">)</span>
+</code></pre></div>
+<p>It selects the same mode the renderer would and prints a one-line summary (mode,
+metric, camera eye, <code>ortho_height</code>, resolved region):</p>
+<ul>
+<li><strong>3D Cartesian</strong> -- the domain cube (and region crop, if any) projected with
+  the exact ray-march camera, plus an optional schematic scatter of the
+  field-line seed lattice (seeds, not traced lines).</li>
+<li><strong>2D Cartesian</strong> -- the aspect-expanded slice window with the domain/region box
+  and ticks.</li>
+<li><strong>2D spherical / Kerr--Schild</strong> -- the meridional wedge (arcs at
+  <span class="arithmatex">\(r \in \{r_\text{min}, r_\text{max}\}\)</span>, rays at
+  <span class="arithmatex">\(\theta \in \{\theta_\text{min}, \theta_\text{max}\}\)</span>), mirrored into a full
+  disk when <code>mirror = true</code>.</li>
+<li><strong>1D, or 3D non-Cartesian</strong> -- warns that the renderer is inactive for that
+  setup and draws nothing.</li>
+</ul>
+<h2 id="making-a-movie">Making a movie<a class="headerlink" href="#making-a-movie" title="Permanent link">&para;</a></h2>
+<p>The renderer produces a series of <code>png</code> files for each output scene and step marked as <code>&lt;QUANTITY&gt;_%08d.png</code>. 
+To combine those into a movie, you can use the same <code>render.py</code> script with a <code>movie</code> command (<code>ffmpeg</code> will need to be in your path):</p>
+<div class="language-sh highlight"><pre><span></span><code>usage:<span class="w"> </span>render.py<span class="w"> </span>movie<span class="w"> </span><span class="o">[</span>-h<span class="o">]</span><span class="w"> </span><span class="o">[</span>-p<span class="w"> </span>PREFIX<span class="o">]</span><span class="w"> </span><span class="o">[</span>-c<span class="w"> </span>COLS<span class="o">]</span><span class="w"> </span><span class="o">[</span>-m<span class="o">]</span><span class="w"> </span><span class="o">[</span>-r<span class="w"> </span>FRAMERATE<span class="o">]</span><span class="w"> </span><span class="o">[</span>-z<span class="w"> </span>COMPRESSION<span class="o">]</span><span class="w"> </span>path
+
+positional<span class="w"> </span>arguments:
+<span class="w">  </span>path<span class="w">                  </span>path<span class="w"> </span>to<span class="w"> </span>the<span class="w"> </span>rendered<span class="w"> </span>PNGs
+
+options:
+<span class="w">  </span>-h,<span class="w"> </span>--help<span class="w">            </span>show<span class="w"> </span>this<span class="w"> </span><span class="nb">help</span><span class="w"> </span>message<span class="w"> </span>and<span class="w"> </span><span class="nb">exit</span>
+<span class="w">  </span>-p,<span class="w"> </span>--prefix<span class="w"> </span>PREFIX<span class="w">   </span>prefix<span class="w"> </span><span class="k">for</span><span class="w"> </span>the<span class="w"> </span>scene<span class="w"> </span><span class="o">(</span>when<span class="w"> </span>rendering<span class="w"> </span>only<span class="w"> </span>one<span class="w"> </span>scene<span class="w"> </span>without<span class="w"> </span>-m<span class="w"> </span><span class="p">|</span><span class="w"> </span>--merge<span class="w"> </span>flag<span class="o">)</span>
+<span class="w">  </span>-c,<span class="w"> </span>--cols<span class="w"> </span>COLS<span class="w">       </span>number<span class="w"> </span>of<span class="w"> </span>columns<span class="w"> </span><span class="k">for</span><span class="w"> </span>combining<span class="w"> </span>multiple<span class="w"> </span>scenes<span class="w"> </span><span class="o">(</span>default:<span class="w"> </span><span class="m">1</span><span class="o">)</span>
+<span class="w">  </span>-m,<span class="w"> </span>--merge<span class="w">           </span>merge<span class="w"> </span>multiple<span class="w"> </span>scenes<span class="w"> </span>into<span class="w"> </span>a<span class="w"> </span>single<span class="w"> </span>movie<span class="w"> </span><span class="o">(</span>default:<span class="w"> </span><span class="nb">false</span><span class="o">)</span>
+<span class="w">  </span>-r,<span class="w"> </span>--framerate<span class="w"> </span>FRAMERATE
+<span class="w">                        </span>framerate<span class="w"> </span><span class="k">for</span><span class="w"> </span>the<span class="w"> </span>output<span class="w"> </span>movie<span class="w"> </span><span class="o">(</span>default:<span class="w"> </span><span class="m">30</span><span class="o">)</span>
+<span class="w">  </span>-z,<span class="w"> </span>--compression<span class="w"> </span>COMPRESSION
+<span class="w">                        </span>compression<span class="w"> </span>level<span class="w"> </span><span class="o">(</span>default:<span class="w"> </span><span class="m">1</span><span class="o">)</span>
+</code></pre></div>
+<p>It can also combine different scenes into side-by-side panels using the <code>-m</code> flag. For example:</p>
+<div class="language-sh highlight"><pre><span></span><code>render.py<span class="w"> </span>movie<span class="w"> </span>-m<span class="w"> </span>-c<span class="w"> </span><span class="m">2</span><span class="w"> </span>simulation/renders
+</code></pre></div>
+<p>will produce a movie from all the scenes the rendered scenes using 2 columns for panels.</p>
+<h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
+<h3 id="3d-turbulence-volume-render">3D turbulence (volume render)<a class="headerlink" href="#3d-turbulence-volume-render" title="Permanent link">&para;</a></h3>
+<div class="language-toml highlight"><pre><span></span><code><span class="k">[render]</span>
+<span class="w">  </span><span class="n">enable</span><span class="w">        </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">  </span><span class="n">interval_time</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">12.0</span>
+<span class="w">  </span><span class="n">width</span><span class="w">         </span><span class="o">=</span><span class="w"> </span><span class="mi">1024</span>
+<span class="w">  </span><span class="n">height</span><span class="w">        </span><span class="o">=</span><span class="w"> </span><span class="mi">1024</span>
+<span class="w">  </span><span class="n">axes</span><span class="w">          </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+
+<span class="w">  </span><span class="k">[render.volume]</span>
+<span class="w">    </span><span class="n">samples</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">400</span>
+
+<span class="w">  </span><span class="k">[[render.scene]]</span>
+<span class="w">    </span><span class="n">field</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;N&quot;</span>
+<span class="w">    </span><span class="n">label</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;N / n0&quot;</span>
+<span class="w">    </span><span class="n">min</span><span class="w">      </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span>
+<span class="w">    </span><span class="n">max</span><span class="w">      </span><span class="o">=</span><span class="w"> </span><span class="mf">1.5</span>
+<span class="w">    </span><span class="n">colormap</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;cool2warm&quot;</span>
+<span class="w">    </span><span class="n">alpha</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="p">[[</span><span class="mf">0.0</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0</span><span class="p">],</span><span class="w"> </span><span class="p">[</span><span class="mf">0.2</span><span class="p">,</span><span class="w"> </span><span class="mf">0.15</span><span class="p">],</span><span class="w"> </span><span class="p">[</span><span class="mf">1.0</span><span class="p">,</span><span class="w"> </span><span class="mf">0.6</span><span class="p">]]</span>
+
+<span class="w">  </span><span class="k">[[render.scene]]</span>
+<span class="w">    </span><span class="n">field</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Bmag&quot;</span>
+<span class="w">    </span><span class="n">min</span><span class="w">      </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span>
+<span class="w">    </span><span class="n">max</span><span class="w">      </span><span class="o">=</span><span class="w"> </span><span class="mf">4.0</span>
+<span class="w">    </span><span class="n">colormap</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;viridis&quot;</span>
+<span class="w">    </span><span class="n">alpha</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="p">[[</span><span class="mf">0.0</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0</span><span class="p">],</span><span class="w"> </span><span class="p">[</span><span class="mf">0.3</span><span class="p">,</span><span class="w"> </span><span class="mf">0.1</span><span class="p">],</span><span class="w"> </span><span class="p">[</span><span class="mf">1.0</span><span class="p">,</span><span class="w"> </span><span class="mf">0.7</span><span class="p">]]</span>
+</code></pre></div>
+<h3 id="2d-gr-accretion-meridional-slice-polar-axes">2D GR accretion (meridional slice + polar axes)<a class="headerlink" href="#2d-gr-accretion-meridional-slice-polar-axes" title="Permanent link">&para;</a></h3>
+<div class="language-toml highlight"><pre><span></span><code><span class="k">[render]</span>
+<span class="w">  </span><span class="n">enable</span><span class="w">        </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">  </span><span class="n">interval_time</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1.0</span>
+<span class="w">  </span><span class="n">width</span><span class="w">         </span><span class="o">=</span><span class="w"> </span><span class="mi">1024</span>
+<span class="w">  </span><span class="n">height</span><span class="w">        </span><span class="o">=</span><span class="w"> </span><span class="mi">1024</span>
+<span class="w">  </span><span class="n">mirror</span><span class="w">        </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="w">   </span><span class="c1"># render the θ ∈ [0, π] half-disk</span>
+<span class="w">  </span><span class="n">axes</span><span class="w">          </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="w">    </span><span class="c1"># R radial axis + Theta arc</span>
+
+<span class="w">  </span><span class="k">[[render.scene]]</span>
+<span class="w">    </span><span class="n">field</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;N&quot;</span>
+<span class="w">    </span><span class="n">label</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;N / n0&quot;</span>
+<span class="w">    </span><span class="n">log</span><span class="w">      </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">    </span><span class="n">min</span><span class="w">      </span><span class="o">=</span><span class="w"> </span><span class="mf">0.1</span>
+<span class="w">    </span><span class="n">max</span><span class="w">      </span><span class="o">=</span><span class="w"> </span><span class="mf">100.0</span>
+<span class="w">    </span><span class="n">colormap</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;viridis&quot;</span>
+
+<span class="w">  </span><span class="k">[[render.scene]]</span>
+<span class="w">    </span><span class="n">field</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Bmag&quot;</span><span class="w">        </span><span class="c1"># |B|</span>
+<span class="w">    </span><span class="n">label</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;|B|&quot;</span>
+<span class="w">    </span><span class="n">log</span><span class="w">      </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">    </span><span class="n">min</span><span class="w">      </span><span class="o">=</span><span class="w"> </span><span class="mf">0.01</span>
+<span class="w">    </span><span class="n">max</span><span class="w">      </span><span class="o">=</span><span class="w"> </span><span class="mf">10.0</span>
+<span class="w">    </span><span class="n">colormap</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;inferno&quot;</span>
+
+<span class="w">  </span><span class="k">[[render.scene]]</span>
+<span class="w">    </span><span class="n">field</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Emag&quot;</span><span class="w">        </span><span class="c1"># GR: the E slot is the displacement D, so |D|</span>
+<span class="w">    </span><span class="n">label</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;|D|&quot;</span>
+<span class="w">    </span><span class="n">log</span><span class="w">      </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">    </span><span class="n">min</span><span class="w">      </span><span class="o">=</span><span class="w"> </span><span class="mf">0.01</span>
+<span class="w">    </span><span class="n">max</span><span class="w">      </span><span class="o">=</span><span class="w"> </span><span class="mf">10.0</span>
+<span class="w">    </span><span class="n">colormap</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;plasma&quot;</span>
+</code></pre></div>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+  
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2021++, Entity dev team
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/entity-toolkit/entity/" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M216.29 158.39H137C97 147.9 6.51 150.63 6.51 233.18c0 30.09 15 51.23 35 61-25.1 23-37 33.85-37 49.21 0 11 4.47 21.14 17.89 26.81C8.13 383.61 0 393.35 0 411.65c0 32.11 28.05 50.82 101.63 50.82 70.75 0 111.79-26.42 111.79-73.18 0-58.66-45.16-56.5-151.63-63l13.43-21.55c27.27 7.58 118.7 10 118.7-67.89 0-18.7-7.73-31.71-15-41.07l37.41-2.84zm-63.42 241.9c0 32.06-104.89 32.1-104.89 2.43 0-8.14 5.27-15 10.57-21.54 77.71 5.3 94.32 3.37 94.32 19.11m-50.81-134.58c-52.8 0-50.46-71.16 1.2-71.16 49.54 0 50.82 71.16-1.2 71.16m133.3 100.51v-32.1c26.75-3.66 27.24-2 27.24-11V203.61c0-8.5-2.05-7.38-27.24-16.26l4.47-32.92H324v168.71c0 6.51.4 7.32 6.51 8.14l20.73 2.84v32.1zm52.45-244.31c-23.17 0-36.59-13.43-36.59-36.61s13.42-35.77 36.59-35.77c23.58 0 37 12.62 37 35.77s-13.42 36.61-37 36.61M512 350.46c-17.49 8.53-43.1 16.26-66.28 16.26-48.38 0-66.67-19.5-66.67-65.46V194.75c0-5.42 1.05-4.06-31.71-4.06V154.5c35.78-4.07 50-22 54.47-66.27h38.63c0 65.83-1.34 61.81 3.26 61.81H501v40.65h-60.56v97.15c0 6.92-4.92 51.41 60.57 26.84z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tracking", "navigation.indexes", "navigation.expand", "content.code.annotate", "content.code.copy", "content.tooltips", "header.autohide", "search.highlight"], "search": "../../../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.13a4f30d.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,2084 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://entity-toolkit.github.io/wiki/content/3-advanced/4-load_balancing/">
+      
+      
+        <link rel="prev" href="../3-rendering/">
+      
+      
+        <link rel="next" href="../5-tiled_deposit/">
+      
+      
+      <link rel="icon" href="../../../assets/logo.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.14">
+    
+    
+      
+        <title>Dynamic load balancing - Entity: wiki</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.342714a4.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+  
+  
+  
+  
+  <style>:root{--md-annotation-icon:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M12%2020c-4.41%200-8-3.59-8-8s3.59-8%208-8%208%203.59%208%208-3.59%208-8%208m0-18A10%2010%200%200%200%202%2012a10%2010%200%200%200%2010%2010%2010%2010%200%200%200%2010-10A10%2010%200%200%200%2012%202m1%205h-2v4H7v2h4v4h2v-4h4v-2h-4z%22/%3E%3C/svg%3E');}</style>
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=DM+Sans:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"DM Sans";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../css/style.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  
+  
+  <link rel="stylesheet" href="../../../js/vendor/katex/katex.min.css">
+  <script src="../../../js/vendor/katex/katex.min.js"></script>
+  <script src="../../../js/vendor/katex/contrib/auto-render.min.js"></script>
+  <script src="../../../js/hooks/katex.js" defer></script>
+  
+  
+  
+  
+
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="ntt-light" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#dynamic-load-balancing" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Entity: wiki" class="md-header__button md-logo" aria-label="Entity: wiki" data-md-component="logo">
+      
+  <img src="../../../assets/logo.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Entity: wiki
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Dynamic load balancing
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="ntt-light" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7M9 21a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-1H9z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="ntt-dark" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7M9 21v-1h6v1a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1m3-17a5 5 0 0 0-5 5c0 2.05 1.23 3.81 3 4.58V16h4v-2.42c1.77-.77 3-2.53 3-4.58a5 5 0 0 0-5-5"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/entity-toolkit/entity" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M23.546 10.93 13.067.452a1.55 1.55 0 0 0-2.188 0L8.708 2.627l2.76 2.76a1.838 1.838 0 0 1 2.327 2.341l2.658 2.66a1.838 1.838 0 0 1 1.9 3.039 1.837 1.837 0 0 1-2.6 0 1.85 1.85 0 0 1-.404-1.996L12.86 8.955v6.525c.176.086.342.203.488.348a1.85 1.85 0 0 1 0 2.6 1.844 1.844 0 0 1-2.609 0 1.834 1.834 0 0 1 0-2.598c.182-.18.387-.316.605-.406V8.835a1.834 1.834 0 0 1-.996-2.41L7.636 3.7.45 10.881c-.6.605-.6 1.584 0 2.189l10.48 10.477a1.545 1.545 0 0 0 2.186 0l10.43-10.43a1.544 1.544 0 0 0 0-2.187"/></svg>
+  </div>
+  <div class="md-source__repository">
+    entity
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Entity: wiki" class="md-nav__button md-logo" aria-label="Entity: wiki" data-md-component="logo">
+      
+  <img src="../../../assets/logo.svg" alt="logo">
+
+    </a>
+    Entity: wiki
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/entity-toolkit/entity" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M23.546 10.93 13.067.452a1.55 1.55 0 0 0-2.188 0L8.708 2.627l2.76 2.76a1.838 1.838 0 0 1 2.327 2.341l2.658 2.66a1.838 1.838 0 0 1 1.9 3.039 1.837 1.837 0 0 1-2.6 0 1.85 1.85 0 0 1-.404-1.996L12.86 8.955v6.525c.176.086.342.203.488.348a1.85 1.85 0 0 1 0 2.6 1.844 1.844 0 0 1-2.609 0 1.834 1.834 0 0 1 0-2.598c.182-.18.387-.316.605-.406V8.835a1.834 1.834 0 0 1-.996-2.41L7.636 3.7.45 10.881c-.6.605-.6 1.584 0 2.189l10.48 10.477a1.545 1.545 0 0 0 2.186 0l10.43-10.43a1.544 1.544 0 0 0 0-2.187"/></svg>
+  </div>
+  <div class="md-source__repository">
+    entity
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Getting Started
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Getting Started
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-getting-started/1-compile-run/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Compiling/running
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-getting-started/2-dependencies/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Dependencies
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-getting-started/3-inputfile/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Input parameters
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-getting-started/4-cartesian_sr_tutorial/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Tutorial: problem generator in Cartesian SR
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    How-To
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            How-To
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-howto/1-problem_generators/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Customizing your setup
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-howto/2-vis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Output &amp; visualization
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-howto/3-units/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Understanding the units
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-howto/4-checkpoints/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Writing checkpoints &amp; restarting
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-howto/5-docs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Editing the documentation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-howto/6-guidelines/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Code guidelines
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-howto/7-faq/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    F.A.Q.
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Advanced How-To
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Advanced How-To
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1-higherorder/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Higher order methods
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2-radiative/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Radiative physics
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3-rendering/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    On-the-fly rendering
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Dynamic load balancing
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Dynamic load balancing
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#static-decomposition-the-starting-point" class="md-nav__link">
+    <span class="md-ellipsis">
+      Static decomposition (the starting point)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#enabling-the-rebalancer" class="md-nav__link">
+    <span class="md-ellipsis">
+      Enabling the rebalancer
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-load-means" class="md-nav__link">
+    <span class="md-ellipsis">
+      What "load" means
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-rebalancing-algorithm" class="md-nav__link">
+    <span class="md-ellipsis">
+      The rebalancing algorithm
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#constraints-and-caveats" class="md-nav__link">
+    <span class="md-ellipsis">
+      Constraints and caveats
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#diagnostics-do-you-need-it" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagnostics: do you need it?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      Examples
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#2d-cartesian-shock-balance-the-propagation-axis" class="md-nav__link">
+    <span class="md-ellipsis">
+      2D Cartesian shock (balance the propagation axis)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3d-turbulence-balance-two-axes" class="md-nav__link">
+    <span class="md-ellipsis">
+      3D turbulence (balance two axes)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2d-spherical-accretion-radial-only" class="md-nav__link">
+    <span class="md-ellipsis">
+      2D spherical accretion (radial only)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../5-tiled_deposit/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Tiled current deposit
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../6-moving-window/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Moving window
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Understanding the Code
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Understanding the Code
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../4-code/1-pic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    PIC Algorithm
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../4-code/2-hierarchy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Hierarchy of structures
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../4-code/3-domains/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Metadomain, subdomains and meshes
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../4-code/4-fields_particles/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Fields and particles
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../4-code/5-metrics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Metrics
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Useful Things
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Useful Things
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../useful/costtool/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Simulation cost estimator
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../useful/cluster-setups/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Cluster setups
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Theory
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../useful/float-comparison/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Floating point comparison
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../useful/theory_pic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory behind PIC
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../useful/ks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Kerr metric
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Fun
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            Fun
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../fun/pushers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Particle pushers
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../fun/coords/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Axisymmetric coordinates
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../fun/cubed_sphere/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Cubed-sphere geometry
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../fun/particle-shapes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    2D particle shapes
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Events
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            Events
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../events/sceecs2024/instructions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    SCEECS Summer School 2024
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#static-decomposition-the-starting-point" class="md-nav__link">
+    <span class="md-ellipsis">
+      Static decomposition (the starting point)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#enabling-the-rebalancer" class="md-nav__link">
+    <span class="md-ellipsis">
+      Enabling the rebalancer
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-load-means" class="md-nav__link">
+    <span class="md-ellipsis">
+      What "load" means
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-rebalancing-algorithm" class="md-nav__link">
+    <span class="md-ellipsis">
+      The rebalancing algorithm
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#constraints-and-caveats" class="md-nav__link">
+    <span class="md-ellipsis">
+      Constraints and caveats
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#diagnostics-do-you-need-it" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagnostics: do you need it?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      Examples
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#2d-cartesian-shock-balance-the-propagation-axis" class="md-nav__link">
+    <span class="md-ellipsis">
+      2D Cartesian shock (balance the propagation axis)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3d-turbulence-balance-two-axes" class="md-nav__link">
+    <span class="md-ellipsis">
+      3D turbulence (balance two axes)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2d-spherical-accretion-radial-only" class="md-nav__link">
+    <span class="md-ellipsis">
+      2D spherical accretion (radial only)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+  
+
+
+
+  
+  
+
+
+<h1 id="dynamic-load-balancing">Dynamic load balancing<a class="headerlink" href="#dynamic-load-balancing" title="Permanent link">&para;</a></h1>
+<div class="admonition abstract">
+<p class="admonition-title">Relevant headers</p>
+<ul>
+<li><code>framework/domain/metadomain.h</code></li>
+<li><code>framework/domain/comm/fields.cpp</code></li>
+<li><code>framework/domain/comm/particles.cpp</code></li>
+<li><code>framework/domain/metadomain_loadbal.cpp</code></li>
+<li><code>framework/parameters/parameters.cpp</code></li>
+<li><code>engines/engine.hpp</code></li>
+<li><code>global/utils/tools.h</code></li>
+</ul>
+</div>
+<p><a href="https://github.com/entity-toolkit/entity/pull/216">
+  <span class="since-version">1.5.0</span>
+</a></p>
+<p>In a PIC run the wall-clock cost of a rank is dominated by the particles it
+owns -- the push and the current deposit scale with the local particle count,
+not the cell count. When particles cluster (a shock, a reconnection layer, a
+collapsing filament), the ranks that happen to hold that region fall behind and
+every other rank waits for them at the next communication barrier. Entity can
+correct this <em>during</em> the run with <strong>diffusion-style dynamic load balancing</strong>:
+at a fixed cadence it nudges the interior domain boundaries between MPI
+neighbors so that each rank ends up with roughly the same number of active
+particles.</p>
+<p>The rebalancer is deliberately conservative. It <strong>never repartitions</strong> the
+domain -- the number of subdomains per axis, the neighbor graph, and the
+boundary conditions are all fixed for the whole run. It only slides the
+<em>interior faces</em> by at most a ghost-zone width per event, and every byte it
+moves travels over the <strong>existing nearest-neighbor field and particle
+communication paths</strong>. </p>
+<p>It is off by default and, being an MPI operation, is a no-op in serial builds.</p>
+<div class="admonition note">
+<p class="admonition-title">Where the work lives</p>
+<p>All of the balancing logic is one method,
+<code>Metadomain&lt;S, M&gt;::Rebalance(dim_mask, tolerance, max_shift_cells)</code> in
+<code>metadomain_loadbal.cpp</code>. The engine main loop
+(<code>engines/engine.hpp</code>) calls it under a dedicated <code>LoadBalance</code> timer, after
+<code>step_forward</code> and any <code>CustomPostStep</code> but <em>before</em> the particle sort -- so
+the sort re-tiles the arrays after migration. The move reuses the same
+<code>CommunicateFields</code> (ghost exchange) and <code>CommunicateParticles</code> (retag +
+migrate) primitives the ordinary step uses.</p>
+</div>
+<h2 id="static-decomposition-the-starting-point">Static decomposition (the starting point)<a class="headerlink" href="#static-decomposition-the-starting-point" title="Permanent link">&para;</a></h2>
+<p>At startup <code>tools::Decompose</code> splits the global grid into a fixed Cartesian
+topology of subdomains -- one per MPI rank -- and computes each domain's cell
+offset and physical extent (<code>Metadomain::createEmptyDomains</code>). This partition is
+controlled by <code>simulation.domain.decomposition</code> and is what load balancing later
+adjusts:</p>
+<div class="language-toml highlight"><pre><span></span><code><span class="k">[simulation.domain]</span>
+<span class="w">  </span><span class="c1"># Number of domains</span>
+<span class="w">  </span><span class="c1">#   @type: int</span>
+<span class="w">  </span><span class="c1">#   @default: 1 [no MPI]; MPI_SIZE [MPI]</span>
+<span class="w">  </span><span class="n">number</span><span class="w">        </span><span class="o">=</span><span class="w"> </span><span class="mi">8</span>
+<span class="w">  </span><span class="c1"># Number of domains along each axis (-1 = decide automatically)</span>
+<span class="w">  </span><span class="c1">#   @type: array&lt;int&gt; [size 1 :-&gt;: 3]</span>
+<span class="w">  </span><span class="c1">#   @default: [-1, -1, -1]</span>
+<span class="w">  </span><span class="n">decomposition</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">]</span><span class="w">     </span><span class="c1"># 4 x 2 = 8 ranks</span>
+</code></pre></div>
+<p>The rebalancer works <strong>within</strong> this topology: a <code>4 x 2</code> decomposition stays
+<code>4 x 2</code> for the whole run. What changes is <em>where the three interior x1-faces and
+the one interior x2-face sit</em> -- i.e. how many cells each rank owns along a
+balanced axis.</p>
+<h2 id="enabling-the-rebalancer">Enabling the rebalancer<a class="headerlink" href="#enabling-the-rebalancer" title="Permanent link">&para;</a></h2>
+<p>Balancing is configured under <code>[simulation.domain.load_balance]</code>.</p>
+<div class="language-toml highlight"><pre><span></span><code><span class="k">[simulation.domain.load_balance]</span>
+<span class="w">  </span><span class="c1"># Enable dynamic load balancing</span>
+<span class="w">  </span><span class="c1">#   @type: bool</span>
+<span class="w">  </span><span class="c1">#   @default: false</span>
+<span class="w">  </span><span class="n">enable</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">  </span><span class="c1"># Run the rebalancer every `interval` timesteps (0 disables)</span>
+<span class="w">  </span><span class="c1">#   @type: int</span>
+<span class="w">  </span><span class="c1">#   @default: 0</span>
+<span class="w">  </span><span class="n">interval</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="mi">500</span>
+<span class="w">  </span><span class="c1"># Axes along which load is redistributed (1 = x1, 2 = x2, 3 = x3)</span>
+<span class="w">  </span><span class="c1">#   @type: array&lt;int&gt;, subset of [1, 2, 3]</span>
+<span class="w">  </span><span class="c1">#   @default: [1]</span>
+<span class="w">  </span><span class="n">dimensions</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">]</span>
+<span class="w">  </span><span class="c1"># Skip an axis when (max - min) / mean of its per-slab particle count is</span>
+<span class="w">  </span><span class="c1"># below this fraction</span>
+<span class="w">  </span><span class="c1">#   @type: float</span>
+<span class="w">  </span><span class="c1">#   @default: 0.1</span>
+<span class="w">  </span><span class="n">tolerance</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="mf">0.1</span>
+<span class="w">  </span><span class="c1"># Maximum cell-shift per interior boundary per event</span>
+<span class="w">  </span><span class="c1">#   @type: int</span>
+<span class="w">  </span><span class="c1">#   @default: N_GHOSTS</span>
+<span class="w">  </span><span class="c1">#   @note: clamped at runtime to N_GHOSTS (2 for the default shape order)</span>
+<span class="w">  </span><span class="n">max_shift</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span>
+</code></pre></div>
+<p><code>interval</code> sets the cadence; the rebalancer fires when <code>enable = true</code>,
+<code>interval &gt; 0</code>, and <code>(step + 1) % interval == 0</code>. Because each event moves a
+boundary by at most <code>max_shift</code> cells (see below), a large imbalance is smoothed
+out over <em>several</em> events -- so <code>interval</code> should be short enough that the
+diffusion keeps up with how fast the particles migrate, but long enough that the
+per-event MPI cost stays negligible. A few hundred steps is a sensible default.</p>
+<p><code>dimensions</code> is a list of physical axes, mapped internally to a bitmask
+(<code>dim_mask</code>): <code>[1]</code> balances only along <code>x1</code>, <code>[1, 2]</code> balances <code>x1</code> and <code>x2</code>
+independently, and so on. Each listed axis is balanced separately on its own 1D
+load profile.</p>
+<h2 id="what-load-means">What "load" means<a class="headerlink" href="#what-load-means" title="Permanent link">&para;</a></h2>
+<p>The load metric is the <strong>active-particle count</strong> per rank -- gathered once per
+event with a single <code>MPI_Allgather</code> of one integer per domain. It is a proxy for
+per-rank cost that is exact when the run is particle-dominated (the usual PIC
+regime). It does <em>not</em> account for field work or per-cell costs, so a run whose
+cost is dominated by an expensive field solve rather than by particles will see
+little benefit.</p>
+<p>For each balanced axis the per-domain counts are <strong>projected onto that axis</strong>:
+all domains that share the same topology position along the axis form a <em>slab</em>,
+and the slab's load is the sum of its domains' particle counts. Balancing then
+operates on this 1D load profile, one axis at a time, which is why a <code>4 x 2</code>
+decomposition can balance <code>x1</code> (4 slabs) and <code>x2</code> (2 slabs) independently.</p>
+<h2 id="the-rebalancing-algorithm">The rebalancing algorithm<a class="headerlink" href="#the-rebalancing-algorithm" title="Permanent link">&para;</a></h2>
+<p>A single <code>Rebalance</code> call performs one diffusion sweep:</p>
+<ol>
+<li><strong>Gather load.</strong> <code>MPI_Allgather</code> the active-particle count of every domain.</li>
+<li><strong>Project.</strong> Marginalize the counts (and cell widths) onto each balanced
+   axis to get the 1D load profile <code>load_per_pos[d]</code>.</li>
+<li>
+<p><strong>Decide the shifts.</strong> For each balanced axis, skip it entirely if it is
+   already flat -- <code>(max - min) / mean &lt; tolerance</code>. Otherwise, for every
+   interior boundary <span class="arithmatex">\(k\)</span> between slabs <span class="arithmatex">\(k\!-\!1\)</span> and <span class="arithmatex">\(k\)</span>, compute a shift from
+   the load <em>gradient</em>, normalized by the local particle density:</p>
+<div class="arithmatex">\[
+\text{shift}_k = \operatorname{round}\!\left(
+  \tfrac{1}{2}\,\frac{L_{k-1} - L_k}{\bar\rho_k}\right),
+\qquad
+\bar\rho_k = \max\!\left(\tfrac{1}{2}(\rho_{k-1}+\rho_k),\, 1\right),
+\]</div>
+<p>where <span class="arithmatex">\(L\)</span> is the slab load and <span class="arithmatex">\(\rho = L/\text{ncells}\)</span> its density. The
+busier neighbor cedes cells to the lighter one. The factor <span class="arithmatex">\(\tfrac{1}{2}\)</span>
+under-relaxes the move to roughly a single diffusion step, which keeps the
+boundaries from oscillating. The shift is then clamped to <code>±max_shift</code>, and
+further clamped so <strong>neither slab shrinks below</strong> <code>MIN_NCELLS = 2*N_GHOSTS + 4</code>
+(a domain can never be starved out of existence).
+4. <strong>Recompute geometry.</strong> Prefix-sum the new per-slab cell counts into new cell
+   offsets and <strong>physical extents</strong>. The face positions are queried from the
+   metric in code coordinates, so curvilinear stretches (log-<span class="arithmatex">\(r\)</span>,
+   <span class="arithmatex">\(\eta\)</span>-stretching) are honored -- a shifted face lands at the correct
+   physical location, not a uniform one.
+5. <strong>Save fields.</strong> Mirror the local <code>em</code> field to the host (plus <code>em0</code>/<code>cur0</code>
+   for GRPIC).
+6. <strong>Update bookkeeping</strong> for every subdomain: resolution, extent, and cell
+   offset. Boundary conditions and the neighbor graph are untouched.
+7. <strong>Reallocate and copy.</strong> Rebuild the local <code>Fields</code> at the new size and copy
+   the saved data back with the offset shift <code>delta</code>. Cells that fall outside
+   the old array (the strip a rank <em>gained</em>) are left at zero.
+8. <strong>Refill ghosts.</strong> <code>CommunicateFields(E | B)</code> fills the gained strip from the
+   neighbor that used to own it.
+9. <strong>Migrate particles.</strong> Shift every particle's cell indices by <code>-delta</code>,
+   retag any particle whose new index leaves the local domain with
+   <code>mpi::SendTag</code>, and hand off to <code>CommunicateParticles</code>, which sends each to
+   the correct neighbor. The species are marked unsorted so the next sort
+   re-tiles them.</p>
+</li>
+</ol>
+<p>If step 3 produces no nonzero shift on any axis, the call returns early and
+touches nothing.</p>
+<div class="admonition note">
+<p class="admonition-title">Why a ghost-width cap makes it cheap</p>
+<p><code>max_shift</code> is clamped to <code>N_GHOSTS</code> (2 cells for the default shape order).
+That bound is the whole reason no special communication is needed: the strip
+of cells a rank gains is at most one ghost zone wide, so the field data for
+it is <strong>already present in that rank's ghost cells</strong> from the most recent
+exchange -- step 8 is an ordinary ghost refill, not a bespoke transfer.
+Likewise the particles that change hands only ever move to an <em>immediate</em>
+neighbor, so step 9 is the ordinary nearest-neighbor particle exchange. A
+large imbalance is corrected by letting the diffusion run over many events,
+each cheap, rather than by one expensive global reshuffle.</p>
+</div>
+<h2 id="constraints-and-caveats">Constraints and caveats<a class="headerlink" href="#constraints-and-caveats" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>MPI only.</strong> In a serial build <code>Rebalance</code> is compiled to a no-op.</li>
+<li><strong>One subdomain per rank.</strong> The current implementation asserts exactly one
+  local subdomain per rank.</li>
+<li><strong>Topology is fixed.</strong> Only interior faces move. The number of ranks per axis,
+  the neighbor graph, and the boundary conditions are set at startup and never
+  change.</li>
+<li><strong>Polar axis is off-limits for curvilinear metrics.</strong> For any non-Cartesian
+  metric (spherical, QSpherical, Kerr--Schild, ...), balancing along the polar
+  (<span class="arithmatex">\(x2 = \theta\)</span>) axis is rejected -- moving a <span class="arithmatex">\(\theta\)</span>-face is sound in
+  principle but is fenced off pending validation. The <strong>radial</strong> (<span class="arithmatex">\(x1\)</span>) axis
+  <em>is</em> supported for these metrics, and step 4 honors the radial stretch, so
+  radial balancing is the intended use on spherical/GR grids. On Cartesian grids
+  every axis is available.</li>
+<li><strong>Bounded speed.</strong> Because each event shifts a face by at most <code>N_GHOSTS</code>
+  cells, the maximum rate at which a boundary can migrate is
+  <code>N_GHOSTS / interval</code> cells per step. A feature that sweeps across the grid
+  faster than this will outrun the balancer.</li>
+</ul>
+<h2 id="diagnostics-do-you-need-it">Diagnostics: do you need it?<a class="headerlink" href="#diagnostics-do-you-need-it" title="Permanent link">&para;</a></h2>
+<p>The step timer already reports <strong>per-rank imbalance</strong>. With MPI, each timer line
+(and a synthetic <code>Total</code>) carries an imbalance figure from
+<code>tools::ArrayImbalance</code> -- a <code>0..100</code> score (a sigmoid of the coefficient of
+variation across ranks; <code>0</code> = perfectly balanced). A large <code>Total</code> imbalance,
+concentrated in the <code>Particles</code>/<code>Communications</code> rows, is the signal that
+particle load is skewed and dynamic balancing is worth enabling. Once it is on,
+the <code>LoadBalance</code> row shows the balancer's own (small) cost, and the <code>Total</code>
+imbalance should fall as the boundaries settle.</p>
+<h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
+<h3 id="2d-cartesian-shock-balance-the-propagation-axis">2D Cartesian shock (balance the propagation axis)<a class="headerlink" href="#2d-cartesian-shock-balance-the-propagation-axis" title="Permanent link">&para;</a></h3>
+<p>A shock that sweeps along <code>x1</code> piles particles into a moving slab. Balancing
+<code>x1</code> keeps the downstream ranks from idling:</p>
+<div class="language-toml highlight"><pre><span></span><code><span class="k">[simulation.domain]</span>
+<span class="w">  </span><span class="n">number</span><span class="w">        </span><span class="o">=</span><span class="w"> </span><span class="mi">8</span>
+<span class="w">  </span><span class="n">decomposition</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="mi">8</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">]</span><span class="w">        </span><span class="c1"># slabs perpendicular to x1</span>
+
+<span class="w">  </span><span class="k">[simulation.domain.load_balance]</span>
+<span class="w">    </span><span class="n">enable</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">    </span><span class="n">interval</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="mi">200</span>
+<span class="w">    </span><span class="n">dimensions</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w">            </span><span class="c1"># follow the shock along x1</span>
+<span class="w">    </span><span class="n">tolerance</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="mf">0.1</span>
+</code></pre></div>
+<h3 id="3d-turbulence-balance-two-axes">3D turbulence (balance two axes)<a class="headerlink" href="#3d-turbulence-balance-two-axes" title="Permanent link">&para;</a></h3>
+<p>Intermittent clustering in a periodic box is not tied to one axis, so balance
+both decomposed directions independently:</p>
+<div class="language-toml highlight"><pre><span></span><code><span class="k">[simulation.domain]</span>
+<span class="w">  </span><span class="n">number</span><span class="w">        </span><span class="o">=</span><span class="w"> </span><span class="mi">64</span>
+<span class="w">  </span><span class="n">decomposition</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">]</span>
+
+<span class="w">  </span><span class="k">[simulation.domain.load_balance]</span>
+<span class="w">    </span><span class="n">enable</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">    </span><span class="n">interval</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="mi">500</span>
+<span class="w">    </span><span class="n">dimensions</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">]</span>
+<span class="w">    </span><span class="n">tolerance</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="mf">0.15</span><span class="w">           </span><span class="c1"># a looser gate; avoid chasing noise</span>
+</code></pre></div>
+<h3 id="2d-spherical-accretion-radial-only">2D spherical accretion (radial only)<a class="headerlink" href="#2d-spherical-accretion-radial-only" title="Permanent link">&para;</a></h3>
+<p>On a spherical grid the polar axis is off-limits, so balance the radial
+direction -- which correctly respects a log-<span class="arithmatex">\(r\)</span> stretch:</p>
+<div class="language-toml highlight"><pre><span></span><code><span class="k">[simulation.domain]</span>
+<span class="w">  </span><span class="n">number</span><span class="w">        </span><span class="o">=</span><span class="w"> </span><span class="mi">16</span>
+<span class="w">  </span><span class="n">decomposition</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="mi">16</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">]</span><span class="w">       </span><span class="c1"># radial shells</span>
+
+<span class="w">  </span><span class="k">[simulation.domain.load_balance]</span>
+<span class="w">    </span><span class="n">enable</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">    </span><span class="n">interval</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="mi">300</span>
+<span class="w">    </span><span class="n">dimensions</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w">            </span><span class="c1"># x1 = r; x2 = theta is not allowed here</span>
+</code></pre></div>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+  
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2021++, Entity dev team
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/entity-toolkit/entity/" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M216.29 158.39H137C97 147.9 6.51 150.63 6.51 233.18c0 30.09 15 51.23 35 61-25.1 23-37 33.85-37 49.21 0 11 4.47 21.14 17.89 26.81C8.13 383.61 0 393.35 0 411.65c0 32.11 28.05 50.82 101.63 50.82 70.75 0 111.79-26.42 111.79-73.18 0-58.66-45.16-56.5-151.63-63l13.43-21.55c27.27 7.58 118.7 10 118.7-67.89 0-18.7-7.73-31.71-15-41.07l37.41-2.84zm-63.42 241.9c0 32.06-104.89 32.1-104.89 2.43 0-8.14 5.27-15 10.57-21.54 77.71 5.3 94.32 3.37 94.32 19.11m-50.81-134.58c-52.8 0-50.46-71.16 1.2-71.16 49.54 0 50.82 71.16-1.2 71.16m133.3 100.51v-32.1c26.75-3.66 27.24-2 27.24-11V203.61c0-8.5-2.05-7.38-27.24-16.26l4.47-32.92H324v168.71c0 6.51.4 7.32 6.51 8.14l20.73 2.84v32.1zm52.45-244.31c-23.17 0-36.59-13.43-36.59-36.61s13.42-35.77 36.59-35.77c23.58 0 37 12.62 37 35.77s-13.42 36.61-37 36.61M512 350.46c-17.49 8.53-43.1 16.26-66.28 16.26-48.38 0-66.67-19.5-66.67-65.46V194.75c0-5.42 1.05-4.06-31.71-4.06V154.5c35.78-4.07 50-22 54.47-66.27h38.63c0 65.83-1.34 61.81 3.26 61.81H501v40.65h-60.56v97.15c0 6.92-4.92 51.41 60.57 26.84z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tracking", "navigation.indexes", "navigation.expand", "content.code.annotate", "content.code.copy", "content.tooltips", "header.autohide", "search.highlight"], "search": "../../../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.13a4f30d.min.js"></script>
+      
+    
+  </body>
+</html>

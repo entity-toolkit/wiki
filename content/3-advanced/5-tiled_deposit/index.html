@@ -1,0 +1,2175 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://entity-toolkit.github.io/wiki/content/3-advanced/5-tiled_deposit/">
+      
+      
+        <link rel="prev" href="../4-load_balancing/">
+      
+      
+        <link rel="next" href="../6-moving-window/">
+      
+      
+      <link rel="icon" href="../../../assets/logo.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.14">
+    
+    
+      
+        <title>Tiled current deposit - Entity: wiki</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.342714a4.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+  
+  
+  
+  
+  <style>:root{--md-annotation-icon:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M12%2020c-4.41%200-8-3.59-8-8s3.59-8%208-8%208%203.59%208%208-3.59%208-8%208m0-18A10%2010%200%200%200%202%2012a10%2010%200%200%200%2010%2010%2010%2010%200%200%200%2010-10A10%2010%200%200%200%2012%202m1%205h-2v4H7v2h4v4h2v-4h4v-2h-4z%22/%3E%3C/svg%3E');}</style>
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=DM+Sans:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"DM Sans";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../css/style.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  
+  
+  <link rel="stylesheet" href="../../../js/vendor/katex/katex.min.css">
+  <script src="../../../js/vendor/katex/katex.min.js"></script>
+  <script src="../../../js/vendor/katex/contrib/auto-render.min.js"></script>
+  <script src="../../../js/hooks/katex.js" defer></script>
+  
+  
+    
+      
+        <script src="../../../js/extra/p5js/p5.min.js"></script>
+        <script src="../../../js/hooks/p5.js" defer></script>
+      
+    
+  
+  
+  
+    
+      <script type="module" src="../../../js/scripts/tiled_deposit.js"></script>
+    
+  
+
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="ntt-light" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#tiled-current-deposit" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Entity: wiki" class="md-header__button md-logo" aria-label="Entity: wiki" data-md-component="logo">
+      
+  <img src="../../../assets/logo.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Entity: wiki
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Tiled current deposit
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="ntt-light" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7M9 21a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-1H9z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="ntt-dark" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7M9 21v-1h6v1a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1m3-17a5 5 0 0 0-5 5c0 2.05 1.23 3.81 3 4.58V16h4v-2.42c1.77-.77 3-2.53 3-4.58a5 5 0 0 0-5-5"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/entity-toolkit/entity" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M23.546 10.93 13.067.452a1.55 1.55 0 0 0-2.188 0L8.708 2.627l2.76 2.76a1.838 1.838 0 0 1 2.327 2.341l2.658 2.66a1.838 1.838 0 0 1 1.9 3.039 1.837 1.837 0 0 1-2.6 0 1.85 1.85 0 0 1-.404-1.996L12.86 8.955v6.525c.176.086.342.203.488.348a1.85 1.85 0 0 1 0 2.6 1.844 1.844 0 0 1-2.609 0 1.834 1.834 0 0 1 0-2.598c.182-.18.387-.316.605-.406V8.835a1.834 1.834 0 0 1-.996-2.41L7.636 3.7.45 10.881c-.6.605-.6 1.584 0 2.189l10.48 10.477a1.545 1.545 0 0 0 2.186 0l10.43-10.43a1.544 1.544 0 0 0 0-2.187"/></svg>
+  </div>
+  <div class="md-source__repository">
+    entity
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Entity: wiki" class="md-nav__button md-logo" aria-label="Entity: wiki" data-md-component="logo">
+      
+  <img src="../../../assets/logo.svg" alt="logo">
+
+    </a>
+    Entity: wiki
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/entity-toolkit/entity" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M23.546 10.93 13.067.452a1.55 1.55 0 0 0-2.188 0L8.708 2.627l2.76 2.76a1.838 1.838 0 0 1 2.327 2.341l2.658 2.66a1.838 1.838 0 0 1 1.9 3.039 1.837 1.837 0 0 1-2.6 0 1.85 1.85 0 0 1-.404-1.996L12.86 8.955v6.525c.176.086.342.203.488.348a1.85 1.85 0 0 1 0 2.6 1.844 1.844 0 0 1-2.609 0 1.834 1.834 0 0 1 0-2.598c.182-.18.387-.316.605-.406V8.835a1.834 1.834 0 0 1-.996-2.41L7.636 3.7.45 10.881c-.6.605-.6 1.584 0 2.189l10.48 10.477a1.545 1.545 0 0 0 2.186 0l10.43-10.43a1.544 1.544 0 0 0 0-2.187"/></svg>
+  </div>
+  <div class="md-source__repository">
+    entity
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Getting Started
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Getting Started
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-getting-started/1-compile-run/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Compiling/running
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-getting-started/2-dependencies/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Dependencies
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-getting-started/3-inputfile/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Input parameters
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../1-getting-started/4-cartesian_sr_tutorial/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Tutorial: problem generator in Cartesian SR
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    How-To
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            How-To
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-howto/1-problem_generators/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Customizing your setup
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-howto/2-vis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Output &amp; visualization
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-howto/3-units/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Understanding the units
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-howto/4-checkpoints/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Writing checkpoints &amp; restarting
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-howto/5-docs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Editing the documentation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-howto/6-guidelines/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Code guidelines
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2-howto/7-faq/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    F.A.Q.
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Advanced How-To
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Advanced How-To
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1-higherorder/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Higher order methods
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2-radiative/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Radiative physics
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3-rendering/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    On-the-fly rendering
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../4-load_balancing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Dynamic load balancing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Tiled current deposit
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Tiled current deposit
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#the-two-paths" class="md-nav__link">
+    <span class="md-ellipsis">
+      The two paths
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#enabling-it-compile-time" class="md-nav__link">
+    <span class="md-ellipsis">
+      Enabling it (compile-time)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-a-tile-deposit-runs" class="md-nav__link">
+    <span class="md-ellipsis">
+      How a tile deposit runs
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="How a tile deposit runs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#halo-sizing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Halo sizing
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#correctness-is-independent-of-the-halo-the-escape-valve" class="md-nav__link">
+    <span class="md-ellipsis">
+      Correctness is independent of the halo (the escape valve)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#coverage-the-tail-pass-and-the-first-step" class="md-nav__link">
+    <span class="md-ellipsis">
+      Coverage: the tail pass and the first step
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-tile-based-spatial-sort" class="md-nav__link">
+    <span class="md-ellipsis">
+      The tile-based spatial sort
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#choosing-the-tile-size" class="md-nav__link">
+    <span class="md-ellipsis">
+      Choosing the tile size
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#constraints-and-caveats" class="md-nav__link">
+    <span class="md-ellipsis">
+      Constraints and caveats
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../6-moving-window/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Moving window
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Understanding the Code
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Understanding the Code
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../4-code/1-pic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    PIC Algorithm
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../4-code/2-hierarchy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Hierarchy of structures
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../4-code/3-domains/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Metadomain, subdomains and meshes
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../4-code/4-fields_particles/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Fields and particles
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../4-code/5-metrics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Metrics
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Useful Things
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Useful Things
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../useful/costtool/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Simulation cost estimator
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../useful/cluster-setups/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Cluster setups
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Theory
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../useful/float-comparison/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Floating point comparison
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../useful/theory_pic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory behind PIC
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../useful/ks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Kerr metric
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Fun
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            Fun
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../fun/pushers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Particle pushers
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../fun/coords/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Axisymmetric coordinates
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../fun/cubed_sphere/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Cubed-sphere geometry
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../fun/particle-shapes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    2D particle shapes
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Events
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            Events
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../events/sceecs2024/instructions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    SCEECS Summer School 2024
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#the-two-paths" class="md-nav__link">
+    <span class="md-ellipsis">
+      The two paths
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#enabling-it-compile-time" class="md-nav__link">
+    <span class="md-ellipsis">
+      Enabling it (compile-time)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-a-tile-deposit-runs" class="md-nav__link">
+    <span class="md-ellipsis">
+      How a tile deposit runs
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="How a tile deposit runs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#halo-sizing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Halo sizing
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#correctness-is-independent-of-the-halo-the-escape-valve" class="md-nav__link">
+    <span class="md-ellipsis">
+      Correctness is independent of the halo (the escape valve)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#coverage-the-tail-pass-and-the-first-step" class="md-nav__link">
+    <span class="md-ellipsis">
+      Coverage: the tail pass and the first step
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-tile-based-spatial-sort" class="md-nav__link">
+    <span class="md-ellipsis">
+      The tile-based spatial sort
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#choosing-the-tile-size" class="md-nav__link">
+    <span class="md-ellipsis">
+      Choosing the tile size
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#constraints-and-caveats" class="md-nav__link">
+    <span class="md-ellipsis">
+      Constraints and caveats
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+  
+
+
+
+  
+  
+
+
+<h1 id="tiled-current-deposit">Tiled current deposit<a class="headerlink" href="#tiled-current-deposit" title="Permanent link">&para;</a></h1>
+<div class="admonition abstract">
+<p class="admonition-title">Relevant headers</p>
+<ul>
+<li><code>kernels/deposition/currents/single-particle.hpp</code></li>
+<li><code>kernels/deposition/currents/tiled.hpp</code></li>
+<li><code>engines/srpic/currents.h</code></li>
+<li><code>engines/grpic/currents.h</code></li>
+<li><code>framework/containers/particles_sort.cpp</code></li>
+<li><code>framework/containers/particles.h</code></li>
+<li><code>global/arch/kokkos_aliases.h</code></li>
+<li><code>CMakeLists.txt</code> / <code>cmake/defaults.cmake</code></li>
+<li><code>scripts/ideal_tile_size.py</code></li>
+</ul>
+</div>
+<p><a href="https://github.com/entity-toolkit/entity/pull/209">
+  <span class="since-version">1.5.0</span>
+</a></p>
+<p>Current deposition is the hardest PIC kernel to make fast on a GPU: every
+particle scatters its shape stencil into a shared field array, so many threads
+race to update the same cells. The default (<strong>flat</strong>) kernel handles this with a
+<code>Kokkos::ScatterView</code> -- a per-thread private copy that is reduced back into the
+global <code>J</code> at the end. That is correct and portable, but on a wide GPU it is
+bound by global-memory atomic traffic and by the scatter-view's memory
+footprint.</p>
+<div class="admonition hint">
+<p class="admonition-title">Enabling tiled deposit</p>
+<p>To enable the tiled deposit method described in this section, set it at compile-time 
+with the following flag: </p>
+<p><div class="language-sh highlight"><pre><span></span><code>cmake<span class="w"> </span>...<span class="w"> </span>-D<span class="w"> </span><span class="nv">tiled_deposit</span><span class="o">=</span>ON<span class="w"> </span>-D<span class="w"> </span><span class="nv">tiled_deposit_tile_size</span><span class="o">=</span>&lt;TILE_SIZE&gt;
+</code></pre></div>
+where the <code>tiled_deposit_tile_size</code> determines the number of cells for each edge of the tile size (see more details below).</p>
+</div>
+<p>The <code>tiled_deposit</code> build adds a second, <strong>tile-based</strong> deposit path. The domain is cut
+into small spatial tiles; one Kokkos <em>team</em> (a GPU work-group) owns each tile and
+accumulates its particles' currents into a scratch copy of the tile that lives in
+<strong>on-chip shared memory</strong> (SLM on Intel, LDS on AMD, shared memory on NVIDIA).
+The tile is flushed to the global <code>J</code> exactly once, at the end. The per-particle
+stencil writes -- the hot inner loop -- then hit fast shared-memory atomics
+instead of scattering through HBM, and the global array is touched once per
+scratch cell rather than once per particle-write.</p>
+<p>It is a compile-time feature, <strong>off by default</strong>, and only matters for GPU
+backends -- on CPU the flat kernel is already cache-friendly.</p>
+<div class="admonition note">
+<p class="admonition-title">One deposit body, two launchers</p>
+<p>Both paths call the <em>same</em> per-particle routine,
+<code>kernel::DepositOneParticle</code>, which contains the only deposit math in the
+codebase. It is parameterized on a <code>deposit_at(idx..., comp, val)</code> callback:
+the flat kernel's callback does <code>J_acc(idx...) += val</code> on its scatter-view
+accessor; the tiled kernel's callback translates the global cell index into
+tile-local scratch coordinates and does a <code>Kokkos::atomic_add</code> on SLM. The
+two paths are therefore numerically identical -- the tiling is a pure
+performance transform.</p>
+</div>
+<p>The walkthrough below animates the life of a single team -- sort into tiles,
+allocate haloed SLM scratch, deposit stencils, the escape valve, and the final
+flush. Use the controls (top-right) to pause, replay, or skip ahead.</p>
+<div id="tiled-deposit">
+  <div id="canvas" class="p5canvas" style="position: relative"></div>
+</div>
+
+<h2 id="the-two-paths">The two paths<a class="headerlink" href="#the-two-paths" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>flat (always available)</th>
+<th>tiled (<code>tiled_deposit=ON</code>)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Kernel</td>
+<td><code>DepositCurrents_kernel</code></td>
+<td><code>DepositCurrentsTiled_kernel</code></td>
+</tr>
+<tr>
+<td>Policy</td>
+<td><code>RangePolicy</code> over particles</td>
+<td><code>TeamPolicy</code>, one team per tile</td>
+</tr>
+<tr>
+<td>Accumulator</td>
+<td><code>Kokkos::ScatterView</code> (per-thread)</td>
+<td>per-team SLM scratch tile</td>
+</tr>
+<tr>
+<td>Global <code>J</code> traffic</td>
+<td>one contribute over the scatter view</td>
+<td>one atomic flush per scratch cell</td>
+</tr>
+<tr>
+<td>Particle order</td>
+<td>any</td>
+<td>tile-sorted (<code>SortSpatially</code>)</td>
+</tr>
+</tbody>
+</table>
+<p>When <code>tiled_deposit=ON</code>, <code>CurrentsDeposit</code> (<code>engines/srpic/currents.h</code>,
+<code>engines/grpic/currents.h</code>) launches the tiled kernel for every species that has
+a populated tile layout, and falls back to the flat kernel only for the edge
+cases below. The engine is otherwise unchanged.</p>
+<h2 id="enabling-it-compile-time">Enabling it (compile-time)<a class="headerlink" href="#enabling-it-compile-time" title="Permanent link">&para;</a></h2>
+<p>The feature and its tuning knobs are CMake cache variables, baked in at build
+time:</p>
+<div class="language-cmake highlight"><pre><span></span><code><span class="c"># Enable the tiled deposit path (and the tile-based spatial sort that feeds it)</span>
+<span class="c">#   type: BOOL   default: OFF   (env: Entity_ENABLE_TILED_DEPOSIT)</span>
+<span class="err">-D</span><span class="w"> </span><span class="err">tiled_deposit=ON</span>
+
+<span class="c"># Tile edge length in cells (the T_TILE template parameter)</span>
+<span class="c">#   type: STRING  default: 8   allowed: {4, 6, 8, 10, 12, 14, 16}</span>
+<span class="err">-D</span><span class="w"> </span><span class="err">tiled_deposit_tile_size=8</span>
+
+<span class="c"># Scratch-halo drift budget in cells (see &quot;Halo sizing&quot; below)</span>
+<span class="c">#   type: STRING  default: 1</span>
+<span class="err">-D</span><span class="w"> </span><span class="err">tiled_deposit_drift=1</span>
+
+<span class="c"># Use the vendor sort_by_key (oneDPL / Thrust / rocThrust) for the tile sort.</span>
+<span class="c">#   type: BOOL   default: ON   (env: Entity_ENABLE_VENDOR_SORT)</span>
+<span class="c">#   OFF forces the Kokkos::BinSort fallback (lower peak memory, slower)</span>
+<span class="err">-D</span><span class="w"> </span><span class="err">vendor_sort=ON</span>
+</code></pre></div>
+<p><code>tiled_deposit_tile_size</code> must be one of the values in <code>tiled_deposit_tile_sizes</code>
+(<code>4;6;8;10;12;14;16</code>); an out-of-list value fails configuration. These map to the
+preprocessor macros <code>TILED_DEPOSIT</code>, <code>TILED_DEPOSIT_TILE_SIZE</code>, and
+<code>TILED_DEPOSIT_DRIFT</code>, and the resolved values are printed in the build report.</p>
+<p>Two more controls are set at <strong>runtime</strong> in the input deck:</p>
+<div class="language-toml highlight"><pre><span></span><code><span class="k">[algorithms.deposit]</span>
+<span class="w">  </span><span class="c1"># Tiled-deposit work-group (team) size</span>
+<span class="w">  </span><span class="c1">#   @type: uint [&gt;= 0]</span>
+<span class="w">  </span><span class="c1">#   @default: 0</span>
+<span class="w">  </span><span class="c1">#   @note: 0 keeps Kokkos::AUTO (backend occupancy heuristic); a positive value</span>
+<span class="w">  </span><span class="c1">#          overrides it, clamped to the backend/scratch maximum at launch. Only</span>
+<span class="w">  </span><span class="c1">#          used in tiled_deposit=ON builds. Pick a multiple of the device subgroup</span>
+<span class="w">  </span><span class="c1">#          width for best occupancy (see ideal_tile_size.py).</span>
+<span class="w">  </span><span class="n">tiled_deposit_team_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span>
+
+<span class="k">[particles]</span>
+<span class="w">  </span><span class="c1"># Timesteps between spatial re-sorts (0 disables). This sets how tile-coherent</span>
+<span class="w">  </span><span class="c1"># the particle array stays -- see &quot;Halo sizing&quot; and the escape valve.</span>
+<span class="w">  </span><span class="c1">#   @type: uint</span>
+<span class="w">  </span><span class="c1">#   @default: 0</span>
+<span class="w">  </span><span class="n">spatial_sorting_interval</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span>
+</code></pre></div>
+<p><code>spatial_sorting_interval</code> can also be set per species, overriding the global
+value.</p>
+<h2 id="how-a-tile-deposit-runs">How a tile deposit runs<a class="headerlink" href="#how-a-tile-deposit-runs" title="Permanent link">&para;</a></h2>
+<p><code>SortSpatially</code> (below) partitions the particle array into tiles and records a
+<code>TileLayout</code>: the per-axis tile counts, the total tile count (= the team-league
+size), and <code>tile_offsets</code>, a prefix sum so that tile <code>t</code> owns the contiguous
+particle slice <code>[tile_offsets(t), tile_offsets(t+1))</code>. The deposit then launches
+one team per tile and each team:</p>
+<ol>
+<li><strong>Allocates SLM scratch</strong> of shape <span class="arithmatex">\((\texttt{T\_TILE} + 2\,\texttt{HALO})^D
+   \times 3\)</span> <code>real_t</code> and cooperatively zeroes it. The halo is the padding that
+   lets a particle near a tile edge still write its full stencil into scratch
+   (below). <code>TE = T_TILE + 2*HALO</code> is the scratch edge length.</li>
+<li><strong>Deposits its particles</strong> over <code>TeamThreadRange</code>, clamping the slice to the
+   live <code>npart</code> so stale slots left by in-place dead-tagging are skipped. For
+   each particle it checks whether the whole stencil footprint fits inside
+   <code>[0, TE)</code>; if so, every write is a bounds-test-free <code>atomic_add</code> into scratch,
+   otherwise the particle takes the <strong>escape valve</strong> (below).</li>
+<li><strong>Barriers</strong>, then <strong>cooperatively flushes</strong> scratch to the global <code>J</code> with a
+   single <code>atomic_add</code> per non-zero cell, <strong>bounds-clipped</strong> against <code>J</code>'s
+   storage extent so a partial edge tile (or a halo that reaches past the ghost
+   stripe) never writes out of bounds -- those contributions are re-supplied by
+   the field synchronization afterward.</li>
+</ol>
+<h3 id="halo-sizing">Halo sizing<a class="headerlink" href="#halo-sizing" title="Permanent link">&para;</a></h3>
+<p>The scratch halo width per side is</p>
+<div class="arithmatex">\[
+\texttt{HALO} = \underbrace{\texttt{STENCIL\_REACH}(O)}_{\text{shape stencil}}
+             + \underbrace{\texttt{DRIFT}}_{\texttt{tiled\_deposit\_drift}},
+\]</div>
+<p>derived from first principles in the kernel header. <code>STENCIL_REACH</code> is how many
+cells the deposit writes above <code>min(i, i_prev)</code>: <code>2</code> for the <code>O == 0</code> zigzag
+deposit and <code>O</code> for an Esirkepov shape of order <code>O</code>. <code>DRIFT</code> is the number of
+cells a particle may move between two sorts that the halo is sized to absorb.
+Because the sort runs at the <em>end</em> of a step and a particle is pushed once per
+step under CFL (<span class="arithmatex">\(|v\,\mathrm{d}t/\mathrm{d}x| \le \tfrac12 \Rightarrow |\Delta i|
+\le 1\)</span>), a particle drifts at most one cell per un-sorted step. <code>DRIFT</code> defaults
+to <code>1</code> -- the sorted-every-step common case.</p>
+<div class="admonition note">
+<p class="admonition-title"><code>DRIFT</code> is a compile-time budget, not the sort cadence</p>
+<p><code>tiled_deposit_drift</code> sizes the scratch halo at compile time. The actual sort
+cadence is the runtime <code>spatial_sorting_interval</code>. They are decoupled on
+purpose: raising the sort interval to save sort cost does <em>not</em> require a
+matching <code>DRIFT</code> -- particles that drift past the halo simply take the escape
+valve. Sizing <code>DRIFT</code> to the typical between-sort drift keeps the common case
+in fast SLM; a mismatch only costs escape-valve traffic, never correctness.</p>
+</div>
+<h3 id="correctness-is-independent-of-the-halo-the-escape-valve">Correctness is independent of the halo (the escape valve)<a class="headerlink" href="#correctness-is-independent-of-the-halo-the-escape-valve" title="Permanent link">&para;</a></h3>
+<p>The tiled path is <strong>charge-conserving for any halo size, any sort interval, and
+any particle order</strong>. If a particle's full stencil does not fit in its tile's
+scratch window -- because it drifted further than <code>DRIFT</code>, or was reordered far
+from its tile by a no-sort-step particle exchange -- the <em>whole</em> particle is
+deposited straight to the global <code>J</code> via bounds-clipped atomics, instead of to
+scratch. Each particle's stencil is therefore deposited exactly once (entirely to
+SLM when it fits, entirely to global <code>J</code> when it does not). Depositing less often
+in-tile is only slower per write, never wrong.</p>
+<h3 id="coverage-the-tail-pass-and-the-first-step">Coverage: the tail pass and the first step<a class="headerlink" href="#coverage-the-tail-pass-and-the-first-step" title="Permanent link">&para;</a></h3>
+<p>The tile teams visit only the particles that were partitioned at the last sort,
+<code>[0, npart_partitioned)</code>. Two gaps are filled by the launcher so that every
+active particle is deposited exactly once:</p>
+<ul>
+<li><strong>Appended particles.</strong> Particles injected or received over MPI on a
+  <em>no-sort</em> step live past the partition (<code>npart &gt; npart_partitioned</code>). The
+  launcher deposits that tail <code>[npart_partitioned, npart)</code> with the flat
+  scatter-view kernel. When the species was just sorted this range is empty, so
+  it is a no-op in the common every-step-sorted case.</li>
+<li><strong>First step / tiny species.</strong> Before the first <code>SortSpatially</code> a species has
+  no layout (<code>ntiles_total == 0</code>); it takes the flat path for that step alone,
+  then the tiled path once a layout exists.</li>
+</ul>
+<h2 id="the-tile-based-spatial-sort">The tile-based spatial sort<a class="headerlink" href="#the-tile-based-spatial-sort" title="Permanent link">&para;</a></h2>
+<p>The deposit's performance rests on the particle array being <strong>tile-coherent</strong> --
+particles in the same tile stored contiguously. In a <code>tiled_deposit</code> build,
+<code>Particles::SortSpatially</code> (<code>particles_sort.cpp</code>) is reshaped to produce exactly
+that, plus the <code>TileLayout</code> metadata the deposit consumes:</p>
+<ol>
+<li><strong>Tile counts.</strong> <code>ntiles = ceil(n_active / T_TILE)</code> per axis; their product is
+   <code>total_tiles</code>.</li>
+<li><strong>Per-particle key.</strong> Each particle's tile index is computed from
+   <code>min(i, i_prev)</code> (so the key matches the cell the deposit will actually touch
+   first), with dead particles binned to a sentinel tile <code>total_tiles + 1</code>.</li>
+<li><strong>Sort.</strong> With <code>vendor_sort=ON</code> and a matching backend
+   (oneDPL/Thrust/rocThrust), a <code>sort_by_key</code> produces an explicit permutation;
+   otherwise a <code>Kokkos::BinSort</code> is used. <code>n_bins = total_tiles + 2</code> reserves the
+   dead sentinel bin.</li>
+<li><strong>Offsets.</strong> <code>compute_tile_offsets</code> transition-detects the sorted keys into
+   the <code>tile_offsets</code> prefix sum, filling empty tiles with a short host pass.
+   <code>tile_offsets(total_tiles)</code> is the alive-particle count at sort time --
+   recorded as <code>npart_partitioned</code>.</li>
+<li><strong>Reorder.</strong> The SoA member arrays are physically permuted into tile order.
+   The vendor path <em>gathers</em> the alive prefix through a reusable per-type scratch
+   buffer and copies back in place, so the large persistent arrays keep their
+   address (avoiding allocator churn) and peak transient memory is one
+   <code>npart</code>-sized buffer at a time. The BinSort path sorts each member in place.</li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Two deliberate shortcuts</p>
+<ul>
+<li><strong><code>*_prev</code> arrays are not permuted.</strong> The next step's pusher overwrites
+  <code>prev := current</code> for every particle before any consumer reads it, so
+  reordering <code>*_prev</code> would only shuffle data that is about to be
+  overwritten. (The deposit's tile key uses <code>i_prev</code>, which is why it is read
+  <em>before</em> the sort, not after.)</li>
+<li><strong>Compact-on-sort.</strong> The sort parks dead particles in the sentinel bin at
+  the tail; <code>SortSpatially</code> then shrinks <code>npart</code> to <code>npart_partitioned</code>,
+  dropping the dead in the same pass instead of waiting for the periodic
+  <code>RemoveDead</code>. This keeps <code>npart</code> (and every sort's transient buffers)
+  tracking the alive count.</li>
+</ul>
+</div>
+<h2 id="choosing-the-tile-size">Choosing the tile size<a class="headerlink" href="#choosing-the-tile-size" title="Permanent link">&para;</a></h2>
+<p>The scratch tile is squeezed by three competing pressures, modeled by the
+<code>scripts/ideal_tile_size.py</code> helper script:</p>
+<ul>
+<li><strong>Shared-memory capacity (hard).</strong> <span class="arithmatex">\(TE^D \times 3 \times \texttt{sizeof(real)}\)</span>
+  must fit in the work-group's shared memory, ideally with several groups
+  resident per compute unit to hide latency. Binds first in 3D, in double
+  precision, and on AMD's smaller LDS.</li>
+<li><strong>Halo overhead (favors larger tiles).</strong> The zero-fill and flush sweep the whole
+  <span class="arithmatex">\(TE^D\)</span> tile, so a tiny tile is almost all halo (<span class="arithmatex">\(1 - (T/TE)^D\)</span> wasted). A large
+  <code>HALO</code> (infrequent sorts) makes this worse.</li>
+<li><strong>Per-tile contention (favors smaller tiles).</strong> All <span class="arithmatex">\(\texttt{ppc}\cdot T^D\)</span>
+  particles in a tile atomic-add into one fixed scratch tile, so SLM-atomic
+  contention and load imbalance grow with tile size.</li>
+</ul>
+<p>Run <code>ideal_tile_size.py</code> for a first-order recommendation, then confirm by
+sweeping <code>-D tiled_deposit_tile_size</code> / <code>-D tiled_deposit_drift</code> and re-profiling. The
+team (work-group) size defaults to <code>Kokkos::AUTO</code>; override it at runtime with
+<code>[algorithms.deposit] tiled_deposit_team_size</code> and prefer a multiple of the device
+subgroup width.</p>
+<h2 id="constraints-and-caveats">Constraints and caveats<a class="headerlink" href="#constraints-and-caveats" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>GPU-oriented, compile-time.</strong> Off by default; the flat path remains the CPU
+  and fallback route. Toggling it requires a rebuild.</li>
+<li><strong>Shared-memory limited.</strong> An over-large <code>tiled_deposit_tile_size</code> (or <code>DRIFT</code>)
+  can exceed the backend's shared memory; keep an eye on the 3D / double-precision
+  / AMD cases.</li>
+<li><strong>Shape order.</strong> Supported for <code>O ∈ {0, …, 11}</code>. <code>O == 0</code> (zigzag) is wired for
+  A/B benchmarking; its narrow stencil often makes the scratch overhead a
+  regression versus the flat kernel, so measure the crossover.</li>
+<li><strong>Deposit, for now.</strong> The <code>tiled_deposit</code> layout currently feeds the tiled
+  current deposit; the pusher still runs flat. Both SRPIC and GRPIC use the tiled
+  deposit.</li>
+<li><strong><code>vendor_sort=OFF</code> trade-off.</strong> The <code>Kokkos::BinSort</code> fallback has a lower
+  peak memory footprint (no <code>maxnpart</code> gather buffer) but is slower than the
+  vendor <code>sort_by_key</code>.</li>
+</ul>
+<h2 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h2>
+<p>A 2D SRPIC turbulence run on a GPU, sorted every step with the default tile:</p>
+<div class="language-bash highlight"><pre><span></span><code><span class="c1"># configure</span>
+cmake<span class="w"> </span>-B<span class="w"> </span>build<span class="w"> </span>-D<span class="w"> </span><span class="nv">tiled_deposit</span><span class="o">=</span>ON<span class="w"> </span><span class="se">\</span>
+<span class="w">                </span>-D<span class="w"> </span><span class="nv">tiled_deposit_tile_size</span><span class="o">=</span><span class="m">8</span><span class="w"> </span><span class="se">\</span>
+<span class="w">                </span>-D<span class="w"> </span><span class="nv">tiled_deposit_drift</span><span class="o">=</span><span class="m">1</span><span class="w"> </span><span class="se">\</span>
+<span class="w">                </span>-D<span class="w"> </span><span class="nv">vendor_sort</span><span class="o">=</span>ON<span class="w"> </span><span class="se">\</span>
+<span class="w">                </span>-D<span class="w"> </span><span class="nv">shape_order</span><span class="o">=</span><span class="m">2</span><span class="w"> </span><span class="se">\</span>
+<span class="w">                </span>-D<span class="w"> </span><span class="nv">deposit</span><span class="o">=</span>esirkepov<span class="w"> </span><span class="se">\</span>
+<span class="w">                </span>-D<span class="w"> </span><span class="nv">output</span><span class="o">=</span>ON
+cmake<span class="w"> </span>--build<span class="w"> </span>build<span class="w"> </span>-j
+</code></pre></div>
+<div class="language-toml highlight"><pre><span></span><code><span class="k">[algorithms.deposit]</span>
+<span class="w">  </span><span class="n">tiled_deposit_team_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="w">     </span><span class="c1"># Kokkos::AUTO</span>
+
+<span class="k">[particles]</span>
+<span class="w">  </span><span class="n">spatial_sorting_interval</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="w">  </span><span class="c1"># sort every step -&gt; DRIFT=1 halo is always enough</span>
+</code></pre></div>
+<p>To trade sort cost for a wider halo (sort every 4 steps), size <code>DRIFT</code> to the
+between-sort drift at build time and relax the interval at runtime -- particles
+that still escape the halo fall back to the global-J path automatically:</p>
+<div class="language-bash highlight"><pre><span></span><code>cmake<span class="w"> </span>-B<span class="w"> </span>build<span class="w"> </span>-D<span class="w"> </span><span class="nv">tiled_deposit</span><span class="o">=</span>ON<span class="w"> </span>-D<span class="w"> </span><span class="nv">tiled_deposit_tile_size</span><span class="o">=</span><span class="m">8</span><span class="w"> </span>-D<span class="w"> </span><span class="nv">tiled_deposit_drift</span><span class="o">=</span><span class="m">4</span><span class="w"> </span>...
+</code></pre></div>
+<div class="language-toml highlight"><pre><span></span><code><span class="k">[particles]</span>
+<span class="w">  </span><span class="n">spatial_sorting_interval</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span>
+</code></pre></div>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+  
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2021++, Entity dev team
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/entity-toolkit/entity/" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M216.29 158.39H137C97 147.9 6.51 150.63 6.51 233.18c0 30.09 15 51.23 35 61-25.1 23-37 33.85-37 49.21 0 11 4.47 21.14 17.89 26.81C8.13 383.61 0 393.35 0 411.65c0 32.11 28.05 50.82 101.63 50.82 70.75 0 111.79-26.42 111.79-73.18 0-58.66-45.16-56.5-151.63-63l13.43-21.55c27.27 7.58 118.7 10 118.7-67.89 0-18.7-7.73-31.71-15-41.07l37.41-2.84zm-63.42 241.9c0 32.06-104.89 32.1-104.89 2.43 0-8.14 5.27-15 10.57-21.54 77.71 5.3 94.32 3.37 94.32 19.11m-50.81-134.58c-52.8 0-50.46-71.16 1.2-71.16 49.54 0 50.82 71.16-1.2 71.16m133.3 100.51v-32.1c26.75-3.66 27.24-2 27.24-11V203.61c0-8.5-2.05-7.38-27.24-16.26l4.47-32.92H324v168.71c0 6.51.4 7.32 6.51 8.14l20.73 2.84v32.1zm52.45-244.31c-23.17 0-36.59-13.43-36.59-36.61s13.42-35.77 36.59-35.77c23.58 0 37 12.62 37 35.77s-13.42 36.61-37 36.61M512 350.46c-17.49 8.53-43.1 16.26-66.28 16.26-48.38 0-66.67-19.5-66.67-65.46V194.75c0-5.42 1.05-4.06-31.71-4.06V154.5c35.78-4.07 50-22 54.47-66.27h38.63c0 65.83-1.34 61.81 3.26 61.81H501v40.65h-60.56v97.15c0 6.92-4.92 51.41 60.57 26.84z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tracking", "navigation.indexes", "navigation.expand", "content.code.annotate", "content.code.copy", "content.tooltips", "header.autohide", "search.highlight"], "search": "../../../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.13a4f30d.min.js"></script>
+      
+    
+  </body>
+</html>

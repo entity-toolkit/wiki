@@ -1,0 +1,1493 @@
+<table id="input-table">
+  <thead>
+    <tr>
+      <th>parameter</th>
+      <th>type</th>
+      <th>description</th>
+      <th>default</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr data-depth="0" data-id="135119997253824" class="category">
+    <td><pre>simulation</pre></td>
+    <td></td>
+    <td>Global simulation parameters</td>
+    <td></td>
+    </tr>
+    <tr data-depth="1" data-id="135119996844176" class="required">
+    <td><pre>name</pre></td>
+    <td><pre class="type">string</pre></td>
+    <td><div class="note-tooltip"><span class="description">Name of the simulation</span><span class="tooltiptext">The name is used for the output files.</span></div></td>
+    <td></td>
+    </tr>
+    <tr data-depth="1" data-id="135119996844496" class="required">
+    <td><pre>engine</pre></td>
+    <td><div class="type-tooltip"><pre class="type">string</pre><span class="tooltiptext">"SRPIC", "GRPIC"</span></div></td>
+    <td>Simulation engine to use</td>
+    <td></td>
+    </tr>
+    <tr data-depth="1" data-id="135119995997536" class="required">
+    <td><pre>runtime</pre></td>
+    <td><div class="type-tooltip"><pre class="type">float </pre><span class="tooltiptext">&gt; 0</span></div></td>
+    <td>Max runtime in physical (code) units</td>
+    <td></td>
+    </tr>
+    <tr data-depth="1" data-id="135119995997840" class="category">
+    <td><pre><em style='opacity: 0.25;'>simulation.</em>domain</pre></td>
+    <td></td>
+    <td>Parameters specific to domain decomposition</td>
+    <td></td>
+    </tr>
+    <tr data-depth="2" data-id="135119995934128">
+    <td><pre>number</pre></td>
+    <td><pre class="type">int</pre></td>
+    <td>Number of domains</td>
+    <td>1 [no MPI]; MPI_SIZE [MPI]</td>
+    </tr>
+    <tr data-depth="2" data-id="135119995591120">
+    <td><pre>decomposition</pre></td>
+    <td><div class="type-tooltip"><pre class="type">array&lt;int&gt; </pre><span class="tooltiptext">size 1 :-&gt;: 3</span></div></td>
+    <td><div class="note-tooltip"><span class="description">Decomposition of the domain (for MPI) in each of the directions</span><span class="tooltiptext">* -1 means the code will determine the decomposition in the specific direction automatically.<br>* Automatic detection is either done by inference from # of MPI tasks, or by balancing the grid size on each domain.</span></div></td>
+    <td>$[-1, -1, -1]$</td>
+    </tr>
+    <tr data-depth="2" data-id="135119995591664" class="category">
+    <td><pre><em style='opacity: 0.25;'>simulation.domain.</em>load_balance</pre></td>
+    <td></td>
+    <td>Diffusion-style dynamic load balancing. Domain boundaries between MPI neighbors are nudged to equalize the active-particle count per rank. All inter-rank traffic uses only the existing nearest-neighbor field/particle communication paths.</td>
+    <td></td>
+    </tr>
+    <tr data-depth="3" data-id="135119995902032">
+    <td><pre>enable</pre></td>
+    <td><pre class="type">bool</pre></td>
+    <td>Enable dynamic load balancing</td>
+    <td><pre>false</pre></td>
+    </tr>
+    <tr data-depth="3" data-id="135119995903056">
+    <td><pre>interval</pre></td>
+    <td><pre class="type">int</pre></td>
+    <td>Run the rebalancer every <code>interval</code> timesteps (0 disables)</td>
+    <td>$0$</td>
+    </tr>
+    <tr data-depth="3" data-id="135119995913472">
+    <td><pre>dimensions</pre></td>
+    <td><div class="type-tooltip"><pre class="type">array&lt;int&gt; </pre><span class="tooltiptext">1, 2, 3</span></div></td>
+    <td>Dimensions along which load is redistributed (1 = x1, 2 = x2, 3 = x3)</td>
+    <td>$[1]$</td>
+    </tr>
+    <tr data-depth="3" data-id="135119995913952">
+    <td><pre>tolerance</pre></td>
+    <td><pre class="type">float</pre></td>
+    <td>Skip rebalancing along a dim when (max - min) / mean of the per-slice particle count is below this fraction</td>
+    <td>$0.1$</td>
+    </tr>
+    <tr data-depth="3" data-id="135119997058672">
+    <td><pre>max_shift</pre></td>
+    <td><pre class="type">int</pre></td>
+    <td>Maximum cell-shift per interior boundary per event; clamped at compile time to N_GHOSTS so the migrating field strip is already cached in the rank's ghost zone.</td>
+    <td>N_GHOSTS</td>
+    </tr>
+    <tr data-depth="0" data-id="135119997058000" class="category">
+    <td><pre>grid</pre></td>
+    <td></td>
+    <td>Parameters specific to grid geometry</td>
+    <td></td>
+    </tr>
+    <tr data-depth="1" data-id="135119995714048" class="required">
+    <td><pre>resolution</pre></td>
+    <td><div class="type-tooltip"><pre class="type">array&lt;uint&gt; </pre><span class="tooltiptext">size 1 :-&gt;: 3</span></div></td>
+    <td><div class="note-tooltip"><span class="description">Spatial resolution of the grid</span><span class="tooltiptext">Dimensionality is inferred from the size of this array.</span></div></td>
+    <td></td>
+    </tr>
+    <tr data-depth="1" data-id="135119996694224" class="required">
+    <td><pre>extent</pre></td>
+    <td><div class="type-tooltip"><pre class="type">array&lt;tuple&lt;float&gt;&gt; </pre><span class="tooltiptext">size 1 :-&gt;: 3</span></div></td>
+    <td><div class="note-tooltip"><span class="description">Physical extent of the grid</span><span class="tooltiptext">* For spherical geometry, only specify <pre>[[rmin, rmax]]</pre>, other values are set automatically.<br>* For cartesian geometry, cell aspect ratio has to be 1: <pre>dx=dy=dz</pre>.</span></div></td>
+    <td></td>
+    </tr>
+    <tr data-depth="1" data-id="135119996694416" class="inferred">
+    <td><pre>dim</pre></td>
+    <td><div class="type-tooltip"><pre class="type">short</pre><span class="tooltiptext">1, 2, 3</span></div></td>
+    <td>Dimensionality of the grid</td>
+    <td></td>
+    </tr>
+    <tr data-depth="1" data-id="135119996013216" class="category">
+    <td><pre><em style='opacity: 0.25;'>grid.</em>metric</pre></td>
+    <td></td>
+    <td>Metric-related parameters</td>
+    <td></td>
+    </tr>
+    <tr data-depth="2" data-id="135119996013392" class="required">
+    <td><pre>metric</pre></td>
+    <td><div class="type-tooltip"><pre class="type">string</pre><span class="tooltiptext">"Minkowski", "Spherical", "QSpherical", "Kerr_Schild", "QKerr_Schild", "Kerr_Schild_0"</span></div></td>
+    <td>Metric on the grid</td>
+    <td></td>
+    </tr>
+    <tr data-depth="2" data-id="135119996242352">
+    <td><pre>qsph_r0</pre></td>
+    <td><div class="type-tooltip"><pre class="type">float </pre><span class="tooltiptext">-∞ -&gt; rmin</span></div></td>
+    <td><div class="note-tooltip"><span class="description"><code>r0</code> paramter for the QSpherical metric <code>x1 = log(r-r0)</code></span><span class="tooltiptext">Negative values produce almost uniform grid in r.</span></div></td>
+    <td>$0.0$</td>
+    </tr>
+    <tr data-depth="2" data-id="135119996242512">
+    <td><pre>qsph_h</pre></td>
+    <td><div class="type-tooltip"><pre class="type">float </pre><span class="tooltiptext">-1 :-&gt;: 1</span></div></td>
+    <td><code>h</code> paramter for the QSpherical metric <code>th = x2 + 2*h x2 (pi-2*x2)*(pi-x2)/pi^2</code></td>
+    <td>$0.0$</td>
+    </tr>
+    <tr data-depth="2" data-id="135119995806080">
+    <td><pre>ks_a</pre></td>
+    <td><div class="type-tooltip"><pre class="type">float </pre><span class="tooltiptext">0 :-&gt; 1</span></div></td>
+    <td>Spin parameter for the Kerr Schild metric</td>
+    <td>$0.0$</td>
+    </tr>
+    <tr data-depth="2" data-id="135119996409936" class="inferred">
+    <td><pre>coord</pre></td>
+    <td><div class="type-tooltip"><pre class="type">string</pre><span class="tooltiptext">"cartesian", "spherical", "qspherical"</span></div></td>
+    <td>Coordinate system on the grid</td>
+    <td></td>
+    </tr>
+    <tr data-depth="2" data-id="135119996410192" class="inferred">
+    <td><pre>ks_rh</pre></td>
+    <td><pre class="type">float</pre></td>
+    <td>Size of the horizon for GR Kerr Schild</td>
+    <td></td>
+    </tr>
+    <tr data-depth="2" data-id="135119995987888" class="inferred">
+    <td><pre>params</pre></td>
+    <td><pre class="type">map&lt;string, float&gt;</pre></td>
+    <td>A map of all metric-specific parameters together (for easy access)</td>
+    <td></td>
+    </tr>
+    <tr data-depth="1" data-id="135119995988000" class="category">
+    <td><pre><em style='opacity: 0.25;'>grid.</em>boundaries</pre></td>
+    <td></td>
+    <td>Boundary-condition related parameters</td>
+    <td></td>
+    </tr>
+    <tr data-depth="2" data-id="135119995988112" class="required">
+    <td><pre>fields</pre></td>
+    <td><div class="type-tooltip"><pre class="type">array&lt;tuple&lt;string&gt;&gt; </pre><span class="tooltiptext">"PERIODIC", "MATCH", "FIXED", "ATMOSPHERE", "CUSTOM", "HORIZON", "CONDUCTOR"</span></div></td>
+    <td><div class="note-tooltip"><span class="description">Boundary conditions for fields</span><span class="tooltiptext">* When periodic in any of the directions, you should only set one value: [..., ["PERIODIC"], ...].<br>* In spherical, bondaries in theta/phi are set automatically (only specify bc @ <pre>[rmin, rmax]</pre>): [["ATMOSPHERE", "MATCH"]].<br>* In GR, the horizon boundary is set automatically (only specify bc @ rmax): [["MATCH"]].</span></div></td>
+    <td></td>
+    </tr>
+    <tr data-depth="2" data-id="135119995988336" class="required">
+    <td><pre>particles</pre></td>
+    <td><div class="type-tooltip"><pre class="type">array&lt;tuple&lt;string&gt;&gt; </pre><span class="tooltiptext">"PERIODIC", "ABSORB", "ATMOSPHERE", "CUSTOM", "REFLECT", "HORIZON"</span></div></td>
+    <td><div class="note-tooltip"><span class="description">Boundary conditions for particles</span><span class="tooltiptext">* When periodic in any of the directions, you should only set one value [..., ["PERIODIC"], ...].<br>* In spherical, bondaries in theta/phi are set automatically (only specify bc @ <pre>[rmin, rmax]</pre>) [["ATMOSPHERE", "ABSORB"]].<br>* In GR, the horizon boundary is set automatically (only specify bc @ <pre>rmax</pre>): [["ABSORB"]].</span></div></td>
+    <td></td>
+    </tr>
+    <tr data-depth="2" data-id="135119995988448" class="category">
+    <td><pre><em style='opacity: 0.25;'>grid.boundaries.</em>match</pre></td>
+    <td></td>
+    <td>Parameters specific to MATCH boundary conditions</td>
+    <td></td>
+    </tr>
+    <tr data-depth="3" data-id="135119995988560">
+    <td><pre>ds</pre></td>
+    <td><pre class="type">float </pre> or <pre class="type"> array&lt;tuple&lt;float&gt;&gt;</pre></td>
+    <td><div class="note-tooltip"><span class="description">Size of the matching layer in each direction for fields in physical (code) units</span><span class="tooltiptext">In spherical, this is the size of the layer in <pre>r</pre> from the outer wall.</span></div></td>
+    <td>1% of the domain size (in shortest dimension)</td>
+    </tr>
+    <tr data-depth="2" data-id="135119995988672" class="category">
+    <td><pre><em style='opacity: 0.25;'>grid.boundaries.</em>absorb</pre></td>
+    <td></td>
+    <td>Parameters specific to ABSORB boundary conditions</td>
+    <td></td>
+    </tr>
+    <tr data-depth="3" data-id="135119995988784">
+    <td><pre>ds</pre></td>
+    <td><pre class="type">float</pre></td>
+    <td><div class="note-tooltip"><span class="description">Size of the absorption layer for particles in physical (code) units</span><span class="tooltiptext">* In spherical, this is the size of the layer in <pre>r</pre> from the outer wall.<br>* In cartesian, this is the same for all dimensions where applicable.</span></div></td>
+    <td>1% of the domain size (in shortest dimension)</td>
+    </tr>
+    <tr data-depth="2" data-id="135119995988896" class="category">
+    <td><pre><em style='opacity: 0.25;'>grid.boundaries.</em>atmosphere</pre></td>
+    <td></td>
+    <td>Parameters specific to ATMOSPHERE boundary conditions</td>
+    <td></td>
+    </tr>
+    <tr data-depth="3" data-id="135119995989008">
+    <td><pre>temperature</pre></td>
+    <td><pre class="type">float</pre></td>
+    <td><div class="note-tooltip"><span class="description">Temperature of the atmosphere in units of <code>m0 c^2</code></span><span class="tooltiptext">[required] if <pre>ATMOSPHERE</pre> is one of the boundaries.</span></div></td>
+    <td></td>
+    </tr>
+    <tr data-depth="3" data-id="135119995989120">
+    <td><pre>density</pre></td>
+    <td><pre class="type">float</pre></td>
+    <td>Peak number density of the atmosphere at base in units of <code>n0</code></td>
+    <td></td>
+    </tr>
+    <tr data-depth="3" data-id="135119995989232">
+    <td><pre>height</pre></td>
+    <td><pre class="type">float</pre></td>
+    <td>Pressure scale-height in physical units</td>
+    <td></td>
+    </tr>
+    <tr data-depth="3" data-id="135119995989344">
+    <td><pre>species</pre></td>
+    <td><div class="type-tooltip"><pre class="type">array&lt;int&gt; </pre><span class="tooltiptext">size 2</span></div></td>
+    <td>Species indices of particles that populate the atmosphere</td>
+    <td></td>
+    </tr>
+    <tr data-depth="3" data-id="135119995989456">
+    <td><pre>ds</pre></td>
+    <td><pre class="type">float</pre></td>
+    <td><div class="note-tooltip"><span class="description">Distance from the edge to which the gravity is imposed in physical units</span><span class="tooltiptext">0.0 means no limit.</span></div></td>
+    <td>$0.0$</td>
+    </tr>
+    <tr data-depth="3" data-id="135119995989568" class="inferred">
+    <td><pre>g</pre></td>
+    <td><pre class="type">float</pre></td>
+    <td>Acceleration due to imposed gravity</td>
+    <td></td>
+    </tr>
+    <tr data-depth="0" data-id="135119995989680" class="category">
+    <td><pre>scales</pre></td>
+    <td></td>
+    <td>Fiducial scales that fix the code unit system</td>
+    <td></td>
+    </tr>
+    <tr data-depth="1" data-id="135119995989792" class="required">
+    <td><pre>larmor0</pre></td>
+    <td><div class="type-tooltip"><pre class="type">float </pre><span class="tooltiptext">&gt; 0.0</span></div></td>
+    <td>Fiducial larmor radius</td>
+    <td></td>
+    </tr>
+    <tr data-depth="1" data-id="135119995989904" class="required">
+    <td><pre>skindepth0</pre></td>
+    <td><div class="type-tooltip"><pre class="type">float </pre><span class="tooltiptext">&gt; 0.0</span></div></td>
+    <td>Fiducial plasma skin depth</td>
+    <td></td>
+    </tr>
+    <tr data-depth="1" data-id="135119995990016" class="inferred">
+    <td><pre>dx0</pre></td>
+    <td><pre class="type">float</pre></td>
+    <td>fiducial minimum size of the cell</td>
+    <td></td>
+    </tr>
+    <tr data-depth="1" data-id="135119995990128" class="inferred">
+    <td><pre>V0</pre></td>
+    <td><pre class="type">float</pre></td>
+    <td>fiducial elementary volume</td>
+    <td></td>
+    </tr>
+    <tr data-depth="1" data-id="135119995990240" class="inferred">
+    <td><pre>n0</pre></td>
+    <td><pre class="type">float</pre></td>
+    <td>Fiducial number density</td>
+    <td></td>
+    </tr>
+    <tr data-depth="1" data-id="135119995990352" class="inferred">
+    <td><pre>q0</pre></td>
+    <td><pre class="type">float</pre></td>
+    <td>Fiducial elementary charge</td>
+    <td></td>
+    </tr>
+    <tr data-depth="1" data-id="135119995990464" class="inferred">
+    <td><pre>sigma0</pre></td>
+    <td><pre class="type">float</pre></td>
+    <td>Fiducial magnetization parameter</td>
+    <td></td>
+    </tr>
+    <tr data-depth="1" data-id="135119995990576" class="inferred">
+    <td><pre>B0</pre></td>
+    <td><pre class="type">float</pre></td>
+    <td>Fiducial magnetic field</td>
+    <td></td>
+    </tr>
+    <tr data-depth="1" data-id="135119995990688" class="inferred">
+    <td><pre>omegaB0</pre></td>
+    <td><pre class="type">float</pre></td>
+    <td>Fiducial cyclotron frequency</td>
+    <td></td>
+    </tr>
+    <tr data-depth="0" data-id="135119995990800" class="category">
+    <td><pre>radiation</pre></td>
+    <td></td>
+    <td>Radiative drag and photon emission parameters</td>
+    <td></td>
+    </tr>
+    <tr data-depth="1" data-id="135119995990912" class="category">
+    <td><pre><em style='opacity: 0.25;'>radiation.</em>drag</pre></td>
+    <td></td>
+    <td>Radiation reaction (drag) parameters</td>
+    <td></td>
+    </tr>
+    <tr data-depth="2" data-id="135119995991024" class="category">
+    <td><pre><em style='opacity: 0.25;'>radiation.drag.</em>synchrotron</pre></td>
+    <td></td>
+    <td>Synchrotron drag parameters</td>
+    <td></td>
+    </tr>
+    <tr data-depth="3" data-id="135119995991136">
+    <td><pre>gamma_rad</pre></td>
+    <td><div class="type-tooltip"><pre class="type">float </pre><span class="tooltiptext">&gt; 0.0</span></div></td>
+    <td><div class="note-tooltip"><span class="description">Radiation reaction limit gamma-factor for synchrotron</span><span class="tooltiptext">[required] if one of the species has <pre>radiative_drag = "synchrotron"</pre>.</span></div></td>
+    <td>$1.0$</td>
+    </tr>
+    <tr data-depth="2" data-id="135119995991248" class="category">
+    <td><pre><em style='opacity: 0.25;'>radiation.drag.</em>compton</pre></td>
+    <td></td>
+    <td>Compton drag parameters</td>
+    <td></td>
+    </tr>
+    <tr data-depth="3" data-id="135119995991360">
+    <td><pre>gamma_rad</pre></td>
+    <td><div class="type-tooltip"><pre class="type">float </pre><span class="tooltiptext">&gt; 0.0</span></div></td>
+    <td><div class="note-tooltip"><span class="description">Radiation reaction limit gamma-factor for Compton drag</span><span class="tooltiptext">[required] if one of the species has <pre>radiative_drag = "compton"</pre>.</span></div></td>
+    <td>$1.0$</td>
+    </tr>
+    <tr data-depth="1" data-id="135119995991472" class="category">
+    <td><pre><em style='opacity: 0.25;'>radiation.</em>emission</pre></td>
+    <td></td>
+    <td>Photon emission parameters</td>
+    <td></td>
+    </tr>
+    <tr data-depth="2" data-id="135119995991584" class="category">
+    <td><pre><em style='opacity: 0.25;'>radiation.emission.</em>synchrotron</pre></td>
+    <td></td>
+    <td>Synchrotron emission parameters</td>
+    <td></td>
+    </tr>
+    <tr data-depth="3" data-id="135119995991696">
+    <td><pre>gamma_qed</pre></td>
+    <td><div class="type-tooltip"><pre class="type">float </pre><span class="tooltiptext">&gt; 1.0</span></div></td>
+    <td>Gamma-factor of a particle emitting synchrotron photons at energy <code>m0 c^2</code> in fiducial magnetic field <code>B0</code></td>
+    <td>$10.0$</td>
+    </tr>
+    <tr data-depth="3" data-id="135119995991808">
+    <td><pre>photon_energy_min</pre></td>
+    <td><div class="type-tooltip"><pre class="type">float </pre><span class="tooltiptext">&gt; 0.0</span></div></td>
+    <td>Minimum photon energy for synchrotron emission (units of <code>m0 c^2</code>)</td>
+    <td>$10^{-3}$</td>
+    </tr>
+    <tr data-depth="3" data-id="135119995991920">
+    <td><pre>photon_weight</pre></td>
+    <td><div class="type-tooltip"><pre class="type">float </pre><span class="tooltiptext">&gt; 0.0</span></div></td>
+    <td>Weights for the emitted synchrotron photons</td>
+    <td>$1.0$</td>
+    </tr>
+    <tr data-depth="3" data-id="135119995992032" class="required">
+    <td><pre>photon_species</pre></td>
+    <td><div class="type-tooltip"><pre class="type">ushort </pre><span class="tooltiptext">&gt; 0</span></div></td>
+    <td>Index of species for the emitted photon</td>
+    <td></td>
+    </tr>
+    <tr data-depth="3" data-id="135119995992144" class="inferred">
+    <td><pre>nominal_probability</pre></td>
+    <td><pre class="type">float</pre></td>
+    <td>Nominal probability of the emission for a particle with <code>gamma * beta = 1</code>, charge-to-mass = <code>q0 / m0</code></td>
+    <td></td>
+    </tr>
+    <tr data-depth="3" data-id="135119995992256" class="inferred">
+    <td><pre>nominal_photon_energy</pre></td>
+    <td><pre class="type">float</pre></td>
+    <td>Nominal energy of the emitted photon for a particle with <code>gamma * beta = 1</code>, mass = <code>m0</code></td>
+    <td></td>
+    </tr>
+    <tr data-depth="2" data-id="135119995992368" class="category">
+    <td><pre><em style='opacity: 0.25;'>radiation.emission.</em>compton</pre></td>
+    <td></td>
+    <td>Inverse Compton emission parameters</td>
+    <td></td>
+    </tr>
+    <tr data-depth="3" data-id="135119995992480">
+    <td><pre>gamma_qed</pre></td>
+    <td><div class="type-tooltip"><pre class="type">float </pre><span class="tooltiptext">&gt; 1.0</span></div></td>
+    <td>Gamma-factor of a particle emitting inverse Compton photons at energy <code>m0 c^2</code> in fiducial magnetic field <code>B0</code></td>
+    <td>$10.0$</td>
+    </tr>
+    <tr data-depth="3" data-id="135119995992592">
+    <td><pre>photon_energy_min</pre></td>
+    <td><div class="type-tooltip"><pre class="type">float </pre><span class="tooltiptext">&gt; 0.0</span></div></td>
+    <td>Minimum photon energy for inverse Compton emission (units of <code>m0 c^2</code>)</td>
+    <td>$10^{-3}$</td>
+    </tr>
+    <tr data-depth="3" data-id="135119995992704">
+    <td><pre>photon_weight</pre></td>
+    <td><div class="type-tooltip"><pre class="type">float </pre><span class="tooltiptext">&gt; 0.0</span></div></td>
+    <td>Weights for the emitted inverse Compton photons</td>
+    <td>$1.0$</td>
+    </tr>
+    <tr data-depth="3" data-id="135119995992816" class="required">
+    <td><pre>photon_species</pre></td>
+    <td><div class="type-tooltip"><pre class="type">ushort </pre><span class="tooltiptext">&gt; 0</span></div></td>
+    <td>Index of species for the emitted photon</td>
+    <td></td>
+    </tr>
+    <tr data-depth="3" data-id="135119995992928" class="inferred">
+    <td><pre>nominal_probability</pre></td>
+    <td><pre class="type">float</pre></td>
+    <td>Nominal probability of the emission for a particle with <code>gamma * beta = 1</code>, charge-to-mass = <code>q0 / m0</code></td>
+    <td></td>
+    </tr>
+    <tr data-depth="3" data-id="135119995993040" class="inferred">
+    <td><pre>nominal_photon_energy</pre></td>
+    <td><pre class="type">float</pre></td>
+    <td>Nominal energy of the emitted photon for a particle with <code>gamma * beta = 1</code>, mass = <code>m0</code></td>
+    <td></td>
+    </tr>
+    <tr data-depth="0" data-id="135119995993152" class="category">
+    <td><pre>algorithms</pre></td>
+    <td></td>
+    <td>Algorithm and solver tuning</td>
+    <td></td>
+    </tr>
+    <tr data-depth="1" data-id="135119995993264">
+    <td><pre>current_filters</pre></td>
+    <td><div class="type-tooltip"><pre class="type">ushort </pre><span class="tooltiptext">&gt;= 0</span></div></td>
+    <td>Number of current smoothing passes</td>
+    <td>$0$</td>
+    </tr>
+    <tr data-depth="1" data-id="135119995993376" class="category">
+    <td><pre><em style='opacity: 0.25;'>algorithms.</em>timestep</pre></td>
+    <td></td>
+    <td>Timestep parameters</td>
+    <td></td>
+    </tr>
+    <tr data-depth="2" data-id="135119995993488">
+    <td><pre>CFL</pre></td>
+    <td><div class="type-tooltip"><pre class="type">float </pre><span class="tooltiptext">0.0 -&gt; 1.0</span></div></td>
+    <td><div class="note-tooltip"><span class="description">Courant-Friedrichs-Lewy number</span><span class="tooltiptext">CFL number determines the timestep duration.</span></div></td>
+    <td>$0.95$</td>
+    </tr>
+    <tr data-depth="2" data-id="135119995993600">
+    <td><pre>correction</pre></td>
+    <td><pre class="type">float</pre></td>
+    <td>Correction factor for the speed of light used in field solver</td>
+    <td>$1.0$</td>
+    </tr>
+    <tr data-depth="2" data-id="135119995993712" class="inferred">
+    <td><pre>dt</pre></td>
+    <td><pre class="type">float</pre></td>
+    <td>timestep duration</td>
+    <td></td>
+    </tr>
+    <tr data-depth="1" data-id="135119995993824" class="category">
+    <td><pre><em style='opacity: 0.25;'>algorithms.</em>deposit</pre></td>
+    <td></td>
+    <td>Current deposition parameters</td>
+    <td></td>
+    </tr>
+    <tr data-depth="2" data-id="135119995993936">
+    <td><pre>enable</pre></td>
+    <td><pre class="type">bool</pre></td>
+    <td>Enable the current deposition</td>
+    <td><pre>true</pre></td>
+    </tr>
+    <tr data-depth="2" data-id="135119996420176">
+    <td><pre>team_policy_team_size</pre></td>
+    <td><div class="type-tooltip"><pre class="type">uint </pre><span class="tooltiptext">&gt;= 0</span></div></td>
+    <td>Tiled-deposit work-group (team) size</td>
+    <td>$0$</td>
+    </tr>
+    <tr data-depth="2" data-id="135119996420288">
+    <td><pre>tiled_deposit_team_size</pre></td>
+    <td><div class="type-tooltip"><pre class="type">uint </pre><span class="tooltiptext">&gt;= 0</span></div></td>
+    <td><div class="note-tooltip"><span class="description">Tiled-deposit work-group (team) size</span><span class="tooltiptext">0 keeps Kokkos::AUTO (backend occupancy heuristic); a positive value overrides it, clamped to the backend/scratch maximum at launch. Only used in <pre>tiled_deposit=ON</pre> builds. Pick a multiple of the device subgroup width for best occupancy (see ideal_tile_size.py).</span></div></td>
+    <td>$0$</td>
+    </tr>
+    <tr data-depth="2" data-id="135119996420400" class="inferred">
+    <td><pre>order</pre></td>
+    <td><div class="type-tooltip"><pre class="type">ushort </pre><span class="tooltiptext">0 -&gt; 10</span></div></td>
+    <td>order of the particle shape function</td>
+    <td></td>
+    </tr>
+    <tr data-depth="1" data-id="135119996420512" class="category">
+    <td><pre><em style='opacity: 0.25;'>algorithms.</em>gr</pre></td>
+    <td></td>
+    <td>GR pusher parameters</td>
+    <td></td>
+    </tr>
+    <tr data-depth="2" data-id="135119996420624">
+    <td><pre>pusher_eps</pre></td>
+    <td><div class="type-tooltip"><pre class="type">float </pre><span class="tooltiptext">&gt; 0.0</span></div></td>
+    <td>Stepsize for numerical differentiation in GR pusher</td>
+    <td>$10^{-6}$</td>
+    </tr>
+    <tr data-depth="2" data-id="135119996420736">
+    <td><pre>pusher_niter</pre></td>
+    <td><div class="type-tooltip"><pre class="type">ushort </pre><span class="tooltiptext">&gt; 0</span></div></td>
+    <td>Number of iterations for the Newton-Raphson method in GR pusher</td>
+    <td>$10$</td>
+    </tr>
+    <tr data-depth="1" data-id="135119996420848" class="category">
+    <td><pre><em style='opacity: 0.25;'>algorithms.</em>gca</pre></td>
+    <td></td>
+    <td>Guiding-center approximation parameters</td>
+    <td></td>
+    </tr>
+    <tr data-depth="2" data-id="135119996420960">
+    <td><pre>e_ovr_b_max</pre></td>
+    <td><div class="type-tooltip"><pre class="type">float </pre><span class="tooltiptext">0.0 -&gt; 1.0</span></div></td>
+    <td>Maximum value for E/B allowed for GCA particles</td>
+    <td>$0.9$</td>
+    </tr>
+    <tr data-depth="2" data-id="135119996421072">
+    <td><pre>larmor_max</pre></td>
+    <td><pre class="type">float</pre></td>
+    <td><div class="note-tooltip"><span class="description">Maximum Larmor radius allowed for GCA particles (in physical units)</span><span class="tooltiptext">When <pre>larmor_max</pre> == 0, the limit is disabled.</span></div></td>
+    <td>$0.0$</td>
+    </tr>
+    <tr data-depth="1" data-id="135119996421184" class="category">
+    <td><pre><em style='opacity: 0.25;'>algorithms.</em>fieldsolver</pre></td>
+    <td></td>
+    <td><div class="note-tooltip"><span class="description">Stencil coefficients for the field solver [notation as in Blinne+ (2018)]</span><span class="tooltiptext">Standard Yee solver: <pre>delta_i = beta_ij = 0.0</pre>.</span></div></td>
+    <td></td>
+    </tr>
+    <tr data-depth="2" data-id="135119996421296">
+    <td><pre>enable</pre></td>
+    <td><pre class="type">bool</pre></td>
+    <td>Enable the fieldsolver</td>
+    <td><pre>true</pre></td>
+    </tr>
+    <tr data-depth="2" data-id="135119996421408">
+    <td><pre>delta_x</pre></td>
+    <td><pre class="type">float</pre></td>
+    <td>delta_x coefficient (for <code>F_{i +/- 3/2, j, k}</code>)</td>
+    <td>$0.0$</td>
+    </tr>
+    <tr data-depth="2" data-id="135119996421520">
+    <td><pre>delta_y</pre></td>
+    <td><pre class="type">float</pre></td>
+    <td><div class="note-tooltip"><span class="description">delta_y coefficient (for <code>F_{i, j +/- 3/2, k}</code>)</span><span class="tooltiptext">Used only for 2D and 3D.</span></div></td>
+    <td>$0.0$</td>
+    </tr>
+    <tr data-depth="2" data-id="135119996421632">
+    <td><pre>delta_z</pre></td>
+    <td><pre class="type">float</pre></td>
+    <td><div class="note-tooltip"><span class="description">delta_z coefficient (for <code>F_{i, j, k +/- 3/2}</code>)</span><span class="tooltiptext">Used only for 3D.</span></div></td>
+    <td>$0.0$</td>
+    </tr>
+    <tr data-depth="2" data-id="135119996421744">
+    <td><pre>beta_xy</pre></td>
+    <td><pre class="type">float</pre></td>
+    <td><div class="note-tooltip"><span class="description">beta_xy coefficient (for <code>F_{i +/- 1/2, j +/- 1, k}</code>)</span><span class="tooltiptext">Used only for 2D and 3D.</span></div></td>
+    <td>$0.0$</td>
+    </tr>
+    <tr data-depth="2" data-id="135119996421856">
+    <td><pre>beta_yx</pre></td>
+    <td><pre class="type">float</pre></td>
+    <td><div class="note-tooltip"><span class="description">beta_yx coefficient (for <code>F_{i +/- 1, j +/- 1/2, k}</code>)</span><span class="tooltiptext">Used only for 2D and 3D.</span></div></td>
+    <td>$0.0$</td>
+    </tr>
+    <tr data-depth="2" data-id="135119996421968">
+    <td><pre>beta_xz</pre></td>
+    <td><pre class="type">float</pre></td>
+    <td><div class="note-tooltip"><span class="description">beta_xz coefficient (for <code>F_{i +/- 1/2, j, k +/- 1}</code>)</span><span class="tooltiptext">Used only for 3D.</span></div></td>
+    <td>$0.0$</td>
+    </tr>
+    <tr data-depth="2" data-id="135119996422080">
+    <td><pre>beta_zx</pre></td>
+    <td><pre class="type">float</pre></td>
+    <td><div class="note-tooltip"><span class="description">beta_zx coefficient (for <code>F_{i +/- 1, j, k +/- 1/2}</code>)</span><span class="tooltiptext">Used only for 3D.</span></div></td>
+    <td>$0.0$</td>
+    </tr>
+    <tr data-depth="2" data-id="135119996422192">
+    <td><pre>beta_yz</pre></td>
+    <td><pre class="type">float</pre></td>
+    <td><div class="note-tooltip"><span class="description">beta_yz coefficient (for <code>F_{i, j +/- 1/2, k +/- 1}</code>)</span><span class="tooltiptext">Used only for 3D.</span></div></td>
+    <td>$0.0$</td>
+    </tr>
+    <tr data-depth="2" data-id="135119996422304">
+    <td><pre>beta_zy</pre></td>
+    <td><pre class="type">float</pre></td>
+    <td><div class="note-tooltip"><span class="description">beta_zy coefficient (for <code>F_{i, j +/- 1, k +/- 1/2}</code>)</span><span class="tooltiptext">Used only for 3D.</span></div></td>
+    <td>$0.0$</td>
+    </tr>
+    <tr data-depth="0" data-id="135119996422416" class="category">
+    <td><pre>particles</pre></td>
+    <td></td>
+    <td>Particle and species parameters</td>
+    <td></td>
+    </tr>
+    <tr data-depth="1" data-id="135119996422528" class="required">
+    <td><pre>ppc0</pre></td>
+    <td><div class="type-tooltip"><pre class="type">float </pre><span class="tooltiptext">&gt; 0.0</span></div></td>
+    <td>Fiducial number of particles per cell</td>
+    <td></td>
+    </tr>
+    <tr data-depth="1" data-id="135119996422640">
+    <td><pre>use_weights</pre></td>
+    <td><pre class="type">bool</pre></td>
+    <td>Toggle for using particle weights</td>
+    <td><pre>false</pre></td>
+    </tr>
+    <tr data-depth="1" data-id="135119996422752">
+    <td><pre>clear_interval</pre></td>
+    <td><pre class="type">uint</pre></td>
+    <td><div class="note-tooltip"><span class="description">Timesteps between particle re-sorting by tags (removing dead particles)</span><span class="tooltiptext">Set to 0 to disable re-sorting.</span></div></td>
+    <td>$100$</td>
+    </tr>
+    <tr data-depth="1" data-id="135119996422864">
+    <td><pre>spatial_sorting_interval</pre></td>
+    <td><pre class="type">uint</pre></td>
+    <td><div class="note-tooltip"><span class="description">Timesteps between spatial sorting of particles (for better cache performance)</span><span class="tooltiptext">Set to 0 to disable spatial sorting.</span></div></td>
+    <td>$0$</td>
+    </tr>
+    <tr data-depth="1" data-id="135119996422976" class="inferred">
+    <td><pre>nspec</pre></td>
+    <td><pre class="type">uint</pre></td>
+    <td>Number of particle species</td>
+    <td></td>
+    </tr>
+    <tr data-depth="1" data-id="135119996423088" class="category">
+    <td><pre><em style='opacity: 0.25;'>particles.</em>species</pre></td>
+    <td></td>
+    <td>Particle species definitions</td>
+    <td></td>
+    </tr>
+    <tr data-depth="2" data-id="135119996423200">
+    <td><pre>label</pre></td>
+    <td><pre class="type">string</pre></td>
+    <td><div class="note-tooltip"><span class="description">Label of the species</span><span class="tooltiptext"><pre>&lt;INDEX&gt;</pre> is the index of the species in the list starting from 1.</span></div></td>
+    <td><pre>"s&lt;INDEX&gt;"</pre></td>
+    </tr>
+    <tr data-depth="2" data-id="135119996423312" class="required">
+    <td><pre>mass</pre></td>
+    <td><div class="type-tooltip"><pre class="type">float </pre><span class="tooltiptext">&gt;= 0.0</span></div></td>
+    <td>Mass of the species (in units of fiducial mass)</td>
+    <td></td>
+    </tr>
+    <tr data-depth="2" data-id="135119996423424" class="required">
+    <td><pre>charge</pre></td>
+    <td><pre class="type">float</pre></td>
+    <td>Charge of the species (in units of fiducial charge)</td>
+    <td></td>
+    </tr>
+    <tr data-depth="2" data-id="135119996423536" class="required">
+    <td><pre>maxnpart</pre></td>
+    <td><div class="type-tooltip"><pre class="type">uint </pre><span class="tooltiptext">&gt; 0</span></div></td>
+    <td><div class="note-tooltip"><span class="description">Maximum number of particles per task</span><span class="tooltiptext">Read as a float, so exponential notation is fine (e.g. <pre>1e8</pre>).</span></div></td>
+    <td></td>
+    </tr>
+    <tr data-depth="2" data-id="135119996423760">
+    <td><pre>pusher</pre></td>
+    <td><div class="type-tooltip"><pre class="type">string</pre><span class="tooltiptext">"Boris", "Vay", "Boris,GCA", "Vay,GCA", "Photon", "None"</span></div></td>
+    <td>Pusher algorithm for the species</td>
+    <td>"Boris" [massive]; "Photon" [massless]</td>
+    </tr>
+    <tr data-depth="2" data-id="135119996423872">
+    <td><pre>n_payloads_real</pre></td>
+    <td><pre class="type">ushort</pre></td>
+    <td>Number of additional real-valued variables (payloads) for each particle of the given species</td>
+    <td>$0$</td>
+    </tr>
+    <tr data-depth="2" data-id="135119996423984">
+    <td><pre>n_payloads_int</pre></td>
+    <td><pre class="type">ushort</pre></td>
+    <td><div class="note-tooltip"><span class="description">Number of additional integer-valued variables (payloads) for each particle of the given species</span><span class="tooltiptext">If tracking is enabled, one or two extra integer payloads are reserved (depending on whether MPI is enabled).</span></div></td>
+    <td>$0$</td>
+    </tr>
+    <tr data-depth="2" data-id="135119996424096">
+    <td><pre>tracking</pre></td>
+    <td><pre class="type">bool</pre></td>
+    <td>Enable tracking of particles using indices for the given species</td>
+    <td><pre>false</pre></td>
+    </tr>
+    <tr data-depth="2" data-id="135119996424208">
+    <td><pre>radiative_drag</pre></td>
+    <td><div class="type-tooltip"><pre class="type">string</pre><span class="tooltiptext">"None", "Synchrotron", "Compton"</span></div></td>
+    <td><div class="note-tooltip"><span class="description">Radiation reaction to use for the species</span><span class="tooltiptext">* Can also be coma-separated combination, e.g., "Synchrotron,Compton".<br>* Relevant radiation.drag parameters should also be provided.</span></div></td>
+    <td><pre>"None"</pre></td>
+    </tr>
+    <tr data-depth="2" data-id="135119996424320">
+    <td><pre>emission</pre></td>
+    <td><div class="type-tooltip"><pre class="type">string</pre><span class="tooltiptext">"None", "Synchrotron", "Compton", "Custom"</span></div></td>
+    <td><div class="note-tooltip"><span class="description">Particle emission policy for the species</span><span class="tooltiptext">* Only one emission mechanism allowed.<br>* Appropriate radiation drag flag will be applied automatically (unless explicitly set to "None").</span></div></td>
+    <td><pre>"None"</pre></td>
+    </tr>
+    <tr data-depth="2" data-id="135119996424432">
+    <td><pre>spatial_sorting_interval</pre></td>
+    <td><pre class="type">uint</pre></td>
+    <td><div class="note-tooltip"><span class="description">Timesteps between spatial sorting of particles for given species</span><span class="tooltiptext">* Set to 0 to disable spatial sorting.<br>* Overrides <pre>particles.spatial_sorting_interval</pre> for the given species.</span></div></td>
+    <td>$0$</td>
+    </tr>
+    <tr data-depth="2" data-id="135119996424544">
+    <td><pre>clear_interval</pre></td>
+    <td><pre class="type">uint</pre></td>
+    <td><div class="note-tooltip"><span class="description">Timesteps between particle re-sorting by tags (removing dead particles)</span><span class="tooltiptext">* Set to 0 to disable re-sorting.<br>* Overrides <pre>particles.clear_interval</pre> for the given species.</span></div></td>
+    <td>$100$</td>
+    </tr>
+    <tr data-depth="0" data-id="135119996424656" class="category">
+    <td><pre>setup</pre></td>
+    <td></td>
+    <td><div class="note-tooltip"><span class="description">Parameters for specific problem generators and setups</span><span class="tooltiptext">Free-form: keys are defined by the problem generator, so nothing here is validated.</span></div></td>
+    <td></td>
+    </tr>
+    <tr data-depth="0" data-id="135119996424768" class="category">
+    <td><pre>output</pre></td>
+    <td></td>
+    <td>Output parameters</td>
+    <td></td>
+    </tr>
+    <tr data-depth="1" data-id="135119996424880">
+    <td><pre>format</pre></td>
+    <td><div class="type-tooltip"><pre class="type">string</pre><span class="tooltiptext">"disabled", "hdf5", "BPFile"</span></div></td>
+    <td>Output format</td>
+    <td><pre>"bpfile"</pre></td>
+    </tr>
+    <tr data-depth="1" data-id="135119996424992">
+    <td><pre>interval</pre></td>
+    <td><div class="type-tooltip"><pre class="type">uint </pre><span class="tooltiptext">&gt; 0</span></div></td>
+    <td><div class="note-tooltip"><span class="description">Number of timesteps between all outputs</span><span class="tooltiptext">Value is overriden by output intervals for specific outputs.</span></div></td>
+    <td>$100$</td>
+    </tr>
+    <tr data-depth="1" data-id="135119996425104">
+    <td><pre>interval_time</pre></td>
+    <td><pre class="type">float</pre></td>
+    <td><div class="note-tooltip"><span class="description">Physical (code) time interval between all outputs</span><span class="tooltiptext">* When <pre>interval_time</pre> &lt; 0, the output is controlled by <pre>interval</pre>, otherwise by <pre>interval_time</pre>.<br>* Value is overriden by output intervals for specific outputs.</span></div></td>
+    <td>$-1.0$</td>
+    </tr>
+    <tr data-depth="1" data-id="135119996425216" class="category">
+    <td><pre><em style='opacity: 0.25;'>output.</em>fields</pre></td>
+    <td></td>
+    <td>Field output parameters</td>
+    <td></td>
+    </tr>
+    <tr data-depth="2" data-id="135119996425328">
+    <td><pre>enable</pre></td>
+    <td><pre class="type">bool</pre></td>
+    <td>Toggle for the field output</td>
+    <td><pre>true</pre></td>
+    </tr>
+    <tr data-depth="2" data-id="135119996425440">
+    <td><pre>quantities</pre></td>
+    <td><div class="type-tooltip"><pre class="type">array&lt;string&gt;</pre><span class="tooltiptext">"E", "B", "J", "divE", "Rho", "Charge", "N", "Nppc", "T0i", "Tij", "Vi", "D", "H", "divD", "A"</span></div></td>
+    <td><div class="note-tooltip"><span class="description">Field quantities to output</span><span class="tooltiptext">* For <pre>T</pre>, you can use unspecified indices: <pre>Tij</pre>, <pre>T0i</pre>, or specific ones: <pre>Ttt</pre>, <pre>T00</pre>, <pre>T02</pre>, <pre>T23</pre>.<br>* For <pre>T</pre>, in cartesian can also use "x" "y" "z" instead of "1" "2" "3".<br>* By default, we accumulate moments from all massive species, one can specify only specific species: <pre>Ttt_1_2</pre>, <pre>Rho_1</pre>, <pre>Rho_3_4</pre>.</span></div></td>
+    <td>[]</td>
+    </tr>
+    <tr data-depth="2" data-id="135119996425552">
+    <td><pre>custom</pre></td>
+    <td><pre class="type">array&lt;string&gt;</pre></td>
+    <td>Custom (user-defined) field quantities</td>
+    <td>[]</td>
+    </tr>
+    <tr data-depth="2" data-id="135119996425664">
+    <td><pre>interval</pre></td>
+    <td><pre class="type">uint</pre></td>
+    <td><div class="note-tooltip"><span class="description">Number of timesteps between field outputs</span><span class="tooltiptext">* When <pre>!= 0</pre>, overrides <pre>output.interval</pre>.<br>* When <pre>== 0</pre>, <pre>output.interval</pre> is used.</span></div></td>
+    <td>$0$</td>
+    </tr>
+    <tr data-depth="2" data-id="135119996425776">
+    <td><pre>interval_time</pre></td>
+    <td><pre class="type">float</pre></td>
+    <td><div class="note-tooltip"><span class="description">Physical (code) time interval between field outputs</span><span class="tooltiptext">* When <pre>&lt; 0</pre>, the output is controlled by <pre>interval</pre>.<br>* When specified, overrides <pre>output.interval_time</pre>.</span></div></td>
+    <td>$-1.0$</td>
+    </tr>
+    <tr data-depth="2" data-id="135119996425888">
+    <td><pre>downsampling</pre></td>
+    <td><div class="type-tooltip"><pre class="type">uint </pre> or <pre class="type"> array&lt;uint&gt; </pre><span class="tooltiptext">&gt;= 1</span></div></td>
+    <td><div class="note-tooltip"><span class="description">Downsample factor for the output of fields</span><span class="tooltiptext">* The output is downsampled by the given factors in each direction.<br>* If a scalar is given, it is applied to all directions.</span></div></td>
+    <td>$[1, 1, 1]$</td>
+    </tr>
+    <tr data-depth="2" data-id="135119996426000" class="category">
+    <td><pre><em style='opacity: 0.25;'>output.fields.</em>smoothing</pre></td>
+    <td></td>
+    <td>Smoothing of the output moments</td>
+    <td></td>
+    </tr>
+    <tr data-depth="3" data-id="135119996426112">
+    <td><pre>order</pre></td>
+    <td><pre class="type">ushort</pre></td>
+    <td>Smoothing order for the output of moments ("Rho", "Charge", "T", ...)</td>
+    <td>$0$</td>
+    </tr>
+    <tr data-depth="3" data-id="135119996426224">
+    <td><pre>method</pre></td>
+    <td><div class="type-tooltip"><pre class="type">string</pre><span class="tooltiptext">"const", "spline"</span></div></td>
+    <td><div class="note-tooltip"><span class="description">Smoothing algorithm</span><span class="tooltiptext">* When using "spline", <pre>order</pre> corresponds to the order of the polynomial used.<br>* When using "const", the smoothing window is <pre>ceil(order / 2)</pre> in both directions.</span></div></td>
+    <td><pre>"spline"</pre></td>
+    </tr>
+    <tr data-depth="1" data-id="135119996426336" class="category">
+    <td><pre><em style='opacity: 0.25;'>output.</em>particles</pre></td>
+    <td></td>
+    <td>Particle output parameters</td>
+    <td></td>
+    </tr>
+    <tr data-depth="2" data-id="135119996426448">
+    <td><pre>enable</pre></td>
+    <td><pre class="type">bool</pre></td>
+    <td>Toggle for the particles output</td>
+    <td><pre>true</pre></td>
+    </tr>
+    <tr data-depth="2" data-id="135119996426560">
+    <td><pre>species</pre></td>
+    <td><pre class="type">array&lt;int&gt;</pre></td>
+    <td><div class="note-tooltip"><span class="description">Particle species indices to output</span><span class="tooltiptext">If empty, all species are output.</span></div></td>
+    <td>[]</td>
+    </tr>
+    <tr data-depth="2" data-id="135119996426672">
+    <td><pre>stride</pre></td>
+    <td><div class="type-tooltip"><pre class="type">uint </pre><span class="tooltiptext">&gt;= 1</span></div></td>
+    <td>Stride for the output of particles</td>
+    <td>$100$</td>
+    </tr>
+    <tr data-depth="2" data-id="135119996426784">
+    <td><pre>interval</pre></td>
+    <td><pre class="type">uint</pre></td>
+    <td><div class="note-tooltip"><span class="description">Number of timesteps between particle outputs</span><span class="tooltiptext">* When <pre>!= 0</pre>, overrides <pre>output.interval</pre>.<br>* When <pre>== 0</pre>, <pre>output.interval</pre> is used.</span></div></td>
+    <td>$0$</td>
+    </tr>
+    <tr data-depth="2" data-id="135119996426896">
+    <td><pre>interval_time</pre></td>
+    <td><pre class="type">float</pre></td>
+    <td><div class="note-tooltip"><span class="description">Physical (code) time interval between particle outputs</span><span class="tooltiptext">* When <pre>&lt; 0</pre>, the output is controlled by <pre>interval</pre>.<br>* When specified, overrides <pre>output.interval_time</pre>.</span></div></td>
+    <td>$-1.0$</td>
+    </tr>
+    <tr data-depth="1" data-id="135119996427008" class="category">
+    <td><pre><em style='opacity: 0.25;'>output.</em>spectra</pre></td>
+    <td></td>
+    <td>Spectra output parameters</td>
+    <td></td>
+    </tr>
+    <tr data-depth="2" data-id="135119996427120">
+    <td><pre>enable</pre></td>
+    <td><pre class="type">bool</pre></td>
+    <td>Toggle for the spectra output</td>
+    <td><pre>true</pre></td>
+    </tr>
+    <tr data-depth="2" data-id="135119996427232">
+    <td><pre>e_min</pre></td>
+    <td><pre class="type">float</pre></td>
+    <td>Minimum energy for the spectra output</td>
+    <td>$10^{-3}$</td>
+    </tr>
+    <tr data-depth="2" data-id="135119996427344">
+    <td><pre>e_max</pre></td>
+    <td><pre class="type">float</pre></td>
+    <td>Maximum energy for the spectra output</td>
+    <td>$10^{3}$</td>
+    </tr>
+    <tr data-depth="2" data-id="135119996427456">
+    <td><pre>log_bins</pre></td>
+    <td><pre class="type">bool</pre></td>
+    <td>Whether to use logarithmic bins for energy</td>
+    <td><pre>true</pre></td>
+    </tr>
+    <tr data-depth="2" data-id="135119996427568">
+    <td><pre>n_bins</pre></td>
+    <td><div class="type-tooltip"><pre class="type">uint </pre><span class="tooltiptext">&gt; 0</span></div></td>
+    <td>Number of energy bins for the spectra output</td>
+    <td>$200$</td>
+    </tr>
+    <tr data-depth="2" data-id="135119996427680">
+    <td><pre>num_energy_bins</pre></td>
+    <td><div class="type-tooltip"><pre class="type">uint </pre><span class="tooltiptext">&gt; 0</span></div></td>
+    <td>Number of energy bins for the spectra output</td>
+    <td>$200$</td>
+    </tr>
+    <tr data-depth="2" data-id="135119996427792">
+    <td><pre>num_spatial_bins</pre></td>
+    <td><div class="type-tooltip"><pre class="type">array&lt;uint&gt; </pre><span class="tooltiptext">size 1 :-&gt;: 3</span></div></td>
+    <td>Number of spatial bins for the spectra output</td>
+    <td>$[1, 1, 1]$</td>
+    </tr>
+    <tr data-depth="2" data-id="135119996427904">
+    <td><pre>interval</pre></td>
+    <td><pre class="type">uint</pre></td>
+    <td><div class="note-tooltip"><span class="description">Number of timesteps between spectra outputs</span><span class="tooltiptext">* When <pre>!= 0</pre>, overrides <pre>output.interval</pre>.<br>* When <pre>== 0</pre>, <pre>output.interval</pre> is used.</span></div></td>
+    <td>$0$</td>
+    </tr>
+    <tr data-depth="2" data-id="135119996428016">
+    <td><pre>interval_time</pre></td>
+    <td><pre class="type">float</pre></td>
+    <td><div class="note-tooltip"><span class="description">Physical (code) time interval between spectra outputs</span><span class="tooltiptext">* When <pre>&lt; 0</pre>, the output is controlled by <pre>interval</pre>.<br>* When specified, overrides <pre>output.interval_time</pre>.</span></div></td>
+    <td>$-1.0$</td>
+    </tr>
+    <tr data-depth="1" data-id="135119996428128" class="category">
+    <td><pre><em style='opacity: 0.25;'>output.</em>debug</pre></td>
+    <td></td>
+    <td>Debug output parameters</td>
+    <td></td>
+    </tr>
+    <tr data-depth="2" data-id="135119996428240">
+    <td><pre>as_is</pre></td>
+    <td><pre class="type">bool</pre></td>
+    <td>Output fields "as is" without conversions</td>
+    <td><pre>false</pre></td>
+    </tr>
+    <tr data-depth="2" data-id="135119996428352">
+    <td><pre>ghosts</pre></td>
+    <td><pre class="type">bool</pre></td>
+    <td>Output fields with values in ghost cells</td>
+    <td><pre>false</pre></td>
+    </tr>
+    <tr data-depth="1" data-id="135119996428464" class="category">
+    <td><pre><em style='opacity: 0.25;'>output.</em>stats</pre></td>
+    <td></td>
+    <td>Integrated statistics output parameters</td>
+    <td></td>
+    </tr>
+    <tr data-depth="2" data-id="135119996428576">
+    <td><pre>enable</pre></td>
+    <td><pre class="type">bool</pre></td>
+    <td>Toggle for the stats output</td>
+    <td><pre>true</pre></td>
+    </tr>
+    <tr data-depth="2" data-id="135119996428688">
+    <td><pre>interval</pre></td>
+    <td><div class="type-tooltip"><pre class="type">uint </pre><span class="tooltiptext">&gt; 0</span></div></td>
+    <td><div class="note-tooltip"><span class="description">Number of timesteps between stat outputs</span><span class="tooltiptext">Overriden if <pre>output.stats.interval_time != -1</pre>.</span></div></td>
+    <td>$100$</td>
+    </tr>
+    <tr data-depth="2" data-id="135119996428800">
+    <td><pre>interval_time</pre></td>
+    <td><pre class="type">float</pre></td>
+    <td><div class="note-tooltip"><span class="description">Physical (code) time interval between stat outputs</span><span class="tooltiptext">When <pre>&lt; 0</pre>, the output is controlled by <pre>interval</pre>.</span></div></td>
+    <td>$-1.0$</td>
+    </tr>
+    <tr data-depth="2" data-id="135119996429024">
+    <td><pre>quantities</pre></td>
+    <td><div class="type-tooltip"><pre class="type">array&lt;string&gt;</pre><span class="tooltiptext">"B^2", "E^2", "ExB", "N", "Npart", "Charge", "Rho", "T00", "T0i", "Tij"</span></div></td>
+    <td><div class="note-tooltip"><span class="description">Field quantities to output</span><span class="tooltiptext">* For particle moments, ...<br>* ... same notation is used as for <pre>output.fields.quantities</pre>.</span></div></td>
+    <td>[<pre>"B^2"</pre>, <pre>"E^2"</pre>, <pre>"ExB"</pre>, <pre>"Rho"</pre>, <pre>"T00"</pre>]</td>
+    </tr>
+    <tr data-depth="2" data-id="135119996429136">
+    <td><pre>custom</pre></td>
+    <td><pre class="type">array&lt;string&gt;</pre></td>
+    <td>Custom (user-defined) stats</td>
+    <td>[]</td>
+    </tr>
+    <tr data-depth="0" data-id="135119996429248" class="category">
+    <td><pre>checkpoint</pre></td>
+    <td></td>
+    <td>Checkpointing parameters</td>
+    <td></td>
+    </tr>
+    <tr data-depth="1" data-id="135119996429360">
+    <td><pre>interval</pre></td>
+    <td><div class="type-tooltip"><pre class="type">uint </pre><span class="tooltiptext">&gt; 0</span></div></td>
+    <td>Number of timesteps between checkpoints</td>
+    <td>$1000$</td>
+    </tr>
+    <tr data-depth="1" data-id="135119996429472">
+    <td><pre>interval_time</pre></td>
+    <td><div class="type-tooltip"><pre class="type">float </pre><span class="tooltiptext">&gt; 0</span></div></td>
+    <td><div class="note-tooltip"><span class="description">Physical (code) time interval between checkpoints</span><span class="tooltiptext">When <pre>&lt; 0</pre>, the output is controlled by <pre>interval</pre>.</span></div></td>
+    <td>$-1.0$</td>
+    </tr>
+    <tr data-depth="1" data-id="135119996429584">
+    <td><pre>keep</pre></td>
+    <td><pre class="type">int</pre></td>
+    <td><div class="note-tooltip"><span class="description">Number of checkpoints to keep</span><span class="tooltiptext">* 0 = disable checkpointing.<br>* -1 = keep all checkpoints.</span></div></td>
+    <td>$2$</td>
+    </tr>
+    <tr data-depth="1" data-id="135119996429696">
+    <td><pre>walltime</pre></td>
+    <td><pre class="type">string</pre></td>
+    <td><div class="note-tooltip"><span class="description">Write a checkpoint once after a fixed walltime</span><span class="tooltiptext">* The format is "HH:MM:SS".<br>* Empty string or "00:00:00" disables this functionality.<br>* Writing checkpoint at walltime does not stop the simulation.</span></div></td>
+    <td><pre>"00:00:00"</pre></td>
+    </tr>
+    <tr data-depth="1" data-id="135119996429808">
+    <td><pre>write_path</pre></td>
+    <td><pre class="type">string</pre></td>
+    <td><div class="note-tooltip"><span class="description">Parent directory to write checkpoints to</span><span class="tooltiptext">The directory is created if it does not exist.</span></div></td>
+    <td><code>&lt;simname&gt;.ckpt</code></td>
+    </tr>
+    <tr data-depth="1" data-id="135119996429920">
+    <td><pre>read_path</pre></td>
+    <td><pre class="type">string</pre></td>
+    <td>Parent directory to use when resuming from a checkpoint</td>
+    <td>inherit <code>write_path</code></td>
+    </tr>
+    <tr data-depth="1" data-id="135119996430032" class="inferred">
+    <td><pre>is_resuming</pre></td>
+    <td><pre class="type">bool</pre></td>
+    <td>Whether the simulation is resuming from a checkpoint</td>
+    <td></td>
+    </tr>
+    <tr data-depth="1" data-id="135119996430144" class="inferred">
+    <td><pre>start_step</pre></td>
+    <td><pre class="type">uint</pre></td>
+    <td>Timestep of the checkpoint used to resume</td>
+    <td></td>
+    </tr>
+    <tr data-depth="1" data-id="135119996430256" class="inferred">
+    <td><pre>start_time</pre></td>
+    <td><pre class="type">float</pre></td>
+    <td>Time of the checkpoint used to resume</td>
+    <td></td>
+    </tr>
+    <tr data-depth="0" data-id="135119996430368" class="category">
+    <td><pre>adios2</pre></td>
+    <td></td>
+    <td>ADIOS2 BP5 tuning, applied to both [output] and [checkpoint] writers</td>
+    <td></td>
+    </tr>
+    <tr data-depth="1" data-id="135119996430480">
+    <td><pre>aggregators_per_node</pre></td>
+    <td><pre class="type">uint</pre></td>
+    <td><div class="note-tooltip"><span class="description">Number of ADIOS2 aggregators per node</span><span class="tooltiptext">* Set to either MPI ranks/node or NICs/node for best performance.<br>* If set to 0, will use ADIOS2 default (one aggregator per node).</span></div></td>
+    <td>$0$</td>
+    </tr>
+    <tr data-depth="1" data-id="135119996430592">
+    <td><pre>max_shm_size</pre></td>
+    <td><pre class="type">uint</pre></td>
+    <td><div class="note-tooltip"><span class="description">Maximum shared-memory segment size per node, in bytes (BP5 MaxShmSize)</span><span class="tooltiptext">Lower this on memory-constrained nodes; matches ADIOS2's default.</span></div></td>
+    <td>$4294967296$</td>
+    </tr>
+    <tr data-depth="1" data-id="135119996430704">
+    <td><pre>buffer_chunk_size</pre></td>
+    <td><pre class="type">uint</pre></td>
+    <td><div class="note-tooltip"><span class="description">Internal serialization buffer chunk size, in bytes (BP5 BufferChunkSize)</span><span class="tooltiptext">Scales with per-rank output volume; matches ADIOS2's default.</span></div></td>
+    <td>$16777216$</td>
+    </tr>
+    <tr data-depth="0" data-id="135119996430816" class="category">
+    <td><pre>render</pre></td>
+    <td></td>
+    <td><div class="note-tooltip"><span class="description">In-situ renderer. Renders scalar fields on the GPU and writes PNG images directly to <code><simname>/renders/</code> each cadence -- no field data is written to storage, and the result is seamless across MPI domain boundaries.</span><span class="tooltiptext">* two modes, selected automatically by the simulation dimension:.<br>* - 3D Cartesian (Minkowski): volume ray-march (uses <pre>samples</pre>, <pre>step_size</pre>, <pre>early_term_alpha</pre>, and the [camera] table).<br>* - 2D (Minkowski, Spherical/QSpherical, and all GR Kerr-Schild): flat slice rasterizer. Cartesian shows the (x, y) plane; spherical shows the meridional (r, theta) half-plane mapped to Cartesian (X = r sin th, Z = r cos th), optionally mirrored (see <pre>mirror</pre>). The <pre>samples</pre>/</pre>step_size</pre>/</pre>early_term_alpha</pre>/[camera] keys are ignored in 2D (one opaque sample per pixel).<br>* 1D (and 3D non-Cartesian, which does not exist) is a no-op.<br>* One PNG stream per scene (e.g. a density/|B|/|J| triptych).</span></div></td>
+    <td></td>
+    </tr>
+    <tr data-depth="1" data-id="135119996430928">
+    <td><pre>enable</pre></td>
+    <td><pre class="type">bool</pre></td>
+    <td>Toggle for the on-the-fly renderer</td>
+    <td><pre>false</pre></td>
+    </tr>
+    <tr data-depth="1" data-id="135119996431040">
+    <td><pre>interval</pre></td>
+    <td><pre class="type">uint</pre></td>
+    <td><div class="note-tooltip"><span class="description">Number of timesteps between renders</span><span class="tooltiptext">* When <pre>!= 0</pre>, overrides <pre>output.interval</pre>.<br>* When <pre>== 0</pre>, <pre>interval_time</pre> (or <pre>output.interval</pre>) is used.</span></div></td>
+    <td>$0$</td>
+    </tr>
+    <tr data-depth="1" data-id="135119996431152">
+    <td><pre>interval_time</pre></td>
+    <td><pre class="type">float</pre></td>
+    <td><div class="note-tooltip"><span class="description">Physical (code) time interval between renders</span><span class="tooltiptext">When <pre>&lt; 0</pre>, the output is controlled by <pre>interval</pre>.</span></div></td>
+    <td>$-1.0$</td>
+    </tr>
+    <tr data-depth="1" data-id="135119996431264">
+    <td><pre>width</pre></td>
+    <td><div class="type-tooltip"><pre class="type">int </pre><span class="tooltiptext">&gt; 0</span></div></td>
+    <td>Image width in pixels (the rendered region; the PNG is wider if a colorbar margin is added, see <code>colorbar_outside</code>)</td>
+    <td>$1024$</td>
+    </tr>
+    <tr data-depth="1" data-id="135119996431376">
+    <td><pre>height</pre></td>
+    <td><div class="type-tooltip"><pre class="type">int </pre><span class="tooltiptext">&gt; 0</span></div></td>
+    <td>Image height in pixels</td>
+    <td>$1024$</td>
+    </tr>
+    <tr data-depth="1" data-id="135119996431488">
+    <td><pre>resolution</pre></td>
+    <td><div class="type-tooltip"><pre class="type">int </pre><span class="tooltiptext">&gt; 0</span></div></td>
+    <td>Convenience: force a square frame (sets width == height == resolution), the natural shape for a dome master. Overrides <code>width</code>/</code>height</code> when > 0.</td>
+    <td>0 (use width/height)</td>
+    </tr>
+    <tr data-depth="1" data-id="135119996431600">
+    <td><pre>n_lut</pre></td>
+    <td><div class="type-tooltip"><pre class="type">int </pre><span class="tooltiptext">&gt; 1</span></div></td>
+    <td>Number of entries in the color/opacity lookup table</td>
+    <td>$256$</td>
+    </tr>
+    <tr data-depth="1" data-id="135119996431712">
+    <td><pre>background</pre></td>
+    <td><div class="type-tooltip"><pre class="type">array&lt;float&gt; </pre><span class="tooltiptext">size 3</span></div></td>
+    <td>Opaque background RGB (each channel 0..1) shown through transparent/low-opacity pixels; also fills the colorbar margin</td>
+    <td>$[0.0, 0.0, 0.0]$</td>
+    </tr>
+    <tr data-depth="1" data-id="135119996431824">
+    <td><pre>colorbar</pre></td>
+    <td><pre class="type">bool</pre></td>
+    <td>Draw a colorbar (gradient + value ticks + label) on each PNG</td>
+    <td><pre>true</pre></td>
+    </tr>
+    <tr data-depth="1" data-id="135119996431936">
+    <td><pre>colorbar_outside</pre></td>
+    <td><pre class="type">bool</pre></td>
+    <td>Draw the colorbar in an added right margin (the PNG becomes wider by a fixed strip) instead of overlaying it on the rendered volume</td>
+    <td><pre>true</pre></td>
+    </tr>
+    <tr data-depth="1" data-id="135119996432048">
+    <td><pre>mirror</pre></td>
+    <td><pre class="type">bool</pre></td>
+    <td>2D spherical slice only: mirror the meridional half-plane across the symmetry axis to render a full disk from one axisymmetric half. No effect on Cartesian or 3D rendering.</td>
+    <td><pre>true</pre></td>
+    </tr>
+    <tr data-depth="1" data-id="135119996432160">
+    <td><pre>time_label</pre></td>
+    <td><pre class="type">bool</pre></td>
+    <td>Draw the current simulation time as a label ("T = <value>", fixed to 2 decimals) in the upper-right corner of the render region, in a contrasting color, vertically centered between the frame top and the colorbar.</td>
+    <td><pre>false</pre></td>
+    </tr>
+    <tr data-depth="1" data-id="135119996432272">
+    <td><pre>axes</pre></td>
+    <td><pre class="type">bool</pre></td>
+    <td><div class="note-tooltip"><span class="description">Draw a spine (frame) + axis ticks + labels around the rendered region. The PNG gains left/bottom margins (background-filled) for the tick labels and axis names, so they never overlap the data.</span><span class="tooltiptext">* 2D Cartesian = a rectangular frame with linear spatial ticks;.<br>* 2D spherical = polar axes (an "R" radial axis on the symmetry axis with R=0 centered, and a "Theta" axis along the curved outline / spine);.<br>* 3D = the global box projected to a wireframe with ticks on the three silhouette edges (x bottom, y & z on the left).</span></div></td>
+    <td><pre>false</pre></td>
+    </tr>
+    <tr data-depth="1" data-id="135119996432384">
+    <td><pre>axis_labels</pre></td>
+    <td><div class="type-tooltip"><pre class="type">array&lt;string&gt; </pre><span class="tooltiptext">size &lt;= 3</span></div></td>
+    <td>Axis names. 3D uses all three; the 2D slice uses the first two. When unset, the 2D slice defaults to "x","y" (Cartesian) or "X","Z" (spherical).</td>
+    <td>[<pre>"x"</pre>, <pre>"y"</pre>, <pre>"z"</pre>]</td>
+    </tr>
+    <tr data-depth="1" data-id="135119996432496">
+    <td><pre>axis_ticks</pre></td>
+    <td><div class="type-tooltip"><pre class="type">int </pre><span class="tooltiptext">&gt;= 2</span></div></td>
+    <td>Target number of ticks per axis (actual count is rounded to nice values)</td>
+    <td>$5$</td>
+    </tr>
+    <tr data-depth="1" data-id="135119996432608">
+    <td><pre>spine_width</pre></td>
+    <td><div class="type-tooltip"><pre class="type">float </pre><span class="tooltiptext">&gt; 0.0</span></div></td>
+    <td>3D only: target width (pixels) of the box wireframe "spine". The spine is drawn inside the ray-march (opaque, depth-occluded by the volume); its width is floored by the ray step, so for a crisper thin line raise <code>samples</code> as well.</td>
+    <td>$2.0$</td>
+    </tr>
+    <tr data-depth="1" data-id="135119996432720" class="category">
+    <td><pre><em style='opacity: 0.25;'>render.</em>extent</pre></td>
+    <td></td>
+    <td><div class="note-tooltip"><span class="description">Limit the render region to axis-aligned box in physical/world coordinates. Left unset it spans the full domain. Clamped to the box.</span><span class="tooltiptext">3D -&gt; the volume is depth-clipped to this box, the wireframe/axes frame it, and the default camera zooms to it; 2D -&gt; the slice window is framed to it.</span></div></td>
+    <td></td>
+    </tr>
+    <tr data-depth="2" data-id="135119996432832">
+    <td><pre>x1</pre></td>
+    <td><div class="type-tooltip"><pre class="type">array&lt;float&gt; </pre><span class="tooltiptext">size 2</span></div></td>
+    <td><div class="note-tooltip"><span class="description">Axis-aligned render region [lo, hi] along x1, in physical/world coords. Left unset it spans the full domain. Clamped to the box.</span><span class="tooltiptext">For a spherical 2D slice, x1 crops the radius r.</span></div></td>
+    <td>[] (full extent)</td>
+    </tr>
+    <tr data-depth="2" data-id="135119996432944">
+    <td><pre>x2</pre></td>
+    <td><div class="type-tooltip"><pre class="type">array&lt;float&gt; </pre><span class="tooltiptext">size 2</span></div></td>
+    <td><div class="note-tooltip"><span class="description">Render region [lo, hi] along x2.</span><span class="tooltiptext">For a spherical 2D slice, x2 crops the polar angle theta.</span></div></td>
+    <td>[] (full extent)</td>
+    </tr>
+    <tr data-depth="2" data-id="135119996433056">
+    <td><pre>x3</pre></td>
+    <td><div class="type-tooltip"><pre class="type">array&lt;float&gt; </pre><span class="tooltiptext">size 2</span></div></td>
+    <td>Render region [lo, hi] along x3.</td>
+    <td>[] (full extent)</td>
+    </tr>
+    <tr data-depth="1" data-id="135119996433168" class="category">
+    <td><pre><em style='opacity: 0.25;'>render.</em>volume</pre></td>
+    <td></td>
+    <td>Volume rendering parameters (3D Cartesian only)</td>
+    <td></td>
+    </tr>
+    <tr data-depth="2" data-id="135119996433280">
+    <td><pre>samples</pre></td>
+    <td><div class="type-tooltip"><pre class="type">int </pre><span class="tooltiptext">&gt; 0</span></div></td>
+    <td><div class="note-tooltip"><span class="description">Number of ray-march steps across the global box diagonal</span><span class="tooltiptext">The world-space step is <pre>box_diagonal / samples</pre> unless <pre>step_size</pre> is set. Higher = better quality, slower.</span></div></td>
+    <td>$400$</td>
+    </tr>
+    <tr data-depth="2" data-id="135119996433392">
+    <td><pre>step_size</pre></td>
+    <td><div class="type-tooltip"><pre class="type">float </pre><span class="tooltiptext">&gt;= 0.0</span></div></td>
+    <td><div class="note-tooltip"><span class="description">Fixed world-space step between ray samples</span><span class="tooltiptext">0 derives the step from <pre>samples</pre>. The step is identical on all ranks, which is what makes the multi-domain composite seamless.</span></div></td>
+    <td>$0.0$</td>
+    </tr>
+    <tr data-depth="2" data-id="135119996433504">
+    <td><pre>early_term_alpha</pre></td>
+    <td><div class="type-tooltip"><pre class="type">float </pre><span class="tooltiptext">0.0 -&gt; 1.0</span></div></td>
+    <td><div class="note-tooltip"><span class="description">Stop marching a ray once its accumulated opacity reaches this value</span><span class="tooltiptext">Pure speed optimization; set to 1.0 to disable early termination.</span></div></td>
+    <td>$0.99$</td>
+    </tr>
+    <tr data-depth="1" data-id="135119996433616" class="category">
+    <td><pre><em style='opacity: 0.25;'>render.</em>moving_view</pre></td>
+    <td></td>
+    <td>Translate the render region (and, in 3D, the camera), to keep a propagating feature (e.g. a shock) in frame. Pair with x{1,2,3} extent to crop the moving window.</td>
+    <td></td>
+    </tr>
+    <tr data-depth="2" data-id="135119996433728">
+    <td><pre>velocity</pre></td>
+    <td><div class="type-tooltip"><pre class="type">array&lt;float&gt; </pre><span class="tooltiptext">size 2 or 3</span></div></td>
+    <td>Velocity of the moving camera in world units.</td>
+    <td>[] (static view)</td>
+    </tr>
+    <tr data-depth="2" data-id="135119996433840">
+    <td><pre>start_time</pre></td>
+    <td><pre class="type">float</pre></td>
+    <td>Sim time at which the view starts moving (static before it, e.g. to let an initial ramp-up finish)</td>
+    <td>$0.0$</td>
+    </tr>
+    <tr data-depth="1" data-id="135119996433952" class="category">
+    <td><pre><em style='opacity: 0.25;'>render.</em>camera</pre></td>
+    <td></td>
+    <td>Camera (3D volume mode only; ignored by the 2D slice rasterizer). Defaults frame the whole global box from outside, looking down the (1,1,1) diagonal -- the production setup for which the structured composite is provably seamless.</td>
+    <td></td>
+    </tr>
+    <tr data-depth="2" data-id="135119996434064">
+    <td><pre>mode</pre></td>
+    <td><div class="type-tooltip"><pre class="type">string</pre><span class="tooltiptext">"orthographic", "perspective", "dome"</span></div></td>
+    <td><div class="note-tooltip"><span class="description">Projection mode. Overrides <code>orthographic</code> below when set.</span><span class="tooltiptext">"dome" is a fulldome azimuthal-equidistant fisheye rendered from an INTERIOR eye (the domain center by default), i.e. a 3D planetarium dome master. It uses a depth-resolved (A-buffer) composite that is seamless across a full 3D domain decomposition (unlike ortho/perspective, which need the eye outside the box). Set a square frame (</pre>resolution</pre>, or width == height). <pre>forward</pre> is the dome ZENITH (screen-up defaults to +y for a +z zenith).</span></div></td>
+    <td>(unset -&gt; use <code>orthographic</code>)</td>
+    </tr>
+    <tr data-depth="2" data-id="135119996434176">
+                <td><pre>position</pre></td>
+                <td><div class="type-tooltip"><pre class="type">array&lt;float&gt; </pre><span class="tooltiptext">size 3</span></div></td>
+                <td>Camera (eye) position in world (physical) coordinates</td>
+                <td>box center pushed back ~1.7 box-diagonals along (1, 1, 1);
+    for <code>mode = "dome"</code>, the domain center (interior eye)</td>
+                </tr>
+    <tr data-depth="2" data-id="135119996434288">
+    <td><pre>look_at</pre></td>
+    <td><div class="type-tooltip"><pre class="type">array&lt;float&gt; </pre><span class="tooltiptext">size 3</span></div></td>
+    <td>Point the camera looks at, in world coordinates (the dome ZENITH target)</td>
+    <td>box center; for <code>mode = "dome"</code>, the zenith defaults to +z</td>
+    </tr>
+    <tr data-depth="2" data-id="135119996434400">
+    <td><pre>up</pre></td>
+    <td><div class="type-tooltip"><pre class="type">array&lt;float&gt; </pre><span class="tooltiptext">size 3</span></div></td>
+    <td>Camera up vector (dome: the disk's screen-up)</td>
+    <td>$[0.0, 0.0, 1.0]; for <code>mode = "dome"</code>, [0.0, 1.0, 0.0]$</td>
+    </tr>
+    <tr data-depth="2" data-id="135119996434512">
+    <td><pre>fov</pre></td>
+    <td><div class="type-tooltip"><pre class="type">float </pre><span class="tooltiptext">&gt; 0.0</span></div></td>
+    <td>Vertical field of view in degrees (perspective only)</td>
+    <td>$35.0$</td>
+    </tr>
+    <tr data-depth="2" data-id="135119996434624">
+    <td><pre>dome_fov</pre></td>
+    <td><div class="type-tooltip"><pre class="type">float </pre><span class="tooltiptext">&gt; 0.0, &lt;= 360.0</span></div></td>
+    <td>Full dome field of view in degrees (dome mode only): the image rim is at dome_fov/2 from the zenith (180 = a full hemisphere down to the horizon).</td>
+    <td>$180.0$</td>
+    </tr>
+    <tr data-depth="2" data-id="135119996434736">
+    <td><pre>dome_radius</pre></td>
+    <td><div class="type-tooltip"><pre class="type">float </pre><span class="tooltiptext">&gt;= 0.0</span></div></td>
+    <td><div class="note-tooltip"><span class="description">Dome far-clip radius in world units (dome mode only): each ray stops this far from the eye, so the sampled region is a half-ball (hemisphere) of this radius rather than the whole box -> uniform path length and no box corner/edge projection artifacts. <code>samples</code> then counts steps across this radius.</span><span class="tooltiptext">0 disables the clip (rays march to the box boundary).</span></div></td>
+    <td>the largest sphere centered in the box (half the shortest side), so it touches the face centers and never a corner</td>
+    </tr>
+    <tr data-depth="2" data-id="135119996434848">
+    <td><pre>ortho_height</pre></td>
+    <td><div class="type-tooltip"><pre class="type">float </pre><span class="tooltiptext">&gt; 0.0</span></div></td>
+    <td>Vertical extent of the view in world units (orthographic only)</td>
+    <td>the global box diagonal (the whole box fits from any angle)</td>
+    </tr>
+    <tr data-depth="1" data-id="135119996434960" class="category">
+    <td><pre><em style='opacity: 0.25;'>render.</em>dome</pre></td>
+    <td></td>
+    <td><div class="note-tooltip"><span class="description">Fulldome fisheye ("planetarium dome master"). 2D only; a circular image is centered in the frame's inscribed circle with the corners left as the background (the dome master's black border). Set <code>width == height</code> (e.g. 4096) for a square master. When enabled, the axes and the outside colorbar strip are suppressed so the PNG stays exactly width x height. Seamless across MPI domains (the pixel->world map is a shared, deterministic function and the tiles stay disjoint). Ignored (with a warning) for 3D.</span><span class="tooltiptext">* CARTESIAN -- the flat plane is warped radially into the disk; use <pre>fov</pre>/</pre>radius</pre>/</pre>center</pre>/</pre>projection</pre> below.<br>* SPHERICAL / GR Kerr-Schild -- the meridional slice is ALREADY a disk, so dome mode only mirrors it to a full disk (see <pre>mirror</pre> above; keep it true) and fits it to the inscribed circle. The <pre>fov</pre>/</pre>radius</pre>/</pre>center</pre>/</pre>projection</pre> keys are ignored (the native (X, Z) meridional map is used, with image radius proportional to the physical radius r, r=0 at the disk center).</span></div></td>
+    <td></td>
+    </tr>
+    <tr data-depth="2" data-id="135119996435072">
+    <td><pre>enable</pre></td>
+    <td><pre class="type">bool</pre></td>
+    <td>Build the fisheye dome master instead of the plain slice</td>
+    <td><pre>false</pre></td>
+    </tr>
+    <tr data-depth="2" data-id="135119996435184">
+    <td><pre>fov</pre></td>
+    <td><div class="type-tooltip"><pre class="type">float </pre><span class="tooltiptext">&gt; 0.0, &lt;= 180.0</span></div></td>
+    <td>(Cartesian only) Full dome field of view in degrees (image radius maps linearly to the dome zenith angle: the rim is at fov/2)</td>
+    <td>180.0   # a full hemisphere</td>
+    </tr>
+    <tr data-depth="2" data-id="135119996435296">
+    <td><pre>radius</pre></td>
+    <td><div class="type-tooltip"><pre class="type">float </pre><span class="tooltiptext">&gt; 0.0</span></div></td>
+    <td>(Cartesian only) World radius of the circular cutout mapped onto the dome</td>
+    <td>half the shorter domain side (the largest centered disk that fits inside the box)</td>
+    </tr>
+    <tr data-depth="2" data-id="135119996435408">
+    <td><pre>center</pre></td>
+    <td><div class="type-tooltip"><pre class="type">array&lt;float&gt; </pre><span class="tooltiptext">size 2</span></div></td>
+    <td>(Cartesian only) World-space center of the cutout</td>
+    <td>the domain center</td>
+    </tr>
+    <tr data-depth="2" data-id="135119996435520">
+    <td><pre>projection</pre></td>
+    <td><div class="type-tooltip"><pre class="type">string</pre><span class="tooltiptext">"equidistant"  (r proportional to angle; the fulldome image standard -- a straight radial scaling of the cutout), "gnomonic"     (r ~ tan(angle); the slice as a flat "ceiling" tangent to the dome -- straight sim lines stay straight), "stereographic" (r ~ tan(angle/2); conformal, preserves shapes), "orthographic" (r ~ sin(angle); the slice as seen face-on)</span></div></td>
+    <td>(Cartesian only) How the dome zenith angle maps to a world radius on the flat slice</td>
+    <td><pre>"equidistant"</pre></td>
+    </tr>
+    <tr data-depth="1" data-id="135119996435632" class="category">
+                <td><pre><em style='opacity: 0.25;'>render.</em>fieldlines</pre></td>
+                <td></td>
+                <td>Magnetic field lines, drawn from a coarse, MPI-replicated copy of the field so the geometry is global and seamless across domains (the coarsening is what makes this cheap -- no parallel particle advection / flux scan).
+    - 3D (Cartesian): traced as solid tubes, colored by |field|, composited inside the volume ray-march so the volume correctly occludes them.
+    - 2D (Cartesian): iso-contours of the flux function psi (Bx = d psi/dy, By = -d psi/dx), i.e. the in-plane field lines, colored by |B|.
+    - 2D (spherical / Kerr-Schild): traced meridional streamlines of the poloidal (Br, Btheta) field (nt2py style).
+    Built once per frame and shared by every scene that opts in (per-scene <code>fieldlines = true</code>) and by any standalone <code>field = "fieldlines"</code> scene.</td>
+                <td></td>
+                </tr>
+    <tr data-depth="2" data-id="135119996435744">
+    <td><pre>enable</pre></td>
+    <td><pre class="type">bool</pre></td>
+    <td><div class="note-tooltip"><span class="description">Build the field-line geometry this run</span><span class="tooltiptext">implied true if any scene sets <pre>fieldlines = true</pre> or uses <pre>field = "fieldlines"</pre>.</span></div></td>
+    <td><pre>false</pre></td>
+    </tr>
+    <tr data-depth="2" data-id="135119996435856">
+    <td><pre>field</pre></td>
+    <td><div class="type-tooltip"><pre class="type">string</pre><span class="tooltiptext">"B", "E", "J"</span></div></td>
+    <td>Vector field to trace</td>
+    <td><pre>"B"</pre></td>
+    </tr>
+    <tr data-depth="2" data-id="135119996435968">
+    <td><pre>bin</pre></td>
+    <td><div class="type-tooltip"><pre class="type">int </pre><span class="tooltiptext">1..16</span></div></td>
+    <td><div class="note-tooltip"><span class="description">Field coarsening factor (simulation cells per coarse cell, per axis)</span><span class="tooltiptext">larger = smoother "morphology" lines + cheaper replication (the coarse field is ~ N_cells / bin^D floats/rank; D = sim dimension).</span></div></td>
+    <td>$4$</td>
+    </tr>
+    <tr data-depth="2" data-id="135119996436080">
+    <td><pre>seed_px</pre></td>
+    <td><div class="type-tooltip"><pre class="type">float </pre><span class="tooltiptext">&gt; 0</span></div></td>
+    <td><div class="note-tooltip"><span class="description">(3D tubes) Seed-lattice spacing in screen pixels (sets line density)</span><span class="tooltiptext">capped by <pre>seed_max</pre>; if seed_px asks for more seeds than that, the spacing grows to fit and seed_px no longer governs.</span></div></td>
+    <td>$8$</td>
+    </tr>
+    <tr data-depth="2" data-id="135119996436192">
+    <td><pre>seed_max</pre></td>
+    <td><div class="type-tooltip"><pre class="type">int </pre><span class="tooltiptext">&gt; 0</span></div></td>
+    <td><div class="note-tooltip"><span class="description">(3D tubes) Hard cap on the seed count (lattice is n^3, 2 lines per seed)</span><span class="tooltiptext">lower this for fewer / more widely spaced lines.</span></div></td>
+    <td>$4096$</td>
+    </tr>
+    <tr data-depth="2" data-id="135119996436304">
+    <td><pre>levels</pre></td>
+    <td><div class="type-tooltip"><pre class="type">int </pre><span class="tooltiptext">&gt; 0</span></div></td>
+    <td><div class="note-tooltip"><span class="description">(2D contours) Number of evenly-spaced flux-function contour levels</span><span class="tooltiptext">evenly-spaced psi levels =&gt; line density tracks |B| automatically.</span></div></td>
+    <td>$16$</td>
+    </tr>
+    <tr data-depth="2" data-id="135119996518480">
+    <td><pre>tube_px</pre></td>
+    <td><div class="type-tooltip"><pre class="type">float </pre><span class="tooltiptext">&gt; 0</span></div></td>
+    <td>Tube radius (3D) / contour line width (2D), in screen pixels</td>
+    <td>$2$</td>
+    </tr>
+    <tr data-depth="2" data-id="135119996518592">
+    <td><pre>colormap</pre></td>
+    <td><div class="type-tooltip"><pre class="type">string</pre><span class="tooltiptext">"viridis", "inferno", "plasma", "cool2warm", "gray", "RdBu_r", and the CMasher maps (BSD-3, https://cmasher.readthedocs.io): "dusk", "cosmic", "freeze", "apple", "gothic", "sunburst", "voltage", "ocean", "fusion", "prinsenvlag" (an optional "cmr." prefix is ok)</span></div></td>
+    <td>Colormap for the field lines (mapped by |B| along each line)</td>
+    <td><pre>"inferno"</pre></td>
+    </tr>
+    <tr data-depth="2" data-id="135119996518704">
+    <td><pre>color</pre></td>
+    <td><div class="type-tooltip"><pre class="type">array&lt;float&gt; </pre><span class="tooltiptext">size 3</span></div></td>
+    <td>Monochrome override: draw the lines in a single [r,g,b] color (each 0..1) instead of the |B| colormap -- reads well as an overlay on another volume</td>
+    <td>[] (empty =&gt; color by |B|)</td>
+    </tr>
+    <tr data-depth="2" data-id="135119996518816">
+    <td><pre>log</pre></td>
+    <td><pre class="type">bool</pre></td>
+    <td><div class="note-tooltip"><span class="description">Map the tube color range logarithmically</span><span class="tooltiptext">requires min &gt; 0.</span></div></td>
+    <td><pre>false</pre></td>
+    </tr>
+    <tr data-depth="2" data-id="135119996518928">
+    <td><pre>min</pre></td>
+    <td><pre class="type">float</pre></td>
+    <td><div class="note-tooltip"><span class="description">Tube color range: lower bound on |field|</span><span class="tooltiptext">when min &gt;= max, the range is auto-set from |field| along the lines.</span></div></td>
+    <td>$0.0$</td>
+    </tr>
+    <tr data-depth="2" data-id="135119996519040">
+    <td><pre>max</pre></td>
+    <td><pre class="type">float</pre></td>
+    <td><div class="note-tooltip"><span class="description">Tube color range: upper bound on |field|</span><span class="tooltiptext">when min &gt;= max, the range is auto-set from |field| along the lines.</span></div></td>
+    <td>$0.0$</td>
+    </tr>
+    <tr data-depth="2" data-id="135119996519152">
+    <td><pre>step_frac</pre></td>
+    <td><div class="type-tooltip"><pre class="type">float </pre><span class="tooltiptext">&gt; 0</span></div></td>
+    <td>(3D tubes) RK4 integration step as a fraction of one coarse cell</td>
+    <td>$0.5$</td>
+    </tr>
+    <tr data-depth="2" data-id="135119996519264">
+    <td><pre>max_steps</pre></td>
+    <td><div class="type-tooltip"><pre class="type">int </pre><span class="tooltiptext">&gt; 0</span></div></td>
+    <td>(3D tubes) Per-direction integration-step cap</td>
+    <td>$4000$</td>
+    </tr>
+    <tr data-depth="2" data-id="135119996519376">
+    <td><pre>max_length</pre></td>
+    <td><div class="type-tooltip"><pre class="type">float </pre><span class="tooltiptext">&gt; 0</span></div></td>
+    <td>(3D tubes) Maximum line length, in global box diagonals (per direction)</td>
+    <td>$3.0$</td>
+    </tr>
+    <tr data-depth="1" data-id="135119996519488" class="category">
+    <td><pre><em style='opacity: 0.25;'>render.</em>scene</pre></td>
+    <td></td>
+    <td>One scene per scalar field -> one PNG stream. Repeat the table for each.</td>
+    <td></td>
+    </tr>
+    <tr data-depth="2" data-id="135119996519600" class="required">
+    <td><pre>field</pre></td>
+    <td><div class="type-tooltip"><pre class="type">string</pre><span class="tooltiptext">(fields): "{E,B,J}mag"; "{E,B,J}{1,2,3}" or "{E,B,J}{x,y,z}", (moments): "N", "Nppc", "Rho", "Charge"; "T{i}{j}"; "V{i}"; "Vmag"</span></div></td>
+    <td><div class="note-tooltip"><span class="description">Scalar field to render (a volume render needs a scalar, so vectors are given as a magnitude or a single component)</span><span class="tooltiptext">* "{E,B,J}mag" = vector magnitude |.|; "B1"/"Bx", "J3"/"Jz", ... = a single (signed) physical component.<br>* a bare vector ("E"/"B"/"J") is not renderable -- choose a component or the magnitude.<br>* "N"/"Nppc" = number / per-cell count, "Rho" = mass density, "Charge" = charge density.<br>* "T{i}{j}" = one stress-energy component, i,j in {t,x,y,z} or {0,1,2,3} (e.g. "Txx", "Ttt", "T0x"); "V{i}" = one bulk-velocity component, i in {x,y,z} or {1,2,3} (e.g. "Vx", "V1"); "Vmag" = bulk-velocity magnitude sqrt(V1^2+V2^2+V3^2).<br>* moments follow the engine: SRPIC = tetrad-basis bulk 3-velocity and stress-energy; GRPIC = Eckart-frame 4-velocity (so "Vt"/"V0" = u^0 = Gamma/alpha is also valid) and contravariant T.<br>* per-species selection with a "_&lt;id&gt;" suffix on moments, e.g. "N_1", "Rho_2", "Txy_1_2", "V1_3"; default = all massive species.<br>* components are signed; pair a symmetric <pre>min</pre>/</pre>max</pre> with a diverging colormap ("cool2warm") to center zero.<br>* "fieldlines" renders the magnetic field-line tubes on their own (no scalar volume sampled); see [render.fieldlines] below.</span></div></td>
+    <td></td>
+    </tr>
+    <tr data-depth="2" data-id="135119996519712">
+    <td><pre>prefix</pre></td>
+    <td><pre class="type">string</pre></td>
+    <td>PNG filename prefix; files are <code><prefix><cycle>.png</code></td>
+    <td><pre>"&lt;field&gt;_"</pre></td>
+    </tr>
+    <tr data-depth="2" data-id="135119996519824">
+    <td><pre>label</pre></td>
+    <td><pre class="type">string</pre></td>
+    <td>Colorbar title</td>
+    <td><code>field</code></td>
+    </tr>
+    <tr data-depth="2" data-id="135119996519936">
+    <td><pre>min</pre></td>
+    <td><pre class="type">float</pre></td>
+    <td>Lower bound of the value range mapped onto the colormap/opacity</td>
+    <td>$0.0$</td>
+    </tr>
+    <tr data-depth="2" data-id="135119996520048">
+    <td><pre>max</pre></td>
+    <td><pre class="type">float</pre></td>
+    <td>Upper bound of the value range</td>
+    <td>$1.0$</td>
+    </tr>
+    <tr data-depth="2" data-id="135119996520160">
+    <td><pre>log</pre></td>
+    <td><pre class="type">bool</pre></td>
+    <td><div class="note-tooltip"><span class="description">Map the value range logarithmically</span><span class="tooltiptext">Requires min &gt; 0 and max &gt; 0.</span></div></td>
+    <td><pre>false</pre></td>
+    </tr>
+    <tr data-depth="2" data-id="135119996520272">
+    <td><pre>colormap</pre></td>
+    <td><div class="type-tooltip"><pre class="type">string</pre><span class="tooltiptext">"viridis", "inferno", "plasma", "cool2warm", "gray", "RdBu_r", and the CMasher maps (BSD-3, https://cmasher.readthedocs.io): "dusk", "cosmic", "freeze", "apple", "gothic", "sunburst", "voltage", "ocean", "fusion", "prinsenvlag" (an optional "cmr." prefix is ok)</span></div></td>
+    <td>Colormap name</td>
+    <td><pre>"viridis"</pre></td>
+    </tr>
+    <tr data-depth="2" data-id="135119996520384">
+    <td><pre>alpha</pre></td>
+    <td><pre class="type">array&lt;tuple&lt;float&gt;&gt;</pre></td>
+    <td><div class="note-tooltip"><span class="description">Opacity transfer function: [position, opacity] control points, both in [0, 1], piecewise-linear in the normalized value</span><span class="tooltiptext">Keep the low end near 0 so empty regions stay transparent.</span></div></td>
+    <td>linear ramp (opacity = normalized value)</td>
+    </tr>
+    <tr data-depth="2" data-id="135119996520496">
+    <td><pre>colorbar_ticks</pre></td>
+    <td><pre class="type">array&lt;float&gt;</pre></td>
+    <td><div class="note-tooltip"><span class="description">Explicit value(s) to label on the colorbar</span><span class="tooltiptext">Values outside [min, max] are skipped.</span></div></td>
+    <td>5 evenly-spaced ticks between min and max</td>
+    </tr>
+    <tr data-depth="2" data-id="135119996520608">
+    <td><pre>fieldlines</pre></td>
+    <td><pre class="type">bool</pre></td>
+    <td><div class="note-tooltip"><span class="description">Overlay the magnetic field-line tubes inside this scene's volume</span><span class="tooltiptext">requires the [render.fieldlines] enabled (3D only). A scene with field = "fieldlines" instead renders them alone.</span></div></td>
+    <td><pre>false</pre></td>
+    </tr>
+    <tr data-depth="0" data-id="135119996520720" class="category">
+    <td><pre>diagnostics</pre></td>
+    <td></td>
+    <td>Diagnostic logging parameters</td>
+    <td></td>
+    </tr>
+    <tr data-depth="1" data-id="135119996520832">
+    <td><pre>interval</pre></td>
+    <td><div class="type-tooltip"><pre class="type">int </pre><span class="tooltiptext">&gt; 0</span></div></td>
+    <td>Number of timesteps between diagnostic logs</td>
+    <td>$1$</td>
+    </tr>
+    <tr data-depth="1" data-id="135119996520944">
+    <td><pre>blocking_timers</pre></td>
+    <td><pre class="type">bool</pre></td>
+    <td>Blocking timers between successive algorithms</td>
+    <td><pre>false</pre></td>
+    </tr>
+    <tr data-depth="1" data-id="135119996521056">
+    <td><pre>colored_stdout</pre></td>
+    <td><pre class="type">bool</pre></td>
+    <td>Enable colored stdout</td>
+    <td><pre>true</pre></td>
+    </tr>
+    <tr data-depth="1" data-id="135119996521168">
+    <td><pre>log_level</pre></td>
+    <td><div class="type-tooltip"><pre class="type">string</pre><span class="tooltiptext">"VERBOSE", "WARNING", "ERROR"</span></div></td>
+    <td><div class="note-tooltip"><span class="description">Specify the log level</span><span class="tooltiptext">"VERBOSE" prints all messages, "WARNING" prints only warnings and errors, "ERROR" prints only errors.</span></div></td>
+    <td><pre>"VERBOSE"</pre></td>
+    </tr>
+  </tbody>
+</table>
